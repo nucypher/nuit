@@ -6,6 +6,9 @@ Official NuCypher web staking UI.  This repository is currently a work-in-progre
   yarn react-app:start
     Starts the development server.
 
+  yarn react-app:test
+    Runs the tests
+
   yarn react-app:build
     Builds the app for production.
 
