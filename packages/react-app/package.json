@@ -36,8 +36,11 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-scripts": "3.4.3",
+    "react-is": "^16.8.0",
     "styled-components": "^5.2.0",
-    "web3modal": "^1.9.1"
+    "web3modal": "^1.9.1",
+    "typescript": "^3",
+    "@babel/core": "^7"
   },
   "eslintConfig": {
     "extends": "react-app"
