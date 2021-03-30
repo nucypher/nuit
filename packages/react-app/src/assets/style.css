@@ -25,4 +25,23 @@ hr{
 
 .NC_home .jumbotron{
     background-color: inherit;
+    margin-bottom: 0em;
+    padding:0px;
+}
+
+#NCmain{
+    padding-top:2em;
+    padding-bottom:2em;
+}
+
+.footer{
+    padding-top:2em;
+    background-color: black;
+    color: white;
+    min-height:15em;
+}
+
+#homeSVG{
+    /* max-width: 100%; */
+    overflow:auto;
 }

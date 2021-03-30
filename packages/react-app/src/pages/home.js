@@ -10,7 +10,7 @@ import {
 export function Home () {
     return (
         <Container className="NC_home">
-            <Row className="pt-5 pb-5">
+            <Row className="pb-4">
                 <Col className="d-flex justify-content-center" xs={12} md={11}>
                 <h1><Blue>Nu</Blue>Cypher Staking</h1>
                 </Col>
@@ -43,7 +43,8 @@ export function Home () {
                 </Col>
             </Row>
             <Row>
-                <Jumbotron>
+                <Col className="d-flex justify-content-center pb-5">
+                <div id="homeSVG">
                         <svg height="390" viewBox="0 0 934 390" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 40H3V364H2V40Z" fill="#E0E4E8"/>
                         <path d="M917 40H918V364H917V40Z" fill="#E0E4E8"/>
@@ -77,7 +78,15 @@ export function Home () {
                         </linearGradient>
                         </defs>
                         </svg>
-                </Jumbotron>
+                </div>
+                </Col>
+            </Row>
+            <Row className="d-flex justify-content-center mb-3">
+                <Col xs={8} >
+                <p className="text-justify">The <strong><Blue>Nu</Blue>Cypher</strong> network is a decentralized network of nodes
+that perform threshold cryptography operations serving users with secrets management and dynamic access control.</p>
+
+                </Col>
             </Row>
             <Row>
                 <Col>
