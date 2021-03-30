@@ -33,6 +33,9 @@ function useWeb3Modal (config = {}) {
   const loadWeb3Modal = useCallback(async () => {
     const newProvider = await web3Modal.connect()
     setProvider(new Web3Provider(newProvider))
+    newProvider.on("accountsChanged", (accounts) => {
+      window.location.reload()
+    });
   }, [web3Modal])
 
   const logoutOfWeb3Modal = useCallback(
