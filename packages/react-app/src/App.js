@@ -11,7 +11,7 @@ import useWeb3Modal from './hooks/useWeb3Modal'
 import { light, dark } from './themes'
 import { truncate } from './utils'
 
-function WalletButton ({ theme, provider, loadWeb3Modal, logoutOfWeb3Modal, account }) {
+function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) {
   return (
     <SecondaryButton
       onClick={() => {
@@ -42,7 +42,7 @@ function App () {
       <Header>
         <NCLogo theme={theme}/>
         <ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton>
-        <WalletButton theme={theme} provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
+        <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
       </Header>
       <Main>
       </Main>
