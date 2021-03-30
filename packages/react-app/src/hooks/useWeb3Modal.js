@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Web3Provider } from '@ethersproject/providers'
 import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 
@@ -11,6 +10,7 @@ const NETWORK_NAME = 'mainnet'
 
 function useWeb3Modal (config = {}) {
   const [provider, setProvider] = useState()
+  const [account, setAccount] = useState()
   const [autoLoaded, setAutoLoaded] = useState(false)
   const { autoLoad = true, infuraId = INFURA_ID, NETWORK = NETWORK_NAME } = config
 
@@ -29,19 +29,45 @@ function useWeb3Modal (config = {}) {
     }
   })
 
-  // Open wallet selection modal.
-  const loadWeb3Modal = useCallback(async () => {
-    const newProvider = await web3Modal.connect()
-    setProvider(new Web3Provider(newProvider))
-  }, [web3Modal])
-
   const logoutOfWeb3Modal = useCallback(
     async function () {
       await web3Modal.clearCachedProvider()
+     // await window.localStorage.removeItem('walletconnect')
       window.location.reload()
     },
     [web3Modal]
   )
+
+  const loadWeb3Modal = useCallback(async () => {
+    const provider = await web3Modal.connect()
+    await provider.enable();
+    setProvider(provider)
+
+    // Subscribe to accounts change
+    provider.on("accountsChanged", (accounts) => {
+      window.location.reload()
+    });
+
+    // Subscribe to chainId change
+    provider.on("chainChanged", (chainId) => {
+      logoutOfWeb3Modal()
+    });
+
+
+    // Subscribe to provider disconnection
+    provider.on("disconnect", () => {
+      logoutOfWeb3Modal()
+    });
+
+    if (provider.wc){
+      setAccount(provider.wc.accounts[0])
+    }
+    else{
+      setAccount(window.ethereum.selectedAddress)
+    }
+
+  }, [web3Modal, logoutOfWeb3Modal])
+
 
   // If autoLoad is enabled and the the wallet had been loaded before, load it automatically now.
   useEffect(() => {
@@ -51,7 +77,7 @@ function useWeb3Modal (config = {}) {
     }
   }, [autoLoad, autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider])
 
-  return [provider, loadWeb3Modal, logoutOfWeb3Modal]
+  return [provider, loadWeb3Modal, logoutOfWeb3Modal, account]
 }
 
 export default useWeb3Modal

@@ -1,0 +1,47 @@
+h1{
+    font-weight: 600;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a:visited {
+    text-decoration: none;
+    color:inherit;
+  }
+
+a:hover {
+    text-decoration: none;
+}
+
+hr{
+    width:20%;
+    left:0px;
+    position:relative;
+    margin-right:80%;
+}
+
+.NC_home .jumbotron{
+    background-color: inherit;
+    margin-bottom: 0em;
+    padding:0px;
+}
+
+#NCmain{
+    padding-top:2em;
+    padding-bottom:2em;
+}
+
+.footer{
+    padding-top:2em;
+    background-color: black;
+    color: white;
+    min-height:15em;
+}
+
+#homeSVG{
+    /* max-width: 100%; */
+    overflow:auto;
+}
