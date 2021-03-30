@@ -1,25 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { Link } from 'react-router-dom'
+
+
 import { ReactComponent as Moon } from '../assets/icons/moon.svg'
 import { ReactComponent as Sun } from '../assets/icons/sun.svg'
 import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
 import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
 
-export const Header = styled.header`
+export const HeaderNav = styled.header`
   background-color: ${props => props.theme.colors.background};
   min-height: 70px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  color: white;
+  color: ${props => props.theme.colors.text.standard};
 `
 
 export const Main = styled.section`
   align-items: center;
   background-color: ${props => props.theme.colors.body};
-  color: white;
+  color: ${props => props.theme.colors.text.standard};
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
@@ -27,18 +30,14 @@ export const Main = styled.section`
   min-height: calc(100vh - 70px);
 `
 
+export const Blue = styled.span`
+  color: ${props => props.theme.colors.text.blue};
+`
+
 export const Image = styled.img`
   height: 40vmin;
   margin-bottom: 16px;
   pointer-events: none;
-`
-
-export const Link = styled.a.attrs({
-  target: '_blank',
-  rel: 'noopener noreferrer'
-})`
-  color: #61dafb;
-  margin-top: 10px;
 `
 
 export const PrimaryButton = styled.button`
@@ -75,6 +74,8 @@ export const NoBorderButton = styled(SecondaryButton)`
 const NCLogoContainer = styled.div`
   position: absolute;
   left:1em;
+  font-size:2em;
+  font-weight:600
 `
 
 
@@ -82,7 +83,7 @@ export const NCLogo = (props) => {
   const NCIcon = props.theme.name === 'light' ? NCWhite : NCBlack
   return (
     <NCLogoContainer>
-      <NCIcon/>
+      <Link to="/"><Blue>Nu</Blue>Cypher</Link>
     </NCLogoContainer>
   )
 }

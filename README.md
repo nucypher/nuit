@@ -17,4 +17,7 @@ Official NuCypher web staking UI.  This repository is currently a work-in-progre
 
   yarn subgraph:deploy
     Deploys the subgraph to the official Graph Node.
+
+  yarn workspace @project/react-app add <package name(s)>
+    Add new libraries to main react app
 ```

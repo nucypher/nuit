@@ -7,6 +7,7 @@ export const light = {
             standard: '#111111',
             primary: '#1E65F3',
             grey75: '#828A9C',
+            blue: '#1E65F3'
         },
     },
     buttons:{
@@ -46,6 +47,7 @@ export const dark = {
             standard: '#FFFFFF',
             primary: '#1E65F3',
             grey75: '#828A9C',
+            blue: '#1E65F3'
         },
     },
     buttons:{
