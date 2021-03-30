@@ -22,3 +22,7 @@ hr{
     position:relative;
     margin-right:80%;
 }
+
+.NC_home .jumbotron{
+    background-color: inherit;
+}
