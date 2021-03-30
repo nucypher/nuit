@@ -50,8 +50,11 @@ export const PrimaryButton = styled.button`
   font-size: 16px;
   text-align: center;
   text-decoration: none;
-  margin: 0px 20px;
+  margin: 0px 1em;
   padding: 12px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   ${props => props.hidden && 'hidden'} :focus {
     border: none;
