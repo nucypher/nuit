@@ -55,12 +55,13 @@ export const PrimaryButton = styled.button`
   font-size: 16px;
   text-align: center;
   text-decoration: none;
-  margin: 0px 1em;
+  margin: .5em 1em;
   padding: 12px 24px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 12em;
+  nargub:
 
   ${props => props.hidden && 'hidden'} :focus {
     border: none;

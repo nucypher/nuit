@@ -17,21 +17,27 @@ export function Home () {
             </Row>
             <Row>
                 <Col>
-                    <Row sm={1} md={3} className="d-flex justify-content-between">
-                        <Col>
-                            <HR color="blue"></HR>
-                           <h4>Total NU Staked</h4>
-                           <h4><Blue>610,123,133</Blue></h4>
+                    <Row xs={1} md={3} className="d-flex justify-content-centered">
+                        <Col className="d-flex justify-content-center">
+                            <div>
+                                <HR color="blue"></HR>
+                               <h4>Total NU Staked</h4>
+                               <h4><Blue>610,123,133</Blue></h4>
+                            </div>
                         </Col>
-                        <Col>
-                            <HR color="purple"></HR>
-                           <h4>Circulating Supply</h4>
-                           <h4><Purple>610,123,133</Purple></h4>
+                        <Col className="d-flex justify-content-center">
+                            <div>
+                                <HR color="purple"></HR>
+                               <h4>Circulating Supply</h4>
+                               <h4><Purple>610,123,133</Purple></h4>
+                            </div>
                         </Col>
-                        <Col>
-                            <HR color="grey75"></HR>
-                           <h4>Active Stakers</h4>
-                           <h4><Grey>691</Grey></h4>
+                        <Col className="d-flex justify-content-center">
+                           <div>
+                                <HR color="grey75"></HR>
+                               <h4>Active Stakers</h4>
+                               <h4><Grey>691</Grey></h4>
+                           </div>
                         </Col>
                 </Row>
                 </Col>
@@ -73,16 +79,16 @@ export function Home () {
                         </svg>
                 </Jumbotron>
             </Row>
-            <Row noGutters  className="d-flex justify-content-between">
+            <Row>
                 <Col>
-                    <Row sm={1} md={3}>
-                        <Col>
-                        <Link to="/new"><PrimaryButton>Stake Your NU</PrimaryButton></Link>
+                    <Row xs={1} md={3} className="d-flex justify-content-centered">
+                        <Col className="d-flex justify-content-center">
+                            <Link to="/new"><PrimaryButton>Stake Your NU</PrimaryButton></Link>
                         </Col>
-                        <Col>
-                        <Link to="/manage"><PurpleButton>Manage</PurpleButton></Link>
+                        <Col className="d-flex justify-content-center">
+                            <Link to="/manage"><PurpleButton>Manage</PurpleButton></Link>
                         </Col>
-                        <Col>
+                        <Col className="d-flex justify-content-center">
                             <Link to="/learn"><SecondaryButton>Learn</SecondaryButton></Link>
                         </Col>
                 </Row>
