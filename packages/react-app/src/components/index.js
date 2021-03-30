@@ -20,18 +20,20 @@ export const HeaderNav = styled.header`
 `
 
 export const Main = styled.section`
-  align-items: center;
   background-color: ${props => props.theme.colors.body};
   color: ${props => props.theme.colors.text.standard};
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: calc(100vh - 70px);
 `
 
 export const Blue = styled.span`
-  color: ${props => props.theme.colors.text.blue};
+  color: ${props => props.theme.colors.blue};
+`
+
+export const Purple = styled.span`
+color: ${props => props.theme.colors.purple};
+`
+
+export const Grey = styled.span`
+color: ${props => props.theme.colors.text.grey75};
 `
 
 export const Image = styled.img`
@@ -40,10 +42,14 @@ export const Image = styled.img`
   pointer-events: none;
 `
 
+export const HR = styled.hr`
+  border-top: 2px solid ${props => props.color};
+`
+
 export const PrimaryButton = styled.button`
   background: ${props => props.theme.buttons.primary.background};
   border: ${props => props.theme.buttons.primary.border};
-  border-radius: 8px;
+  border-radius: .3em;
   color: ${props => props.theme.buttons.primary.text.main};
   cursor: pointer;
   font-size: 16px;
@@ -54,6 +60,7 @@ export const PrimaryButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 12em;
 
   ${props => props.hidden && 'hidden'} :focus {
     border: none;
@@ -61,11 +68,17 @@ export const PrimaryButton = styled.button`
   }
 `
 
+export const PurpleButton = styled(PrimaryButton)`
+  background: ${props => props.theme.colors.purple};
+  color: white;
+`
+
 export const SecondaryButton = styled(PrimaryButton)`
   background: ${props => props.theme.buttons.secondary.background};
   border: ${props => props.theme.buttons.secondary.border};
   color: ${props => props.theme.buttons.secondary.text.main};
 `
+
 
 export const NoBorderButton = styled(SecondaryButton)`
   border: none;

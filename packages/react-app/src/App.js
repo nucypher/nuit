@@ -15,8 +15,9 @@ import { Main } from './components'
 import { light } from './themes'
 
 import Header from './components/header'
-import Home from './pages/home'
+import { Home, Manage, NewStake, Learn } from './pages'
 
+import { Container } from 'react-bootstrap/';
 
 
 function App () {
@@ -29,11 +30,22 @@ function App () {
       <Router>
       <Header theme={theme} setTheme={setTheme}/>
       <Main>
-      <Switch>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <Container>
+          <Switch>
+            <Route path="/new">
+              <NewStake />
+            </Route>
+            <Route path="/manage">
+              <Manage />
+            </Route>
+            <Route path="/learn">
+              <Learn />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Container>
       </Main>
       </Router>
     </ThemeProvider>

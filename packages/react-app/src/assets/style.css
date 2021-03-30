@@ -11,3 +11,14 @@ a:visited {
     text-decoration: none;
     color:inherit;
   }
+
+a:hover {
+    text-decoration: none;
+}
+
+hr{
+    width:20%;
+    left:0px;
+    position:relative;
+    margin-right:80%;
+}
