@@ -11,7 +11,7 @@ export function Home () {
     return (
         <Container className="NC_home">
             <Row className="pb-4">
-                <Col className="d-flex justify-content-center" xs={12} md={11}>
+                <Col className="d-flex justify-content-center" xs={12} >
                 <h1><Blue>Nu</Blue>Cypher Staking</h1>
                 </Col>
             </Row>
