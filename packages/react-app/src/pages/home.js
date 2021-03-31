@@ -21,27 +21,28 @@ export function Home () {
                         <Col className="d-flex justify-content-center">
                             <div>
                                 <HR color="blue"></HR>
-                               <h4>Total NU Staked</h4>
-                               <h4><Blue>610,123,133</Blue></h4>
+                               <h5><strong>Total NU Staked</strong></h5>
+                               <h2><strong><Blue>610,123,133</Blue></strong></h2>
                             </div>
                         </Col>
                         <Col className="d-flex justify-content-center">
                             <div>
                                 <HR color="purple"></HR>
-                               <h4>Circulating Supply</h4>
-                               <h4><Purple>610,123,133</Purple></h4>
+                               <h5><strong>Circulating Supply</strong></h5>
+                               <h2><strong><Purple>610,123,133</Purple></strong></h2>
                             </div>
                         </Col>
                         <Col className="d-flex justify-content-center">
                            <div>
                                 <HR color="grey75"></HR>
-                               <h4>Active Stakers</h4>
-                               <h4><Grey>691</Grey></h4>
+                               <h5><strong>Active Stakers</strong></h5>
+                               <h2><strong><Grey>691</Grey></strong></h2>
                            </div>
                         </Col>
                 </Row>
                 </Col>
             </Row>
+            <br/>
             <Row>
                 <Col className="d-flex justify-content-center pb-5">
                 <div id="homeSVG">
