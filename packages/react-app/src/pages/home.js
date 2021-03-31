@@ -83,22 +83,24 @@ export function Home () {
             </Row>
             <Row className="d-flex justify-content-center mb-3">
                 <Col xs={8} >
-                <p className="text-justify">The <strong><Blue>Nu</Blue>Cypher</strong> network is a decentralized network of nodes
-that perform threshold cryptography operations serving users with secrets management and dynamic access control.</p>
-
+                <p className="text-center">
+                    The <strong><Blue>Nu</Blue>Cypher</strong> network is a decentralized network of nodes<br/>
+                    that perform threshold cryptography operations serving users with<br/>
+                    secrets management and dynamic access control.
+                </p>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <Row xs={1} md={3} className="d-flex justify-content-centered">
                         <Col className="d-flex justify-content-center">
-                            <Link to="/new"><PrimaryButton>Stake Your NU</PrimaryButton></Link>
+                            <Link to="/new"><PrimaryButton><strong>Stake Your NU</strong></PrimaryButton></Link>
                         </Col>
                         <Col className="d-flex justify-content-center">
-                            <Link to="/manage"><PurpleButton>Manage</PurpleButton></Link>
+                            <Link to="/manage"><PurpleButton><strong>Manage</strong></PurpleButton></Link>
                         </Col>
                         <Col className="d-flex justify-content-center">
-                            <Link to="/learn"><SecondaryButton>Learn</SecondaryButton></Link>
+                            <Link to="/learn"><SecondaryButton><strong>Learn</strong></SecondaryButton></Link>
                         </Col>
                 </Row>
                 </Col>
