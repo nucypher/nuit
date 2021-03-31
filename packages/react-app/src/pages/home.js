@@ -21,27 +21,28 @@ export function Home () {
                         <Col className="d-flex justify-content-center">
                             <div>
                                 <HR color="blue"></HR>
-                               <h4>Total NU Staked</h4>
-                               <h4><Blue>610,123,133</Blue></h4>
+                               <h5><strong>Total NU Staked</strong></h5>
+                               <h2><strong><Blue>610,123,133</Blue></strong></h2>
                             </div>
                         </Col>
                         <Col className="d-flex justify-content-center">
                             <div>
                                 <HR color="purple"></HR>
-                               <h4>Circulating Supply</h4>
-                               <h4><Purple>610,123,133</Purple></h4>
+                               <h5><strong>Circulating Supply</strong></h5>
+                               <h2><strong><Purple>610,123,133</Purple></strong></h2>
                             </div>
                         </Col>
                         <Col className="d-flex justify-content-center">
                            <div>
                                 <HR color="grey75"></HR>
-                               <h4>Active Stakers</h4>
-                               <h4><Grey>691</Grey></h4>
+                               <h5><strong>Active Stakers</strong></h5>
+                               <h2><strong><Grey>691</Grey></strong></h2>
                            </div>
                         </Col>
                 </Row>
                 </Col>
             </Row>
+            <br/>
             <Row>
                 <Col className="d-flex justify-content-center pb-5">
                 <div id="homeSVG">
@@ -83,22 +84,24 @@ export function Home () {
             </Row>
             <Row className="d-flex justify-content-center mb-3">
                 <Col xs={8} >
-                <p className="text-justify">The <strong><Blue>Nu</Blue>Cypher</strong> network is a decentralized network of nodes
-that perform threshold cryptography operations serving users with secrets management and dynamic access control.</p>
-
+                <p className="text-center">
+                    The <strong><Blue>Nu</Blue>Cypher</strong> network is a decentralized network of nodes<br/>
+                    that perform threshold cryptography operations serving users with<br/>
+                    secrets management and dynamic access control.
+                </p>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <Row xs={1} md={3} className="d-flex justify-content-centered">
                         <Col className="d-flex justify-content-center">
-                            <Link to="/new"><PrimaryButton>Stake Your NU</PrimaryButton></Link>
+                            <Link to="/new"><PrimaryButton><strong>Stake Your NU</strong></PrimaryButton></Link>
                         </Col>
                         <Col className="d-flex justify-content-center">
-                            <Link to="/manage"><PurpleButton>Manage</PurpleButton></Link>
+                            <Link to="/manage"><PurpleButton><strong>Manage</strong></PurpleButton></Link>
                         </Col>
                         <Col className="d-flex justify-content-center">
-                            <Link to="/learn"><SecondaryButton>Learn</SecondaryButton></Link>
+                            <Link to="/learn"><SecondaryButton><strong>Learn</strong></SecondaryButton></Link>
                         </Col>
                 </Row>
                 </Col>
