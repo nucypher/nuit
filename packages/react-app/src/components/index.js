@@ -43,7 +43,7 @@ export const Image = styled.img`
 `
 
 export const HR = styled.hr`
-  border-top: 2px solid ${props =>  props.theme.colors[props.color||'grey75']};
+  border-top: 2px solid ${props =>  props.theme.colors[props.color||'#828A9C']};
 `
 
 export const PrimaryButton = styled.button`
