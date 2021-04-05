@@ -1,6 +1,5 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap/';
-import { SecondaryButton, ThemeButton, NCLogo, Blue } from '../components'
+import { Container, Row } from 'react-bootstrap/';
 
 export function Manage() {
     return (

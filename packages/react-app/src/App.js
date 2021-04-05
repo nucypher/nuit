@@ -16,7 +16,7 @@ import { light } from './themes'
 
 import Header from './components/header'
 import Footer from './components/footer'
-import { Home, Manage, NewStake, Learn } from './pages'
+import { Home, Manage, NewStake, Documentation } from './pages'
 
 import { Container } from 'react-bootstrap/';
 
@@ -39,8 +39,8 @@ function App () {
             <Route path="/manage">
               <Manage />
             </Route>
-            <Route path="/learn">
-              <Learn />
+            <Route path="/Documentation">
+              <Documentation />
             </Route>
             <Route path="/">
               <Home />

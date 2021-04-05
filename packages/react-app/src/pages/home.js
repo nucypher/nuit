@@ -101,7 +101,7 @@ export function Home () {
                             <Link to="/manage"><PurpleButton><strong>Manage</strong></PurpleButton></Link>
                         </Col>
                         <Col className="d-flex justify-content-center">
-                            <Link to="/learn"><SecondaryButton><strong>Learn</strong></SecondaryButton></Link>
+                            <Link to="/docs"><SecondaryButton><strong>Documentation</strong></SecondaryButton></Link>
                         </Col>
                 </Row>
                 </Col>

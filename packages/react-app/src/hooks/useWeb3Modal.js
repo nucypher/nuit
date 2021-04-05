@@ -60,9 +60,11 @@ function useWeb3Modal (config = {}) {
     });
 
     if (provider.wc){
+      // it's a walletconnect provider
       setAccount(provider.wc.accounts[0])
     }
     else{
+      //it's metamask.  The metamask plugin assigned this nice attribute.
       setAccount(window.ethereum.selectedAddress)
     }
 
