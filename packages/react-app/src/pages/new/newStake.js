@@ -3,14 +3,13 @@ import { Container, Row, Col } from 'react-bootstrap/';
 import {
     useRouteMatch,
     Route,
-    Switch
+    Switch,
   } from 'react-router-dom'
 
 import CreateWorker from './createWorker'
 import CreateStake from './createStake'
 import BondWorker from './bondWorker'
-
-import Breadcrumbs from '../components/breadcrumbs'
+import Breadcrumbs from '../../components/breadcrumbs'
 
 export function NewStake() {
     let { path, url } = useRouteMatch();
@@ -21,17 +20,14 @@ export function NewStake() {
         <Container>
             <Row>
                 <Breadcrumbs paths={[
-                    {path:'create', label: 'Create Worker', enabled: true },
+                    {path:'worker', label: 'Create Worker', enabled: true },
                     {path: 'set-stake', label: 'Set Stake', enabled: workerAddress !== null},
                     {path: 'bond', label: 'Bond', enabled: workerAddress !== null && newStake !== null}
                 ]}/>
             </Row>
 
             <Switch>
-                <Route exact path={path}>
-                <h3>Please select a topic.</h3>
-                </Route>
-                <Route path={`${path}/create`}>
+                <Route path={`${path}/worker`}>
                     <CreateWorker />
                 </Route>
                 <Route path={`${path}/set-stake`}>

@@ -23,15 +23,19 @@ hr{
     margin-right:80%;
 }
 
-.NC_home .jumbotron{
-    background-color: inherit;
-    margin-bottom: 0em;
-    padding:0px;
-}
 
 #NCmain{
     padding-top:2em;
     padding-bottom:2em;
+    min-height: 800px;
+}
+
+.NC-buttonBox svg{
+    margin: 0px 30px 10px 30px;
+}
+
+.NC-buttonBox .btn{
+    border-radius: 12px;
 }
 
 .footer{
@@ -44,4 +48,38 @@ hr{
 #homeSVG{
     /* max-width: 100%; */
     overflow:auto;
+}
+
+.breadcrumb {
+    background: none;
+}
+
+.weak{
+    font-weight: ;
+}
+
+table.nc-table {
+    border-spacing: 1px;
+    margin:1px;
+}
+
+.nc-table tbody tr{
+    border: 1px solid transparent;
+}
+
+.nc-table tbody tr:hover{
+    border:1px solid #1E65F3;
+    margin-top:1px;
+}
+table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
+    width:80%
+}
+
+.nc-table td:first-child, .nc-table th:first-child{
+    padding-left:30px;
+}
+
+
+.card{
+    border-radius: 12px;
 }

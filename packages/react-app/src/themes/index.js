@@ -3,13 +3,15 @@ export const light = {
     colors:{
         body: '#F3F4F4',
         background: '#FFFFFF',
+        extrabg: '#E9EDF0',
         text:{
             standard: '#111111',
             primary: '#1E65F3',
             grey75: '#828A9C',
         },
         blue: '#1E65F3',
-        purple: '#6B32D8'
+        purple: '#6B32D8',
+        shadow: '0px 16px 40px -16px rgba(55, 55, 55, 0.3)'
     },
     buttons:{
         primary: {
@@ -26,7 +28,7 @@ export const light = {
                 main:'#1E65F3',
                 sub: 'rgba(30, 101, 243, 0.4)',
             },
-            border: '1px solid #1E65F3'
+            border: '2px solid #1E65F3'
         },
         disabled: {
             background: 'none',
@@ -34,7 +36,7 @@ export const light = {
                 main:'#828A9C',
                 sub: '#828A9C'
             },
-            border: '1px solid #E0E4E8',
+            border: '2px solid #E0E4E8',
         }
     }
 }
@@ -44,13 +46,15 @@ export const dark = {
     colors:{
         body: '#19191C',
         background: '#111111',
+        extrabg: '#1D1D21',
         text:{
             standard: '#FFFFFF',
             primary: '#1E65F3',
             grey75: '#828A9C',
         },
         blue: '#1E65F3',
-        purple: '#6B32D8'
+        purple: '#6B32D8',
+        shadow: '0px 16px 40px -16px rgba(55, 55, 55, 0.3)'
     },
     buttons:{
         primary: {
@@ -67,7 +71,7 @@ export const dark = {
                 main:'#1E65F3',
                 sub: 'rgba(30, 101, 243, 0.4)',
             },
-            border: '1px solid #1E65F3',
+            border: '2px solid #1E65F3',
         },
         disabled: {
             background: 'none',
@@ -75,7 +79,7 @@ export const dark = {
                 primary:'#828A9C',
                 secondary: '#828A9C'
             },
-            border: '1px solid #323537'
+            border: '2px solid #323537'
         }
     }
 }

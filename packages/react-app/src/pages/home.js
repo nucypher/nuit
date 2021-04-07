@@ -95,7 +95,7 @@ export function Home () {
                 <Col>
                     <Row xs={1} md={3} className="d-flex justify-content-centered">
                         <Col className="d-flex justify-content-center">
-                            <Link to="/new"><PrimaryButton><strong>Stake Your NU</strong></PrimaryButton></Link>
+                            <Link to="/new/worker"><PrimaryButton><strong>Stake Your NU</strong></PrimaryButton></Link>
                         </Col>
                         <Col className="d-flex justify-content-center">
                             <Link to="/manage"><PurpleButton><strong>Manage</strong></PurpleButton></Link>

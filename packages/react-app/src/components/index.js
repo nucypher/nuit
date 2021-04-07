@@ -2,12 +2,31 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Link } from 'react-router-dom'
-
-
 import { ReactComponent as Moon } from '../assets/icons/moon.svg'
 import { ReactComponent as Sun } from '../assets/icons/sun.svg'
 import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
 import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
+
+const size = {
+  mobileS: '320px',
+  mobileM: '375px',
+  mobileL: '425px',
+  tablet: '768px',
+  laptop: '1024px',
+  laptopL: '1440px',
+  desktop: '2560px'
+}
+
+export const device = {
+  mobileS: `(min-width: ${size.mobileS})`,
+  mobileM: `(min-width: ${size.mobileM})`,
+  mobileL: `(min-width: ${size.mobileL})`,
+  tablet: `(min-width: ${size.tablet})`,
+  laptop: `(min-width: ${size.laptop})`,
+  laptopL: `(min-width: ${size.laptopL})`,
+  desktop: `(min-width: ${size.desktop})`,
+  desktopL: `(min-width: ${size.desktop})`
+};
 
 export const HeaderNav = styled.header`
   background-color: ${props => props.theme.colors.background};
@@ -22,8 +41,17 @@ export const HeaderNav = styled.header`
 export const Main = styled.section`
   background-color: ${props => props.theme.colors.body};
   color: ${props => props.theme.colors.text.standard};
+
+  & .bg-color {
+    background-color: ${props => props.theme.colors.extrabg};
+  }
 `
 
+export const ButtonBox = styled.div`
+  padding:10px;
+  background-color: ${props => props.theme.colors.extrabg};
+  border-radius: 24px;
+`
 export const Blue = styled.span`
   color: ${props => props.theme.colors.blue};
 `
@@ -46,28 +74,44 @@ export const HR = styled.hr`
   border-top: 2px solid ${props =>  props.theme.colors[props.color||'#828A9C']};
 `
 
-export const PrimaryButton = styled.button`
+export const NCButtonBase = styled.button`
   background: ${props => props.theme.buttons.primary.background};
   border: ${props => props.theme.buttons.primary.border};
-  border-radius: .3em;
+  border-radius: 16px;
   color: ${props => props.theme.buttons.primary.text.main};
   cursor: pointer;
   font-size: 16px;
   text-align: center;
   text-decoration: none;
-  margin: .5em 1em;
   padding: 12px 24px;
-  display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 12em;
-  nargub:
+
+  border-radius: 16px;
+  margin: 6px 12px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+
+
+  @media ${device.tablet} {
+    margin: 8px 16px;
+    min-width: 12em;
+  }
+
 
   ${props => props.hidden && 'hidden'} :focus {
     border: none;
     outline: none;
   }
 `
+
+export const PrimaryButton = styled(NCButtonBase)`
+  background: ${props => props.theme.buttons.primary.background};
+  border: ${props => props.theme.buttons.primary.border};
+  color: ${props => props.theme.buttons.primary.text.main};
+`
+
 
 export const PurpleButton = styled(PrimaryButton)`
   background: ${props => props.theme.colors.purple};
@@ -80,17 +124,76 @@ export const SecondaryButton = styled(PrimaryButton)`
   color: ${props => props.theme.buttons.secondary.text.main};
 `
 
-
 export const NoBorderButton = styled(SecondaryButton)`
-  border: none;
+  border: 2px solid transparent;
+  a.active & {
+    transition: margin 1s;
+    margin-bottom: 8px;
+    background-color: ${props => props.theme.colors.body};
+    border: ${props => props.theme.buttons.secondary.border};
+    box-shadow: ${props => props.theme.colors.shadow};
+  }
 `
-
 const NCLogoContainer = styled.div`
   position: absolute;
   left:1em;
   font-size:2em;
   font-weight:600
 `
+
+export class ButtonGroup extends React.Component{
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      selected: props.initial || 0
+    };
+
+    this.children = this.props.children
+
+    this.onClick = this.onClick.bind(this);
+    this.setActive = this.setActive.bind(this);
+    this.setActive(this.state.selected)
+
+  }
+
+  handleChange(value){
+    this.setState({selected: value})
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
+  }
+
+  configureChild(child, classname, index) {
+    const data = {'data-index': index}
+    return React.cloneElement(child, {
+      onClick: this.onClick,
+      key: index,
+      className: `${child.props.className ? child.props.className : ''} ${classname}`,
+      ...child.props, ...data
+    })
+  }
+
+  setActive(value) {
+    this.children = this.props.children.map((child, index) => {
+      return this.configureChild(child, index === value ? 'active': '', index)
+    })
+  }
+
+  onClick(event) {
+    const value = parseInt(event.currentTarget.getAttribute('data-index') || 0)
+    this.setActive(value)
+    this.handleChange(value)
+  }
+
+  render() {
+    return (
+      <ButtonBox {...this.props}>{this.children}</ButtonBox>
+    )
+  }
+
+}
 
 
 export const NCLogo = (props) => {
