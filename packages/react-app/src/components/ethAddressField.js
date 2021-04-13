@@ -20,9 +20,9 @@ function WorkerRunwayDisplay (props){
             const ethAmount = Web3.utils.fromWei(balance, 'ether')
             setBalance(parseFloat(ethAmount).toFixed(2))
 
-            const periodLength = 7
-            const ethCostPerDay = .03
-            setRunway(((ethAmount / ethCostPerDay).toFixed() * periodLength).toFixed(0)) // Todo : use a price oracle
+            const periodLength = 7  // Todo : get this from the contract?
+            const ethCostPerDay = .03  // Todo : use a price oracle
+            setRunway(((ethAmount / ethCostPerDay).toFixed() * periodLength).toFixed(0))
         }
         if (provider){
             const web3 = new Web3(provider);
