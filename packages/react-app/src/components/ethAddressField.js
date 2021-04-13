@@ -65,6 +65,9 @@ export class WorkerETHAddressField extends React.Component{
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.reset = this.reset.bind(this);
+        if (props.value) {
+            this.handleInputChange(props.value)
+        }
       }
 
     handleInputChange(input){
