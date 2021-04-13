@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container, Row, Col, Table} from 'react-bootstrap/';
-import { Grey, Blue } from '../../components'
+import { Container, Row, Col, Table, Card} from 'react-bootstrap/';
+import { Grey, Blue } from '../../../../components'
 
 const POOLPROVIDERS = [
     {name:"Roma's thing he does", fee: "10%", link: "https://nucypher.com"},
@@ -38,6 +38,16 @@ export default () => {
                 </tbody>
                 </Table>
             </Col>
+            </Row>
+            <Row className="d-flex justify-content-center mt-5 mb-2">
+                <Col xs={10} sm={7}>
+                    <Card>
+                        <Card.Body>
+                        <h4>Once you have selected a pool, follow the instructions on the pool's site. </h4>
+                        <p>No additional configuration is needed.</p>
+                        </Card.Body>
+                    </Card>
+                </Col>
             </Row>
         </Container>
     )

@@ -27,7 +27,7 @@ export default (props) => {
                             <NavLink activeStyle={activeStyle(theme)} to={`${url}/${path.path}`}>
                                 {`${path.label}`}
                             </NavLink>
-                        </Breadcrumb.Item> : <Breadcrumb.Item key={path.path} linkAs="div" active="true" style={{color: theme.colors.grey75}}>{`${path.label}`}</Breadcrumb.Item>
+                    </Breadcrumb.Item>:<Breadcrumb.Item key={path.path} linkAs="div" active="true" style={{color: theme.colors.grey75}}>{`${path.label}`}</Breadcrumb.Item>
                 })}
             </Breadcrumb>
         </Col>

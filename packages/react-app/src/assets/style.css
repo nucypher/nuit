@@ -79,7 +79,12 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     padding-left:30px;
 }
 
-
 .card{
     border-radius: 12px;
+}
+
+.breadcrumb-item{
+    white-space: nowrap;
+    margin-left:4px;
+    margin-right:4px;
 }

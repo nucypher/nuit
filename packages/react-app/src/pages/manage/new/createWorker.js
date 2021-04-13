@@ -1,16 +1,17 @@
 import React from 'react'
 import { useContext, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap/';
-import { ButtonBox, NoBorderButton, ActiveButton } from '../../components'
+import { ButtonBox, NoBorderButton, ActiveButton } from '../../../components'
 
-import { ReactComponent as JoinPoolIcon } from '../../assets/icons/joinPool.svg'
-import { ReactComponent as ServiceProviderIcon } from '../../assets/icons/serviceProvider.svg'
-import { ReactComponent as SelfHostedIcon } from '../../assets/icons/selfHostedWorker.svg'
+import { ReactComponent as JoinPoolIcon } from '../../../assets/icons/joinPool.svg'
+import { ReactComponent as ServiceProviderIcon } from '../../../assets/icons/serviceProvider.svg'
+import { ReactComponent as SelfHostedIcon } from '../../../assets/icons/selfHostedWorker.svg'
 
 import { ThemeContext } from 'styled-components';
 
-import JoinPool from './joinPool'
-import ServiceProvider from './serviceProviders'
+import JoinPool from './nodeProviders/joinPool'
+import ServiceProvider from './nodeProviders/serviceProviders'
+import SelfHosted from './nodeProviders/selfHosted'
 
 import {
     useRouteMatch,
@@ -19,25 +20,24 @@ import {
     NavLink
   } from 'react-router-dom'
 
-export default () => {
+export default (props) => {
 
     let { path, url } = useRouteMatch();
     const theme = useContext(ThemeContext);
-    const [chosenPath, setChosenPath] = useState(0);
 
     return (
         <Container fluid="md">
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>Set Up Worker</h1>
+                    <h1>Set Up a Worker or Join a Pool</h1>
                 </Col>
             </Row>
             <Row noGutters className="d-flex justify-content-center">
                 <Col sm={8} xs={12}  className="d-flex justify-content-center">
                     <ButtonBox className="d-flex grow">
-                        <NavLink to={`${url}/join`} activeClassName="active"><NoBorderButton><JoinPoolIcon/><div>Join Pool</div></NoBorderButton></NavLink>
                         <NavLink to={`${url}/service`} activeClassName="active"><NoBorderButton><ServiceProviderIcon/><div>Service Provider</div></NoBorderButton></NavLink>
                         <NavLink to={`${url}/pwn`} activeClassName="active"><NoBorderButton><SelfHostedIcon/><div>Selfhosted Worker</div></NoBorderButton></NavLink>
+                        <NavLink to={`${url}/join`} activeClassName="active"><NoBorderButton><JoinPoolIcon/><div>Join Pool</div></NoBorderButton></NavLink>
                     </ButtonBox>
                 </Col>
             </Row>
@@ -47,12 +47,10 @@ export default () => {
                         <JoinPool/>
                     </Route>
                     <Route path={`${path}/service`}>
-                        <ServiceProvider/>
+                        <ServiceProvider workerAddress={props.workerAddress} setWorkerAddress={props.setWorkerAddress}/>
                     </Route>
                     <Route path={`${path}/pwn`}>
-                        <Col className="d-flex justify-content-center">
-                            Host Your Own
-                        </Col>
+                        <SelfHosted workerAddress={props.workerAddress} setWorkerAddress={props.setWorkerAddress}/>
                     </Route>
                 </Switch>
             </Row>
@@ -83,9 +81,6 @@ export default () => {
 </svg>
                 </Col>
             </Row>
-
-
-
         </Container>
     )
 }

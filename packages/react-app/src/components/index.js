@@ -7,6 +7,20 @@ import { ReactComponent as Sun } from '../assets/icons/sun.svg'
 import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
 import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
 
+export { WorkerETHAddressField } from './ethAddressField'
+
+
+const spaces = {
+  xs: "4px",
+  s: "8px",
+  m: "12px",
+  l: "16px",
+  xl: "24px",
+  xxl: "32px",
+  xxxl: "48px"
+}
+
+
 const size = {
   mobileS: '320px',
   mobileM: '375px',
@@ -45,12 +59,24 @@ export const Main = styled.section`
   & .bg-color {
     background-color: ${props => props.theme.colors.extrabg};
   }
+
+
+  // override bootstrap colors with theme colors
+  & .card {
+    background-color: ${props => props.theme.colors.background};
+    border: 1px solid ${props => props.theme.colors.text.grey75};
+  }
+  & .card>.card-body {
+    background-color: ${props => props.theme.colors.background};
+    border-radius: ${spaces.xl};
+
+  }
 `
 
 export const ButtonBox = styled.div`
   padding:10px;
   background-color: ${props => props.theme.colors.extrabg};
-  border-radius: 24px;
+  border-radius: ${spaces.xl};
 `
 export const Blue = styled.span`
   color: ${props => props.theme.colors.blue};
@@ -66,7 +92,7 @@ color: ${props => props.theme.colors.text.grey75};
 
 export const Image = styled.img`
   height: 40vmin;
-  margin-bottom: 16px;
+  margin-bottom: ${spaces.s};
   pointer-events: none;
 `
 
@@ -77,25 +103,25 @@ export const HR = styled.hr`
 export const NCButtonBase = styled.button`
   background: ${props => props.theme.buttons.primary.background};
   border: ${props => props.theme.buttons.primary.border};
-  border-radius: 16px;
+  border-radius: ${spaces.l};
   color: ${props => props.theme.buttons.primary.text.main};
   cursor: pointer;
   font-size: 16px;
   text-align: center;
   text-decoration: none;
-  padding: 12px 24px;
+  padding: ${spaces.m} ${spaces.xl};
   justify-content: center;
   align-items: center;
 
-  border-radius: 16px;
-  margin: 6px 12px;
-  padding: 12px 24px;
+  border-radius: ${spaces.l};
+  margin: ${spaces.xs} ${spaces.s};
+  padding: ${spaces.m} ${spaces.xl};
   justify-content: center;
   align-items: center;
 
 
   @media ${device.tablet} {
-    margin: 8px 16px;
+    margin: ${spaces.s} ${spaces.l};
     min-width: 12em;
   }
 
@@ -128,7 +154,7 @@ export const NoBorderButton = styled(SecondaryButton)`
   border: 2px solid transparent;
   a.active & {
     transition: margin 1s;
-    margin-bottom: 8px;
+    margin-bottom: ${spaces.s};
     background-color: ${props => props.theme.colors.body};
     border: ${props => props.theme.buttons.secondary.border};
     box-shadow: ${props => props.theme.colors.shadow};
@@ -141,7 +167,42 @@ const NCLogoContainer = styled.div`
   font-weight:600
 `
 
+export const InputBox = styled.div`
+  margin-top: ${spaces.l};
+  background-color: ${props => props.theme.colors.background};
+  display: flex;
+  flex-direction: column;
+  padding: ${spaces.xxl};
+  border-radius: ${spaces.xl};
+  min-width: 32em;
+  box-shadow: ${props => props.theme.colors.shadow};
+
+  & input{
+    background-color: ${props => props.theme.colors.extrabg};
+  }
+
+  & .form-control{
+    display:inline-block;
+    width:90%;
+  }
+  & .form-control.valid{
+    margin-right:${spaces.s};
+  }
+`
+
+
+
 export class ButtonGroup extends React.Component{
+
+  /*
+    A group of buttons with one 'active' button.
+    Like radio buttons.
+    <ButtonGroup onCLick="<a react setState operator>">
+      <Button>...</Button>
+      <Button>...</Button>
+      <Button>...</Button>
+    </ButtonGroup>
+  */
 
   constructor(props) {
     super(props)
@@ -192,7 +253,6 @@ export class ButtonGroup extends React.Component{
       <ButtonBox {...this.props}>{this.children}</ButtonBox>
     )
   }
-
 }
 
 

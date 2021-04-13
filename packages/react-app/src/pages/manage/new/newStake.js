@@ -9,11 +9,11 @@ import {
 import CreateWorker from './createWorker'
 import CreateStake from './createStake'
 import BondWorker from './bondWorker'
-import Breadcrumbs from '../../components/breadcrumbs'
+import Breadcrumbs from '../../../components/breadcrumbs'
 
 export function NewStake() {
     let { path, url } = useRouteMatch();
-    const [workerAddress, setWorkderAddress] = useState(null)
+    const [workerAddress, setWorkerAddress] = useState()
     const [newStake, setNewStake] = useState(null)
 
     return (
@@ -21,14 +21,14 @@ export function NewStake() {
             <Row>
                 <Breadcrumbs paths={[
                     {path:'worker', label: 'Create Worker', enabled: true },
-                    {path: 'set-stake', label: 'Set Stake', enabled: workerAddress !== null},
+                    {path: 'set-stake', label: 'Set Stake', enabled: workerAddress !== undefined},
                     {path: 'bond', label: 'Bond', enabled: workerAddress !== null && newStake !== null}
                 ]}/>
             </Row>
 
             <Switch>
                 <Route path={`${path}/worker`}>
-                    <CreateWorker />
+                    <CreateWorker workerAddress={workerAddress} setWorkerAddress={setWorkerAddress}/>
                 </Route>
                 <Route path={`${path}/set-stake`}>
                     <CreateStake />
