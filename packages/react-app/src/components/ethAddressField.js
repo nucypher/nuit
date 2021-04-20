@@ -94,17 +94,17 @@ export class WorkerETHAddressField extends React.Component{
 
     render(){
         return <div>
-            {this.props.label ? <Form.Label>Worker Address</Form.Label>:''}
+            {this.props.label ? <Form.Label>Worker Address</Form.Label>:<span/>}
             <Form.Control
                 value={this.state.rawValue}
                 onChange={e => this.handleInputChange(e.target.value)}
                 type="text"
                 placeholder="0x...."
-                className={this.state.validated ? 'valid': ''}
+                className={this.state.validated ? 'valid': <span/>}
             />
-            {this.state.validated ? <Button onClick={this.reset} variant="link">X</Button> : ''}
-            {this.showDescription() ? <Form.Text className="text-muted">{this.props.description}</Form.Text> : ''}
-            {this.state.validated ? <WorkerRunwayDisplay address={this.state.value}/> : ''}
+            {this.state.validated ? <Button onClick={this.reset} variant="link">X</Button> : <span/>}
+            {this.showDescription() ? <Form.Text className="text-muted">{this.props.description}</Form.Text> : <span/>}
+            {this.state.validated ? <WorkerRunwayDisplay address={this.state.value}/> :<span/>}
         </div>
     }
 }

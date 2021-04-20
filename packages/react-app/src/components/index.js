@@ -8,6 +8,8 @@ import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
 import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
 
 export { WorkerETHAddressField } from './ethAddressField'
+export { NuStakeAllocator } from './nuStakeAllocator'
+export { Slider } from './slider'
 
 
 const spaces = {
@@ -52,7 +54,7 @@ export const HeaderNav = styled.header`
   color: ${props => props.theme.colors.text.standard};
 `
 
-export const Main = styled.section`
+export const Main = styled.div`
   background-color: ${props => props.theme.colors.body};
   color: ${props => props.theme.colors.text.standard};
 
@@ -189,6 +191,82 @@ export const InputBox = styled.div`
     margin-right:${spaces.s};
   }
 `
+
+export const Input = styled.input`
+   font-family: 'Open Sans', sans-serif;
+   background-color: ${props => props.theme.colors.extrabg};
+   padding: ${spaces.l} 0;
+   line-height: normal;
+   width: 100%;
+   margin: ${spaces.s}; auto ${spaces.xl}; auto;
+   padding-left: ${spaces.xl};
+   font-size: ${spaces.xl};
+   font-weight: 600;
+   border: 1px solid
+      ${props => (props.isInvalid ? 'tomato' : props.theme.colors.extrabg )};
+   &:hover {
+      transition: 0.3s;
+      border: 1px solid ${ props => (props.isInvalid ? 'tomato' : props.theme.colors.blue)};
+   }
+   &:focus {
+      border: 1px solid ${ props => (props.isInvalid ? 'green' : props.theme.colors.blue)};
+      background-color: ${props => props.theme.colors.extrabg};
+   }
+   &::placeholder {
+      letter-spacing: 0.5px;
+      /* padding: 15px 0; */
+      font-weight: 700;
+      opacity: 1;
+   }
+   &:focus::placeholder {
+      opacity: 0;
+   }
+`;
+
+export const SliderInput = styled.div`
+   input {
+      -webkit-appearance: none; /* Override default CSS styles */
+      appearance: none;
+      width: 90%;
+      display: block;
+      margin: ${spaces.s}; auto ${spaces.xl}; auto;
+      padding-left: ${spaces.xl};
+      background: ${props => props.theme.colors.extrabg};
+      height:${spaces.s};
+      outline: none;
+      opacity: 0.7;
+      border-radius: 10px;
+      &:focus {
+         outline: none;
+      }
+      &:hover {
+         cursor: pointer;
+      }
+      &::-moz-range-thumb {
+         width: 17px;
+         height: 17px;
+         background: #888;
+         opacity: 1;
+         cursor: pointer;
+         border-radius: 5px;
+      }
+      &:focus::-moz-range-thumb {
+         opacity: 0.99;
+      }
+   }
+   div {
+      margin-top: 10px;
+      width:90%;
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: space-between;
+      span {
+         color: grey;
+         padding: 0 6px 0 10px;
+         font-size: 12px;
+      }
+   }
+`;
 
 
 

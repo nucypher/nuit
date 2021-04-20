@@ -6,7 +6,7 @@ a{
     text-decoration: none;
     color: inherit;
 }
-
+a
 a:visited {
     text-decoration: none;
     color:inherit;
@@ -25,6 +25,7 @@ hr{
 
 
 #NCmain{
+    width:100%;
     padding-top:2em;
     padding-bottom:2em;
     min-height: 800px;
@@ -52,10 +53,6 @@ hr{
 
 .breadcrumb {
     background: none;
-}
-
-.weak{
-    font-weight: ;
 }
 
 table.nc-table {

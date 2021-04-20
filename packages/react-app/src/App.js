@@ -31,7 +31,7 @@ function App () {
       <Router>
       <Header theme={theme} setTheme={setTheme}/>
       <Main id="NCmain">
-        <Container>
+        <Container fluid>
           <Switch>
             <Route path="/new">
               <NewStake />
