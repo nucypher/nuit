@@ -41,7 +41,7 @@ export default (props) => {
                                </div>
                                <ButtonBox className="mb-3">
                                     <strong>{stakerAddress || account}</strong>
-                                    <DataRow>
+                                    <DataRow className="mt-3">
                                     <strong>Staking Balance</strong><span><Blue>{48000 + 96000}</Blue> <Grey>NU</Grey></span>
                                     </DataRow>
                                 </ButtonBox>
