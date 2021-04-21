@@ -62,8 +62,11 @@ export function Manage() {
                         </Row>
                         <Row >
                             <Col>
+                                <div className="d-flex justify-content-between">
                                 <Grey>Worker</Grey>
-                               <ButtonBox className="mb-5">
+                                <PrimaryButton small>Change</PrimaryButton>
+                                </div>
+                               <ButtonBox className="mb-3 mt-1">
                                    <strong>{workerAddress || account}</strong>
                                    <WorkerRunwayDisplay address={workerAddress || account}/>
                                    <DataRow>

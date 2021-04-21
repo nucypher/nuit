@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Accordion, Card, Button } from 'react-bootst
 
 import { Grey, Blue, InputBox, Slider, PrimaryButton, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 import { calcROI } from '@project/react-app/src/constants'
+import { Link } from 'react-router-dom'
 
 export default (props) => {
 
@@ -31,6 +32,11 @@ export default (props) => {
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))
         }
+    }
+
+    const handleNewStake = (e) =>{
+        e.preventDefault()
+        props.setStake(true)
     }
 
     useEffect(() => {
@@ -78,11 +84,16 @@ export default (props) => {
                             </Row>
                             <Row noGutters className="d-flex justify-content-center mt-3">
                                 <Col className="d-flex justify-content-center">
-                                    <PrimaryButton width={100}>Create Stake</PrimaryButton>
+                                    <PrimaryButton onClick={handleNewStake} width={100}>Create Stake</PrimaryButton>
                                 </Col>
                             </Row>
                         </Form>
                     </InputBox>
+                </Col>
+            </Row>
+            <Row className="d-flex justify-content-center">
+                <Col xs={4} className="d-flex justify-content-center biglink mt-3">
+                {props.stake ? <Link to="/new/bond"><PrimaryButton>Continue</PrimaryButton></Link> : ''}
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center mt-5">

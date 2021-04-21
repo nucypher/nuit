@@ -17,7 +17,7 @@ const spaces = {
   xs: "4px",
   sm: "8px",
   md: "12px",
-  l: "16px",
+  lg: "16px",
   xl: "24px",
   xxl: "32px",
   xxxl: "48px"
@@ -173,12 +173,12 @@ const NCLogoContainer = styled.div`
 `
 
 export const InputBox = styled.div`
-  margin-top: ${spaces.l};
+  margin-top: ${spaces.lg};
   background-color: ${props => props.theme.colors.background};
   padding: ${spaces.xxl};
   border-radius: ${spaces.xl};
   box-shadow: ${props => props.theme.colors.shadow};
-  max-width: 500px;
+  width: 500px;
   margin:auto;
 
   & input{
@@ -189,15 +189,13 @@ export const InputBox = styled.div`
     display:inline-block;
     width:90%;
   }
-  & .form-control.valid{
-    margin-right:${spaces.sm};
-  }
+
 `
 
 export const Input = styled.input`
    font-family: 'Open Sans', sans-serif;
    background-color: ${props => props.theme.colors.extrabg};
-   padding: ${spaces.l} 0;
+   padding: ${spaces.lg} 0;
    line-height: normal;
    width: 100%;
    margin: ${spaces.sm}; auto ${spaces.xl}; auto;
@@ -275,8 +273,6 @@ export const DataRow = styled.div`
   justify-content: space-between;
 
 `
-
-
 
 export class ButtonGroup extends React.Component{
 

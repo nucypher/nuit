@@ -85,3 +85,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     margin-left:4px;
     margin-right:4px;
 }
+
+.biglink a {
+    width:100%;
+}

@@ -28,7 +28,7 @@ export default (props) => {
                 <Col xs={10} sm={7}>
                     <h5 className="d-flex justify-content-center mb-3">Running a Self Hosted Worker</h5>
                     <p>The Worker is the bonded delegate of a Staker and an active network node. Each staking account or “Staker” is bonded to exactly one Worker. Workers must remain online to provide uninterrupted re-encryption services to network users on-demand and perform periodic automated transactions to signal continued commitment to availability.</p>
-                    <h4>Cost of Running</h4>
+                    <h4>Cost of</h4>
                     <Card className="mt-4 mb-4">
                         <Card.Body>
                             <p>Periodic automated commitments are required to signal continued availability.  Currently, Worker nodes must perform one commitment transaction every 7 days each costing ~200k gas. Average cost for last 30 days: </p>
@@ -58,7 +58,7 @@ export default (props) => {
                         </Form.Group>
                     </InputBox>
                 </Col>
-                <Col xs={12} className="d-flex justify-content-center">
+                <Col xs={4} className="d-flex justify-content-center biglink mt-3">
                 {props.workerAddress ? <Link to="/new/set-stake"><PrimaryButton>Continue</PrimaryButton></Link> : ''}
                 </Col>
             </Row>
