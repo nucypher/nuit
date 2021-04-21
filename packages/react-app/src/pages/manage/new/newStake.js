@@ -31,10 +31,10 @@ export function NewStake() {
                     <CreateWorker workerAddress={workerAddress} setWorkerAddress={setWorkerAddress}/>
                 </Route>
                 <Route path={`${path}/set-stake`}>
-                    <CreateStake />
+                    <CreateStake stake={newStake} setStake={setNewStake} />
                 </Route>
                 <Route path={`${path}/bond`}>
-                    <BondWorker />
+                    <BondWorker workerAddress={workerAddress}/>
                 </Route>
             </Switch>
         </Container>

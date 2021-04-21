@@ -28,7 +28,7 @@ export const WorkerRunwayDisplay = (props) => {
             const web3 = new Web3(provider);
             web3.eth.getBalance(props.address).then(handleBalance)
         }
-    }, [props.address])
+    })
 
     return (
         <div className="mt-3">
@@ -62,7 +62,8 @@ export class WorkerETHAddressField extends React.Component{
             rawValue: props.value || '',
             value: props.value || null,
             validated: false,
-        };
+        }
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.reset = this.reset.bind(this);
         if (props.value) {
@@ -102,7 +103,7 @@ export class WorkerETHAddressField extends React.Component{
                 placeholder="0x...."
                 className={this.state.validated ? 'valid': <span/>}
             />
-            {this.state.validated ? <Button onClick={this.reset} variant="link">X</Button> : <span/>}
+            {this.state.validated ? <Button onClick={this.reset} variant="link">X</Button> : null}
             {this.showDescription() ? <Form.Text className="text-muted">{this.props.description}</Form.Text> : <span/>}
             {this.state.validated ? <WorkerRunwayDisplay address={this.state.value}/> :<span/>}
         </div>
