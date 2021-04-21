@@ -12,12 +12,12 @@ export function Manage() {
     const [workerAddress, setWorkerAddress] = useState(null);
     const [stakerAddress, setStakerAddress] = useState(null);
 
-    const [stakeList, setStakeList] = useState([]);
+    const [stakeList, setStakeList] = useState([{start: '2021-04-01',  end: '2021-05-19', lockedNU: 48000}, {start: '2021-04-01', end:  '2021-07-19', lockedNU: 96000}]);
 
     const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
 
     useEffect(() => {
-
+        // get all the data here
     })
 
 
@@ -72,23 +72,42 @@ export function Manage() {
                                </ButtonBox>
 
                                <div className="d-flex justify-content-between">
-                                <Grey>Staker</Grey>
-                                <PrimaryButton small className="mb-3">Add Substake</PrimaryButton>
+                                <Grey className="mb-3">Staker</Grey>
                                </div>
-                               <ButtonBox>
+                               <ButtonBox className="mb-3">
                                    <strong>{stakerAddress || account}</strong>
                                    <DataRow className="mt-3">
                                        <strong>ETH balance</strong><span><Blue>10</Blue> <Grey>ETH</Grey></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>NU balance</strong><span><Blue>10</Blue> <Grey>NU</Grey></span>
+                                       <strong>NU balance</strong><span><Blue>10123</Blue> <Grey>NU</Grey></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>Total NU Locked</strong><span><Blue>100</Blue> <Grey>NU</Grey></span>
+                                       <strong>Total NU Locked</strong><span><Blue>{48000 + 96000}</Blue> <Grey>NU</Grey></span>
                                     </DataRow>
-                                    <DataRow>
-                                        <span></span><PrimaryButton className="mt-1" small>Increase</PrimaryButton>
-                                    </DataRow>
+                               </ButtonBox>
+                               <div className="d-flex justify-content-between">
+                                <Grey>Substakes</Grey>
+                                <PrimaryButton small>Add Substake</PrimaryButton>
+                                </div>
+                               <ButtonBox className="mt-1">
+                               {
+                                    stakeList.map((st, index)=>{
+                                        return(
+                                        <div key={index}>
+                                            <DataRow>
+                                                <strong>start: {st.start}</strong>
+                                                <strong>end: {st.end}</strong>
+                                                <span><Blue>{st.lockedNU}</Blue><Grey>NU</Grey></span>
+                                            </DataRow>
+                                            <div className="flex justify-content-around">
+                                                <PrimaryButton className="mr-3" small>Prolong</PrimaryButton>
+                                                <SecondaryButton className="mr-3" small>Divide</SecondaryButton>
+                                            </div>
+                                        </div>
+                                        )
+                                    })
+                                }
                                </ButtonBox>
                             </Col>
                         </Row>
