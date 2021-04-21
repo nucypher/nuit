@@ -7,15 +7,16 @@ import { ReactComponent as Sun } from '../assets/icons/sun.svg'
 import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
 import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
 
-export { WorkerETHAddressField } from './ethAddressField'
+export { WorkerETHAddressField, WorkerRunwayDisplay } from './ethAddressField'
 export { NuStakeAllocator } from './nuStakeAllocator'
 export { Slider } from './slider'
+export { CircleQ } from './circleQ'
 
 
 const spaces = {
   xs: "4px",
-  s: "8px",
-  m: "12px",
+  sm: "8px",
+  md: "12px",
   l: "16px",
   xl: "24px",
   xxl: "32px",
@@ -71,14 +72,17 @@ export const Main = styled.div`
   & .card>.card-body {
     background-color: ${props => props.theme.colors.background};
     border-radius: ${spaces.xl};
+  }
 
+  & .nowrap {
+    white-space: nowrap!important;
   }
 `
 
 export const ButtonBox = styled.div`
   padding:10px;
   background-color: ${props => props.theme.colors.extrabg};
-  border-radius: ${spaces.xl};
+  border-radius: ${spaces.sm};
 `
 export const Blue = styled.span`
   color: ${props => props.theme.colors.blue};
@@ -94,7 +98,7 @@ color: ${props => props.theme.colors.text.grey75};
 
 export const Image = styled.img`
   height: 40vmin;
-  margin-bottom: ${spaces.s};
+  margin-bottom: ${spaces.sm};
   pointer-events: none;
 `
 
@@ -105,26 +109,22 @@ export const HR = styled.hr`
 export const NCButtonBase = styled.button`
   background: ${props => props.theme.buttons.primary.background};
   border: ${props => props.theme.buttons.primary.border};
-  border-radius: ${spaces.l};
+  border-radius: ${spaces.sm};
   color: ${props => props.theme.buttons.primary.text.main};
   cursor: pointer;
   font-size: 16px;
   text-align: center;
   text-decoration: none;
-  padding: ${spaces.m} ${spaces.xl};
+
   justify-content: center;
   align-items: center;
 
-  border-radius: ${spaces.l};
-  margin: ${spaces.xs} ${spaces.s};
-  padding: ${spaces.m} ${spaces.xl};
   justify-content: center;
   align-items: center;
 
 
   @media ${device.tablet} {
-    margin: ${spaces.s} ${spaces.l};
-    min-width: 12em;
+    min-width: 9em;
   }
 
 
@@ -132,6 +132,9 @@ export const NCButtonBase = styled.button`
     border: none;
     outline: none;
   }
+
+  width: ${ props => (props.width ? `${props.width}%` : 'inherit')};
+  padding: ${ props => (props.small ? `${spaces.xs} ${spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
 `
 
 export const PrimaryButton = styled(NCButtonBase)`
@@ -156,7 +159,7 @@ export const NoBorderButton = styled(SecondaryButton)`
   border: 2px solid transparent;
   a.active & {
     transition: margin 1s;
-    margin-bottom: ${spaces.s};
+    margin-bottom: ${spaces.sm};
     background-color: ${props => props.theme.colors.body};
     border: ${props => props.theme.buttons.secondary.border};
     box-shadow: ${props => props.theme.colors.shadow};
@@ -172,12 +175,11 @@ const NCLogoContainer = styled.div`
 export const InputBox = styled.div`
   margin-top: ${spaces.l};
   background-color: ${props => props.theme.colors.background};
-  display: flex;
-  flex-direction: column;
   padding: ${spaces.xxl};
   border-radius: ${spaces.xl};
-  min-width: 32em;
   box-shadow: ${props => props.theme.colors.shadow};
+  max-width: 500px;
+  margin:auto;
 
   & input{
     background-color: ${props => props.theme.colors.extrabg};
@@ -188,7 +190,7 @@ export const InputBox = styled.div`
     width:90%;
   }
   & .form-control.valid{
-    margin-right:${spaces.s};
+    margin-right:${spaces.sm};
   }
 `
 
@@ -198,7 +200,7 @@ export const Input = styled.input`
    padding: ${spaces.l} 0;
    line-height: normal;
    width: 100%;
-   margin: ${spaces.s}; auto ${spaces.xl}; auto;
+   margin: ${spaces.sm}; auto ${spaces.xl}; auto;
    padding-left: ${spaces.xl};
    font-size: ${spaces.xl};
    font-weight: 600;
@@ -229,10 +231,10 @@ export const SliderInput = styled.div`
       appearance: none;
       width: 90%;
       display: block;
-      margin: ${spaces.s}; auto ${spaces.xl}; auto;
+      margin: ${spaces.sm}; auto ${spaces.xl}; auto;
       padding-left: ${spaces.xl};
       background: ${props => props.theme.colors.extrabg};
-      height:${spaces.s};
+      height:${spaces.sm};
       outline: none;
       opacity: 0.7;
       border-radius: 10px;
@@ -267,6 +269,12 @@ export const SliderInput = styled.div`
       }
    }
 `;
+
+export const DataRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+`
 
 
 

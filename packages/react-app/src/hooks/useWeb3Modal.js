@@ -51,13 +51,18 @@ function useWeb3Modal (config = {}) {
     // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
       logoutOfWeb3Modal()
+    });provider.on("disconnect", () => {
+      logoutOfWeb3Modal()
+    });
+
+
+    provider.on("connect", () => {
+      console.log('connected')
     });
 
 
     // Subscribe to provider disconnection
-    provider.on("disconnect", () => {
-      logoutOfWeb3Modal()
-    });
+
 
     if (provider.wc){
       // it's a walletconnect provider

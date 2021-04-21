@@ -10,7 +10,7 @@ import { ReactComponent as CircleQ } from '../assets/icons/circleQ.svg'
 import { validateEthAdress } from '../utils'
 
 
-function WorkerRunwayDisplay (props){
+export const WorkerRunwayDisplay = (props) => {
     const [balance, setBalance] = useState(null)
     const [runway, setRunway] = useState(null)
     const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
@@ -28,7 +28,7 @@ function WorkerRunwayDisplay (props){
             const web3 = new Web3(provider);
             web3.eth.getBalance(props.address).then(handleBalance)
         }
-    })
+    }, [props.address])
 
     return (
         <div className="mt-3">
