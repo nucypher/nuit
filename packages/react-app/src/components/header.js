@@ -8,6 +8,7 @@ import { light, dark } from '../themes'
 function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) {
     return (
       <SecondaryButton
+        width="12"
         onClick={() => {
           if (!provider) {
             loadWeb3Modal()

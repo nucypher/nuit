@@ -4,3 +4,8 @@ export const truncate = (address) => {
     }
     return ''
 }
+
+
+export const validateEthAdress = (address) => {
+    return address.length === 42 && address.startsWith('0x')
+}
