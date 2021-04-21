@@ -28,7 +28,7 @@ export const WorkerRunwayDisplay = (props) => {
             const web3 = new Web3(provider);
             web3.eth.getBalance(props.address).then(handleBalance)
         }
-    }, [props.address])
+    })
 
     return (
         <div className="mt-3">
