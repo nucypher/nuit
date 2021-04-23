@@ -1,25 +1,54 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap/';
-import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton } from '@project/react-app/src/components'
+import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance} from '@project/react-app/src/components'
 import useWeb3Modal from '../hooks/useWeb3Modal'
 
 export function Manage() {
 
-    const [availableNU, setavailableNU] = useState(0);
-    const [availableETH, setavailableETH] = useState(0);
+    const [availableNU, setAvailableNU] = useState(0);
+    const [availableETH, setAvailableETH] = useState(0);
+
+    const [availableNuRewards, setAvailableNuRewards] = useState(0);
+    const [availableEthRewards, setAvailableEthRewards] = useState(0);
 
     const [workerAddress, setWorkerAddress] = useState(null);
     const [stakerAddress, setStakerAddress] = useState(null);
 
-    const [stakeList, setStakeList] = useState([{start: '2021-04-01',  end: '2021-05-19', lockedNU: 48000}, {start: '2021-04-01', end:  '2021-07-19', lockedNU: 96000}]);
+    const [stakerData, setStakerData] = useState({substakes:[]});
 
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
+    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
 
-    useEffect(() => {
-        // get all the data here
-    })
+    useEffect(() => async () => {
+        if (contracts && account){
+            const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
+            const stakerFlags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
+            const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call();
 
+            // getting an array with all substakes
+            const substakes = await (async () => {
+                if (getSubStakesLength !== '0') {
+                    let substakeList = [];
+                    for (let i = 0; i < getSubStakesLength; i++) {
+                    let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
+                    rawList.id = i.toString();
+                    rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
+                    substakeList.push(rawList);
+                    }
+                    return substakeList;
+                } else {
+                    let substakeList = null;
+                    return substakeList;
+                }
+            })();
+
+            setStakerData({
+                info: stakerInfo,
+                flags: stakerFlags,
+                substakes: substakes,
+            })
+        }
+    }, [contracts, account])
 
     return (
         <Container>
@@ -42,13 +71,13 @@ export function Manage() {
                                 <Col>
                                 <strong>Staking</strong>
                                 <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
-                                <PrimaryButton className="mt-2" width="100">Withdraw {availableNU} <Grey>NU</Grey></PrimaryButton>
+                                <PrimaryButton className="mt-2" width="100"><small>Withdraw</small> {availableNuRewards} <Grey>NU</Grey></PrimaryButton>
                                 </Col>
 
                                 <Col>
                                 <strong>Policy</strong>
                                 <CircleQ tooltip="ETH rewards collected from policy fees"/>
-                                <PrimaryButton className="mt-2" width="100">Withdraw {availableETH} <Grey>ETH</Grey></PrimaryButton>
+                                <PrimaryButton className="mt-2" width="100"><small>Withdraw</small> {availableEthRewards} <Grey>ETH</Grey></PrimaryButton>
                                 </Col>
                             </Col>
                         </Row>
@@ -64,14 +93,17 @@ export function Manage() {
                             <Col>
                                 <div className="d-flex justify-content-between">
                                 <Grey>Worker</Grey>
-                                <PrimaryButton small>Change</PrimaryButton>
+                                <PrimaryButton small>{workerAddress ? 'Change' : 'Set Worker'}</PrimaryButton>
                                 </div>
                                <ButtonBox className="mb-3 mt-1">
-                                   <strong>{workerAddress || account}</strong>
-                                   <WorkerRunwayDisplay address={workerAddress || account}/>
-                                   <DataRow>
-                                       <strong>Last Committed Period</strong><span><Blue>2762</Blue></span>
-                                    </DataRow>
+                                   { workerAddress ?
+                                   <div>
+                                    <strong>{workerAddress || account}</strong>
+                                    <WorkerRunwayDisplay address={workerAddress || account}/>
+                                    <DataRow>
+                                        <strong>Last Committed Period</strong><span><Blue>2762</Blue></span>
+                                        </DataRow>
+                                    </div> : <p> no worker associated with account</p>}
                                </ButtonBox>
 
                                <div className="d-flex justify-content-between">
@@ -80,10 +112,10 @@ export function Manage() {
                                <ButtonBox className="mb-3">
                                    <strong>{stakerAddress || account}</strong>
                                    <DataRow className="mt-3">
-                                       <strong>ETH balance</strong><span><Blue>10</Blue> <Grey>ETH</Grey></span>
+                                       <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>NU balance</strong><span><Blue>10123</Blue> <Grey>NU</Grey></span>
+                                       <strong>NU balance</strong><span><NuBalance balance={availableNU} onBalance={setAvailableNU}/></span>
                                     </DataRow>
                                     <DataRow>
                                        <strong>Total NU Locked</strong><span><Blue>{48000 + 96000}</Blue> <Grey>NU</Grey></span>
@@ -94,14 +126,15 @@ export function Manage() {
                                 <PrimaryButton small>Add Substake</PrimaryButton>
                                 </div>
                                <ButtonBox className="mt-1">
-                               {
-                                    stakeList.map((st, index)=>{
+                               {stakerData.substakes.length ?
+                                    stakerData.substakes.map((st, index)=>{
+                                        console.log(st)
                                         return(
                                         <div key={index}>
                                             <DataRow>
-                                                <strong>start: {st.start}</strong>
-                                                <strong>end: {st.end}</strong>
-                                                <span><Blue>{st.lockedNU}</Blue><Grey>NU</Grey></span>
+                                                <strong>start: {st.firstPeriod}</strong>
+                                                <strong>end: {st.lastPeriod}</strong>
+                                                <span><Blue>{st.lockedValue}</Blue><Grey>NU</Grey></span>
                                             </DataRow>
                                             <div className="flex justify-content-around">
                                                 <PrimaryButton className="mr-3" small>Prolong</PrimaryButton>
@@ -109,7 +142,7 @@ export function Manage() {
                                             </div>
                                         </div>
                                         )
-                                    })
+                                    }) : null
                                 }
                                </ButtonBox>
                             </Col>

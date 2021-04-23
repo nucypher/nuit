@@ -3,21 +3,23 @@ import { useState, useEffect } from 'react';
 
 import { Form, Button, Tooltip, OverlayTrigger} from 'react-bootstrap/';
 import useWeb3Modal from '../hooks/useWeb3Modal'
-import Web3 from "web3";
+import { getDefaultProvider } from '@ethersproject/providers'
 
 
 import { ReactComponent as CircleQ } from '../assets/icons/circleQ.svg'
 import { validateEthAdress } from '../utils'
 
+import { Grey, Blue, Input} from '@project/react-app/src/components'
+
 
 export const WorkerRunwayDisplay = (props) => {
     const [balance, setBalance] = useState(null)
     const [runway, setRunway] = useState(null)
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
+    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
 
     useEffect(() => {
         function handleBalance(balance) {
-            const ethAmount = Web3.utils.fromWei(balance, 'ether')
+            const ethAmount = web3.utils.fromWei(balance, 'ether')
             setBalance(parseFloat(ethAmount).toFixed(2))
 
             const periodLength = 7  // Todo : get this from the contract?
@@ -25,7 +27,6 @@ export const WorkerRunwayDisplay = (props) => {
             setRunway(((ethAmount / ethCostPerDay).toFixed() * periodLength).toFixed(0))
         }
         if (provider){
-            const web3 = new Web3(provider);
             web3.eth.getBalance(props.address).then(handleBalance)
         }
     })
@@ -112,6 +113,30 @@ export class WorkerETHAddressField extends React.Component{
 
 
 
+export const EthBalance = (props) => {
+    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
+    const defaultProvider = getDefaultProvider()
+
+    let address = props.address || account
+
+    useEffect(() => {
+        if (!props.balance){
+            function handleBalance(wei) {
+                const Amount = (parseFloat(wei) / 10 ** 18).toFixed(2);
+                props.onBalance(Amount)
+            }
+            if (provider && address){
+                web3.eth.getBalance(address).then(handleBalance)
+            }
+        }
+    }, [ address ])
+
+    return (
+        <div>
+            {props.balance ? <strong><Blue>{props.balance}</Blue> <Grey>ETH</Grey></strong> : ''}
+        </div>
+    )
+}
 
 
 

@@ -11,9 +11,8 @@ import { addresses, abis } from '@project/contracts'
 import { Grey, Blue, Input} from '@project/react-app/src/components'
 
 
-function NUDisplay (props) {
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
-    const defaultProvider = getDefaultProvider()
+export const NuBalance = (props) => {
+    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, Web3, contracts]= useWeb3Modal()
 
     useEffect(() => {
         if (!props.balance){
@@ -22,25 +21,34 @@ function NUDisplay (props) {
                 props.onBalance(NUAmount)
             }
             if (provider && account){
-                const NUtoken = new Contract(addresses.NU, abis.erc20, defaultProvider)
+                const defaultProvider = getDefaultProvider(parseInt(provider.chainId))
+                const NUtoken = new Contract(addresses[provider.chainId].NU, abis[provider.chainId].NU, defaultProvider)
                 NUtoken.balanceOf(account).then(handleBalance)
             }
         }
     }, [ account ])
 
     return (
-        <Button onClick={props.onClick} variant="link">
+        <div>
             {props.balance ? <strong><Blue>{props.balance}</Blue> <Grey>NU</Grey></strong> : ''}
+        </div>
+    )
+}
+
+
+function NuCLickDisplay (props) {
+
+    return (
+        <Button onClick={props.onClick} variant="link">
+            <NuBalance balance={props.balance} onBalance={props.onBalance}/>
         </Button>
     )
-
 }
 
 export const NuStakeAllocator = (props) => {
 
     const [NUBalance, setNUBalance] = useState(null)
     const [localValue, setLocalValue] = useState(props.value? props.value : '')
-
 
     const setValue = (value) => {
         props.onChange(value)
@@ -53,7 +61,7 @@ export const NuStakeAllocator = (props) => {
                 <Col>
                     <div className="d-flex justify-content-between">
                         <Grey>Stake</Grey>
-                        <NUDisplay onClick={(e) => setValue(NUBalance)} balance={NUBalance} onBalance={setNUBalance}/>
+                        <NuCLickDisplay onClick={(e) => setValue(NUBalance)} balance={NUBalance} onBalance={setNUBalance}/>
                     </div>
                 </Col>
             </Row>

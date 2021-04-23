@@ -7,8 +7,8 @@ import { ReactComponent as Sun } from '../assets/icons/sun.svg'
 import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
 import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
 
-export { WorkerETHAddressField, WorkerRunwayDisplay } from './ethAddressField'
-export { NuStakeAllocator } from './nuStakeAllocator'
+export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from './ethComponents'
+export { NuStakeAllocator, NuBalance } from './nuComponents'
 export { Slider } from './slider'
 export { CircleQ } from './circleQ'
 
@@ -121,6 +121,8 @@ export const NCButtonBase = styled.button`
 
   justify-content: center;
   align-items: center;
+
+  white-space: nowrap;
 
 
   @media ${device.tablet} {

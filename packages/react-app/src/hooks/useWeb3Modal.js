@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import Web3Modal from 'web3modal'
+import Web3 from "web3";
 import WalletConnectProvider from '@walletconnect/web3-provider'
+
+import { addresses, abis } from '@project/contracts'
 
 // Enter a valid infura key here to avoid being rate limited
 // You can get a key for free at https://infura.io/register
@@ -13,6 +16,10 @@ function useWeb3Modal (config = {}) {
   const [account, setAccount] = useState()
   const [autoLoaded, setAutoLoaded] = useState(false)
   const { autoLoad = true, infuraId = INFURA_ID, NETWORK = NETWORK_NAME } = config
+
+  const [contracts, setContracts] = useState()
+
+  const [web3, setWeb3] = useState()
 
   // Web3Modal also supports many other wallets.
   // You can see other options at https://github.com/Web3Modal/web3modal
@@ -32,37 +39,60 @@ function useWeb3Modal (config = {}) {
   const logoutOfWeb3Modal = useCallback(
     async function () {
       await web3Modal.clearCachedProvider()
-     // await window.localStorage.removeItem('walletconnect')
+      await window.localStorage.removeItem('walletconnect')
       window.location.reload()
     },
     [web3Modal]
   )
 
+  const instantiateContracts = (provider, web3) => {
+    const chID = provider.chainId
+    const ABIs = abis[chID]
+    const addrs = addresses[chID]
+
+    const ctrcts = {};
+    if (provider && web3){
+      setContracts(
+        Object.keys(addrs)
+          .filter((name) => ABIs[name] !== undefined)
+          .reduce((accumulator, contractName) => {
+            try{
+              accumulator[contractName] = new web3.eth.Contract(ABIs[contractName][3], addrs[contractName]);
+            }catch(err){
+              console.warn(err)
+            }
+            return accumulator
+          }, ctrcts)
+      )
+    }
+  }
+
   const loadWeb3Modal = useCallback(async () => {
     const provider = await web3Modal.connect()
     await provider.enable();
+    const w3 = new Web3(provider);
+    setWeb3(w3)
     setProvider(provider)
+
+    instantiateContracts(provider, w3)
 
     // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
-      window.location.reload()
+      logoutOfWeb3Modal()
     });
 
     // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
       logoutOfWeb3Modal()
-    });provider.on("disconnect", () => {
-      logoutOfWeb3Modal()
     });
 
+    provider.on("disconnect", () => {
+      logoutOfWeb3Modal()
+    });
 
     provider.on("connect", () => {
       console.log('connected')
     });
-
-
-    // Subscribe to provider disconnection
-
 
     if (provider.wc){
       // it's a walletconnect provider
@@ -84,7 +114,7 @@ function useWeb3Modal (config = {}) {
     }
   }, [autoLoad, autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider])
 
-  return [provider, loadWeb3Modal, logoutOfWeb3Modal, account]
+  return [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts]
 }
 
 export default useWeb3Modal
