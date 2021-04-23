@@ -19,8 +19,8 @@ export function Manage() {
 
     const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
 
-    useEffect(() => async () => {
-        if (contracts && account){
+    useEffect(() => {
+        const getStakerData = async () => {
             const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
             const stakerFlags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
             const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call();
@@ -42,13 +42,17 @@ export function Manage() {
                 }
             })();
 
+            console.log(substakes)
             setStakerData({
                 info: stakerInfo,
                 flags: stakerFlags,
                 substakes: substakes,
             })
         }
-    }, [contracts, account])
+        if (contracts && account){
+            getStakerData()
+        }
+    }, [account])
 
     return (
         <Container>
