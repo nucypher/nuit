@@ -101,7 +101,7 @@ export function Home () {
                             <Link to="/manage"><PurpleButton><strong>Manage</strong></PurpleButton></Link>
                         </Col>
                         <Col className="d-flex justify-content-center">
-                            <Link to="/docs"><SecondaryButton><strong>Documentation</strong></SecondaryButton></Link>
+                            <a href="https://docs.nucypher.com/en/latest/staking/overview.html"><SecondaryButton><strong>Documentation</strong></SecondaryButton></a>
                         </Col>
                 </Row>
                 </Col>
