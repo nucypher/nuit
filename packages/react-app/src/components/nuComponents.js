@@ -15,10 +15,9 @@ export const NuBalance = (props) => {
     const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, Web3, contracts]= useWeb3Modal()
 
     useEffect(() => {
-        if (!props.balance){
+        if (!props.balance && props.onBalance){
             function handleBalance(nunits) {
-                const NUAmount = (parseFloat(nunits) / 10 ** 18).toFixed(2);
-                props.onBalance(NUAmount)
+                props.onBalance(nunits)
             }
             if (provider && account){
                 const defaultProvider = getDefaultProvider(parseInt(provider.chainId))
@@ -30,7 +29,7 @@ export const NuBalance = (props) => {
 
     return (
         <div>
-            {props.balance ? <strong><Blue>{props.balance}</Blue> <Grey>NU</Grey></strong> : ''}
+            {props.balance ? <strong><Blue>{(parseFloat(props.balance) / 10 ** 18).toFixed(2)}</Blue> <Grey>NU</Grey></strong> : ''}
         </div>
     )
 }

@@ -24,7 +24,7 @@ export function Manage() {
             const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
             const stakerFlags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
             const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call();
-
+            let lockedNU = 0.0;
             // getting an array with all substakes
             const substakes = await (async () => {
                 if (getSubStakesLength !== '0') {
@@ -34,6 +34,9 @@ export function Manage() {
                     rawList.id = i.toString();
                     rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
                     substakeList.push(rawList);
+
+                    lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
+
                     }
                     return substakeList;
                 } else {
@@ -41,12 +44,11 @@ export function Manage() {
                     return substakeList;
                 }
             })();
-
-            console.log(substakes)
             setStakerData({
                 info: stakerInfo,
                 flags: stakerFlags,
                 substakes: substakes,
+                lockedNU: lockedNU
             })
         }
         if (contracts && account){
@@ -119,10 +121,10 @@ export function Manage() {
                                        <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>NU balance</strong><span><NuBalance balance={availableNU} onBalance={setAvailableNU}/></span>
+                                       <strong>NU balance</strong><span><NuBalance balance={availableNU}/></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>Total NU Locked</strong><span><Blue>{48000 + 96000}</Blue> <Grey>NU</Grey></span>
+                                       <strong>Total NU Locked</strong><span><NuBalance balance={stakerData.lockedNU}/></span>
                                     </DataRow>
                                </ButtonBox>
                                <div className="d-flex justify-content-between">
@@ -138,7 +140,7 @@ export function Manage() {
                                             <DataRow>
                                                 <strong>start: {st.firstPeriod}</strong>
                                                 <strong>end: {st.lastPeriod}</strong>
-                                                <span><Blue>{st.lockedValue}</Blue><Grey>NU</Grey></span>
+                                                <span><NuBalance balance={st.lockedValue}/></span>
                                             </DataRow>
                                             <div className="flex justify-content-around">
                                                 <PrimaryButton className="mr-3" small>Prolong</PrimaryButton>
