@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { ReactComponent as Moon } from '../assets/icons/moon.svg'
 import { ReactComponent as Sun } from '../assets/icons/sun.svg'
-import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
-import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
 
 export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from './ethComponents'
 export { NuStakeAllocator, NuBalance } from './nuComponents'
@@ -345,7 +343,6 @@ export class ButtonGroup extends React.Component{
 
 
 export const NCLogo = (props) => {
-  const NCIcon = props.theme.name === 'light' ? NCWhite : NCBlack
   return (
     <NCLogoContainer>
       <Link to="/"><Blue>Nu</Blue>Cypher</Link>

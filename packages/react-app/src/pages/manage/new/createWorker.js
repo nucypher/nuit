@@ -1,13 +1,11 @@
 import React from 'react'
-import { useContext, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap/';
-import { ButtonBox, NoBorderButton, ActiveButton } from '../../../components'
+import { ButtonBox, NoBorderButton } from '../../../components'
 
 import { ReactComponent as JoinPoolIcon } from '../../../assets/icons/joinPool.svg'
 import { ReactComponent as ServiceProviderIcon } from '../../../assets/icons/serviceProvider.svg'
 import { ReactComponent as SelfHostedIcon } from '../../../assets/icons/selfHostedWorker.svg'
 
-import { ThemeContext } from 'styled-components';
 
 import JoinPool from './nodeProviders/joinPool'
 import ServiceProvider from './nodeProviders/serviceProviders'
@@ -23,7 +21,6 @@ import {
 export default (props) => {
 
     let { path, url } = useRouteMatch();
-    const theme = useContext(ThemeContext);
 
     return (
         <Container fluid="md">

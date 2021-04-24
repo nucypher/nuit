@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactComponent as TheIcon } from '@project/react-app/src/assets/icons/circleQ.svg'
-import { Form, Button, Tooltip, OverlayTrigger} from 'react-bootstrap/';
+import { Tooltip, OverlayTrigger} from 'react-bootstrap/';
 
 export const CircleQ = ({ tooltip }) => {
 

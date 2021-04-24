@@ -11,16 +11,12 @@ export function Manage() {
     const [availableNU, setAvailableNU] = useState(0);
     const [availableETH, setAvailableETH] = useState(0);
 
-    const [availableNuRewards, setAvailableNuRewards] = useState(0);
-    const [availableEthRewards, setAvailableEthRewards] = useState(0);
-
     const [workerAddress, setWorkerAddress] = useState(null);
-    const [stakerAddress, setStakerAddress] = useState(null);
 
     const [stakerData, setStakerData] = useState({substakes:[]});
 
     const context = useContext(Context)
-    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet;
+    const {account, web3, contracts} = context.wallet;
 
     useEffect(() => {
         const getStakerData = async () => {
@@ -36,15 +32,16 @@ export function Manage() {
                 if (getSubStakesLength !== '0') {
                     let substakeList = [];
                     for (let i = 0; i < getSubStakesLength; i++) {
-                    let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
-                    rawList.id = i.toString();
-                    rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
-                    if (parseInt(rawList.lastPeriod) > 1){
-                        substakeList.push(rawList);
-                    }
 
-                    lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
+                        let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
+                        rawList.id = i.toString();
+                        rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
 
+                        if (parseInt(rawList.lastPeriod) > 1){
+                            substakeList.push(rawList);
+                        }
+
+                        lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
                     }
                     return substakeList;
                 } else {
@@ -66,7 +63,7 @@ export function Manage() {
         if (contracts && account){
             getStakerData()
         }
-    }, [account])
+    }, [account, contracts, web3])
     console.log(stakerData)
     return (
         <Container>
@@ -128,7 +125,7 @@ export function Manage() {
                                 <Grey className="mb-3">Staker</Grey>
                                </div>
                                <ButtonBox className="mb-3">
-                                   <strong>{stakerAddress || account}</strong>
+                                   <strong>{account}</strong>
                                    <DataRow className="mt-3">
                                        <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>

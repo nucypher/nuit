@@ -1,25 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Form, Card, Badge} from 'react-bootstrap/';
-import { Grey, Blue, InputBox, WorkerETHAddressField, PrimaryButton } from '../../../../components'
+import { InputBox, WorkerETHAddressField, PrimaryButton } from '../../../../components'
 import { Link } from 'react-router-dom'
-
-const SERVICEPROVIDERS = [
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-]
 
 export default (props) => {
     return (
