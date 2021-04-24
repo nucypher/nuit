@@ -1,8 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { Context } from '@project/react-app/src/utils'
+
 import { Container, Row, Col } from 'react-bootstrap/';
 import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton } from '@project/react-app/src/components'
-import useWeb3Modal from '@project/react-app/src/hooks/useWeb3Modal'
 
 
 export default (props) => {
@@ -11,7 +13,8 @@ export default (props) => {
     const [workerAddress, setWorkerAddress] = useState(props.workerAddress || null)
     const [stakingBalance, setStakingBalance] = useState(0)
 
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
+    const context = useContext(Context)
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet;
 
 
     return (

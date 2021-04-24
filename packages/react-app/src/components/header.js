@@ -1,7 +1,7 @@
 import React from 'react'
+import { useContext } from 'react';
 import { SecondaryButton, ThemeButton, NCLogo, HeaderNav } from '../components'
-import { truncate } from '../utils'
-import useWeb3Modal from '../hooks/useWeb3Modal'
+import { truncate, Context } from '../utils'
 
 import { light, dark } from '../themes'
 
@@ -26,7 +26,9 @@ function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) 
 export default function (props) {
     const theme = props.theme
     const setTheme = props.setTheme
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
+    const context = useContext(Context)
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet
+
 
     React.useEffect(() => {
         props.setTheme(theme => window.localStorage.getItem('theme') === 'dark' ? dark : props.theme)

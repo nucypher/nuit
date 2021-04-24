@@ -1,8 +1,11 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { Context } from '../utils'
+
 
 import { Form, Button, Tooltip, OverlayTrigger} from 'react-bootstrap/';
-import useWeb3Modal from '../hooks/useWeb3Modal'
+
 import { getDefaultProvider } from '@ethersproject/providers'
 
 
@@ -15,7 +18,7 @@ import { Grey, Blue, Input} from '@project/react-app/src/components'
 export const WorkerRunwayDisplay = (props) => {
     const [balance, setBalance] = useState(null)
     const [runway, setRunway] = useState(null)
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = useContext(Context).wallet
 
     useEffect(() => {
         function handleBalance(balance) {
@@ -114,7 +117,8 @@ export class WorkerETHAddressField extends React.Component{
 
 
 export const EthBalance = (props) => {
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
+    const context = useContext(Context)
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet
     const defaultProvider = getDefaultProvider()
 
     let address = props.address || account

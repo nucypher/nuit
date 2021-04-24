@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style.css'
 
 import { ThemeProvider } from 'styled-components';
+import useWeb3Modal from 'hooks/useWeb3Modal'
 
 import { Main } from './components'
 import { light } from './themes'
@@ -25,11 +26,24 @@ import { Context } from 'utils';
 
 function App () {
 
-
   const [theme, setTheme] = useState(light);
 
+  const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
+  const context = {
+    wallet: {
+      provider,
+      loadWeb3Modal,
+      logoutOfWeb3Modal,
+      account,
+      web3,
+      contracts
+    }
+  }
+
+
+
   return (
-    <Context.Provider>
+    <Context.Provider value={context}>
       <ThemeProvider theme={theme}>
         <Router>
         <Header theme={theme} setTheme={setTheme}/>

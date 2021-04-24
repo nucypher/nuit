@@ -1,8 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { Context } from '../utils'
+
 import { Container, Row, Col } from 'react-bootstrap/';
 import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance} from '@project/react-app/src/components'
-import useWeb3Modal from '../hooks/useWeb3Modal'
 
 export function Manage() {
 
@@ -17,7 +19,8 @@ export function Manage() {
 
     const [stakerData, setStakerData] = useState({substakes:[]});
 
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
+    const context = useContext(Context)
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet;
 
     useEffect(() => {
         const getStakerData = async () => {

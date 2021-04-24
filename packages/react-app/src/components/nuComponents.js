@@ -1,9 +1,11 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getDefaultProvider } from '@ethersproject/providers'
 
+import { Context } from '../utils'
+
 import { Form, Button, Tooltip, OverlayTrigger, Row, Col, Container} from 'react-bootstrap/';
-import useWeb3Modal from '../hooks/useWeb3Modal'
+
 
 import { Contract } from '@ethersproject/contracts'
 import { addresses, abis } from '@project/contracts'
@@ -12,7 +14,8 @@ import { Grey, Blue, Input} from '@project/react-app/src/components'
 
 
 export const NuBalance = (props) => {
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, Web3, contracts]= useWeb3Modal()
+    const context = useContext(Context)
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet
 
     useEffect(() => {
         if (!props.balance && props.onBalance){
