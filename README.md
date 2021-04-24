@@ -22,7 +22,7 @@ Official NuCypher web staking UI.  This repository is currently a work-in-progre
     Add new libraries to main react app
 ```
 
-### TO run in Docker (recommended)
+### To run in Docker (recommended)
 
 ```
 docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn react-app:start
