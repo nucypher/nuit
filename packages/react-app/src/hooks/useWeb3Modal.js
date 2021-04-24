@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from 'react'
 import Web3Modal from 'web3modal'
 import Web3 from "web3";
 import WalletConnectProvider from '@walletconnect/web3-provider'
+import { getDefaultProvider } from '@ethersproject/providers'
 
 import { addresses, abis } from '@project/contracts'
+import { Contract } from '@ethersproject/contracts'
 
 // Enter a valid infura key here to avoid being rate limited
 // You can get a key for free at https://infura.io/register
@@ -53,6 +55,7 @@ function useWeb3Modal (config = {}) {
 
     const ctrcts = {};
     if (provider && web3){
+      const defaultProvider = getDefaultProvider(parseInt(provider.chainId))
       setContracts(
         Object.keys(addrs)
           .filter((name) => ABIs[name] !== undefined)
@@ -60,7 +63,11 @@ function useWeb3Modal (config = {}) {
             try{
               accumulator[contractName] = new web3.eth.Contract(ABIs[contractName][3], addrs[contractName]);
             }catch(err){
-              console.warn(err)
+              try{
+                accumulator[contractName] = new Contract(addrs[contractName], ABIs[contractName], defaultProvider)
+              }catch(err){
+                console.warn(err)
+              }
             }
             return accumulator
           }, ctrcts)
@@ -68,12 +75,14 @@ function useWeb3Modal (config = {}) {
     }
   }
 
+
   const loadWeb3Modal = useCallback(async () => {
     const provider = await web3Modal.connect()
     await provider.enable();
     const w3 = new Web3(provider);
     setWeb3(w3)
     setProvider(provider)
+
 
     instantiateContracts(provider, w3)
 

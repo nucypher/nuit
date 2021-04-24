@@ -27,12 +27,12 @@ export default function (props) {
     const theme = props.theme
     const setTheme = props.setTheme
     const context = useContext(Context)
-    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account} = context.wallet
 
 
     React.useEffect(() => {
         props.setTheme(theme => window.localStorage.getItem('theme') === 'dark' ? dark : props.theme)
-      }, [])
+      }, [props])
 
     return (
         <HeaderNav>

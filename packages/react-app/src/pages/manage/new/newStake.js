@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Container, Row, Col } from 'react-bootstrap/';
+import { Container, Row } from 'react-bootstrap/';
 import {
     useRouteMatch,
     Route,
@@ -12,7 +12,7 @@ import BondWorker from './bondWorker'
 import Breadcrumbs from '../../../components/breadcrumbs'
 
 export function NewStake() {
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
     const [workerAddress, setWorkerAddress] = useState()
     const [newStake, setNewStake] = useState(null)
 

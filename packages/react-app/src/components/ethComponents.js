@@ -6,19 +6,16 @@ import { Context } from '../utils'
 
 import { Form, Button, Tooltip, OverlayTrigger} from 'react-bootstrap/';
 
-import { getDefaultProvider } from '@ethersproject/providers'
-
-
 import { ReactComponent as CircleQ } from '../assets/icons/circleQ.svg'
 import { validateEthAdress } from '../utils'
 
-import { Grey, Blue, Input} from '@project/react-app/src/components'
+import { Grey, Blue } from '@project/react-app/src/components'
 
 
 export const WorkerRunwayDisplay = (props) => {
     const [balance, setBalance] = useState(null)
     const [runway, setRunway] = useState(null)
-    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = useContext(Context).wallet
+    const {provider, web3 } = useContext(Context).wallet
 
     useEffect(() => {
         function handleBalance(balance) {
@@ -118,8 +115,7 @@ export class WorkerETHAddressField extends React.Component{
 
 export const EthBalance = (props) => {
     const context = useContext(Context)
-    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet
-    const defaultProvider = getDefaultProvider()
+    const {provider, account, web3} = context.wallet
 
     let address = props.address || account
 
@@ -133,7 +129,7 @@ export const EthBalance = (props) => {
                 web3.eth.getBalance(address).then(handleBalance)
             }
         }
-    }, [ address ])
+    }, [ address, props, provider, web3 ])
 
     return (
         <div>

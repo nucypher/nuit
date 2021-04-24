@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Accordion, Card, Button } from 'react-bootstrap/';
+import { Container, Row, Col, Form } from 'react-bootstrap/';
 
 import { Grey, Blue, InputBox, Slider, PrimaryButton, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 import { calcROI } from '@project/react-app/src/constants'

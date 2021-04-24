@@ -1,21 +1,16 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react';
-import { getDefaultProvider } from '@ethersproject/providers'
 
 import { Context } from '../utils'
 
-import { Form, Button, Tooltip, OverlayTrigger, Row, Col, Container} from 'react-bootstrap/';
-
-
-import { Contract } from '@ethersproject/contracts'
-import { addresses, abis } from '@project/contracts'
+import { Form, Button, Row, Col, Container} from 'react-bootstrap/';
 
 import { Grey, Blue, Input} from '@project/react-app/src/components'
 
 
 export const NuBalance = (props) => {
     const context = useContext(Context)
-    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet
+    const {provider, account, contracts} = context.wallet
 
     useEffect(() => {
         if (!props.balance && props.onBalance){
@@ -23,12 +18,10 @@ export const NuBalance = (props) => {
                 props.onBalance(nunits)
             }
             if (provider && account){
-                const defaultProvider = getDefaultProvider(parseInt(provider.chainId))
-                const NUtoken = new Contract(addresses[provider.chainId].NU, abis[provider.chainId].NU, defaultProvider)
-                NUtoken.balanceOf(account).then(handleBalance)
+                contracts.NU.balanceOf(account).then(handleBalance)
             }
         }
-    }, [ account ])
+    }, [ account, provider, contracts, props ])
 
     return (
         <div>

@@ -16,7 +16,7 @@ const activeStyle = function(theme){
 export default (props) => {
     //[{path: 'some-path', label: "Some Page"}]
 
-    let { path, url } = useRouteMatch();
+    let { url } = useRouteMatch();
     const theme = useContext(ThemeContext);
 
     return (

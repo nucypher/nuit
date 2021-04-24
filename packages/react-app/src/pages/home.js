@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Jumbotron } from 'react-bootstrap/';
+import { Container, Row, Col } from 'react-bootstrap/';
 import { PrimaryButton, SecondaryButton, PurpleButton, Blue, Purple, Grey, HR } from '../components'
 
 import {
