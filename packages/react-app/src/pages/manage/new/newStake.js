@@ -9,7 +9,7 @@ import {
 import CreateWorker from './createWorker'
 import CreateStake from './createStake'
 import BondWorker from './bondWorker'
-import Breadcrumbs from '../../../components/breadcrumbs'
+import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 
 export function NewStake() {
     let { path } = useRouteMatch();

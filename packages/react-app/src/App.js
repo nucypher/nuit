@@ -9,18 +9,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style.css'
 
 import { ThemeProvider } from 'styled-components';
-import useWeb3Modal from 'hooks/useWeb3Modal'
+import useWeb3Modal from '@project/react-app/src/hooks/useWeb3Modal'
 
-import { Main } from './components'
-import { light } from './themes'
+import { Main } from '@project/react-app/src/components'
+import { light } from '@project/react-app/src/themes'
 
-import Header from './components/header'
-import Footer from './components/footer'
-import { Home, Manage, NewStake, Documentation } from './pages'
+import Header from '@project/react-app/src/components/header'
+import Footer from '@project/react-app/src/components/footer'
+import { Home, Manage, NewStake, Documentation } from '@project/react-app/src/pages'
 
 import { Container } from 'react-bootstrap/';
 
-import { Context } from 'utils';
+import { Context } from '@project/react-app/src/utils';
 
 
 function App () {

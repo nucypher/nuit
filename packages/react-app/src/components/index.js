@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as Moon } from '../assets/icons/moon.svg'
 import { ReactComponent as Sun } from '../assets/icons/sun.svg'
 
-export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from './ethComponents'
-export { NuStakeAllocator, NuBalance } from './nuComponents'
-export { Slider } from './slider'
-export { CircleQ } from './circleQ'
+export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from '@project/react-app/src/components/ethComponents'
+export { NuStakeAllocator, NuBalance } from '@project/react-app/src/components/nuComponents'
+export { Slider } from '@project/react-app/src/components/slider'
+export { CircleQ } from '@project/react-app/src/components/circleQ'
 
 
 const spaces = {
