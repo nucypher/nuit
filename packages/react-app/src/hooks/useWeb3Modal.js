@@ -88,12 +88,12 @@ function useWeb3Modal (config = {}) {
 
     // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
-      logoutOfWeb3Modal()
+        loadWeb3Modal()
     });
 
     // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
-      logoutOfWeb3Modal()
+        loadWeb3Modal()
     });
 
     provider.on("disconnect", () => {
