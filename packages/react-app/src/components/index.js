@@ -7,8 +7,8 @@ import { ReactComponent as Sun } from '../assets/icons/sun.svg'
 import { ReactComponent as NCWhite } from '../assets/icons/NCWhite.svg'
 import { ReactComponent as NCBlack } from '../assets/icons/NCBlack.svg'
 
-export { WorkerETHAddressField, WorkerRunwayDisplay } from './ethAddressField'
-export { NuStakeAllocator } from './nuStakeAllocator'
+export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from './ethComponents'
+export { NuStakeAllocator, NuBalance } from './nuComponents'
 export { Slider } from './slider'
 export { CircleQ } from './circleQ'
 
@@ -63,7 +63,6 @@ export const Main = styled.div`
     background-color: ${props => props.theme.colors.extrabg};
   }
 
-
   // override bootstrap colors with theme colors
   & .card {
     background-color: ${props => props.theme.colors.background};
@@ -84,9 +83,7 @@ export const ButtonBox = styled.div`
   background-color: ${props => props.theme.colors.extrabg};
   border-radius: ${spaces.sm};
 `
-export const Blue = styled.span`
-  color: ${props => props.theme.colors.blue};
-`
+
 
 export const Purple = styled.span`
 color: ${props => props.theme.colors.purple};
@@ -122,6 +119,7 @@ export const NCButtonBase = styled.button`
   justify-content: center;
   align-items: center;
 
+  white-space: nowrap;
 
   @media ${device.tablet} {
     min-width: 9em;
@@ -137,10 +135,18 @@ export const NCButtonBase = styled.button`
   padding: ${ props => (props.small ? `${spaces.xs} ${spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
 `
 
-export const PrimaryButton = styled(NCButtonBase)`
+export const PrimaryButton = styled(NCButtonBase).attrs({ className: 'bluebg' })`
   background: ${props => props.theme.buttons.primary.background};
   border: ${props => props.theme.buttons.primary.border};
   color: ${props => props.theme.buttons.primary.text.main};
+`
+
+export const Blue = styled('span')`
+  color: ${props => props.theme.colors.blue};
+
+  .bluebg & {
+    color: white;
+  }
 `
 
 

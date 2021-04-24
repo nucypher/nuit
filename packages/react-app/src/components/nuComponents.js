@@ -1,9 +1,11 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getDefaultProvider } from '@ethersproject/providers'
 
+import { Context } from '../utils'
+
 import { Form, Button, Tooltip, OverlayTrigger, Row, Col, Container} from 'react-bootstrap/';
-import useWeb3Modal from '../hooks/useWeb3Modal'
+
 
 import { Contract } from '@ethersproject/contracts'
 import { addresses, abis } from '@project/contracts'
@@ -11,36 +13,44 @@ import { addresses, abis } from '@project/contracts'
 import { Grey, Blue, Input} from '@project/react-app/src/components'
 
 
-function NUDisplay (props) {
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
-    const defaultProvider = getDefaultProvider()
+export const NuBalance = (props) => {
+    const context = useContext(Context)
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet
 
     useEffect(() => {
-        if (!props.balance){
+        if (!props.balance && props.onBalance){
             function handleBalance(nunits) {
-                const NUAmount = (parseFloat(nunits) / 10 ** 18).toFixed(2);
-                props.onBalance(NUAmount)
+                props.onBalance(nunits)
             }
             if (provider && account){
-                const NUtoken = new Contract(addresses.NU, abis.erc20, defaultProvider)
+                const defaultProvider = getDefaultProvider(parseInt(provider.chainId))
+                const NUtoken = new Contract(addresses[provider.chainId].NU, abis[provider.chainId].NU, defaultProvider)
                 NUtoken.balanceOf(account).then(handleBalance)
             }
         }
     }, [ account ])
 
     return (
+        <div>
+            {props.balance ? <strong><Blue>{(parseFloat(props.balance) / 10 ** 18).toFixed(2)}</Blue> <Grey>NU</Grey></strong> : ''}
+        </div>
+    )
+}
+
+
+function NuCLickDisplay (props) {
+
+    return (
         <Button onClick={props.onClick} variant="link">
-            {props.balance ? <strong><Blue>{props.balance}</Blue> <Grey>NU</Grey></strong> : ''}
+            <NuBalance balance={props.balance} onBalance={props.onBalance}/>
         </Button>
     )
-
 }
 
 export const NuStakeAllocator = (props) => {
 
     const [NUBalance, setNUBalance] = useState(null)
     const [localValue, setLocalValue] = useState(props.value? props.value : '')
-
 
     const setValue = (value) => {
         props.onChange(value)
@@ -53,7 +63,7 @@ export const NuStakeAllocator = (props) => {
                 <Col>
                     <div className="d-flex justify-content-between">
                         <Grey>Stake</Grey>
-                        <NUDisplay onClick={(e) => setValue(NUBalance)} balance={NUBalance} onBalance={setNUBalance}/>
+                        <NuCLickDisplay onClick={(e) => setValue(NUBalance)} balance={NUBalance} onBalance={setNUBalance}/>
                     </div>
                 </Col>
             </Row>

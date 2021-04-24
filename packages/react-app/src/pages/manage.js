@@ -1,26 +1,73 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { Context } from '../utils'
+
 import { Container, Row, Col } from 'react-bootstrap/';
-import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton } from '@project/react-app/src/components'
-import useWeb3Modal from '../hooks/useWeb3Modal'
+import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance} from '@project/react-app/src/components'
 
 export function Manage() {
 
-    const [availableNU, setavailableNU] = useState(0);
-    const [availableETH, setavailableETH] = useState(0);
+    const [availableNU, setAvailableNU] = useState(0);
+    const [availableETH, setAvailableETH] = useState(0);
+
+    const [availableNuRewards, setAvailableNuRewards] = useState(0);
+    const [availableEthRewards, setAvailableEthRewards] = useState(0);
 
     const [workerAddress, setWorkerAddress] = useState(null);
     const [stakerAddress, setStakerAddress] = useState(null);
 
-    const [stakeList, setStakeList] = useState([{start: '2021-04-01',  end: '2021-05-19', lockedNU: 48000}, {start: '2021-04-01', end:  '2021-07-19', lockedNU: 96000}]);
+    const [stakerData, setStakerData] = useState({substakes:[]});
 
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account] = useWeb3Modal()
+    const context = useContext(Context)
+    const {provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts} = context.wallet;
 
     useEffect(() => {
-        // get all the data here
-    })
+        const getStakerData = async () => {
+            const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
+            stakerInfo.lockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
+            const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
+            const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
+            const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
 
+            let lockedNU = 0.0;
+            // getting an array with all substakes
+            const substakes = await (async () => {
+                if (getSubStakesLength !== '0') {
+                    let substakeList = [];
+                    for (let i = 0; i < getSubStakesLength; i++) {
+                    let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
+                    rawList.id = i.toString();
+                    rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
+                    if (parseInt(rawList.lastPeriod) > 1){
+                        substakeList.push(rawList);
+                    }
 
+                    lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
+
+                    }
+                    return substakeList;
+                } else {
+                    let substakeList = null;
+                    return substakeList;
+                }
+            })();
+            setStakerData({
+                info: stakerInfo,
+                flags,
+                substakes,
+                lockedNU,
+                policyInfo,
+                availableNUWithdrawal: (new web3.utils.BN(stakerInfo.value)).sub(new web3.utils.BN(stakerInfo.lockedTokens)).toString(),
+                availableETHWithdrawal: policyInfo[3]
+            })
+            setWorkerAddress(stakerInfo.worker)
+        }
+        if (contracts && account){
+            getStakerData()
+        }
+    }, [account])
+    console.log(stakerData)
     return (
         <Container>
             <Row>
@@ -42,13 +89,13 @@ export function Manage() {
                                 <Col>
                                 <strong>Staking</strong>
                                 <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
-                                <PrimaryButton className="mt-2" width="100">Withdraw {availableNU} <Grey>NU</Grey></PrimaryButton>
+                                <PrimaryButton className="mt-2" width="100"><small>Withdraw</small>  <NuBalance balance={stakerData.availableNUWithdrawal}/></PrimaryButton>
                                 </Col>
 
                                 <Col>
                                 <strong>Policy</strong>
                                 <CircleQ tooltip="ETH rewards collected from policy fees"/>
-                                <PrimaryButton className="mt-2" width="100">Withdraw {availableETH} <Grey>ETH</Grey></PrimaryButton>
+                                <PrimaryButton className="mt-2" width="100"><small>Withdraw</small> {stakerData.availableETHWithdrawal} <Grey>ETH</Grey></PrimaryButton>
                                 </Col>
                             </Col>
                         </Row>
@@ -64,14 +111,17 @@ export function Manage() {
                             <Col>
                                 <div className="d-flex justify-content-between">
                                 <Grey>Worker</Grey>
-                                <PrimaryButton small>Change</PrimaryButton>
+                                <PrimaryButton small>{workerAddress ? 'Change' : 'Set Worker'}</PrimaryButton>
                                 </div>
                                <ButtonBox className="mb-3 mt-1">
-                                   <strong>{workerAddress || account}</strong>
-                                   <WorkerRunwayDisplay address={workerAddress || account}/>
-                                   <DataRow>
-                                       <strong>Last Committed Period</strong><span><Blue>2762</Blue></span>
-                                    </DataRow>
+                                   { workerAddress ?
+                                   <div>
+                                    <strong>{workerAddress || account}</strong>
+                                    <WorkerRunwayDisplay address={workerAddress}/>
+                                    <DataRow>
+                                        <strong>Last Committed Period</strong><span><Blue>{stakerData.info.currentCommittedPeriod}</Blue></span>
+                                        </DataRow>
+                                    </div> : <p> no worker associated with account</p>}
                                </ButtonBox>
 
                                <div className="d-flex justify-content-between">
@@ -80,13 +130,13 @@ export function Manage() {
                                <ButtonBox className="mb-3">
                                    <strong>{stakerAddress || account}</strong>
                                    <DataRow className="mt-3">
-                                       <strong>ETH balance</strong><span><Blue>10</Blue> <Grey>ETH</Grey></span>
+                                       <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>NU balance</strong><span><Blue>10123</Blue> <Grey>NU</Grey></span>
+                                       <strong>NU balance</strong><span><NuBalance balance={availableNU} onBalance={setAvailableNU}/></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>Total NU Locked</strong><span><Blue>{48000 + 96000}</Blue> <Grey>NU</Grey></span>
+                                       <strong>Total NU Locked</strong><span><NuBalance balance={stakerData.lockedNU}/></span>
                                     </DataRow>
                                </ButtonBox>
                                <div className="d-flex justify-content-between">
@@ -94,22 +144,24 @@ export function Manage() {
                                 <PrimaryButton small>Add Substake</PrimaryButton>
                                 </div>
                                <ButtonBox className="mt-1">
-                               {
-                                    stakeList.map((st, index)=>{
+                               {stakerData.substakes.length ?
+                                    stakerData.substakes.map((st, index)=>{
                                         return(
-                                        <div key={index}>
+                                        <div className="mt-3" key={index}>
                                             <DataRow>
-                                                <strong>start: {st.start}</strong>
-                                                <strong>end: {st.end}</strong>
-                                                <span><Blue>{st.lockedNU}</Blue><Grey>NU</Grey></span>
+                                                <strong>start: {st.firstPeriod}</strong>
+                                                <strong>end: {st.lastPeriod}</strong>
+                                                <span><NuBalance balance={st.lockedValue}/></span>
                                             </DataRow>
-                                            <div className="flex justify-content-around">
-                                                <PrimaryButton className="mr-3" small>Prolong</PrimaryButton>
+                                            <div className="d-flex justify-content-center">
+                                            {parseInt(st.unlockingDuration) ? <div className="flex justify-content-around">
+                                                <SecondaryButton className="mr-3" small>Prolong</SecondaryButton>
                                                 <SecondaryButton className="mr-3" small>Divide</SecondaryButton>
+                                            </div> : <Grey>unlocked</Grey>}
                                             </div>
                                         </div>
                                         )
-                                    })
+                                    }) : null
                                 }
                                </ButtonBox>
                             </Col>
