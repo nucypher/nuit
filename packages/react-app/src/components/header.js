@@ -1,9 +1,9 @@
 import React from 'react'
 import { useContext } from 'react';
-import { SecondaryButton, ThemeButton, NCLogo, HeaderNav } from '../components'
-import { truncate, Context } from '../utils'
+import { SecondaryButton, ThemeButton, NCLogo, HeaderNav } from '@project/react-app/src/components'
+import { truncate, Context } from '@project/react-app/src/utils'
 
-import { light, dark } from '../themes'
+import { light, dark } from '@project/react-app/src/themes'
 
 function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) {
     return (

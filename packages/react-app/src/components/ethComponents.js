@@ -1,13 +1,12 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react';
 
-import { Context } from '../utils'
+import { Context, validateEthAdress } from '@project/react-app/src/utils'
 
 
 import { Form, Button, Tooltip, OverlayTrigger} from 'react-bootstrap/';
 
-import { ReactComponent as CircleQ } from '../assets/icons/circleQ.svg'
-import { validateEthAdress } from '../utils'
+import { ReactComponent as CircleQ } from '@project/react-app/src/assets/icons/circleQ.svg'
 
 import { Grey, Blue } from '@project/react-app/src/components'
 
