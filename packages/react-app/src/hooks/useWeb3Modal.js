@@ -12,6 +12,7 @@ const INFURA_ID = process.env.REACT_APP_INFURA_ID
 const NETWORK_NAME = 'mainnet'
 
 function useWeb3Modal (config = {}) {
+
   const [provider, setProvider] = useState()
   const [account, setAccount] = useState()
   const [autoLoaded, setAutoLoaded] = useState(false)

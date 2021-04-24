@@ -63,7 +63,6 @@ export const Main = styled.div`
     background-color: ${props => props.theme.colors.extrabg};
   }
 
-
   // override bootstrap colors with theme colors
   & .card {
     background-color: ${props => props.theme.colors.background};
@@ -84,9 +83,7 @@ export const ButtonBox = styled.div`
   background-color: ${props => props.theme.colors.extrabg};
   border-radius: ${spaces.sm};
 `
-export const Blue = styled.span`
-  color: ${props => props.theme.colors.blue};
-`
+
 
 export const Purple = styled.span`
 color: ${props => props.theme.colors.purple};
@@ -124,7 +121,6 @@ export const NCButtonBase = styled.button`
 
   white-space: nowrap;
 
-
   @media ${device.tablet} {
     min-width: 9em;
   }
@@ -139,10 +135,18 @@ export const NCButtonBase = styled.button`
   padding: ${ props => (props.small ? `${spaces.xs} ${spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
 `
 
-export const PrimaryButton = styled(NCButtonBase)`
+export const PrimaryButton = styled(NCButtonBase).attrs({ className: 'bluebg' })`
   background: ${props => props.theme.buttons.primary.background};
   border: ${props => props.theme.buttons.primary.border};
   color: ${props => props.theme.buttons.primary.text.main};
+`
+
+export const Blue = styled('span')`
+  color: ${props => props.theme.colors.blue};
+
+  .bluebg & {
+    color: white;
+  }
 `
 
 
