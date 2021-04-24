@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react';
 
-import { Context } from '../utils'
+import { Context } from '@project/react-app/src/utils'
+
+import { EMPTY_WORKER } from '@project/react-app/src/constants'
 
 import { Container, Row, Col } from 'react-bootstrap/';
 import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance} from '@project/react-app/src/components'
@@ -49,16 +51,20 @@ export function Manage() {
                     return substakeList;
                 }
             })();
+
+
             setStakerData({
                 info: stakerInfo,
                 flags,
-                substakes,
+                substakes: substakes || [],
                 lockedNU,
                 policyInfo,
                 availableNUWithdrawal: (new web3.utils.BN(stakerInfo.value)).sub(new web3.utils.BN(stakerInfo.lockedTokens)).toString(),
                 availableETHWithdrawal: policyInfo[3]
             })
-            setWorkerAddress(stakerInfo.worker)
+            if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
+                setWorkerAddress(stakerInfo.worker)
+            }
         }
         if (contracts && account){
             getStakerData()
@@ -113,7 +119,7 @@ export function Manage() {
                                <ButtonBox className="mb-3 mt-1">
                                    { workerAddress ?
                                    <div>
-                                    <strong>{workerAddress || account}</strong>
+                                    <strong>{workerAddress}</strong>
                                     <WorkerRunwayDisplay address={workerAddress}/>
                                     <DataRow>
                                         <strong>Last Committed Period</strong><span><Blue>{stakerData.info.currentCommittedPeriod}</Blue></span>

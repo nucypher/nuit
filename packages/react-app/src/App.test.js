@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import App from './App'
+import App from '@project/react-app/src/App'
 import { ApolloProvider } from '@apollo/react-hooks'
 import ApolloClient from 'apollo-boost'
 
