@@ -1,14 +1,15 @@
-import React from 'react'
-import { useState, useEffect, useContext } from 'react';
+import React, {useContext, useEffect, useState} from 'react'
 
-import { Context, validateEthAdress } from '@project/react-app/src/utils'
+import {Context} from '@project/react-app/src/utils'
 
 
-import { Form, Button, Tooltip, OverlayTrigger} from 'react-bootstrap/';
+import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
 
-import { ReactComponent as CircleQ } from '@project/react-app/src/assets/icons/circleQ.svg'
+import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
+import {ReactComponent as CircleQ} from '../assets/icons/circleQ.svg'
+import {validateEthAddress} from '../utils'
 
-import { Grey, Blue } from '@project/react-app/src/components'
+import {Blue, Grey} from '@project/react-app/src/components'
 
 
 export const WorkerRunwayDisplay = (props) => {
@@ -76,7 +77,7 @@ export class WorkerETHAddressField extends React.Component{
         console.log(input)
         this.setState({rawValue: input});
 
-        if (validateEthAdress(input)){
+        if (validateEthAddress(input)){
             this.setState({validated: true, value: input})
             this.props.onChange(input)
         }
@@ -138,8 +139,3 @@ export const EthBalance = (props) => {
         </div>
     )
 }
-
-
-
-
-

@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style.css'
 
 import {ThemeProvider} from 'styled-components';
-import useWeb3Modal from '@project/react-app/src/hooks/useWeb3Modal'
+import useWeb3Modal from './hooks/useWeb3Modal'
 
 import {Main} from '@project/react-app/src/components'
 import {light} from '@project/react-app/src/themes'
@@ -19,6 +19,7 @@ import {Container} from 'react-bootstrap/';
 
 import {Context, eventQueue} from '@project/react-app/src/utils';
 import {EMPTY_WORKER} from '@project/react-app/src/constants'
+import {Context} from './utils';
 
 
 function App () {
