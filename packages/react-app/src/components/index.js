@@ -147,6 +147,11 @@ export const Blue = styled('span')`
   }
 `
 
+export const Error = styled('span')`
+  color: ${props => props.theme.colors.red} !important;
+  font-weight: 600;
+`
+
 
 export const PurpleButton = styled(PrimaryButton)`
   background: ${props => props.theme.colors.purple};
@@ -275,7 +280,12 @@ export const SliderInput = styled.div`
 export const DataRow = styled.div`
   display: flex;
   justify-content: space-between;
+`
 
+export const PopupMessage = styled.div`
+  position:absolute;
+  right:0px;
+  top: 75px;
 `
 
 export class ButtonGroup extends React.Component{

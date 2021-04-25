@@ -11,6 +11,7 @@ export const light = {
         },
         blue: '#1E65F3',
         purple: '#6B32D8',
+        red: 'tomato',
         shadow: '0px 16px 40px -16px rgba(55, 55, 55, 0.3)'
     },
     buttons:{
@@ -53,6 +54,7 @@ export const dark = {
             grey75: '#828A9C',
         },
         blue: '#1E65F3',
+        red: 'tomato',
         purple: '#6B32D8',
         shadow: '0px 16px 40px -16px rgba(55, 55, 55, 0.3)'
     },

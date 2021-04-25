@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useContext } from 'react'
 import Web3Modal from 'web3modal'
 import Web3 from "web3";
 import WalletConnectProvider from '@walletconnect/web3-provider'
@@ -7,13 +7,15 @@ import { getDefaultProvider } from '@ethersproject/providers'
 import { addresses, abis } from '@project/contracts'
 import { Contract } from '@ethersproject/contracts'
 
+import { PUBLIC_CHAINS } from '@project/react-app/src/constants'
+
 // Enter a valid infura key here to avoid being rate limited
 // You can get a key for free at https://infura.io/register
 const INFURA_ID = process.env.REACT_APP_INFURA_ID
 
 const NETWORK_NAME = 'mainnet'
 
-function useWeb3Modal (config = {}) {
+function useWeb3Modal (messageHandler, config = {}) {
 
   const [provider, setProvider] = useState()
   const [account, setAccount] = useState()
@@ -52,6 +54,11 @@ function useWeb3Modal (config = {}) {
     const chID = provider.chainId
     const ABIs = abis[chID]
     const addrs = addresses[chID]
+
+    if (addrs === undefined){
+      messageHandler(`Sorry, ${PUBLIC_CHAINS[parseInt(chID)] || chID} is not one of our supported networks.`)
+      return
+    }
 
     const ctrcts = {};
     if (provider && web3){

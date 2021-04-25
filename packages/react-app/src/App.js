@@ -16,6 +16,7 @@ import { light } from '@project/react-app/src/themes'
 
 import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
+import { MessagePublisher } from '@project/react-app/src/components/messaging'
 import { Home, Manage, NewStake, Documentation } from '@project/react-app/src/pages'
 
 import { Container } from 'react-bootstrap/';
@@ -26,8 +27,9 @@ import { Context } from '@project/react-app/src/utils';
 function App () {
 
   const [theme, setTheme] = useState(light);
+  const [message, publishMessage] = useState(null)
+  const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(publishMessage)
 
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal()
   const context = {
     wallet: {
       provider,
@@ -36,16 +38,19 @@ function App () {
       account,
       web3,
       contracts
+    },
+    messages:{
+      message,
+      publishMessage
     }
   }
-
-
 
   return (
     <Context.Provider value={context}>
       <ThemeProvider theme={theme}>
         <Router>
         <Header theme={theme} setTheme={setTheme}/>
+        <MessagePublisher/>
         <Main id="NCmain">
           <Container>
             <Switch>

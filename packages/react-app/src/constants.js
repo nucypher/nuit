@@ -12,3 +12,16 @@ const calcROI = (amount, duration) => {
 }
 
 export { calcROI, MIN_STAKE, EMPTY_WORKER }
+
+export const PUBLIC_CHAINS = {
+    0: "Olympic",
+    1: "Mainnet",
+    2: "Morden",
+    3: "Ropsten",
+    4: "Rinkeby",
+    5: "Goerli",
+    6: "Kotti",
+    42: "Kovan",
+    77: "Sokol",
+    100: "xDai",
+}

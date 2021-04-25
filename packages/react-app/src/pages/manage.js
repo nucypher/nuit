@@ -7,6 +7,7 @@ import { EMPTY_WORKER } from '@project/react-app/src/constants'
 
 import { Container, Row, Col } from 'react-bootstrap/';
 import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance} from '@project/react-app/src/components'
+import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 
 export function Manage() {
 
@@ -73,6 +74,13 @@ export function Manage() {
     console.log(stakerData)
     return (
         <Container>
+            <Row>
+                <Breadcrumbs paths={[
+                    {path:'../', label: 'root', enabled: true },
+                    {path: '.', label: 'manage', enabled: true},
+                ]}/>
+            </Row>
+
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
                     <h1>Manage Staked Nu</h1>
