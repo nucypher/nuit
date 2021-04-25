@@ -56,7 +56,7 @@ function useWeb3Modal (messageHandler, config = {}) {
     const addrs = addresses[chID]
 
     if (addrs === undefined){
-      messageHandler(`Sorry, ${PUBLIC_CHAINS[parseInt(chID)] || chID} is not one of our supported networks.`)
+      messageHandler({type: 'error', message:`Unsupported Network.  Sorry, We don't currently support ${PUBLIC_CHAINS[parseInt(chID)] || 'chain ID: ' + chID}`})
       return
     }
 

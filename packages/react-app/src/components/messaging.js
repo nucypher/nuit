@@ -6,7 +6,18 @@ import { Blue, Error, PopupMessage } from '@project/react-app/src/components'
 
 import { Context } from '@project/react-app/src/utils'
 
-export function MessagePublisher (){
+
+const ShowMessage = (message) => {
+
+    switch(message.type) {
+        case 'error':
+            return <Error>{message.message}</Error>
+        case undefined:
+            return <Blue>{message}</Blue>
+    }
+}
+
+export const MessagePublisher = () => {
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState('')
 
@@ -27,7 +38,7 @@ export function MessagePublisher (){
                 <Toast.Header>
                 <strong className="mr-auto"><Blue>NuCypher</Blue></strong>
                 </Toast.Header>
-                <Toast.Body><Error>{message}</Error></Toast.Body>
+                <Toast.Body>{ShowMessage(message)}</Toast.Body>
             </Toast>
         </PopupMessage>
     )
