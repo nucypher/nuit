@@ -1,10 +1,12 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap/';
 
 import { Grey, Blue, InputBox, Slider, PrimaryButton, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 import { calcROI } from '@project/react-app/src/constants'
 import { Link } from 'react-router-dom'
+
+import { Context } from '@project/react-app/src/utils'
 
 export default (props) => {
 
@@ -13,6 +15,8 @@ export default (props) => {
     const [duration, setDuration] = useState(props.duration || 30)
 
     const [roi, setRoi] = useState({apr: 0, net: 0})
+
+    const context = useContext(Context)
 
     const onAmountChanged = (amount) => {
 
@@ -36,7 +40,6 @@ export default (props) => {
     }
 
     const handleNewStake = (e) =>{
-        console.log(e)
         e.preventDefault()
         props.setStake(true)
     }

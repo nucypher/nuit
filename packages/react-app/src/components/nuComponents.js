@@ -15,17 +15,18 @@ export const NuBalance = (props) => {
     useEffect(() => {
         if (!props.balance && props.onBalance){
             function handleBalance(nunits) {
+                console.log(parseInt(nunits))
                 props.onBalance(nunits)
             }
             if (provider && account){
                 contracts.NU.balanceOf(account).then(handleBalance)
             }
         }
-    }, [ account, provider, contracts, props ])
+    }, [ account, provider, contracts ])
 
     return (
         <div>
-            {props.balance ? <strong><Blue>{web3.utils.fromWei(props.balance.toString(), 'ether')}</Blue> <Grey>NU</Grey></strong> : ''}
+            {props.balance ? <strong><Blue>{props.balance ? <strong><Blue>{(parseFloat(props.balance) / 10 ** 18).toFixed(2)}</Blue> <Grey>NU</Grey></strong> : ''}</Blue></strong> : ''}
         </div>
     )
 }
@@ -77,7 +78,7 @@ export const NuStakeAllocator = (props) => {
                         type="text"
                         value={localValue}
                     />
-                    <Form.Control.Feedback type="invalid">Amount {localValue} is less than the minimum 15,000 NU.</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Amount {localValue}is less than the minimum 15,000 NU.</Form.Control.Feedback>
                 </Form.Group>
             </Row>
     </Container>

@@ -28,14 +28,15 @@ import { EMPTY_WORKER } from '@project/react-app/src/constants'
 function App () {
 
   const [theme, setTheme] = useState(light);
-  const [message, publishMessage] = useState(null)
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(publishMessage)
+  const [message, setMessage] = useState(null)
+  const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(setMessage)
 
   const [availableNU, setAvailableNU] = useState(0);
   const [availableETH, setAvailableETH] = useState(0)
   const [workerAddress, setWorkerAddress] = useState(null)
   const [stakerData, setStakerData] = useState({substakes:[]})
   const [stakerUpdated, setStakerUpdated] =  useState(false)
+  const [modal, setModal] = useState(null)
 
   const context = {
     wallet: {
@@ -48,18 +49,24 @@ function App () {
     },
     messages:{
       message,
-      publishMessage
+      setMessage
+    },
+    modals:{
+      modal,
+      setModal
     },
     stakerData: stakerData,
     workerAddress: {set: setWorkerAddress, get: workerAddress},
     availableNU: {set: setAvailableNU, get: availableNU},
-    availableETH: {set: setAvailableETH, get: availableETH}
+    availableETH: {set: setAvailableETH, get: availableETH},
+    setStakerUpdated
   }
 
   useEffect(() => {
     const getStakerData = async () => {
         const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
         stakerInfo.lockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
+
         const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
         const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
         const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
@@ -88,6 +95,7 @@ function App () {
             }
         })();
 
+        const availableNUWithdrawal = (new web3.utils.BN(stakerInfo.value)).sub(new web3.utils.BN(stakerInfo.lockedTokens)).toString()
 
         setStakerData({
             info: stakerInfo,
@@ -95,13 +103,14 @@ function App () {
             substakes: substakes || [],
             lockedNU,
             policyInfo,
-            availableNUWithdrawal: (new web3.utils.BN(stakerInfo.value)).sub(new web3.utils.BN(stakerInfo.lockedTokens)).toString(),
+            availableNUWithdrawal,
             availableETHWithdrawal: policyInfo[3]
         })
         if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
             setWorkerAddress(stakerInfo.worker)
         }
         setStakerUpdated(false)
+        console.log(lockedNU, availableNUWithdrawal)
     }
 
     if (contracts && account){

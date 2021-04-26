@@ -56,6 +56,8 @@ function useWeb3Modal (messageHandler, config = {}) {
     const addrs = addresses[chID]
 
     if (addrs === undefined){
+      console.log(PUBLIC_CHAINS[parseInt(chID)])
+
       messageHandler({type: 'error', message:`Unsupported Network.  Sorry, We don't currently support ${PUBLIC_CHAINS[parseInt(chID)] || 'chain ID: ' + chID}`})
       return
     }
@@ -89,25 +91,24 @@ function useWeb3Modal (messageHandler, config = {}) {
     const w3 = new Web3(provider);
     setWeb3(w3)
     setProvider(provider)
-
-
     instantiateContracts(provider, w3)
 
+
     // Subscribe to accounts change
-    provider.on("accountsChanged", (accounts) => {
+    provider.once("accountsChanged", (accounts) => {
         loadWeb3Modal()
     });
 
     // Subscribe to chainId change
-    provider.on("chainChanged", (chainId) => {
+    provider.once("chainChanged", (chainId) => {
         loadWeb3Modal()
     });
 
-    provider.on("disconnect", () => {
+    provider.once("disconnect", () => {
       logoutOfWeb3Modal()
     });
 
-    provider.on("connect", () => {
+    provider.once("connect", () => {
       console.log('connected')
     });
 

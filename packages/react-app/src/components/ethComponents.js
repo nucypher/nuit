@@ -12,6 +12,7 @@ import { Grey, Blue } from '@project/react-app/src/components'
 
 
 export const WorkerRunwayDisplay = (props) => {
+    const [address, setAddress] = useState(props.address)
     const [balance, setBalance] = useState(null)
     const [runway, setRunway] = useState(null)
     const {provider, web3 } = useContext(Context).wallet
@@ -26,9 +27,9 @@ export const WorkerRunwayDisplay = (props) => {
             setRunway(((ethAmount / ethCostPerDay).toFixed() * periodLength).toFixed(0))
         }
         if (provider){
-            web3.eth.getBalance(props.address).then(handleBalance)
+            web3.eth.getBalance(address).then(handleBalance)
         }
-    })
+    }, [address])
 
     return (
         <div className="mt-3">
@@ -72,6 +73,7 @@ export class WorkerETHAddressField extends React.Component{
       }
 
     handleInputChange(input){
+        console.log(input)
         this.setState({rawValue: input});
 
         if (validateEthAdress(input)){

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useContext, useEffect } from 'react'
-import { Toast, Row, Col, Button, Container } from 'react-bootstrap/';
+import { Toast, Modal } from 'react-bootstrap/';
 
-import { Blue, Error, PopupMessage } from '@project/react-app/src/components'
+import { Blue, Error, PopupMessages } from '@project/react-app/src/components'
 
 import { Context } from '@project/react-app/src/utils'
 
@@ -12,34 +12,76 @@ const ShowMessage = (message) => {
     switch(message.type) {
         case 'error':
             return <Error>{message.message}</Error>
-        case undefined:
-            return <Blue>{message}</Blue>
+        default:
+            return <Blue>{message.message}</Blue>
     }
 }
 
-export const MessagePublisher = () => {
-    const [show, setShow] = useState(false);
-    const [message, setMessage] = useState('')
+const ToastMessage = (props) => {
 
-    const context = useContext(Context)
+    const [show, setShow] = useState(true);
 
     useEffect(() => {
-        if (context.messages.message){
-            setShow(true)
-            setMessage(context.messages.message)
-            context.messages.publishMessage()
+        setShow(false)
+    })
+
+    return (
+        <Toast onClose={(e) => {props.onHide(props.message.index, setShow)}} show={show} delay={6000} autohide>
+            <Toast.Header>
+            <strong className="mr-auto"><Blue>NuCypher {props.message.index}</Blue></strong>
+            </Toast.Header>
+            <Toast.Body>{ShowMessage(props.message)}</Toast.Body>
+        </Toast>
+    )
+}
+
+export const MessagePublisher = () => {
+
+    const [messages, setMessages] = useState([])
+    const [messageIndex, incrementMessages] = useState(0)
+    const context = useContext(Context)
+
+    const removeMessage = (index, setShow) => {
+
+        const visible = messages.filter((m) => {
+            return m.index != index
+        })
+        setMessages(visible)
+        setShow(false)
+    }
+
+    useEffect(() => {
+        if (context.messages.message !== null){
+            const newMessage = {index: messageIndex, ... context.messages.message}
+
+            const appended = messages
+            appended.push(newMessage)
+
+            setMessages(appended)
+            incrementMessages(messageIndex + 1)
+            context.messages.setMessage(null)
         }
 
     }, [context.messages.message, context.messages])
 
     return (
-        <PopupMessage>
-            <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-                <Toast.Header>
-                <strong className="mr-auto"><Blue>NuCypher</Blue></strong>
-                </Toast.Header>
-                <Toast.Body>{ShowMessage(message)}</Toast.Body>
-            </Toast>
-        </PopupMessage>
+        <PopupMessages>
+            {messages.map((m) => {
+                return <ToastMessage key={m.index} message={m} onHide={removeMessage}></ToastMessage>
+            })}
+        </PopupMessages>
     )
+  }
+
+
+  export const ModalPopup = () => {
+    const context = useContext(Context)
+
+    useEffect(() => {
+
+    }, [context.modals.modal, context.modals])
+
+
+
+
   }
