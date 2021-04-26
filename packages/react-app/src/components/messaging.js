@@ -30,7 +30,7 @@ export const MessagePublisher = () => {
             context.messages.publishMessage()
         }
 
-    }, [context.messages.message])
+    }, [context.messages.message, context.messages])
 
     return (
         <PopupMessage>

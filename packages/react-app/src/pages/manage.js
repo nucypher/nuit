@@ -3,75 +3,21 @@ import { useState, useEffect, useContext } from 'react';
 
 import { Context } from '@project/react-app/src/utils'
 
-import { EMPTY_WORKER } from '@project/react-app/src/constants'
-
 import { Container, Row, Col } from 'react-bootstrap/';
 import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 
 export function Manage() {
 
-    const [availableNU, setAvailableNU] = useState(0);
-    const [availableETH, setAvailableETH] = useState(0);
-
-    const [workerAddress, setWorkerAddress] = useState(null);
-
-    const [stakerData, setStakerData] = useState({substakes:[]});
-
     const context = useContext(Context)
-    const {account, web3, contracts} = context.wallet;
+    const {account} = context.wallet
+    const stakerData = context.stakerData
+    const workerAddress = context.workerAddress.get
+    const availableETH = context.availableETH.get
+    const availableNU = context.availableNU.get
+    const setAvailableETH = context.availableETH.set
+    const setAvailableNU = context.availableNU.set
 
-    useEffect(() => {
-        const getStakerData = async () => {
-            const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
-            stakerInfo.lockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
-            const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
-            const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
-            const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
-
-            let lockedNU = 0.0;
-            // getting an array with all substakes
-            const substakes = await (async () => {
-                if (getSubStakesLength !== '0') {
-                    let substakeList = [];
-                    for (let i = 0; i < getSubStakesLength; i++) {
-
-                        let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
-                        rawList.id = i.toString();
-                        rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
-
-                        if (parseInt(rawList.lastPeriod) > 1){
-                            substakeList.push(rawList);
-                        }
-
-                        lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
-                    }
-                    return substakeList;
-                } else {
-                    let substakeList = null;
-                    return substakeList;
-                }
-            })();
-
-
-            setStakerData({
-                info: stakerInfo,
-                flags,
-                substakes: substakes || [],
-                lockedNU,
-                policyInfo,
-                availableNUWithdrawal: (new web3.utils.BN(stakerInfo.value)).sub(new web3.utils.BN(stakerInfo.lockedTokens)).toString(),
-                availableETHWithdrawal: policyInfo[3]
-            })
-            if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
-                setWorkerAddress(stakerInfo.worker)
-            }
-        }
-        if (contracts && account){
-            getStakerData()
-        }
-    }, [account, contracts, web3])
-    console.log(stakerData)
     return (
         <Container>
             <Row>

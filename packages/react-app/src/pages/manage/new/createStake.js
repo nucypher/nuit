@@ -9,12 +9,13 @@ import { Link } from 'react-router-dom'
 export default (props) => {
 
     const [nuAllocated, setNuAllocation] = useState(props.amount || 15000)
-    const [AllocationValid, setAllocationValid] = useState(null)
+    const [AllocationValid, setAllocationValid] = useState(false)
     const [duration, setDuration] = useState(props.duration || 30)
 
     const [roi, setRoi] = useState({apr: 0, net: 0})
 
     const onAmountChanged = (amount) => {
+
         if (amount >= 15000){
             setNuAllocation(amount)
             setAllocationValid(true)
@@ -22,7 +23,7 @@ export default (props) => {
                 setRoi(calcROI(amount, duration))
             }
         } else{
-            setNuAllocation(0)
+            setNuAllocation(amount)
             setAllocationValid(false)
         }
     }
@@ -35,6 +36,7 @@ export default (props) => {
     }
 
     const handleNewStake = (e) =>{
+        console.log(e)
         e.preventDefault()
         props.setStake(true)
     }
@@ -84,7 +86,7 @@ export default (props) => {
                             </Row>
                             <Row noGutters className="d-flex justify-content-center mt-3">
                                 <Col className="d-flex justify-content-center">
-                                    <PrimaryButton onClick={handleNewStake} width={100}>Create Stake</PrimaryButton>
+                                    <PrimaryButton disabled={!AllocationValid} onClick={handleNewStake} width={100}>Create Stake</PrimaryButton>
                                 </Col>
                             </Row>
                         </Form>

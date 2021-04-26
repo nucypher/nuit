@@ -10,6 +10,8 @@ export { NuStakeAllocator, NuBalance } from '@project/react-app/src/components/n
 export { Slider } from '@project/react-app/src/components/slider'
 export { CircleQ } from '@project/react-app/src/components/circleQ'
 
+export { BondWorker } from '@project/react-app/src/components/bondWorker'
+
 
 const spaces = {
   xs: "4px",
@@ -131,12 +133,13 @@ export const NCButtonBase = styled.button`
 
   width: ${ props => (props.width ? `${props.width}%` : 'inherit')};
   padding: ${ props => (props.small ? `${spaces.xs} ${spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
+
 `
 
 export const PrimaryButton = styled(NCButtonBase).attrs({ className: 'bluebg' })`
-  background: ${props => props.theme.buttons.primary.background};
+  background: ${props => (props.disabled ? props.theme.colors.text.grey75: props.theme.buttons.primary.background)};
   border: ${props => props.theme.buttons.primary.border};
-  color: ${props => props.theme.buttons.primary.text.main};
+  color: ${props => (props.disabled ? 'white' : props.theme.buttons.primary.text.main)};
 `
 
 export const Blue = styled('span')`
