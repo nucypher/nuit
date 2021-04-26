@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 export default (props) => {
 
     const [nuAllocated, setNuAllocation] = useState(props.amount || 15000)
-    const [AllocationValid, setAllocationValid] = useState(false)
+    const [AllocationValid, setAllocationValid] = useState(true)
     const [duration, setDuration] = useState(props.duration || 30)
 
     const [roi, setRoi] = useState({apr: 0, net: 0})
@@ -45,7 +45,7 @@ export default (props) => {
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))
         }
-    }, [nuAllocated, duration])
+    }, [duration, AllocationValid])
 
     return (
         <Container>

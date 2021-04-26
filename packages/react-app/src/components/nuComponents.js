@@ -54,7 +54,7 @@ export const NuStakeAllocator = (props) => {
         try{
             props.onChange(value)
         } catch(err){
-            console.warn(err)
+            console.error(err)
         }
     }
 
@@ -77,7 +77,7 @@ export const NuStakeAllocator = (props) => {
                         type="text"
                         value={localValue}
                     />
-                    <Form.Control.Feedback type="invalid">Amount is less than the minimum 15,000 NU.</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Amount {localValue} is less than the minimum 15,000 NU.</Form.Control.Feedback>
                 </Form.Group>
             </Row>
     </Container>
