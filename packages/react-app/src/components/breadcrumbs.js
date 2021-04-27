@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { Breadcrumb, Col } from 'react-bootstrap/';
 import { ThemeContext } from 'styled-components';
 import {
+    Link,
     NavLink,
     useRouteMatch
 } from 'react-router-dom'
@@ -19,12 +20,16 @@ export default (props) => {
     let { url } = useRouteMatch();
     const theme = useContext(ThemeContext);
 
+    const renderPath = (path) => {
+        return path.path.startsWith('/') ? path.path : `${url}/${path.path}`
+    }
+
     return (
         <Col xs={12} className="d-flex justify-content-center">
             <Breadcrumb>
                 {props.paths.map((path) => {
                     return path.enabled ? <Breadcrumb.Item linkAs="div" key={path.path}>
-                            <NavLink activeStyle={activeStyle(theme)} to={`${url}/${path.path}`}>
+                            <NavLink activeStyle={activeStyle(theme)} to={renderPath(path)}>
                                 {`${path.label}`}
                             </NavLink>
                     </Breadcrumb.Item>:<Breadcrumb.Item key={path.path} linkAs="div" active="true" style={{color: theme.colors.grey75}}>{`${path.label}`}</Breadcrumb.Item>

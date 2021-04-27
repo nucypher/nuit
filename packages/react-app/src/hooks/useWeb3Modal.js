@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useContext } from 'react'
 import Web3Modal from 'web3modal'
 import Web3 from "web3";
 import WalletConnectProvider from '@walletconnect/web3-provider'
@@ -7,13 +7,15 @@ import { getDefaultProvider } from '@ethersproject/providers'
 import { addresses, abis } from '@project/contracts'
 import { Contract } from '@ethersproject/contracts'
 
+import { PUBLIC_CHAINS } from '@project/react-app/src/constants'
+
 // Enter a valid infura key here to avoid being rate limited
 // You can get a key for free at https://infura.io/register
 const INFURA_ID = process.env.REACT_APP_INFURA_ID
 
 const NETWORK_NAME = 'mainnet'
 
-function useWeb3Modal (config = {}) {
+function useWeb3Modal (messageHandler, config = {}) {
 
   const [provider, setProvider] = useState()
   const [account, setAccount] = useState()
@@ -53,6 +55,13 @@ function useWeb3Modal (config = {}) {
     const ABIs = abis[chID]
     const addrs = addresses[chID]
 
+    if (addrs === undefined){
+      console.log(PUBLIC_CHAINS[parseInt(chID)])
+
+      messageHandler({type: 'error', message:`Unsupported Network.  Sorry, We don't currently support ${PUBLIC_CHAINS[parseInt(chID)] || 'chain ID: ' + chID}`})
+      return
+    }
+
     const ctrcts = {};
     if (provider && web3){
       const defaultProvider = getDefaultProvider(parseInt(provider.chainId))
@@ -82,25 +91,24 @@ function useWeb3Modal (config = {}) {
     const w3 = new Web3(provider);
     setWeb3(w3)
     setProvider(provider)
-
-
     instantiateContracts(provider, w3)
 
+
     // Subscribe to accounts change
-    provider.on("accountsChanged", (accounts) => {
+    provider.once("accountsChanged", (accounts) => {
         loadWeb3Modal()
     });
 
     // Subscribe to chainId change
-    provider.on("chainChanged", (chainId) => {
+    provider.once("chainChanged", (chainId) => {
         loadWeb3Modal()
     });
 
-    provider.on("disconnect", () => {
+    provider.once("disconnect", () => {
       logoutOfWeb3Modal()
     });
 
-    provider.on("connect", () => {
+    provider.once("connect", () => {
       console.log('connected')
     });
 

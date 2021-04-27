@@ -10,22 +10,22 @@ import { Grey, Blue, Input} from '@project/react-app/src/components'
 
 export const NuBalance = (props) => {
     const context = useContext(Context)
-    const {provider, account, contracts} = context.wallet
+    const {provider, account, contracts, web3} = context.wallet
 
     useEffect(() => {
         if (!props.balance && props.onBalance){
             function handleBalance(nunits) {
                 props.onBalance(nunits)
             }
-            if (provider && account){
+            if (provider && account && contracts){
                 contracts.NU.balanceOf(account).then(handleBalance)
             }
         }
-    }, [ account, provider, contracts, props ])
+    }, [ account, provider, contracts ])
 
     return (
         <div>
-            {props.balance ? <strong><Blue>{(parseFloat(props.balance) / 10 ** 18).toFixed(2)}</Blue> <Grey>NU</Grey></strong> : ''}
+            {props.balance ? <strong><Blue>{props.balance ? <strong><Blue>{(parseFloat(props.balance) / 10 ** 18).toFixed(2)}</Blue> <Grey>NU</Grey></strong> : ''}</Blue></strong> : ''}
         </div>
     )
 }
@@ -42,12 +42,20 @@ function NuCLickDisplay (props) {
 
 export const NuStakeAllocator = (props) => {
 
+    const context = useContext(Context)
+    const {web3} = context.wallet
+
     const [NUBalance, setNUBalance] = useState(null)
     const [localValue, setLocalValue] = useState(props.value? props.value : '')
 
     const setValue = (value) => {
-        props.onChange(value)
+
         setLocalValue(value)
+        try{
+            props.onChange(value)
+        } catch(err){
+            console.error(err)
+        }
     }
 
     return (
@@ -56,7 +64,7 @@ export const NuStakeAllocator = (props) => {
                 <Col>
                     <div className="d-flex justify-content-between">
                         <Grey>Stake</Grey>
-                        <NuCLickDisplay onClick={(e) => setValue(NUBalance)} balance={NUBalance} onBalance={setNUBalance}/>
+                        <NuCLickDisplay onClick={(e) => setValue(web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={setNUBalance}/>
                     </div>
                 </Col>
             </Row>
@@ -69,7 +77,7 @@ export const NuStakeAllocator = (props) => {
                         type="text"
                         value={localValue}
                     />
-                    <Form.Control.Feedback type="invalid">Amount is less than the minimum 15,000 NU.</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Amount {localValue}is less than the minimum 15,000 NU.</Form.Control.Feedback>
                 </Form.Group>
             </Row>
     </Container>

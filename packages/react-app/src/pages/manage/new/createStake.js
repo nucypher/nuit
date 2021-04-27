@@ -1,20 +1,25 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap/';
 
 import { Grey, Blue, InputBox, Slider, PrimaryButton, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 import { calcROI } from '@project/react-app/src/constants'
 import { Link } from 'react-router-dom'
 
+import { Context } from '@project/react-app/src/utils'
+
 export default (props) => {
 
     const [nuAllocated, setNuAllocation] = useState(props.amount || 15000)
-    const [AllocationValid, setAllocationValid] = useState(null)
+    const [AllocationValid, setAllocationValid] = useState(true)
     const [duration, setDuration] = useState(props.duration || 30)
 
     const [roi, setRoi] = useState({apr: 0, net: 0})
 
+    const context = useContext(Context)
+
     const onAmountChanged = (amount) => {
+
         if (amount >= 15000){
             setNuAllocation(amount)
             setAllocationValid(true)
@@ -22,7 +27,7 @@ export default (props) => {
                 setRoi(calcROI(amount, duration))
             }
         } else{
-            setNuAllocation(0)
+            setNuAllocation(amount)
             setAllocationValid(false)
         }
     }
@@ -43,7 +48,7 @@ export default (props) => {
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))
         }
-    }, [nuAllocated, duration])
+    }, [duration, AllocationValid])
 
     return (
         <Container>
@@ -84,7 +89,7 @@ export default (props) => {
                             </Row>
                             <Row noGutters className="d-flex justify-content-center mt-3">
                                 <Col className="d-flex justify-content-center">
-                                    <PrimaryButton onClick={handleNewStake} width={100}>Create Stake</PrimaryButton>
+                                    <PrimaryButton disabled={!AllocationValid} onClick={handleNewStake} width={100}>Create Stake</PrimaryButton>
                                 </Col>
                             </Row>
                         </Form>
