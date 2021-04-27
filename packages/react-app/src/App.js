@@ -110,7 +110,6 @@ function App () {
             setWorkerAddress(stakerInfo.worker)
         }
         setStakerUpdated(false)
-        console.log(stakerInfo)
     }
 
     if (contracts && account){
@@ -121,7 +120,7 @@ function App () {
   useEffect(() => {
     // populate any notifications based on user state.
 
-    if (stakerData.flags && stakerData.flags.migrated === false){
+    if (stakerData.flags && stakerData.flags.migrated === false && stakerData.lockedNU){
       context.modals.triggerModal({message: "Staker must be migrated", component: "Migrate"})
     }
   }, [stakerData.flags])
