@@ -6,6 +6,7 @@ import { Blue, Error, PopupMessages } from '@project/react-app/src/components'
 
 import { Context } from '@project/react-app/src/utils'
 
+import * as ModalActions from '@project/react-app/src/components/actions/modalActions'
 
 const ShowMessage = (message) => {
 
@@ -21,14 +22,21 @@ const ToastMessage = (props) => {
 
     const [show, setShow] = useState(true);
 
+    const index = props.message.index
+    const onHide = props.onHide
+
     useEffect(() => {
-        setShow(false)
-    })
+        const timer = setTimeout(() => {
+            setShow(false);
+            onHide(index)
+        }, 6000);
+        return () => clearTimeout(timer);
+      }, [index, onHide]);
 
     return (
-        <Toast onClose={(e) => {props.onHide(props.message.index, setShow)}} show={show} delay={6000} autohide>
+        <Toast onClose={(e) => {props.onHide(props.message.index, setShow)}} show={show}>
             <Toast.Header>
-            <strong className="mr-auto"><Blue>NuCypher {props.message.index}</Blue></strong>
+            <strong className="mr-auto"><Blue>NuCypher</Blue></strong>
             </Toast.Header>
             <Toast.Body>{ShowMessage(props.message)}</Toast.Body>
         </Toast>
@@ -42,27 +50,26 @@ export const MessagePublisher = () => {
     const context = useContext(Context)
 
     const removeMessage = (index, setShow) => {
-
         const visible = messages.filter((m) => {
-            return m.index != index
+            return m.index !== index
         })
         setMessages(visible)
-        setShow(false)
+        if(setShow !== undefined){
+            setShow(false)
+        }
     }
 
     useEffect(() => {
         if (context.messages.message !== null){
-            const newMessage = {index: messageIndex, ... context.messages.message}
-
+            const newMessage = {index: messageIndex, ...context.messages.message}
             const appended = messages
             appended.push(newMessage)
-
             setMessages(appended)
             incrementMessages(messageIndex + 1)
             context.messages.setMessage(null)
         }
 
-    }, [context.messages.message, context.messages])
+    }, [context.messages.message, context.messages, messageIndex, messages])
 
     return (
         <PopupMessages>
@@ -74,14 +81,37 @@ export const MessagePublisher = () => {
   }
 
 
-  export const ModalPopup = () => {
+  export const ModalDispatcher = () => {
     const context = useContext(Context)
+    const [show, setShow] = useState(null)
+    const [message, setMessage] = useState(null)
+    const [component, setComponent] = useState(null)
 
     useEffect(() => {
+        if (context.modals.modal){
+            const modalData = context.modals.modal
+            if (modalData.component){
+                setComponent(modalData.component)
+                setMessage(modalData.message)
+                setShow(true)
+            }
 
-    }, [context.modals.modal, context.modals])
+            context.modals.triggerModal(null)
+        }
+    }, [context.modals, context.modals.modal])
 
+    let TheComponent = component ? ModalActions[component] : null
 
-
-
+    return (
+        <Modal show={show} onHide={() => setShow(false)} aria-labelledby="contained-modal-title-vcenter">
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    {message}
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="show-grid">
+                {component ? <TheComponent/> : null}
+            </Modal.Body>
+        </Modal>
+    )
   }

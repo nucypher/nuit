@@ -20,6 +20,7 @@ export function NewStake() {
         <Container>
             <Row>
                 <Breadcrumbs paths={[
+                    {path:'/', label: 'root', enabled: true },
                     {path:'worker', label: 'Create Worker', enabled: true },
                     {path: 'set-stake', label: 'Set Stake', enabled: workerAddress !== undefined},
                     {path: 'bond', label: 'Bond', enabled: workerAddress !== null && newStake !== null}

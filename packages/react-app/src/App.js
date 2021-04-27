@@ -16,7 +16,7 @@ import { light } from '@project/react-app/src/themes'
 
 import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
-import { MessagePublisher } from '@project/react-app/src/components/messaging'
+import { MessagePublisher, ModalDispatcher } from '@project/react-app/src/components/messaging'
 import { Home, Manage, NewStake, Documentation } from '@project/react-app/src/pages'
 
 import { Container } from 'react-bootstrap/';
@@ -36,7 +36,7 @@ function App () {
   const [workerAddress, setWorkerAddress] = useState(null)
   const [stakerData, setStakerData] = useState({substakes:[]})
   const [stakerUpdated, setStakerUpdated] =  useState(false)
-  const [modal, setModal] = useState(null)
+  const [modal, triggerModal] = useState(null)
 
   const context = {
     wallet: {
@@ -53,7 +53,7 @@ function App () {
     },
     modals:{
       modal,
-      setModal
+      triggerModal
     },
     stakerData: stakerData,
     workerAddress: {set: setWorkerAddress, get: workerAddress},
@@ -110,7 +110,7 @@ function App () {
             setWorkerAddress(stakerInfo.worker)
         }
         setStakerUpdated(false)
-        console.log(lockedNU, availableNUWithdrawal)
+        console.log(stakerInfo)
     }
 
     if (contracts && account){
@@ -118,12 +118,22 @@ function App () {
     }
   }, [account, contracts, web3, stakerUpdated])
 
+  useEffect(() => {
+    // populate any notifications based on user state.
+
+    if (stakerData.flags && stakerData.flags.migrated === false){
+      context.modals.triggerModal({message: "Staker must be migrated", component: "Migrate"})
+    }
+  }, [stakerData.flags])
+
+
   return (
     <Context.Provider value={context}>
       <ThemeProvider theme={theme}>
         <Router>
         <Header theme={theme} setTheme={setTheme}/>
         <MessagePublisher/>
+        <ModalDispatcher/>
         <Main id="NCmain">
           <Container>
             <Switch>

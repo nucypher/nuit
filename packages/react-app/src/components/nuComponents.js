@@ -15,10 +15,9 @@ export const NuBalance = (props) => {
     useEffect(() => {
         if (!props.balance && props.onBalance){
             function handleBalance(nunits) {
-                console.log(parseInt(nunits))
                 props.onBalance(nunits)
             }
-            if (provider && account){
+            if (provider && account && contracts){
                 contracts.NU.balanceOf(account).then(handleBalance)
             }
         }

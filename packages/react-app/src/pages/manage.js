@@ -18,12 +18,17 @@ export function Manage() {
     const setAvailableETH = context.availableETH.set
     const setAvailableNU = context.availableNU.set
 
+
+    const handleChangeWorker = () => {
+        context.modals.triggerModal({message: "Bond Worker", component: "BondWorker"})
+    }
+
     return (
         <Container>
             <Row>
                 <Breadcrumbs paths={[
-                    {path:'../', label: 'root', enabled: true },
-                    {path: '.', label: 'manage', enabled: true},
+                    {path:'/', label: 'root', enabled: true },
+                    {path: '/manage', label: 'manage', enabled: true},
                 ]}/>
             </Row>
 
@@ -68,7 +73,7 @@ export function Manage() {
                             <Col>
                                 <div className="d-flex justify-content-between">
                                 <Grey>Worker</Grey>
-                                <PrimaryButton small>{workerAddress ? 'Change' : 'Set Worker'}</PrimaryButton>
+                                <PrimaryButton small onClick={handleChangeWorker}>{workerAddress ? 'Change' : 'Set Worker'}</PrimaryButton>
                                 </div>
                                <ButtonBox className="mb-3 mt-1">
                                    { workerAddress ?
@@ -76,7 +81,7 @@ export function Manage() {
                                     <strong>{workerAddress}</strong>
                                     <WorkerRunwayDisplay address={workerAddress}/>
                                     <DataRow>
-                                        <strong>Last Committed Period</strong><span><Blue>{stakerData.info.currentCommittedPeriod}</Blue></span>
+                                        <strong>Last Committed Period</strong><span><Blue>{stakerData.info.nextCommittedPeriod || stakerData.info.nextCommittedPeriod}</Blue></span>
                                         </DataRow>
                                     </div> : <p> no worker associated with account</p>}
                                </ButtonBox>
@@ -90,7 +95,7 @@ export function Manage() {
                                        <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>NU balance</strong><span><NuBalance balance={availableNU} onBalance={setAvailableNU}/></span>
+                                       <strong>NU balance <small>(wallet)</small></strong><span><NuBalance balance={availableNU} onBalance={setAvailableNU}/></span>
                                     </DataRow>
                                     <DataRow>
                                        <strong>Total NU Locked</strong><span><NuBalance balance={stakerData.lockedNU}/></span>
