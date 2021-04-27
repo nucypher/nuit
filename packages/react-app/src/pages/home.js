@@ -1,11 +1,10 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, SecondaryButton, PurpleButton, Blue, Purple, Grey, HR } from '../components'
+import {Col, Container, Row} from 'react-bootstrap/';
+import {Blue, ButtonGroup, PrimaryButton, PurpleButton, SecondaryButton} from '../components'
 
-import {
-    Link
-  } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import StakerGraph from "../components/chart";
+import NetworkStats from "../components/stats";
 
 
 export function Home () {
@@ -18,35 +17,20 @@ export function Home () {
             </Row>
             <Row>
                 <Col>
-                    <Row xs={1} md={3} className="d-flex justify-content-centered">
-                        <Col className="d-flex justify-content-center">
-                            <div>
-                                <HR color="blue"></HR>
-                               <h5><strong>Total NU Staked</strong></h5>
-                               <h2><strong><Blue>610,123,133</Blue></strong></h2>
-                            </div>
-                        </Col>
-                        <Col className="d-flex justify-content-center">
-                            <div>
-                                <HR color="purple"></HR>
-                               <h5><strong>Circulating Supply</strong></h5>
-                               <h2><strong><Purple>610,123,133</Purple></strong></h2>
-                            </div>
-                        </Col>
-                        <Col className="d-flex justify-content-center">
-                           <div>
-                                <HR color="grey75"></HR>
-                               <h5><strong>Active Stakers</strong></h5>
-                               <h2><strong><Grey>691</Grey></strong></h2>
-                           </div>
-                        </Col>
-                </Row>
+                    <NetworkStats />
                 </Col>
             </Row>
             <br/>
             <Row>
+                <ButtonGroup aria-label="Timeframe" id="timeframe-buttons">
+                  <SecondaryButton>All-time</SecondaryButton>
+                  <SecondaryButton>12 Months</SecondaryButton>
+                  <SecondaryButton>30 Days</SecondaryButton>
+                </ButtonGroup>
                 <Col className="d-flex justify-content-center pb-5">
-                <StakerGraph />
+                    <div id="chart-container">
+                        <StakerGraph />
+                    </div>
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center mb-3">

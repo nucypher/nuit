@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const GET_PERIODS = gql`
+export const GET_PERIODS = gql`
 {
-  periods {
+  periods (timestamp_gt: $epoch, first: 365) {
     timestamp
     totalStaked
     circulatingSupply
@@ -11,4 +11,15 @@ const GET_PERIODS = gql`
 }
 `
 
-export default GET_PERIODS
+export const GET_LATEST_PERIOD = gql`
+{
+  periods (orderBy: timestamp, first: 1, orderDirection: desc) {
+    id
+    timestamp
+    activeStakers
+    totalStaked
+    circulatingSupply
+  }
+}
+
+`

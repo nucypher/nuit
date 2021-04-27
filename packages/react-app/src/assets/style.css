@@ -39,6 +39,32 @@ hr{
     border-radius: 12px;
 }
 
+#chart-container {
+    width: 100%;
+}
+
+#timeframe-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    margin-right: 0.5vw;
+    background-color: inherit;
+}
+
+#timeframe-buttons button {
+    font-size: 12px;
+    padding: 2px;
+    width: 62px;
+    height: 30px;
+    border-radius: 6px;
+    margin-left: 2px;
+}
+
+#timeframe-buttons button .active {
+    color: #00A000;
+}
+
 .footer{
     padding-top:2em;
     background-color: black;
