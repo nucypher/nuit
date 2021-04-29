@@ -89,6 +89,7 @@ export const MessagePublisher = () => {
 
     useEffect(() => {
         if (context.modals.modal){
+            console.log(context.modals.modal)
             const modalData = context.modals.modal
             if (modalData.component){
                 setComponent(modalData.component)
@@ -98,7 +99,7 @@ export const MessagePublisher = () => {
 
             context.modals.triggerModal(null)
         }
-    }, [context.modals, context.modals.modal])
+    }, [context.modals])
 
     let TheComponent = component ? ModalActions[component] : null
 
@@ -110,7 +111,7 @@ export const MessagePublisher = () => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="show-grid">
-                {component ? <TheComponent/> : null}
+                {component ? <TheComponent setShow={setShow}/> : null}
             </Modal.Body>
         </Modal>
     )

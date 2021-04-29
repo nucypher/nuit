@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Container, Row, Col, Form} from 'react-bootstrap/';
-import { ButtonBox, InputBox, PrimaryButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance, Spinner } from '@project/react-app/src/components'
+import { ButtonBox, InputBox, PrimaryButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance } from '@project/react-app/src/components'
 
 import { Context, ContractCaller } from '@project/react-app/src/utils'
 
@@ -11,19 +11,11 @@ export const BondWorker = (props) => {
     const context = useContext(Context)
     const { account, contracts, web3 } = context.wallet
     const stakerData = context.stakerData
-    const setStakerUpdated = context.setStakerUpdated
-
-    const [active, setActive] = useState(false)
 
     const HandleBondWorker = () => {
-
         const address = web3.utils.toChecksumAddress(workerAddress)
-
-        setActive(true)
-        ContractCaller(contracts.STAKINGESCROW.methods.bondWorker(address), context).then((result)=>{
-            setActive(false)
-            setStakerUpdated(true)
-        })
+        props.setShow(false)
+        ContractCaller(contracts.STAKINGESCROW.methods.bondWorker(address), context, 'bondworker')
     }
 
     return(
@@ -49,7 +41,7 @@ export const BondWorker = (props) => {
                         </DataRow>
                     </ButtonBox>
 
-                    <PrimaryButton onClick={HandleBondWorker}>Bond Worker {active ? <Spinner/> : null}</PrimaryButton>
+                    <PrimaryButton onClick={HandleBondWorker}>Bond Worker</PrimaryButton>
                 </Col>
             </Row> :
             <Row>

@@ -10,7 +10,7 @@ import { Grey, Blue, Input} from '@project/react-app/src/components'
 
 export const NuBalance = (props) => {
     const context = useContext(Context)
-    const {provider, account, contracts, web3} = context.wallet
+    const {provider, account, contracts } = context.wallet
 
     useEffect(() => {
         if (!props.balance && props.onBalance){
@@ -18,10 +18,10 @@ export const NuBalance = (props) => {
                 props.onBalance(nunits)
             }
             if (provider && account && contracts){
-                contracts.NU.balanceOf(account).then(handleBalance)
+                contracts.NU.methods.balanceOf(account).call().then(handleBalance)
             }
         }
-    }, [ account, provider, contracts ])
+    }, [ account, provider, contracts, props ])
 
     return (
         <div>

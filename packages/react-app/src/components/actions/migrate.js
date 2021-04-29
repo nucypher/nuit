@@ -1,30 +1,24 @@
-import React, { useContext, useState } from 'react'
-import { Container, Row, Col, Form} from 'react-bootstrap/';
-import { PrimaryButton, Spinner } from '@project/react-app/src/components'
+import React, { useContext } from 'react'
+import { Container, Row, Col } from 'react-bootstrap/';
+import { PrimaryButton } from '@project/react-app/src/components'
 
 import { Context, ContractCaller } from '@project/react-app/src/utils'
 
-export const Migrate = () => {
+export const Migrate = (props) => {
 
     const context = useContext(Context)
-    const { account, contracts, web3 } = context.wallet
-    const stakerData = context.stakerData
-
-    const [active, setActive] = useState(false)
+    const { account, contracts } = context.wallet
 
     const doMigrate = () => {
-        setActive(true)
-        ContractCaller(contracts.STAKINGESCROW.methods.migrate(account), context).then(
-            setActive(false)
-        )
-
+        props.setShow(false)
+        ContractCaller(contracts.STAKINGESCROW.methods.migrate(account), context, 'migrate')
     }
 
     return(
         <Container>
             <Row>
                 <Col>
-                    <PrimaryButton onClick={doMigrate}>Migrate Staker {active ? <Spinner/> : null}</PrimaryButton>
+                    <PrimaryButton onClick={doMigrate}>Migrate Staker</PrimaryButton>
                 </Col>
             </Row>
         </Container>

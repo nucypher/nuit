@@ -4,8 +4,46 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '@project/react-app/src/utils'
 
 import { Container, Row, Col } from 'react-bootstrap/';
-import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance} from '@project/react-app/src/components'
+import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance, Spinner} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
+
+const ToggleButton = ({activeCheck, boolState, onClick, abort}) => {
+
+    const handleAbort = () => {
+        // puts the button back in cases where someone cancelled a transaction or something like that
+        if (abort) {
+            abort(false)
+        }
+    }
+
+    return (
+        <div className="d-flex justify-content-center">{ activeCheck ? <Spinner onClick={handleAbort}/> :
+        <div>{
+            boolState ?
+            <PrimaryButton onClick={onClick} className="mt-2" width="100">On</PrimaryButton> :
+            <SecondaryButton onClick={onClick} className="mt-2" width="100">Off</SecondaryButton>
+        }</div>}</div>
+    )
+}
+
+const PendingButton = (props) => {
+
+    const handleAbort = () => {
+        // puts the button back in cases where someone cancelled a transaction or something like that
+        if (props.abort) {
+            props.abort(false)
+        }
+    }
+
+    return (
+        <div className="d-flex justify-content-center">{ props.activeCheck ?
+            <Spinner onClick={handleAbort}/> :
+            <PrimaryButton {...props}>{props.children}</PrimaryButton>
+        }</div>
+    )
+}
+
+
 
 export function Manage() {
 
@@ -19,9 +57,37 @@ export function Manage() {
     const setAvailableNU = context.availableNU.set
 
 
+
+    // TODO:  clean this into a for loop
+    const [windingdown, setWindingdown]  = useState(false)
+    const [restaking, setRestaking] = useState(false)
+    const [bondingworker, setBondingWorker]  = useState(false)
+    const [addingsubstake, setAddingSubstake] = useState(false)
+
     const handleChangeWorker = () => {
         context.modals.triggerModal({message: "Bond Worker", component: "BondWorker"})
     }
+
+    const handleChangeRestake = () => {
+        context.modals.triggerModal({message: "Toggle Restake", component: "Restake"})
+    }
+
+    const handleChangeWindDown = () => {
+        context.modals.triggerModal({message: "Toggle WindDown", component: "Winddown"})
+    }
+
+    const handleAddSubstake = () => {
+        context.modals.triggerModal({message: "Add Substake", component: "CreateStake"})
+    }
+
+    useEffect(() => {
+        setWindingdown(context.pending.indexOf('winddown') > -1)
+        setRestaking(context.pending.indexOf('restake') > -1)
+        setBondingWorker(context.pending.indexOf('bondingworker') > -1)
+        setAddingSubstake(context.pending.indexOf('addsubstake') > -1)
+
+    }, [context.pending.length, context.pending])
+
 
     return (
         <Container>
@@ -39,7 +105,7 @@ export function Manage() {
             </Row>
 
             <Row className="d-flex justify-content-center">
-                <Col xs={12} >
+                <Col xl={6} >
                     <InputBox>
                         <Row>
                             <Col className="d-flex justify-content-center mb-4">
@@ -62,8 +128,30 @@ export function Manage() {
                             </Col>
                         </Row>
                     </InputBox>
-
-                    <InputBox className="mt-5">
+                    <InputBox className="mt-5 mb-5">
+                        <Row>
+                            <Col className="d-flex justify-content-center mb-4">
+                                <h5>Settings</h5>
+                            </Col>
+                        </Row>
+                        <Row>
+                            {stakerData.flags ? <Col className="d-flex justify-content-around">
+                                <Col>
+                                    <strong>Re-Stake</strong>
+                                    <CircleQ tooltip="Compound your staking returns by automatically re-staking each period's rewards."/>
+                                    <ToggleButton abort={setRestaking} activeCheck={restaking} boolState={stakerData.flags.reStake} onClick={handleChangeRestake} />
+                                </Col>
+                                <Col>
+                                    <strong>Wind Down</strong>
+                                    <CircleQ tooltip="Each period commited will reduce stake length by one period."/>
+                                    <ToggleButton abort={setWindingdown} activeCheck={windingdown} boolState={stakerData.flags.windDown} onClick={handleChangeWindDown} />
+                                </Col>
+                            </Col>: null}
+                        </Row>
+                    </InputBox>
+                </Col>
+                <Col xl={6}>
+                    <InputBox>
                         <Row>
                             <Col className="d-flex justify-content-center mb-4">
                                 <h5>Running</h5>
@@ -73,7 +161,7 @@ export function Manage() {
                             <Col>
                                 <div className="d-flex justify-content-between">
                                 <Grey>Worker</Grey>
-                                <PrimaryButton small onClick={handleChangeWorker}>{workerAddress ? 'Change' : 'Set Worker'}</PrimaryButton>
+                                <PendingButton small activeCheck={bondingworker} onClick={handleChangeWorker} abort={setBondingWorker}>{workerAddress ? 'Change' : 'Set Worker'}</PendingButton>
                                 </div>
                                <ButtonBox className="mb-3 mt-1">
                                    { workerAddress ?
@@ -103,7 +191,7 @@ export function Manage() {
                                </ButtonBox>
                                <div className="d-flex justify-content-between">
                                 <Grey>Substakes</Grey>
-                                <PrimaryButton small>Add Substake</PrimaryButton>
+                                <PendingButton small activeCheck={addingsubstake} onClick={handleAddSubstake} abort={setAddingSubstake}>Add Substake</PendingButton>
                                 </div>
                                <ButtonBox className="mt-1">
                                {stakerData.substakes.length ?
@@ -129,28 +217,9 @@ export function Manage() {
                             </Col>
                         </Row>
                     </InputBox>
-                    <InputBox className="mt-5">
-                        <Row>
-                            <Col className="d-flex justify-content-center mb-4">
-                                <h5>Settings</h5>
-                            </Col>
-                        </Row>
-                        <Row >
-                            <Col className="d-flex justify-content-around">
-                                <Col>
-                                <strong>Re-Stake</strong>
-                                <CircleQ tooltip="Compound your stake by adding rewards back into it each period."/>
-                                <PrimaryButton className="mt-2" width="100">On</PrimaryButton>
-                                </Col>
+                </Col>
+                <Col>
 
-                                <Col>
-                                <strong>Wind Down</strong>
-                                <CircleQ tooltip="Each period commited will reduce stake length."/>
-                                <SecondaryButton className="mt-2" width="100">Off</SecondaryButton>
-                                </Col>
-                            </Col>
-                        </Row>
-                    </InputBox>
                 </Col>
             </Row>
         </Container>

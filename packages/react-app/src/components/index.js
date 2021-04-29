@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { ReactComponent as Moon } from '../assets/icons/moon.svg'
 import { ReactComponent as Sun } from '../assets/icons/sun.svg'
-import { ReactComponent as SpinnerSVG } from '@project/react-app/src/assets/icons/spinner.svg'
 
 export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from '@project/react-app/src/components/ethComponents'
 export { NuStakeAllocator, NuBalance } from '@project/react-app/src/components/nuComponents'
@@ -13,6 +12,7 @@ export { CircleQ } from '@project/react-app/src/components/circleQ'
 
 export { BondWorker } from '@project/react-app/src/components/actions/bondWorker'
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
+export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 
 
 const spaces = {
@@ -84,6 +84,10 @@ export const ButtonBox = styled.div`
   padding:10px;
   background-color: ${props => props.theme.colors.extrabg};
   border-radius: ${spaces.sm};
+
+  .modal-body &, .modal-body & input {
+    background-color: white;
+  }
 `
 
 
@@ -115,9 +119,6 @@ export const NCButtonBase = styled.button`
   text-align: center;
   text-decoration: none;
   position:relative;
-
-  justify-content: center;
-  align-items: center;
 
   justify-content: center;
   align-items: center;
@@ -189,7 +190,7 @@ const NCLogoContainer = styled.div`
 
 export const InputBox = styled.div`
   margin-top: ${spaces.lg};
-  background-color: ${props => props.theme.colors.background};
+  background-color: ${props => props.theme.colors.extrabg};
   padding: ${spaces.xxl};
   border-radius: ${spaces.xl};
   box-shadow: ${props => props.theme.colors.shadow};
@@ -203,6 +204,10 @@ export const InputBox = styled.div`
   & .form-control{
     display:inline-block;
     width:90%;
+  }
+
+  .modal-body &, .modal-body & input {
+    background-color: white;
   }
 
 `
@@ -389,7 +394,9 @@ export class ThemeButton extends React.Component {
 }
 
 
-const SpinnerGraphic =styled.span`
+const SpinnerGraphic =styled.div`
+
+  cursor:pointer;
 
   border-radius: 50%;
   width: 3em;
@@ -440,6 +447,6 @@ const SpinnerGraphic =styled.span`
 
 export const Spinner = () => {
   return (
-    <SpinnerGraphic/>
+    <SpinnerGraphic className="mt-3"/>
   )
 }

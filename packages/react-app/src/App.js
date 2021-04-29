@@ -21,7 +21,7 @@ import { Home, Manage, NewStake, Documentation } from '@project/react-app/src/pa
 
 import { Container } from 'react-bootstrap/';
 
-import { Context } from '@project/react-app/src/utils';
+import { Context, eventQueue } from '@project/react-app/src/utils';
 import { EMPTY_WORKER } from '@project/react-app/src/constants'
 
 
@@ -35,7 +35,9 @@ function App () {
   const [availableETH, setAvailableETH] = useState(0)
   const [workerAddress, setWorkerAddress] = useState(null)
   const [stakerData, setStakerData] = useState({substakes:[]})
-  const [stakerUpdated, setStakerUpdated] =  useState(false)
+  const [stakerUpdated, setStakerUpdated] =  useState(0)
+  const [stakerUpdates, setStakerUpdates] = useState([])
+  const [actionsCompleted, setActionsCompleted] = useState([])
   const [modal, triggerModal] = useState(null)
 
   const context = {
@@ -55,67 +57,78 @@ function App () {
       modal,
       triggerModal
     },
+    pending: stakerUpdates,
     stakerData: stakerData,
     workerAddress: {set: setWorkerAddress, get: workerAddress},
     availableNU: {set: setAvailableNU, get: availableNU},
     availableETH: {set: setAvailableETH, get: availableETH},
-    setStakerUpdated
+    stakerUpdated,
+    setStakerUpdated,
+    setStakerUpdates,
+    actionsCompleted,
+    setActionsCompleted
+  }
+
+  const updateStakerData = async (contracts, context) => {
+
+    const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
+    stakerInfo.lockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
+
+    const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
+    const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
+    const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
+
+    let lockedNU = 0.0;
+    // getting an array with all substakes
+    const substakes = await (async () => {
+        if (getSubStakesLength !== '0') {
+            let substakeList = [];
+            for (let i = 0; i < getSubStakesLength; i++) {
+
+                let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
+                rawList.id = i.toString();
+                rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
+
+                if (parseInt(rawList.lastPeriod) > 1){
+                    substakeList.push(rawList);
+                }
+
+                lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
+            }
+            return substakeList;
+        } else {
+            let substakeList = null;
+            return substakeList;
+        }
+    })();
+
+    const availableNUWithdrawal = (new web3.utils.BN(stakerInfo.value)).sub(new web3.utils.BN(stakerInfo.lockedTokens)).toString()
+
+    setStakerData({
+        info: stakerInfo,
+        flags,
+        substakes: substakes || [],
+        lockedNU,
+        policyInfo,
+        availableNUWithdrawal,
+        availableETHWithdrawal: policyInfo[3]
+    })
+    if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
+        setWorkerAddress(stakerInfo.worker)
+    }
+
+    console.log(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
+    context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) >= 0}))
+    context.setActionsCompleted([])
   }
 
   useEffect(() => {
-    const getStakerData = async () => {
-        const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
-        stakerInfo.lockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
-
-        const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
-        const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
-        const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
-
-        let lockedNU = 0.0;
-        // getting an array with all substakes
-        const substakes = await (async () => {
-            if (getSubStakesLength !== '0') {
-                let substakeList = [];
-                for (let i = 0; i < getSubStakesLength; i++) {
-
-                    let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
-                    rawList.id = i.toString();
-                    rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
-
-                    if (parseInt(rawList.lastPeriod) > 1){
-                        substakeList.push(rawList);
-                    }
-
-                    lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
-                }
-                return substakeList;
-            } else {
-                let substakeList = null;
-                return substakeList;
-            }
-        })();
-
-        const availableNUWithdrawal = (new web3.utils.BN(stakerInfo.value)).sub(new web3.utils.BN(stakerInfo.lockedTokens)).toString()
-
-        setStakerData({
-            info: stakerInfo,
-            flags,
-            substakes: substakes || [],
-            lockedNU,
-            policyInfo,
-            availableNUWithdrawal,
-            availableETHWithdrawal: policyInfo[3]
-        })
-        if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
-            setWorkerAddress(stakerInfo.worker)
-        }
-        setStakerUpdated(false)
-    }
-
     if (contracts && account){
-        getStakerData()
+
+      updateStakerData(contracts, context)
     }
-  }, [account, contracts, web3, stakerUpdated])
+  },[contracts, account])
+
 
   useEffect(() => {
     // populate any notifications based on user state.
@@ -125,6 +138,24 @@ function App () {
     }
   }, [stakerData.flags])
 
+
+
+  useEffect(() => {
+    // runs once at startup and sets up this crappy event queue
+    // this is a hack to deal with issues where multiple transactions get finished in the same block
+    // and clobber each other's pending UI states
+
+    setInterval(() => {
+      if (eventQueue.length){
+        console.log(eventQueue)
+        //trigger a refresh of staker data
+        context.setActionsCompleted(eventQueue)
+        context.setStakerUpdated(Date.now())
+        // clear the eventQueue
+        eventQueue.splice(0, eventQueue.length)
+      }
+    }, 10000)
+  }, [])
 
   return (
     <Context.Provider value={context}>
