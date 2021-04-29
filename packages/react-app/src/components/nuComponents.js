@@ -58,13 +58,20 @@ export const NuStakeAllocator = (props) => {
         }
     }
 
+    const handleNuBalance = (value) => {
+        setNUBalance(value)
+        if (props.onBalanceUpdate && value){
+            props.onBalanceUpdate(web3.utils.fromWei(value.toString(), 'ether'))
+        }
+    }
+
     return (
         <Container>
             <Row>
                 <Col>
                     <div className="d-flex justify-content-between">
                         <Grey>Stake</Grey>
-                        <NuCLickDisplay onClick={(e) => setValue(web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={setNUBalance}/>
+                        <NuCLickDisplay onClick={(e) => setValue(web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={handleNuBalance}/>
                     </div>
                 </Col>
             </Row>
@@ -77,7 +84,7 @@ export const NuStakeAllocator = (props) => {
                         type="text"
                         value={localValue}
                     />
-                    <Form.Control.Feedback type="invalid">Amount {localValue}is less than the minimum 15,000 NU.</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{props.invalidmessage}</Form.Control.Feedback>
                 </Form.Group>
             </Row>
     </Container>

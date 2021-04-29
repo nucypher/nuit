@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
+import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/utils'
 import { calcROI } from '@project/react-app/src/constants'
@@ -9,18 +9,26 @@ import { calcROI } from '@project/react-app/src/constants'
 export const CreateStake = (props) => {
 
     const [nuAllocated, setNuAllocation] = useState(props.amount || 15000)
+    const [maxNULimit, setMaxNULimit] = useState(0)
     const [AllocationValid, setAllocationValid] = useState(true)
+    const [invalidMessage, setInvalidMessage] = useState()
     const [duration, setDuration] = useState(props.duration || 30)
     const [roi, setRoi] = useState({apr: 0, net: 0})
 
     const context = useContext(Context)
     const { contracts, web3 } = context.wallet
 
+    const [addingsubstake, setAddingSubstake] = useState(false)
+
+    useEffect(() => {
+        setAddingSubstake(context.pending.indexOf('addsubstake') > -1)
+    })
+
 
     const onAmountChanged = (amount) => {
-
         if (amount >= 15000){
             setNuAllocation(amount)
+
             setAllocationValid(true)
             if (amount && duration){
                 setRoi(calcROI(amount, duration))
@@ -28,6 +36,7 @@ export const CreateStake = (props) => {
         } else{
             setNuAllocation(amount)
             setAllocationValid(false)
+            setInvalidMessage(`Amount ${amount} is less than the minimum 15,000 NU.`)
         }
     }
 
@@ -42,11 +51,18 @@ export const CreateStake = (props) => {
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))
         }
-    }, [duration, AllocationValid, nuAllocated])
+        if (maxNULimit < 15000){
+            setAllocationValid(false)
+            setInvalidMessage(`Balance of ${maxNULimit} NU insufficient for 15000 min. stake.`)
+        }
+    }, [duration, AllocationValid, nuAllocated, maxNULimit])
 
 
-    const handleAction = () => {
-        props.setShow(false)
+    const handleAction = (e) => {
+        e.preventDefault()
+        if (props.setShow){
+            props.setShow(false)
+        }
 
         const amount = web3.utils.toWei(String(nuAllocated), "ether")
         const hex = web3.utils.numberToHex(daysToPeriods(duration))
@@ -70,7 +86,7 @@ export const CreateStake = (props) => {
             </Row>
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
-                    <NuStakeAllocator valid={AllocationValid} value={nuAllocated} onChange={onAmountChanged}/>
+                    <NuStakeAllocator onBalanceUpdate={setMaxNULimit} valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} onChange={onAmountChanged}/>
                 </Col>
             </Row>
             <Row>
@@ -96,7 +112,7 @@ export const CreateStake = (props) => {
             </Row>
             <Row noGutters className="d-flex justify-content-center mt-3">
                 <Col className="d-flex justify-content-center">
-                    <PrimaryButton disabled={!AllocationValid} onClick={handleAction} width={100}>Create Stake</PrimaryButton>
+                    <PendingButton disabled={!AllocationValid} activeCheck={addingsubstake} abort={setAddingSubstake} onClick={handleAction} width={100}>Create Stake</PendingButton>
                 </Col>
             </Row>
 

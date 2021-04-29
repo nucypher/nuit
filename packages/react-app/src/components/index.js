@@ -181,6 +181,44 @@ export const NoBorderButton = styled(SecondaryButton)`
     box-shadow: ${props => props.theme.colors.shadow};
   }
 `
+
+export const ToggleButton = ({activeCheck, boolState, onClick, abort}) => {
+
+  const handleAbort = () => {
+      // puts the button back in cases where someone cancelled a transaction or something like that
+      if (abort) {
+          abort(false)
+      }
+  }
+
+  return (
+      <div className="d-flex justify-content-center">{ activeCheck ? <Spinner onClick={handleAbort}/> :
+      <div>{
+          boolState ?
+          <PrimaryButton onClick={onClick} className="mt-2" width="100">On</PrimaryButton> :
+          <SecondaryButton onClick={onClick} className="mt-2" width="100">Off</SecondaryButton>
+      }</div>}</div>
+  )
+}
+
+export const PendingButton = (props) => {
+
+  const handleAbort = () => {
+      // puts the button back in cases where someone cancelled a transaction or something like that
+      if (props.abort) {
+          props.abort(false)
+      }
+  }
+
+  return (
+      <div className="d-flex justify-content-center">{ props.activeCheck ?
+          <Spinner onClick={handleAbort}/> :
+          <PrimaryButton {...props}>{props.children}</PrimaryButton>
+      }</div>
+  )
+}
+
+
 const NCLogoContainer = styled.div`
   position: absolute;
   left:1em;
