@@ -116,18 +116,16 @@ function App () {
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)
     }
-
-    console.log(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
-    context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) >= 0}))
+    console.log(context.pending, context.actionsCompleted)
+    context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
     context.setActionsCompleted([])
   }
 
   useEffect(() => {
     if (contracts && account){
-
       updateStakerData(contracts, context)
     }
-  },[contracts, account])
+  }, [account, contracts, web3, stakerUpdated])
 
 
   useEffect(() => {
@@ -139,18 +137,23 @@ function App () {
   }, [stakerData.flags])
 
 
+  useEffect(() => {
+
+  }, [context.pending])
+
 
   useEffect(() => {
     // runs once at startup and sets up this crappy event queue
     // this is a hack to deal with issues where multiple transactions get finished in the same block
     // and clobber each other's pending UI states
 
-    setInterval(() => {
+    setInterval(async () => {
       if (eventQueue.length){
-        console.log(eventQueue)
         //trigger a refresh of staker data
-        context.setActionsCompleted(eventQueue)
-        context.setStakerUpdated(Date.now())
+        console.log(eventQueue)
+        setActionsCompleted([...eventQueue])
+
+        setStakerUpdated(Date.now())
         // clear the eventQueue
         eventQueue.splice(0, eventQueue.length)
       }
