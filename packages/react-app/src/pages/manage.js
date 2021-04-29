@@ -4,46 +4,8 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '@project/react-app/src/utils'
 
 import { Container, Row, Col } from 'react-bootstrap/';
-import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance, Spinner} from '@project/react-app/src/components'
+import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, PendingButton, ToggleButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance, Spinner} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
-
-const ToggleButton = ({activeCheck, boolState, onClick, abort}) => {
-
-    const handleAbort = () => {
-        // puts the button back in cases where someone cancelled a transaction or something like that
-        if (abort) {
-            abort(false)
-        }
-    }
-
-    return (
-        <div className="d-flex justify-content-center">{ activeCheck ? <Spinner onClick={handleAbort}/> :
-        <div>{
-            boolState ?
-            <PrimaryButton onClick={onClick} className="mt-2" width="100">On</PrimaryButton> :
-            <SecondaryButton onClick={onClick} className="mt-2" width="100">Off</SecondaryButton>
-        }</div>}</div>
-    )
-}
-
-const PendingButton = (props) => {
-
-    const handleAbort = () => {
-        // puts the button back in cases where someone cancelled a transaction or something like that
-        if (props.abort) {
-            props.abort(false)
-        }
-    }
-
-    return (
-        <div className="d-flex justify-content-center">{ props.activeCheck ?
-            <Spinner onClick={handleAbort}/> :
-            <PrimaryButton {...props}>{props.children}</PrimaryButton>
-        }</div>
-    )
-}
-
-
 
 export function Manage() {
 
@@ -55,8 +17,6 @@ export function Manage() {
     const availableNU = context.availableNU.get
     const setAvailableETH = context.availableETH.set
     const setAvailableNU = context.availableNU.set
-
-
 
     // TODO:  clean this into a for loop
     const [windingdown, setWindingdown]  = useState(false)
