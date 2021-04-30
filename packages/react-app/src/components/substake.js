@@ -12,15 +12,8 @@ export class SubStake extends React.Component{
         this.context = context
         this.account = account
 
-        this.setup = this.setup.bind(this)
-        this.setup()
     }
 
-    async setup () {
-        console.log(this.context.wallet.contracts.STAKINGESCROW.methods)
-        this.stakedata.lastPeriod = await this.context.wallet.contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
-            this.account, this.stakedata.id).call();
-    }
 
     render(){
         return <div className="mt-3" key={this.stakedata.index}>

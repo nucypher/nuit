@@ -82,6 +82,8 @@ function App () {
             for (let i = 0; i < getSubStakesLength; i++) {
                 let stakedata = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
                 stakedata.id = i.toString()
+                stakedata.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
+                  account, stakedata.id).call();
                 substakeList.push(stakedata);
                 lockedNU += parseInt(stakedata.unlockingDuration) > 0 ? parseInt(stakedata.lockedValue) : 0
             }
