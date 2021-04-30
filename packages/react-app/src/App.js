@@ -19,7 +19,6 @@ import {Container} from 'react-bootstrap/';
 
 import {Context, eventQueue} from '@project/react-app/src/utils';
 import {EMPTY_WORKER} from '@project/react-app/src/constants'
-import {Context} from './utils';
 
 
 function App () {

@@ -1,14 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
-
 import {Context} from '@project/react-app/src/utils'
-
-
 import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
-
 import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
-import {ReactComponent as CircleQ} from '../assets/icons/circleQ.svg'
 import {validateEthAddress} from '../utils'
-
 import {Blue, Grey} from '@project/react-app/src/components'
 
 
