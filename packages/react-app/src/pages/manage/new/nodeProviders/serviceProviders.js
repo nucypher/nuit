@@ -83,7 +83,7 @@ export default (props) => {
                     </InputBox>
                 </Col>
                 <Col xs={4} className="d-flex justify-content-center biglink mt-3">
-                {props.workerAddress ? <Link to="/new/set-stake"><PrimaryButton width={100}>Continue</PrimaryButton></Link> : ''}
+                {props.workerAddress ? <Link to="/new/set-stake"><PrimaryButton width="100%">Continue</PrimaryButton></Link> : ''}
                 </Col>
             </Row>
         </Container>
