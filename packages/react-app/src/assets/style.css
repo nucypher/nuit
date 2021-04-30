@@ -116,6 +116,21 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     width:100%;
 }
 
-.nowrap{
+.nowrap {
     white-space: nowrap
+}
+
+    #historyLabel {
+    margin-top: 10vh;
+    margin-bottom: 4vh;
+}
+
+#eventHistory > nav {
+    display: flex;
+    justify-content: center;
+}
+
+#eventHistory > nav .active {
+    border-bottom: 3px solid #1E65F3;
+    border-radius: 2px;
 }

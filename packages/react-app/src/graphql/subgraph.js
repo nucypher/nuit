@@ -23,3 +23,16 @@ export const GET_LATEST_PERIOD = gql`
 }
 
 `
+
+
+export const GET_STAKER_HISTORY = gql`
+query Staker($address: String!) {
+  staker (id: $address, first: 1000) {
+    id
+    events (orderBy: timestamp, orderDirection: desc) {
+        __typename
+        timestamp
+    }
+  }
+}
+`
