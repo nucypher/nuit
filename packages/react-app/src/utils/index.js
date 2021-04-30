@@ -20,7 +20,7 @@ export const eventQueue = []
 export const ContractCaller = (contractInstance, context, name) => {
     const {account} = context.wallet
     return contractInstance.send({from: account}).on('transactionHash', (hash) => {
-        context.setStakerUpdates([name, ...context.pending])
+        context.setStakerUpdates([name, ... context.pending])
     }).on('confirmation', (confirmationNumber, receipt) => {
     }).on('receipt', (receipt) => {
         eventQueue.unshift(name)

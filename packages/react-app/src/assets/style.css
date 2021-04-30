@@ -89,3 +89,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 .biglink a {
     width:100%;
 }
+
+.nowrap{
+    white-space: nowrap
+}
