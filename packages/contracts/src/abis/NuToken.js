@@ -1,4 +1,4 @@
-export default [{
+export default ["NuCypherToken", "v0.0.0", "0x4fE83213D56308330EC302a8BD641f1d0113A4Cc", [{
     "inputs": [{
         "internalType": "uint256",
         "name": "_totalSupplyOfTokens",
@@ -124,4 +124,4 @@ export default [{
     "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
     "stateMutability": "nonpayable",
     "type": "function"
-}];
+}]];

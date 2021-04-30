@@ -12,7 +12,7 @@ import { Grey, Blue } from '@project/react-app/src/components'
 
 
 export const WorkerRunwayDisplay = (props) => {
-    const [address, setAddress] = useState(props.address)
+    const address = props.address
     const [balance, setBalance] = useState(null)
     const [runway, setRunway] = useState(null)
     const {provider, web3 } = useContext(Context).wallet
@@ -29,7 +29,7 @@ export const WorkerRunwayDisplay = (props) => {
         if (provider){
             web3.eth.getBalance(address).then(handleBalance)
         }
-    }, [address])
+    }, [address, provider, web3.eth, web3.utils])
 
     return (
         <div className="mt-3">

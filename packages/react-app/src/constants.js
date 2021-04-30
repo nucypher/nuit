@@ -1,6 +1,8 @@
 // NuCypher constants
 const MIN_STAKE = 15000
 
+export const daysPerPeriod = 7
+
 const EMPTY_WORKER = "0x0000000000000000000000000000000000000000"
 
 const calcROI = (amount, duration) => {
