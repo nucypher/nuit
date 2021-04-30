@@ -11,7 +11,7 @@ import './assets/style.css'
 import { ThemeProvider } from 'styled-components';
 import useWeb3Modal from '@project/react-app/src/hooks/useWeb3Modal'
 
-import { Main } from '@project/react-app/src/components'
+import { Main, SubStake } from '@project/react-app/src/components'
 import { light } from '@project/react-app/src/themes'
 
 import Header from '@project/react-app/src/components/header'
@@ -84,16 +84,10 @@ function App () {
         if (getSubStakesLength !== '0') {
             let substakeList = [];
             for (let i = 0; i < getSubStakesLength; i++) {
-
-                let rawList = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
-                rawList.id = i.toString();
-                rawList.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(account, i).call();
-
-                if (parseInt(rawList.lastPeriod) > 1){
-                    substakeList.push(rawList);
-                }
-
-                lockedNU += parseInt(rawList.unlockingDuration) > 0 ? parseInt(rawList.lockedValue) : 0
+                let stakedata = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
+                stakedata.id = i.toString()
+                substakeList.push(stakedata);
+                lockedNU += parseInt(stakedata.unlockingDuration) > 0 ? parseInt(stakedata.lockedValue) : 0
             }
             return substakeList;
         } else {
@@ -116,7 +110,6 @@ function App () {
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)
     }
-    console.log(context.pending, context.actionsCompleted)
     context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
     context.setActionsCompleted([])
   }

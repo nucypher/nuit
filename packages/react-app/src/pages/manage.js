@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '@project/react-app/src/utils'
 
 import { Container, Row, Col } from 'react-bootstrap/';
-import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, PendingButton, ToggleButton, CircleQ, WorkerRunwayDisplay, DataRow, SecondaryButton, EthBalance, NuBalance, Spinner} from '@project/react-app/src/components'
+import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, PendingButton, ToggleButton, CircleQ, WorkerRunwayDisplay, DataRow, EthBalance, NuBalance, SubStakeList} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 
 export function Manage() {
@@ -23,6 +23,7 @@ export function Manage() {
     const [restaking, setRestaking] = useState(false)
     const [bondingworker, setBondingWorker]  = useState(false)
     const [addingsubstake, setAddingSubstake] = useState(false)
+    const [showInactive, setShowInactive] = useState(false)
 
     const handleChangeWorker = () => {
         context.modals.triggerModal({message: "Bond Worker", component: "BondWorker"})
@@ -153,27 +154,7 @@ export function Manage() {
                                 <Grey>Substakes</Grey>
                                 <PendingButton small activeCheck={addingsubstake} onClick={handleAddSubstake} abort={setAddingSubstake}>Add Substake</PendingButton>
                                 </div>
-                               <ButtonBox className="mt-1">
-                               {stakerData.substakes.length ?
-                                    stakerData.substakes.map((st, index)=>{
-                                        return(
-                                        <div className="mt-3" key={index}>
-                                            <DataRow>
-                                                <strong>start: {st.firstPeriod}</strong>
-                                                <strong>end: {st.lastPeriod}</strong>
-                                                <span><NuBalance balance={st.lockedValue}/></span>
-                                            </DataRow>
-                                            <div className="d-flex justify-content-center">
-                                            {parseInt(st.unlockingDuration) ? <div className="flex justify-content-around">
-                                                <SecondaryButton className="mr-3" small>Prolong</SecondaryButton>
-                                                <SecondaryButton className="mr-3" small>Divide</SecondaryButton>
-                                            </div> : <Grey>unlocked</Grey>}
-                                            </div>
-                                        </div>
-                                        )
-                                    }) : null
-                                }
-                               </ButtonBox>
+                                {stakerData.substakes.length ? <SubStakeList substakes={stakerData.substakes} element={ButtonBox} className="mt-1" /> : null}
                             </Col>
                         </Row>
                     </InputBox>

@@ -14,6 +14,8 @@ export { BondWorker } from '@project/react-app/src/components/actions/bondWorker
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 
+export { SubStakeList, SubStake } from '@project/react-app/src/components/substake'
+
 
 const spaces = {
   xs: "4px",
@@ -82,7 +84,7 @@ export const Main = styled.div`
 
 export const ButtonBox = styled.div`
   padding:10px;
-  background-color: ${props => props.theme.colors.extrabg};
+  background-color: ${props => props.theme.colors.background};
   border-radius: ${spaces.sm};
 
   .modal-body &, .modal-body & input {
@@ -126,7 +128,7 @@ export const NCButtonBase = styled.button`
   white-space: nowrap;
 
   @media ${device.tablet} {
-    min-width: 9em;
+    min-width: ${ props => (props.width ? `${props.width}` : '9em')};
   }
 
 
@@ -135,8 +137,8 @@ export const NCButtonBase = styled.button`
     outline: none;
   }
 
-  width: ${ props => (props.width ? `${props.width}%` : 'inherit')};
-  padding: ${ props => (props.small ? `${spaces.xs} ${spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
+  width: ${ props => (props.width ? `${props.width}` : 'inherit')};
+  padding: ${ props => ((props.small || props.tiny) ? `${props.tiny ? '1px' : spaces.xs} ${props.tiny ? '1px' : spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
 
 `
 
@@ -195,8 +197,8 @@ export const ToggleButton = ({activeCheck, boolState, onClick, abort}) => {
       <div className="d-flex justify-content-center">{ activeCheck ? <Spinner onClick={handleAbort}/> :
       <div>{
           boolState ?
-          <PrimaryButton onClick={onClick} className="mt-2" width="100">On</PrimaryButton> :
-          <SecondaryButton onClick={onClick} className="mt-2" width="100">Off</SecondaryButton>
+          <PrimaryButton onClick={onClick} className="mt-2">On</PrimaryButton> :
+          <SecondaryButton onClick={onClick} className="mt-2">Off</SecondaryButton>
       }</div>}</div>
   )
 }

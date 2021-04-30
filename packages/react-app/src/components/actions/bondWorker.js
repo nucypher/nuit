@@ -27,7 +27,7 @@ export const BondWorker = (props) => {
                     <Grey>Worker</Grey>
                     </div>
                     <ButtonBox className="mb-3 mt-1">
-                        <strong>{workerAddress}</strong>
+                        <small><strong>{workerAddress}</strong></small>
                         <WorkerRunwayDisplay address={workerAddress}/>
                     </ButtonBox>
 
@@ -35,7 +35,7 @@ export const BondWorker = (props) => {
                         <Grey className="mb-3">Staker</Grey>
                     </div>
                     <ButtonBox className="mb-3">
-                        <strong>{account}</strong>
+                        <small><strong>{account}</strong></small>
                         <DataRow className="mt-3">
                         <strong>Staking Balance</strong><span><NuBalance balance={stakerData.lockedNU}/></span>
                         </DataRow>
