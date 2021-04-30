@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Link } from 'react-router-dom'
-import { ReactComponent as Moon } from '../assets/icons/moon.svg'
-import { ReactComponent as Sun } from '../assets/icons/sun.svg'
+import {Link} from 'react-router-dom'
+import {ReactComponent as Moon} from '../assets/icons/moon.svg'
+import {ReactComponent as Sun} from '../assets/icons/sun.svg'
 
 export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from '@project/react-app/src/components/ethComponents'
 export { NuStakeAllocator, NuBalance } from '@project/react-app/src/components/nuComponents'

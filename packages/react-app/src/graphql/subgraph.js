@@ -1,15 +1,25 @@
 import { gql } from '@apollo/client'
 
-// See more example queries on https://thegraph.com/explorer/subgraph/paulrberg/create-eth-app
-const GET_TRANSFERS = gql`
-  {
-    transfers(first: 10) {
-      id
-      from
-      to
-      value
-    }
+export const GET_PERIODS = gql`
+{
+  periods (timestamp_gt: $epoch, first: 365) {
+    timestamp
+    totalStaked
+    circulatingSupply
+    activeStakers
   }
+}
 `
 
-export default GET_TRANSFERS
+export const GET_LATEST_PERIOD = gql`
+{
+  periods (orderBy: timestamp, first: 1, orderDirection: desc) {
+    id
+    timestamp
+    activeStakers
+    totalStaked
+    circulatingSupply
+  }
+}
+
+`

@@ -9,7 +9,7 @@ export const truncate = (address) => {
 }
 
 
-export const validateEthAdress = (address) => {
+export const validateEthAddress = (address) => {
     return address.length === 42 && address.startsWith('0x')
 }
 

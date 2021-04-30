@@ -1,28 +1,24 @@
-import React, {useState, useEffect} from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {BrowserRouter as Router, Route, Switch,} from 'react-router-dom'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style.css'
 
-import { ThemeProvider } from 'styled-components';
-import useWeb3Modal from '@project/react-app/src/hooks/useWeb3Modal'
+import {ThemeProvider} from 'styled-components';
+import useWeb3Modal from './hooks/useWeb3Modal'
 
-import { Main, SubStake } from '@project/react-app/src/components'
-import { light } from '@project/react-app/src/themes'
+import {Main} from '@project/react-app/src/components'
+import {light} from '@project/react-app/src/themes'
 
 import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
-import { MessagePublisher, ModalDispatcher } from '@project/react-app/src/components/messaging'
-import { Home, Manage, NewStake, Documentation } from '@project/react-app/src/pages'
+import {MessagePublisher, ModalDispatcher} from '@project/react-app/src/components/messaging'
+import {Documentation, Home, Manage, NewStake} from '@project/react-app/src/pages'
 
-import { Container } from 'react-bootstrap/';
+import {Container} from 'react-bootstrap/';
 
-import { Context, eventQueue } from '@project/react-app/src/utils';
-import { EMPTY_WORKER } from '@project/react-app/src/constants'
+import {Context, eventQueue} from '@project/react-app/src/utils';
+import {EMPTY_WORKER} from '@project/react-app/src/constants'
 
 
 function App () {
