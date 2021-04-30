@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap/';
+
+import { Context } from '@project/react-app/src/utils'
 
 import { InputBox, PrimaryButton, CreateStake } from '@project/react-app/src/components'
 import { Link } from 'react-router-dom'
 
 
 export default (props) => {
+
+    const context = useContext(Context)
+    const stakerData = context.stakerData
 
     return (
         <Container>
@@ -20,7 +25,7 @@ export default (props) => {
             </Row>
             <Row className="d-flex justify-content-center">
                 <Col xs={4} className="d-flex justify-content-center biglink mt-3">
-                {props.stake ? <Link to="/new/bond"><PrimaryButton>Continue</PrimaryButton></Link> : ''}
+                {stakerData.lockedNU ? <Link to="/new/bond"><PrimaryButton>Continue</PrimaryButton></Link> : ''}
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center mt-5">
