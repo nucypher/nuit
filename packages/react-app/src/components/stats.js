@@ -2,11 +2,11 @@ import {Col, Container, Row} from 'react-bootstrap/';
 import {Blue, Grey, HR, Purple} from "./index";
 import React from "react";
 import {useQuery} from "@apollo/client";
-import {GET_LATEST_PERIOD} from "../graphql/subgraph";
+import {GET_LATEST_FINALIZED_PERIOD} from "../graphql/subgraph";
 
 export default function NetworkStats() {
 
-    let {loading, error, data} = useQuery(GET_LATEST_PERIOD);
+    let {loading, error, data} = useQuery(GET_LATEST_FINALIZED_PERIOD, {network: 'llamas'});
     if (loading) return <p>Loading...</p>;
     if (error) {
         console.log(error);

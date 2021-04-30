@@ -1,11 +1,25 @@
-import React from 'react'
-import { useState, useEffect, useContext } from 'react';
+import React, {useContext, useEffect, useState} from 'react'
 
-import { Context } from '@project/react-app/src/utils'
+import {Context} from '@project/react-app/src/utils'
 
-import { Container, Row, Col } from 'react-bootstrap/';
-import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, PendingButton, ToggleButton, CircleQ, WorkerRunwayDisplay, DataRow, EthBalance, NuBalance, SubStakeList} from '@project/react-app/src/components'
+import {Col, Container, Row} from 'react-bootstrap/';
+import {
+    Blue,
+    ButtonBox,
+    CircleQ,
+    DataRow,
+    EthBalance,
+    Grey,
+    InputBox,
+    NuBalance,
+    PendingButton,
+    PrimaryButton,
+    SubStakeList,
+    ToggleButton,
+    WorkerRunwayDisplay
+} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
+import {HistoryPane} from "../components/history";
 
 export function Manage() {
 
@@ -160,7 +174,10 @@ export function Manage() {
                     </InputBox>
                 </Col>
                 <Col>
-
+                    <div id="historyLabel" className="flex-row justify-content-lg-center text-center">
+                        <h4>History</h4>
+                    </div>
+                    <HistoryPane/>
                 </Col>
             </Row>
         </Container>
