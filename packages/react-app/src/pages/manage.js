@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useContext, useEffect, useState} from 'react'
 
 import {Context} from '@project/react-app/src/utils'
@@ -18,6 +19,15 @@ import {
     ToggleButton,
     WorkerRunwayDisplay
 } from '@project/react-app/src/components'
+=======
+import React from 'react'
+import { useState, useEffect, useContext } from 'react';
+
+import { Context } from '@project/react-app/src/utils'
+
+import { Container, Row, Col } from 'react-bootstrap/';
+import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, PendingButton, ToggleButton, CircleQ, WorkerRunwayDisplay, DataRow, EthBalance, NuBalance, SubStakeList, Spinner} from '@project/react-app/src/components'
+>>>>>>> 67f508b (migration feedback)
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/history";
 
@@ -37,6 +47,9 @@ export function Manage() {
     const [restaking, setRestaking] = useState(false)
     const [bondingworker, setBondingWorker]  = useState(false)
     const [addingsubstake, setAddingSubstake] = useState(false)
+    const [migrating, setMigrating] = useState(false)
+
+
     const [showInactive, setShowInactive] = useState(false)
 
     const handleChangeWorker = () => {
@@ -60,11 +73,13 @@ export function Manage() {
         setRestaking(context.pending.indexOf('restake') > -1)
         setBondingWorker(context.pending.indexOf('bondingworker') > -1)
         setAddingSubstake(context.pending.indexOf('addsubstake') > -1)
+        setMigrating(context.pending.indexOf('migrate') > -1)
 
     }, [context.pending.length, context.pending])
 
 
     return (
+
         <Container>
             <Row>
                 <Breadcrumbs paths={[
@@ -78,9 +93,9 @@ export function Manage() {
                     <h1>Manage Staked Nu</h1>
                 </Col>
             </Row>
-
-            <Row className="">
-                <Col xl={5} >
+            {migrating ? <Row><Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col></Row> :
+            <Row className="d-flex justify-content-center">
+                <Col xl={6} >
                     <InputBox>
                         <Row>
                             <Col className="d-flex justify-content-flex-start mb-1">
@@ -186,7 +201,7 @@ export function Manage() {
                     </div>
                     <HistoryPane/>
                 </Col>
-            </Row>
+            </Row>}
         </Container>
     )
 }

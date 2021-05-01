@@ -1,36 +1,29 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 import { Grey, DataRow, SecondaryButton,  NuBalance} from '@project/react-app/src/components'
 import { Context } from '@project/react-app/src/utils'
+
+import { Form } from 'react-bootstrap/';
 
 export class SubStake extends React.Component{
 
     constructor({ data, context, account, props }){
         super(props)
 
-        this.stakedata = data
         this.context = context
         this.account = account
-
+        this.state = data
     }
 
 
     render(){
-        return <div className="mt-3" key={this.stakedata.index}>
+        return <div className="mt-3" key={this.state.id}>
         <DataRow>
-            <strong>start: {this.stakedata.firstPeriod}</strong>
-            <strong>end: {this.stakedata.lastPeriod}</strong>
-            <span><NuBalance balance={this.stakedata.lockedValue}/></span>
+            <Form.Check ></Form.Check>
+            <strong>start: {this.state.firstPeriod}</strong>
+            <strong>end: {this.state.lastPeriod}</strong>
+            <span><NuBalance balance={this.state.lockedValue}/></span>
         </DataRow>
-        <div className="d-flex justify-content-between">
-        {parseInt(this.stakedata.unlockingDuration) ? <div className="nowrap">
-            <SecondaryButton onClick={this.handleProlong} className="mr-1" width="70px" tiny>Prolong</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Divide</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Increase</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Merge</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Remove</SecondaryButton>
-        </div> : <Grey>unlocked</Grey>}
-        </div>
     </div>
     }
 }
@@ -38,8 +31,14 @@ export class SubStake extends React.Component{
 export const SubStakeList = (props) => {
 
     const context = useContext(Context)
-    const{ contracts, account } = context.wallet
+    const{ account, provider } = context.wallet
+    const [substakes, setSubstakes] = useState([])
     let Component = props.element || "div"
+
+
+    useEffect(()=>{
+        setSubstakes(props.substakes)
+    },[props.substakes])
 
     if (!account){
         return (<div></div>)
@@ -47,8 +46,8 @@ export const SubStakeList = (props) => {
     return (
 
         <Component {...props}>
-            {props.substakes.map((substake)=>{
-                return <SubStake key={substake.id} data={substake} context={context} account={account} />
+            {substakes.map((substake)=>{
+                return <SubStake key={`${account}.${substake.id}.${substake.firstPeriod}`} data={substake} context={context} account={account} />
             })}
         </Component>
     )
