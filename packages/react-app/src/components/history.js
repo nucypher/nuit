@@ -6,6 +6,59 @@ import {GET_STAKER_HISTORY} from "../graphql/subgraph";
 import {Context, truncate} from "../utils";
 
 
+function makeEtherscanTxLink(txhash, networkName) {
+    return 'https://'
+        + (networkName ? (networkName + '.') : '')
+        + 'etherscan.io/tx/' + txhash
+}
+
+function makeEtherscanAccountLink(address, networkName) {
+    return 'https://'
+        + (networkName ? (networkName + '.') : '')
+        + 'etherscan.io/address/' + address
+}
+
+
+// Allow list and categorize of events to display
+const eventTypes = {
+    system: [
+        'CommitmentEvent',
+        'MintedEvent',
+        'SlashedEvent',
+        'MigratedEvent'
+    ],
+    user: [
+        "DepositedEvent",
+        "DividedEvent",
+        "MergedEvent",
+        "ProlongEvent",
+        "ReStakeEvent",
+        "WindDownEvent",
+        "WithdrawEvent",
+        "WorkerBondedEvent"
+    ]
+}
+
+
+function getEventMeta(event) {
+    let datum = [
+        event.value,  // lock, deposit, withdraw
+        event.commitmentPeriod,
+        event.reStake,
+        event.windDown,
+        event.worker
+    ]
+    console.log(event.__typename, event.reStake)
+    for (let data of datum) if (data !== undefined) {
+        if (typeof(data) === 'boolean') return data ? 'Enabled' : 'Disabled'
+        if (String(data).startsWith("0x")) return <a href={makeEtherscanAccountLink(data)}>{truncate(data)}</a>
+        if (event.__typename === "CommitmentEvent") return 'Period #' + data
+        else return Math.fround(data).toString() + " NU"
+    }
+}
+
+
+
 function EventHistory(props) {
 
     const context = useContext(Context)
@@ -14,7 +67,6 @@ function EventHistory(props) {
     let chainId;
     if (provider) {
         chainId = provider.chainID
-        console.log(chainId)
     }
 
     let {loading, error, data} = useQuery(
@@ -25,46 +77,6 @@ function EventHistory(props) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p><i>There was a problem fetching staker history.</i></p>
 
-    const eventTypes = {
-        system: [
-            'CommitmentEvent',
-            'MintedEvent',
-            'SlashedEvent',
-            'MigratedEvent'
-        ],
-        user: [
-            "DepositedEvent",
-            "DividedEvent",
-            "MergedEvent",
-            "ProlongEvent",
-            "ReStakeEvent",
-            "WindDownEvent",
-            "WithdrawEvent",
-            "WorkerBondedEvent"
-        ]
-    }
-
-    function getEventMeta(event) {
-        let datum = [
-            event.value,  // lock, deposit, withdraw
-            event.commitmentPeriod,
-            event.reStake,
-            event.windDown,
-            event.worker
-        ]
-        for (let data of datum) if (data) {
-            if (data === true) return 'Enabled'
-            if (data === false) return 'Disabled'
-            if (data.startsWith("0x")) return truncate(data)
-            return Math.fround(data).toString()
-        }
-    }
-
-    function makeEtherscanLink(txhash) {
-        debugger
-        return txhash
-    }
-
     let eventRows = []
     if (data.staker) {
         for (const event of data.staker.events) {
@@ -72,9 +84,9 @@ function EventHistory(props) {
             eventRows.push(
                 <tr key={event.id}>
                     <td>
-                        <a href={makeEtherscanLink(event.transaction.id)}>{event.__typename.replace("Event", "")}</a>
+                        <a href={makeEtherscanTxLink(event.transaction.id)}>{event.__typename.replace("Event", "")}</a>
                     </td>
-                    <td>{truncate(data.staker.id)}</td>
+                    <td>{truncate(event.transaction.from)}</td>
                     <td>{new Date(event.timestamp * 1000).toDateString()}</td>
                     <td>{getEventMeta(event)}</td>
                 </tr>
@@ -82,11 +94,12 @@ function EventHistory(props) {
           }
     }
 
-    return (<Table striped borderless hover>
+    return (<Table striped borderless hover className="text-left">
             <thead>
             <tr>
                 <th>Name</th>
                 <th>Wallet</th>
+                <th>Timestamp</th>
                 <th>Data</th>
             </tr>
             </thead>
@@ -115,9 +128,7 @@ export function HistoryPane() {
                     </Tab>
                 </Tabs>
                     </div>
-
             </Col>
-
         </Row>
     )
 }

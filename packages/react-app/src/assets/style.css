@@ -131,6 +131,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 #historyLabel {
     margin-top: 10vh;
     margin-bottom: 4vh;
+    font-weight: 600;
 }
 
 #eventHistory > nav {
@@ -138,6 +139,20 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     justify-content: center;
     background: none;
     border-bottom: 1px solid #E0E4E8;
+}
+
+#eventHistory table {
+    font-weight: 600;
+}
+
+#eventHistory th {
+    color: #828A9C;
+    font-weight: 400;
+    padding: 1.5rem 1rem 1rem;
+}
+
+#eventHistory td {
+    padding: 1rem;
 }
 
 #eventHistory > nav .active {
