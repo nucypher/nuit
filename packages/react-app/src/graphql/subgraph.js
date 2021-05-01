@@ -1,20 +1,26 @@
 import {gql} from '@apollo/client'
 
+export const GET_FINALIZED_GENESIS_PERIODS = gql`
+    {
+        periods (where: {timestamp_gt: 1, genesis: true, finalized: true}, first: 365) {
+            timestamp
+            totalStaked
+            circulatingSupply
+            activeStakers
+            participationRate
+            minted
+        }
+    }
+`
 export const GET_FINALIZED_PERIODS = gql`
     {
-        periods (where: {timestamp_gt: 1, genesis: true, finalized: true}, first: 365, skip: 52) {
+        periods (where: {timestamp_gt: 1, genesis: false}, first: 52) {
             timestamp
             totalStaked
             circulatingSupply
             activeStakers
             participationRate
-        }
-        periods (where: {timestamp_gt: 1, genesis: false, finalized: true}, first: 365) {
-            timestamp
-            totalStaked
-            circulatingSupply
-            activeStakers
-            participationRate
+            minted
         }
     }
 `
@@ -43,8 +49,9 @@ export const GET_STAKER_HISTORY = gql`
         staker (id: $address, first: 1000) {
             id
             events (orderBy: timestamp, orderDirection: desc, first: 1000) {
+                id
                 timestamp
-                transaction { id }
+                transaction { id from }
                 __typename
                 ... on MintedEvent { value }
                 ... on CommitmentEvent { commitmentPeriod }
@@ -52,6 +59,7 @@ export const GET_STAKER_HISTORY = gql`
                 ... on ReStakeEvent { reStake }
                 ... on LockedEvent { value }
                 ... on WorkerBondedEvent { worker }
+                ... on WithdrawEvent { value }
             }
         }
     }
