@@ -25,18 +25,58 @@ function EventHistory(props) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p><i>There was a problem fetching staker history.</i></p>
 
+    const eventTypes = {
+        system: [
+            'CommitmentEvent',
+            'MintedEvent',
+            'SlashedEvent',
+            'MigratedEvent'
+        ],
+        user: [
+            "DepositedEvent",
+            "DividedEvent",
+            "MergedEvent",
+            "ProlongEvent",
+            "ReStakeEvent",
+            "WindDownEvent",
+            "WithdrawEvent",
+            "WorkerBondedEvent"
+        ]
+    }
+
+    function getEventMeta(event) {
+        let datum = [
+            event.value,  // lock, deposit, withdraw
+            event.commitmentPeriod,
+            event.reStake,
+            event.windDown,
+            event.worker
+        ]
+        for (let data of datum) if (data) {
+            if (data === true) return 'Enabled'
+            if (data === false) return 'Disabled'
+            if (data.startsWith("0x")) return truncate(data)
+            return Math.fround(data).toString()
+        }
+    }
+
+    function makeEtherscanLink(txhash) {
+        debugger
+        return txhash
+    }
+
     let eventRows = []
     if (data.staker) {
-        eventRows = []
         for (const event of data.staker.events) {
+            if ((props.filter) && !(eventTypes[props.filter].includes(event.__typename)) ) continue
             eventRows.push(
                 <tr key={event.id}>
-                    <td>{event.__typename.replace("Event", "")}</td>
-                    <td>{truncate(data.staker.id)}</td>
                     <td>
-                        {new Date(event.timestamp * 1000).toDateString()}
-                        {event.value}
+                        <a href={makeEtherscanLink(event.transaction.id)}>{event.__typename.replace("Event", "")}</a>
                     </td>
+                    <td>{truncate(data.staker.id)}</td>
+                    <td>{new Date(event.timestamp * 1000).toDateString()}</td>
+                    <td>{getEventMeta(event)}</td>
                 </tr>
             )
           }
@@ -47,7 +87,7 @@ function EventHistory(props) {
             <tr>
                 <th>Name</th>
                 <th>Wallet</th>
-                <th>Date</th>
+                <th>Data</th>
             </tr>
             </thead>
             <tbody>
@@ -68,10 +108,10 @@ export function HistoryPane() {
                         <EventHistory/>
                     </Tab>
                     <Tab eventKey="user" title="User Events">
-                        <EventHistory/>
+                        <EventHistory filter={"user"}/>
                     </Tab>
                     <Tab eventKey="system" title="System Events">
-                        <EventHistory/>
+                        <EventHistory filter={"system"}/>
                     </Tab>
                 </Tabs>
                     </div>
