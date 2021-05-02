@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 
 import {useQuery} from '@apollo/client';
-import {GET_FINALIZED_PERIODS, GET_LATEST_FINALIZED_PERIOD} from "../graphql/subgraph";
+import {GET_FINALIZED_GENESIS_PERIODS, GET_FINALIZED_PERIODS, GET_LATEST_FINALIZED_PERIOD} from "../graphql/subgraph";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import {Context} from "../utils";
 import {PUBLIC_CHAINS} from "../constants";
@@ -54,20 +54,19 @@ class StakedActiveDot extends React.Component {
 }
 
 function camelToTitleCase(text) {
-    let result = text.replace( /([A-Z])/g, " $1" );
+    let result = text.replace(/([A-Z])/g, " $1");
     return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
 function round(value, decimals) {
     if (decimals === undefined) decimals = 2
-    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
 
-function tooltipFormatter (value, name, props) {
-    if (name === "participationRate") {
-        value = value * 100
-    }
-    value = new Intl.NumberFormat('en').format(round(value))
+function tooltipFormatter(value, name, props) {
+    if (name === "participationRate") value = value * 100
+    if (value) value = new Intl.NumberFormat('en').format(round(value))
+    else value = '- '
     return [value, camelToTitleCase(name)]
 }
 
@@ -92,24 +91,28 @@ export default function StakerChart() {
         chainID = provider.chainId || 0
     }
 
-    let client = apolloClients[chainID || 0]
+    const client = apolloClients[chainID || 0]
 
-    let {loading, error, data} = useQuery(
+    const {data: genesisData, error: genesisError, loading: genesisLoading} = useQuery(
+        GET_FINALIZED_GENESIS_PERIODS,
+        {variables: {epoch: epoch}, client: client});
+    const {loading, error, data} = useQuery(
         GET_FINALIZED_PERIODS,
         {variables: {epoch: epoch}, client: client}
     );
 
-    if (loading) return <p>Loading...</p>;
-    if (error) {
-        // console.log(error);
-        return <p><i>There was a problem fetching the latest network status.</i></p>
-    }
+    if (genesisLoading || loading) return <p>Loading...</p>;
+    if (genesisError || error) return <p><i>There was a problem fetching the latest network status.</i></p>
 
+    // post-processing
+    let normalizedPeriods = [];
+    for (let i = 0; i < genesisData.periods.length; i = i + 7) normalizedPeriods.push(genesisData.periods[i])
+    normalizedPeriods.push(...data.periods.slice(1, data.periods.length - 1))
 
     return (
         <ResponsiveContainer aspect={2.38974359}>
             <AreaChart
-                data={data.periods}
+                data={normalizedPeriods}
                 margin={{top: 0, right: 15, left: 15, bottom: 0}}
             >
                 <defs>
@@ -124,16 +127,24 @@ export default function StakerChart() {
                     type="number"
                     scale="time"
                     tickSize={2}
-                    tick={{ transform: 'translate(120, 0)' }}
-                    tickCount={6}
-                    interval={29}
-                    domain={['dataMin', 'dataMax']}
+                    tick={{transform: 'translate(80, 0)'}}
+                    // tickCount={3}
                     tickFormatter={xFormatter}
                     tickMargin={5}
-                    allowDataOverflow={false}
+                    interval={3}
+                    // startOffset={2}
+                    domain={['dataMin', 'dataMax']}
+                    // allowDataOverflow={false}
+                    // stroke={0}
+                    axisLine={false}
+                    mirror={false}
                 />
 
-                <YAxis hide="true" type="number"/>
+                <YAxis hide="true"
+                       type="number"
+                       orientation="top"
+                />
+
                 <YAxis hide="true"
                        type="number"
                        yAxisId={1}
@@ -151,7 +162,7 @@ export default function StakerChart() {
                 <Tooltip
                     labelFormatter={epochToDate}
                     formatter={tooltipFormatter}
-                    cursor={{ stroke: '#1E65F3', opacity: 0.5}}
+                    cursor={{stroke: '#1E65F3', opacity: 0.5}}
                     offset={15}
                     wrapperStyle={{opacity: 0.9}}
                 />
@@ -161,8 +172,9 @@ export default function StakerChart() {
                     type="monotone"
                     unit=" NU"
                     stroke="#6B32D8"
-                    strokeWidth={2}
+                    strokeWidth={2.5}
                     fillOpacity={0}
+                    // stackId="0"
                     activeDot={<SupplyActiveDot/>}
                 />
 
@@ -170,8 +182,9 @@ export default function StakerChart() {
                     dataKey="totalStaked"
                     type="monotone"
                     unit=" NU"
+                    // stackId="1"
                     stroke="#1E65F3"
-                    strokeWidth={2}
+                    strokeWidth={2.5}
                     fillOpacity={1}
                     fill="url(#colorPv)"
                     activeDot={<StakedActiveDot/>}

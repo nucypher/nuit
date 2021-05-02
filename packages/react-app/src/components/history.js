@@ -6,6 +6,59 @@ import {GET_STAKER_HISTORY} from "../graphql/subgraph";
 import {Context, truncate} from "../utils";
 
 
+function makeEtherscanTxLink(txhash, networkName) {
+    return 'https://'
+        + (networkName ? (networkName + '.') : '')
+        + 'etherscan.io/tx/' + txhash
+}
+
+function makeEtherscanAccountLink(address, networkName) {
+    return 'https://'
+        + (networkName ? (networkName + '.') : '')
+        + 'etherscan.io/address/' + address
+}
+
+
+// Allow list and categorize of events to display
+const eventTypes = {
+    system: [
+        'CommitmentEvent',
+        'MintedEvent',
+        'SlashedEvent',
+        'MigratedEvent'
+    ],
+    user: [
+        "DepositedEvent",
+        "DividedEvent",
+        "MergedEvent",
+        "ProlongEvent",
+        "ReStakeEvent",
+        "WindDownEvent",
+        "WithdrawEvent",
+        "WorkerBondedEvent"
+    ]
+}
+
+
+function getEventMeta(event) {
+    let datum = [
+        event.value,  // lock, deposit, withdraw
+        event.commitmentPeriod,
+        event.reStake,
+        event.windDown,
+        event.worker
+    ]
+    console.log(event.__typename, event.reStake)
+    for (let data of datum) if (data !== undefined) {
+        if (typeof(data) === 'boolean') return data ? 'Enabled' : 'Disabled'
+        if (String(data).startsWith("0x")) return <a href={makeEtherscanAccountLink(data)}>{truncate(data)}</a>
+        if (event.__typename === "CommitmentEvent") return 'Period #' + data
+        else return Math.fround(data).toString() + " NU"
+    }
+}
+
+
+
 function EventHistory(props) {
 
     const context = useContext(Context)
@@ -14,7 +67,6 @@ function EventHistory(props) {
     let chainId;
     if (provider) {
         chainId = provider.chainID
-        console.log(chainId)
     }
 
     let {loading, error, data} = useQuery(
@@ -27,27 +79,28 @@ function EventHistory(props) {
 
     let eventRows = []
     if (data.staker) {
-        eventRows = []
         for (const event of data.staker.events) {
+            if ((props.filter) && !(eventTypes[props.filter].includes(event.__typename)) ) continue
             eventRows.push(
                 <tr key={event.id}>
-                    <td>{event.__typename.replace("Event", "")}</td>
-                    <td>{truncate(data.staker.id)}</td>
                     <td>
-                        {new Date(event.timestamp * 1000).toDateString()}
-                        {event.value}
+                        <a href={makeEtherscanTxLink(event.transaction.id)}>{event.__typename.replace("Event", "")}</a>
                     </td>
+                    <td>{truncate(event.transaction.from)}</td>
+                    <td>{new Date(event.timestamp * 1000).toDateString()}</td>
+                    <td>{getEventMeta(event)}</td>
                 </tr>
             )
           }
     }
 
-    return (<Table striped borderless hover>
+    return (<Table striped borderless hover className="text-left">
             <thead>
             <tr>
                 <th>Name</th>
                 <th>Wallet</th>
-                <th>Date</th>
+                <th>Timestamp</th>
+                <th>Data</th>
             </tr>
             </thead>
             <tbody>
@@ -68,16 +121,14 @@ export function HistoryPane() {
                         <EventHistory/>
                     </Tab>
                     <Tab eventKey="user" title="User Events">
-                        <EventHistory/>
+                        <EventHistory filter={"user"}/>
                     </Tab>
                     <Tab eventKey="system" title="System Events">
-                        <EventHistory/>
+                        <EventHistory filter={"system"}/>
                     </Tab>
                 </Tabs>
                     </div>
-
             </Col>
-
         </Row>
     )
 }

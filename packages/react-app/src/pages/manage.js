@@ -79,66 +79,73 @@ export function Manage() {
                 </Col>
             </Row>
 
-            <Row className="d-flex justify-content-center">
-                <Col xl={6} >
+            <Row className="">
+                <Col xl={5} >
                     <InputBox>
                         <Row>
-                            <Col className="d-flex justify-content-center mb-4">
+                            <Col className="d-flex justify-content-flex-start mb-1">
                                 <h5>Rewards</h5>
                             </Col>
                         </Row>
                         <Row >
-                            <Col className="d-flex justify-content-around">
-                                <Col>
-                                <strong>Staking</strong>
-                                <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
-                                <PrimaryButton className="mt-2" width="100"><small>Withdraw</small>  <NuBalance balance={stakerData.availableNUWithdrawal}/></PrimaryButton>
-                                </Col>
-
-                                <Col>
-                                <strong>Policy</strong>
-                                <CircleQ tooltip="ETH rewards collected from policy fees"/>
-                                <PrimaryButton className="mt-2" width="100"><small>Withdraw</small> {stakerData.availableETHWithdrawal} <Grey>ETH</Grey></PrimaryButton>
-                                </Col>
+                            <Col className="d-flex flex-md-column justify-content-between">
+                                <div className="d-flex flex-md-column">
+                                    <div>
+                                        <strong>Staking</strong>
+                                        <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
+                                    </div>
+                                    <PrimaryButton className="mt-2" width="100"><small>Withdraw</small>  <NuBalance balance={stakerData.availableNUWithdrawal}/></PrimaryButton>
+                                </div>
+                                <div className="d-flex flex-md-column">
+                                    <div className="mt-4">
+                                        <strong>Policy</strong>
+                                        <CircleQ tooltip="ETH rewards collected from policy fees"/>
+                                    </div>
+                                    <PrimaryButton className="mt-2" width="100"><small>Withdraw</small> {stakerData.availableETHWithdrawal} <Grey>ETH</Grey></PrimaryButton>
+                                </div>
                             </Col>
                         </Row>
                     </InputBox>
-                    <InputBox className="mt-5 mb-5">
+                    <InputBox className="mt-4 mb-4">
                         <Row>
-                            <Col className="d-flex justify-content-center mb-4">
+                            <Col className="d-flex justify-content-flex-start mb-1">
                                 <h5>Settings</h5>
                             </Col>
                         </Row>
                         <Row>
-                            {stakerData.flags ? <Col className="d-flex justify-content-around">
+                            {stakerData.flags ? <Col className="d-flex justify-content-between">
                                 <Col>
-                                    <strong>Re-Stake</strong>
-                                    <CircleQ tooltip="Compound your staking returns by automatically re-staking each period's rewards."/>
+                                    <div className="d-flex justify-content-flex-start align-items-center">
+                                        <strong>Re-Stake</strong>
+                                        <CircleQ tooltip="Compound your staking returns by automatically re-staking each period's rewards."/>
+                                    </div>
                                     <ToggleButton abort={setRestaking} activeCheck={restaking} boolState={stakerData.flags.reStake} onClick={handleChangeRestake} />
                                 </Col>
                                 <Col>
-                                    <strong>Wind Down</strong>
-                                    <CircleQ tooltip="Each period commited will reduce stake length by one period."/>
+                                    <div className="d-flex justify-content-flex-start align-items-center">
+                                        <strong>Wind Down</strong>
+                                        <CircleQ tooltip="Each period committed will reduce stake length by one period."/>
+                                    </div>
                                     <ToggleButton abort={setWindingdown} activeCheck={windingdown} boolState={stakerData.flags.windDown} onClick={handleChangeWindDown} />
                                 </Col>
                             </Col>: null}
                         </Row>
                     </InputBox>
                 </Col>
-                <Col xl={6}>
+                <Col xl={7}>
                     <InputBox>
                         <Row>
-                            <Col className="d-flex justify-content-center mb-4">
+                            <Col className="d-flex justify-content-flex-start mb-4">
                                 <h5>Running</h5>
                             </Col>
                         </Row>
                         <Row >
                             <Col>
-                                <div className="d-flex justify-content-between">
-                                <Grey>Worker</Grey>
-                                <PendingButton small activeCheck={bondingworker} onClick={handleChangeWorker} abort={setBondingWorker}>{workerAddress ? 'Change' : 'Set Worker'}</PendingButton>
+                                <div className="d-flex justify-content-between align-items-center mb-2">
+                                    <Grey>Worker</Grey>
+                                    <PendingButton small activeCheck={bondingworker} onClick={handleChangeWorker} abort={setBondingWorker}>{workerAddress ? 'Change' : 'Set Worker'}</PendingButton>
                                 </div>
-                               <ButtonBox className="mb-3 mt-1">
+                               <ButtonBox className="mb-3 mt-1 control-box">
                                    { workerAddress ?
                                    <div>
                                     <strong>{workerAddress}</strong>
@@ -152,7 +159,7 @@ export function Manage() {
                                <div className="d-flex justify-content-between">
                                 <Grey className="mb-3">Staker</Grey>
                                </div>
-                               <ButtonBox className="mb-3">
+                               <ButtonBox className="mb-3 control-box">
                                    <strong>{account}</strong>
                                    <DataRow className="mt-3">
                                        <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
@@ -164,11 +171,11 @@ export function Manage() {
                                        <strong>Total NU Locked</strong><span><NuBalance balance={stakerData.lockedNU}/></span>
                                     </DataRow>
                                </ButtonBox>
-                               <div className="d-flex justify-content-between">
+                               <div className="d-flex justify-content-between align-items-center mb-2">
                                 <Grey>Substakes</Grey>
                                 <PendingButton small activeCheck={addingsubstake} onClick={handleAddSubstake} abort={setAddingSubstake}>Add Substake</PendingButton>
                                 </div>
-                                {stakerData.substakes.length ? <SubStakeList substakes={stakerData.substakes} element={ButtonBox} className="mt-1" /> : null}
+                                {stakerData.substakes.length ? <SubStakeList substakes={stakerData.substakes} element={ButtonBox} /> : null}
                             </Col>
                         </Row>
                     </InputBox>

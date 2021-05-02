@@ -19,7 +19,7 @@ export { SubStakeList, SubStake } from '@project/react-app/src/components/substa
 
 const spaces = {
   xs: "4px",
-  sm: "8px",
+  sm: "6px",
   md: "12px",
   lg: "16px",
   xl: "24px",
@@ -84,7 +84,7 @@ export const Main = styled.div`
 
 export const ButtonBox = styled.div`
   padding:10px;
-  background-color: ${props => props.theme.colors.background};
+  background-color: ${props => props.theme.colors.extrabg};
   border-radius: ${spaces.sm};
 
   .modal-body &, .modal-body & input {
@@ -230,11 +230,10 @@ const NCLogoContainer = styled.div`
 
 export const InputBox = styled.div`
   margin-top: ${spaces.lg};
-  background-color: ${props => props.theme.colors.extrabg};
+  background-color: ${props => props.theme.colors.background};
   padding: ${spaces.xxl};
   border-radius: ${spaces.xl};
   box-shadow: ${props => props.theme.colors.shadow};
-  width: 500px;
   margin:auto;
 
   & input{
@@ -246,14 +245,15 @@ export const InputBox = styled.div`
     width:90%;
   }
 
-  .modal-body &, .modal-body & input {
-    background-color: white;
+  & .modal-body, .modal-body & input {
+    background-color: ${props => props.theme.colors.extrabg};
+    border-radius: ${spaces.sm};
   }
 
 `
 
 export const Input = styled.input`
-   font-family: 'Open Sans', sans-serif;
+   font-family: "Helvetica Neue", "Open Sans", sans-serif;
    background-color: ${props => props.theme.colors.extrabg};
    padding: ${spaces.lg} 0;
    line-height: normal;

@@ -37,7 +37,7 @@ export const light = {
                 main:'#828A9C',
                 sub: '#828A9C'
             },
-            border: '2px solid #E0E4E8',
+            border: '1px solid #E0E4E8',
         }
     }
 }
@@ -81,7 +81,7 @@ export const dark = {
                 primary:'#828A9C',
                 secondary: '#828A9C'
             },
-            border: '2px solid #323537'
+            border: '1px solid #323537'
         }
     }
 }
