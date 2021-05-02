@@ -71,7 +71,7 @@ export function Manage() {
 
     return (
 
-        <Container>
+        <Container fluid>
             <Row>
                 <Breadcrumbs paths={[
                     {path:'/', label: 'root', enabled: true },
@@ -86,59 +86,63 @@ export function Manage() {
             </Row>
             {migrating ? <Row><Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col></Row> :
             <Row className="d-flex justify-content-center">
-                <Col xl={6} >
+                <Col xs={12} xl={4}>
                     <InputBox>
-                        <Row>
+                        <Row noGutters>
                             <Col className="d-flex justify-content-flex-start mb-1">
                                 <h5>Rewards</h5>
                             </Col>
                         </Row>
-                        <Row >
-                            <Col className="d-flex flex-md-column justify-content-between">
-                                <div className="d-flex flex-md-column">
-                                    <div>
+                        <Row noGutters>
+                            <Col>
+                                <Row  className="d-flex justify-content-between">
+                                <Col xs={6} xl={12} className="mb-3">
+                                    <div className="nowrap">
                                         <strong>Staking</strong>
                                         <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
                                     </div>
-                                    <PrimaryButton className="mt-2" width="100"><small>Withdraw</small>  <NuBalance balance={stakerData.availableNUWithdrawal}/></PrimaryButton>
-                                </div>
-                                <div className="d-flex flex-md-column">
-                                    <div className="mt-4">
+                                    <PrimaryButton className="mt-2 nowrap"> <NuBalance balance={stakerData.availableNUWithdrawal}/></PrimaryButton>
+                                </Col>
+                                <Col xs={6} xl={12}>
+                                    <div className="nowrap">
                                         <strong>Policy</strong>
                                         <CircleQ tooltip="ETH rewards collected from policy fees"/>
                                     </div>
-                                    <PrimaryButton className="mt-2" width="100"><small>Withdraw</small> {stakerData.availableETHWithdrawal} <Grey>ETH</Grey></PrimaryButton>
-                                </div>
+                                    <PrimaryButton className="mt-2 nowrap"> {stakerData.availableETHWithdrawal} <Grey>ETH</Grey></PrimaryButton>
+                                </Col>
+                                </Row>
                             </Col>
                         </Row>
                     </InputBox>
                     <InputBox className="mt-4 mb-4">
-                        <Row>
+                        <Row noGutters>
                             <Col className="d-flex justify-content-flex-start mb-1">
                                 <h5>Settings</h5>
                             </Col>
                         </Row>
-                        <Row>
-                            {stakerData.flags ? <Col className="d-flex justify-content-between">
-                                <Col>
-                                    <div className="d-flex justify-content-flex-start align-items-center">
-                                        <strong>Re-Stake</strong>
-                                        <CircleQ tooltip="Compound your staking returns by automatically re-staking each period's rewards."/>
-                                    </div>
-                                    <ToggleButton abort={setRestaking} activeCheck={restaking} boolState={stakerData.flags.reStake} onClick={handleChangeRestake} />
-                                </Col>
-                                <Col>
-                                    <div className="d-flex justify-content-flex-start align-items-center">
-                                        <strong>Wind Down</strong>
-                                        <CircleQ tooltip="Each period committed will reduce stake length by one period."/>
-                                    </div>
-                                    <ToggleButton abort={setWindingdown} activeCheck={windingdown} boolState={stakerData.flags.windDown} onClick={handleChangeWindDown} />
-                                </Col>
+                        <Row noGutters>
+                            {stakerData.flags ? <Col>
+                                <Row className="d-flex justify-content-between">
+                                    <Col xs={6} xl={12}>
+                                        <div className="nowrap">
+                                            <strong className="nowrap">Re-Stake</strong>
+                                            <CircleQ tooltip="Compound your staking returns by automatically re-staking each period's rewards."/>
+                                        </div>
+                                        <ToggleButton abort={setRestaking} activeCheck={restaking} boolState={stakerData.flags.reStake} onClick={handleChangeRestake} />
+                                    </Col>
+                                    <Col xs={6} xl={12}>
+                                        <div className="nowrap">
+                                            <strong className="nowrap">Wind Down</strong>
+                                            <CircleQ tooltip="Each period committed will reduce stake length by one period."/>
+                                        </div>
+                                        <ToggleButton abort={setWindingdown} activeCheck={windingdown} boolState={stakerData.flags.windDown} onClick={handleChangeWindDown} />
+                                    </Col>
+                                </Row>
                             </Col>: null}
                         </Row>
                     </InputBox>
                 </Col>
-                <Col xl={7}>
+                <Col xl={6}>
                     <InputBox>
                         <Row>
                             <Col className="d-flex justify-content-flex-start mb-4">
@@ -186,7 +190,7 @@ export function Manage() {
                         </Row>
                     </InputBox>
                 </Col>
-                <Col>
+                <Col xs={12}>
                     <div id="historyLabel" className="flex-row justify-content-lg-center text-center">
                         <h4>History</h4>
                     </div>
