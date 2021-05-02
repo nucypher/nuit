@@ -54,7 +54,7 @@ export const SubStakeList = (props) => {
             {substakes.map((substake)=>{
                 return <SubStake key={`${account}.${substake.id}`} selected={selection[parseInt(substake.id)]} onSelect={handleSelection} data={substake} context={context} account={account} />
             })}
-            {selection.map((s)=>{return <span>{s ? 'true': 'false'}</span>})}
+            {selection.map((s, index)=>{return <span key={index}>{s ? 'true': 'false'}</span>})}
         </Component>
     )
 }
