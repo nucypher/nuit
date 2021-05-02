@@ -13,13 +13,21 @@ export const validateAddress = (address) => {
 
 export const eventQueue = []
 
-export const ContractCaller = (contractInstance, context, name) => {
+export const ContractCaller = (contractInstance, context, eventnames) => {
     const {account} = context.wallet
+    if (!Array.isArray(eventnames)){
+        eventnames = [eventnames]
+    }
+
     return contractInstance.send({from: account}).on('transactionHash', (hash) => {
-        context.setStakerUpdates([name, ... context.pending])
+
+        context.setStakerUpdates(eventnames.concat(context.pending))
     }).on('confirmation', (confirmationNumber, receipt) => {
     }).on('receipt', (receipt) => {
-        eventQueue.unshift(name)
+        for (var event of eventnames) {
+            console.log(event);
+            eventQueue.unshift(event)
+        }
     }).on('error', (error, receipt) => {
         console.log(error)
         console.log(receipt)

@@ -179,7 +179,7 @@ function App () {
         // clear the eventQueue
         eventQueue.splice(0, eventQueue.length)
       }
-    }, 10000)
+    }, 5000)
   }, [])
 
   return (

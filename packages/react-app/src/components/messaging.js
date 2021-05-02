@@ -86,20 +86,21 @@ export const MessagePublisher = () => {
     const [show, setShow] = useState(null)
     const [message, setMessage] = useState(null)
     const [component, setComponent] = useState(null)
+    const [compProps, setProps] = useState({})
 
     useEffect(() => {
         if (context.modals.modal){
-            console.log(context.modals.modal)
             const modalData = context.modals.modal
             if (modalData.component){
                 setComponent(modalData.component)
                 setMessage(modalData.message)
+                setProps(modalData.props || {})
                 setShow(true)
             }
 
             context.modals.triggerModal(null)
         }
-    }, [context.modals])
+    }, [context.modals, context.modals.modal])
 
     let TheComponent = component ? ModalActions[component] : null
 
@@ -111,7 +112,7 @@ export const MessagePublisher = () => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="show-grid">
-                {component ? <TheComponent setShow={setShow}/> : null}
+                {component ? <TheComponent setShow={setShow} {...compProps}/> : null}
             </Modal.Body>
         </Modal>
     )

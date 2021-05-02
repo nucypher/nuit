@@ -130,7 +130,7 @@ export function Manage() {
                         <Row noGutters>
                             {stakerData.flags ? <Col>
                                 <Row className="d-flex justify-content-between">
-                                    <Col xs={6} xl={12}>
+                                    <Col xs={6} xl={12} className="mb-3">
                                         <div className="nowrap">
                                             <strong className="nowrap">Re-Stake</strong>
                                             <CircleQ tooltip="Compound your staking returns by automatically re-staking each period's rewards."/>

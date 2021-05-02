@@ -45,7 +45,7 @@ export const NuStakeAllocator = (props) => {
     const context = useContext(Context)
     const {web3} = context.wallet
 
-    const [NUBalance, setNUBalance] = useState(null)
+    const [NUBalance, setNUBalance] = useState(props.initial || null)
     const [localValue, setLocalValue] = useState(props.value? props.value : '')
 
     const setValue = (value) => {
