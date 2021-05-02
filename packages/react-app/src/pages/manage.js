@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {useContext, useEffect, useState} from 'react'
 
 import {Context} from '@project/react-app/src/utils'
@@ -19,15 +18,6 @@ import {
     ToggleButton,
     WorkerRunwayDisplay
 } from '@project/react-app/src/components'
-=======
-import React from 'react'
-import { useState, useEffect, useContext } from 'react';
-
-import { Context } from '@project/react-app/src/utils'
-
-import { Container, Row, Col } from 'react-bootstrap/';
-import { Grey, Blue, InputBox, ButtonBox, PrimaryButton, PendingButton, ToggleButton, CircleQ, WorkerRunwayDisplay, DataRow, EthBalance, NuBalance, SubStakeList, Spinner} from '@project/react-app/src/components'
->>>>>>> 67f508b (migration feedback)
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/history";
 
