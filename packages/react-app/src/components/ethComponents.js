@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Context} from '@project/react-app/src/utils'
+import {Context} from '@project/react-app/src/services'
 import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
 import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
-import {validateEthAddress} from '../utils'
+import {validateAddress} from '../services'
 import {Blue, Grey} from '@project/react-app/src/components'
 
 
@@ -79,7 +79,7 @@ export class WorkerETHAddressField extends React.Component{
         console.log(input)
         this.setState({rawValue: input});
 
-        if (validateEthAddress(input)){
+        if (validateAddress(input)){
             this.setState({validated: true, value: input})
             this.props.onChange(input)
         }

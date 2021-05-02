@@ -4,7 +4,7 @@ import { Toast, Modal } from 'react-bootstrap/';
 
 import { Blue, Error, PopupMessages } from '@project/react-app/src/components'
 
-import { Context } from '@project/react-app/src/utils'
+import { Context } from '@project/react-app/src/services'
 
 import * as ModalActions from '@project/react-app/src/components/actions/modalActions'
 

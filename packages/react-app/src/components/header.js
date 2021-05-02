@@ -1,7 +1,7 @@
 import React from 'react'
 import { useContext } from 'react';
 import { SecondaryButton, ThemeButton, NCLogo, HeaderNav } from '@project/react-app/src/components'
-import { truncate, Context } from '@project/react-app/src/utils'
+import { truncateAddress, Context } from '@project/react-app/src/services'
 
 import { light, dark } from '@project/react-app/src/themes'
 
@@ -17,7 +17,7 @@ function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) 
           }
         }}
       >
-        {!provider ? 'Connect' : truncate(account)}
+        {!provider ? 'Connect' : truncateAddress(account)}
       </SecondaryButton>
     )
   }

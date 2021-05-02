@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Container, Row, Col, Form} from 'react-bootstrap/';
 import { ButtonBox, InputBox, PrimaryButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance, Address } from '@project/react-app/src/components'
 
-import { Context, ContractCaller } from '@project/react-app/src/utils'
+import { Context, ContractCaller } from '@project/react-app/src/services'
 
 export const BondWorker = (props) => {
 

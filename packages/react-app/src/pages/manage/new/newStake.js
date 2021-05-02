@@ -6,7 +6,7 @@ import {
     Switch,
   } from 'react-router-dom'
 
-import { Context } from '@project/react-app/src/utils'
+import { Context } from '@project/react-app/src/services'
 import CreateWorker from './createWorker'
 import CreateStake from './createStake'
 import BondWorker from './bondWorker'

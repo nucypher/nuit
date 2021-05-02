@@ -3,7 +3,7 @@ import React, {useContext} from 'react'
 import {Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import {useQuery} from "@apollo/client";
 import {GET_STAKER_HISTORY} from "../graphql/subgraph";
-import {Context, truncate} from "../utils";
+import {Context, truncateAddress} from "../services";
 
 
 function makeEtherscanTxLink(txhash, networkName) {
@@ -51,7 +51,7 @@ function getEventMeta(event) {
     //console.log(event.__typename, event.reStake)
     for (let data of datum) if (data !== undefined) {
         if (typeof(data) === 'boolean') return data ? 'Enabled' : 'Disabled'
-        if (String(data).startsWith("0x")) return <a href={makeEtherscanAccountLink(data)}>{truncate(data)}</a>
+        if (String(data).startsWith("0x")) return <a href={makeEtherscanAccountLink(data)}>{truncateAddress(data)}</a>
         if (event.__typename === "CommitmentEvent") return 'Period #' + data
         else return Math.fround(data).toString() + " NU"
     }
@@ -86,7 +86,7 @@ function EventHistory(props) {
                     <td>
                         <a href={makeEtherscanTxLink(event.transaction.id)}>{event.__typename.replace("Event", "")}</a>
                     </td>
-                    <td>{truncate(event.transaction.from)}</td>
+                    <td>{truncateAddress(event.transaction.from)}</td>
                     <td>{new Date(event.timestamp * 1000).toDateString()}</td>
                     <td>{getEventMeta(event)}</td>
                 </tr>

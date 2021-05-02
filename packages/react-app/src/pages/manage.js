@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 
-import {Context} from '@project/react-app/src/utils'
+import {Context} from '@project/react-app/src/services'
 
 import {Col, Container, Row} from 'react-bootstrap/';
 import {

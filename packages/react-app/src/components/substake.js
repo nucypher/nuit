@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 
-import { Grey, DataRow, SecondaryButton,  NuBalance} from '@project/react-app/src/components'
-import { Context } from '@project/react-app/src/utils'
+import { Grey, DataRow, PrimaryButton, SecondaryButton,  NuBalance} from '@project/react-app/src/components'
+import { Context, validateMerge } from '@project/react-app/src/services'
 
 import { Form } from 'react-bootstrap/';
 
@@ -18,6 +18,23 @@ const SubStake = (props) => {
     </div>
     )
 }
+
+
+const STActionButton = (props) => {
+
+    const isActive = (props) =>{
+        return props.validate(props.selection, props.substakes)
+    }
+
+    return (
+        <span>
+        {isActive(props) ? <PrimaryButton>{props.children}</PrimaryButton> : <SecondaryButton>{props.children}</SecondaryButton>}
+        </span>
+    )
+}
+
+
+
 
 export const SubStakeList = (props) => {
 
@@ -49,7 +66,7 @@ export const SubStakeList = (props) => {
 
         <Component {...props}>
             <DataRow>
-
+                <STActionButton selection={selection} substakes={substakes} validate={validateMerge}>merge</STActionButton>
             </DataRow>
             {substakes.map((substake)=>{
                 return <SubStake key={`${account}.${substake.id}`} selected={selection[parseInt(substake.id)]} onSelect={handleSelection} data={substake} context={context} account={account} />

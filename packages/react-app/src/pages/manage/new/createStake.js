@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap/';
 
-import { Context } from '@project/react-app/src/utils'
+import { Context } from '@project/react-app/src/services'
 
 import { InputBox, PrimaryButton, CreateStake } from '@project/react-app/src/components'
 import { Link } from 'react-router-dom'

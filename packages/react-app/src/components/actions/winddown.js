@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
 import { PrimaryButton } from '@project/react-app/src/components'
 
-import { Context, ContractCaller } from '@project/react-app/src/utils'
+import { Context, ContractCaller } from '@project/react-app/src/services'
 
 export const Winddown = (props) => {
 
