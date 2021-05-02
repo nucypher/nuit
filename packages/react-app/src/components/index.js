@@ -14,7 +14,7 @@ export { BondWorker } from '@project/react-app/src/components/actions/bondWorker
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 
-export { SubStakeList, SubStake } from '@project/react-app/src/components/substake'
+export { SubStakeList } from '@project/react-app/src/components/substake'
 
 
 const spaces = {

@@ -36,7 +36,10 @@ function App () {
   const [actionsCompleted, setActionsCompleted] = useState([])
   const [modal, triggerModal] = useState(null)
 
+  const [privacy, setPrivacy] = useState(null)
+
   const context = {
+    privacy,
     wallet: {
       provider,
       loadWeb3Modal,
@@ -108,6 +111,7 @@ function App () {
             let substakeList = [];
             for (let i = 0; i < getSubStakesLength; i++) {
                 let stakedata = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
+                stakedata.index = i
                 stakedata.id = i.toString()
                 stakedata.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
                   account, stakedata.id).call();
