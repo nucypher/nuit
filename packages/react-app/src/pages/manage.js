@@ -86,7 +86,7 @@ export function Manage() {
             </Row>
             {migrating ? <Row><Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col></Row> :
             <Row className="d-flex justify-content-center">
-                <Col xs={12} xl={4}>
+                <Col xs={12} md={10} xl={4}>
                     <InputBox>
                         <Row noGutters>
                             <Col className="d-flex justify-content-flex-start mb-1">
@@ -142,7 +142,7 @@ export function Manage() {
                         </Row>
                     </InputBox>
                 </Col>
-                <Col xl={6}>
+                <Col xs={12} md={10} xl={6}>
                     <InputBox>
                         <Row>
                             <Col className="d-flex justify-content-flex-start mb-4">
