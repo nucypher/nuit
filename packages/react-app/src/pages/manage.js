@@ -168,7 +168,7 @@ export function Manage() {
                                     <strong><Address>{workerAddress}</Address></strong>
                                     <WorkerRunwayDisplay address={workerAddress}/>
                                     <DataRow>
-                                        <strong>Last Committed Period</strong><span><Blue>{stakerData.info.nextCommittedPeriod || stakerData.info.nextCommittedPeriod}</Blue></span>
+                                        <strong>Last Committed Period</strong><span><strong><Blue>{stakerData.info.nextCommittedPeriod || stakerData.info.nextCommittedPeriod}</Blue></strong></span>
                                         </DataRow>
                                     </div> : <p> no worker associated with account</p>}
                                </ButtonBox>

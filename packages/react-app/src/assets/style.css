@@ -128,6 +128,10 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     white-space: nowrap
 }
 
+.w100{
+    width:100%;
+}
+
 #historyLabel {
     margin-top: 10vh;
     margin-bottom: 4vh;

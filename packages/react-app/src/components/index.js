@@ -334,6 +334,7 @@ export const SliderInput = styled.div`
 export const DataRow = styled.div`
   display: flex;
   justify-content: space-between;
+  white-space:nowrap;
 `
 
 export const PopupMessages = styled.div`

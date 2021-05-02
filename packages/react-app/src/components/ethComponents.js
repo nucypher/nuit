@@ -43,7 +43,7 @@ export const WorkerRunwayDisplay = (props) => {
                         <CircleQ/>
                     </OverlayTrigger>
                 </span>
-                <span><strong> {balance}</strong> ETH</span>
+                <EthBalance balance={balance}/>
             </div>
             <div className="d-flex justify-content-between">
                 <span>
@@ -52,7 +52,7 @@ export const WorkerRunwayDisplay = (props) => {
                         <CircleQ/>
                     </OverlayTrigger>
                 </span>
-                <span><strong>{runway}</strong> days</span>
+                <span><strong><Blue>{runway}</Blue> <Grey>DAYS</Grey></strong></span>
             </div>
         </div>
     )
@@ -127,7 +127,9 @@ export const EthBalance = (props) => {
         if (!props.balance){
             function handleBalance(wei) {
                 const Amount = (parseFloat(wei) / 10 ** 18).toFixed(2);
-                props.onBalance(Amount)
+                if (props.onBalance){
+                    props.onBalance(Amount)
+                }
             }
             if (provider && address){
                 web3.eth.getBalance(address).then(handleBalance)
@@ -137,7 +139,7 @@ export const EthBalance = (props) => {
 
     return (
         <div>
-            {props.balance ? <strong><Blue><Address>{props.balance}</Address></Blue> <Grey>ETH</Grey></strong> : ''}
+            {props.balance ? <strong><Blue>{props.balance}</Blue> <Grey>ETH</Grey></strong> : ''}
         </div>
     )
 }
