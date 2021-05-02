@@ -1,52 +1,46 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 import { Grey, DataRow, SecondaryButton,  NuBalance} from '@project/react-app/src/components'
 import { Context } from '@project/react-app/src/utils'
 
-export class SubStake extends React.Component{
+import { Form } from 'react-bootstrap/';
 
-    constructor({ data, context, account, props }){
-        super(props)
+const SubStake = (props) => {
 
-        this.stakedata = data
-        this.context = context
-        this.account = account
-
-        this.setup = this.setup.bind(this)
-        this.setup()
-    }
-
-    async setup () {
-        console.log(this.context.wallet.contracts.STAKINGESCROW.methods)
-        this.stakedata.lastPeriod = await this.context.wallet.contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
-            this.account, this.stakedata.id).call();
-    }
-
-    render(){
-        return <div className="mt-3" key={this.stakedata.index}>
+    return(
+    <div className="mt-3" key={props.data.id}>
         <DataRow>
-            <strong>start: {this.stakedata.firstPeriod}</strong>
-            <strong>end: {this.stakedata.lastPeriod}</strong>
-            <span><NuBalance balance={this.stakedata.lockedValue}/></span>
+            <Form.Check onClick={(e) => props.onSelect(props.data.index, e)}></Form.Check>
+            <strong>start: {props.data.firstPeriod}</strong>
+            <strong>end: {props.data.lastPeriod}</strong>
+            <span><NuBalance balance={props.data.lockedValue}/></span>
         </DataRow>
-        <div className="d-flex justify-content-between">
-        {parseInt(this.stakedata.unlockingDuration) ? <div className="nowrap">
-            <SecondaryButton onClick={this.handleProlong} className="mr-1" width="70px" tiny>Prolong</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Divide</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Increase</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Merge</SecondaryButton>
-            <SecondaryButton className="mr-1" width="70px" tiny>Remove</SecondaryButton>
-        </div> : <Grey>unlocked</Grey>}
-        </div>
     </div>
-    }
+    )
 }
 
 export const SubStakeList = (props) => {
 
     const context = useContext(Context)
-    const{ contracts, account } = context.wallet
+    const{ account, provider } = context.wallet
+
+    const [substakes, setSubstakes] = useState([])
+    const [selection, setSelection] = useState([])
+
+
     let Component = props.element || "div"
+
+
+    useEffect(()=>{
+        setSubstakes(props.substakes)
+        setSelection(props.substakes.map(() => false))
+    },[props.substakes])
+
+    const handleSelection = (index) => {
+        setSelection(selection.map((s, i) => {return i == index ? !s : s }))
+    }
+
+
 
     if (!account){
         return (<div></div>)
@@ -54,9 +48,13 @@ export const SubStakeList = (props) => {
     return (
 
         <Component {...props}>
-            {props.substakes.map((substake)=>{
-                return <SubStake key={substake.id} data={substake} context={context} account={account} />
+            <DataRow>
+
+            </DataRow>
+            {substakes.map((substake)=>{
+                return <SubStake key={`${account}.${substake.id}`} selected={selection[parseInt(substake.id)]} onSelect={handleSelection} data={substake} context={context} account={account} />
             })}
+            {selection.map((s, index)=>{return <span key={index}>{s ? 'true': 'false'}</span>})}
         </Component>
     )
 }

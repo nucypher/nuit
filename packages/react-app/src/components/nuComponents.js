@@ -24,9 +24,9 @@ export const NuBalance = (props) => {
     }, [ account, provider, contracts, props ])
 
     return (
-        <div>
+        <span>
             {props.balance ? <strong><Blue>{props.balance ? <strong><Blue>{(parseFloat(props.balance) / 10 ** 18).toFixed(2)}</Blue> <Grey>NU</Grey></strong> : ''}</Blue></strong> : ''}
-        </div>
+        </span>
     )
 }
 

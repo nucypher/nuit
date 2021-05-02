@@ -14,7 +14,7 @@ export { BondWorker } from '@project/react-app/src/components/actions/bondWorker
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 
-export { SubStakeList, SubStake } from '@project/react-app/src/components/substake'
+export { SubStakeList } from '@project/react-app/src/components/substake'
 
 
 const spaces = {
@@ -127,17 +127,20 @@ export const NCButtonBase = styled.button`
 
   white-space: nowrap;
 
+  @media ${device.mobileM} {
+    min-width: ${ props => (props.width ? `${props.width}` : '7.5em')};
+  }
+
   @media ${device.tablet} {
     min-width: ${ props => (props.width ? `${props.width}` : '9em')};
   }
-
 
   ${props => props.hidden && 'hidden'} :focus {
     border: none;
     outline: none;
   }
 
-  width: ${ props => (props.width ? `${props.width}` : 'inherit')};
+  width: ${ props => (props.width ? `${props.width}` : '100%')};
   padding: ${ props => ((props.small || props.tiny) ? `${props.tiny ? '1px' : spaces.xs} ${props.tiny ? '1px' : spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
 
 `
@@ -194,7 +197,7 @@ export const ToggleButton = ({activeCheck, boolState, onClick, abort}) => {
   }
 
   return (
-      <div className="d-flex justify-content-center">{ activeCheck ? <Spinner onClick={handleAbort}/> :
+      <div>{ activeCheck ? <Spinner onClick={handleAbort}/> :
       <div>{
           boolState ?
           <PrimaryButton onClick={onClick} className="mt-2">On</PrimaryButton> :

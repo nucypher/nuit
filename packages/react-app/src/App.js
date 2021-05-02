@@ -36,7 +36,10 @@ function App () {
   const [actionsCompleted, setActionsCompleted] = useState([])
   const [modal, triggerModal] = useState(null)
 
+  const [privacy, setPrivacy] = useState(null)
+
   const context = {
+    privacy,
     wallet: {
       provider,
       loadWeb3Modal,
@@ -53,14 +56,41 @@ function App () {
       modal,
       triggerModal
     },
-    pending: stakerUpdates,
     stakerData: stakerData,
     workerAddress: {set: setWorkerAddress, get: workerAddress},
     availableNU: {set: setAvailableNU, get: availableNU},
     availableETH: {set: setAvailableETH, get: availableETH},
+
+    /* populated by utils.ContractCaller,
+      pending is an array of strings that represent a pending
+      transaction on the blockchain.
+
+      For example when someone confirms
+      a "migrate" transaction, pending gets unshifted 'migrate'.  When we receive
+      a confirmation for the transaction, we remove it from the array.
+
+      The migrate button or other UI can thusn manage spinners and user feedback
+      by checking if 'migrate' is in pending.
+    */
+    pending: stakerUpdates,
+    setStakerUpdates, // sets stakerUpdates/pending
+    /*
+      stakerUpdated is an integer.
+      when we want to update all the staker data, we
+      set it to the timestamp of an event which
+      triggers the refresh.
+    */
     stakerUpdated,
     setStakerUpdated,
-    setStakerUpdates,
+
+    /* we have a periodic task that runs so we can update the UI in batches.
+      In the event that multiple blockchain updates are initiated in quick succession,
+      this is the only way to ensure consistent UI updates in the event that multiple
+      transactions confirm in the same block.
+
+      When a batch of updates are received, they are pushed into the 'actionsCompleted' array.
+      This is then used to remove those actions from 'pending' (described above)
+    */
     actionsCompleted,
     setActionsCompleted
   }
@@ -81,7 +111,10 @@ function App () {
             let substakeList = [];
             for (let i = 0; i < getSubStakesLength; i++) {
                 let stakedata = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
+                stakedata.index = i
                 stakedata.id = i.toString()
+                stakedata.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
+                  account, stakedata.id).call();
                 substakeList.push(stakedata);
                 lockedNU += parseInt(stakedata.unlockingDuration) > 0 ? parseInt(stakedata.lockedValue) : 0
             }
