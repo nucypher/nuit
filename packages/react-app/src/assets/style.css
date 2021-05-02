@@ -175,3 +175,10 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     line-height: 2em;
     padding: 25px;
 }
+
+.eth-address{
+    display:inline-block;
+    width:100%;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}

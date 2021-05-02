@@ -17,7 +17,8 @@ import {
     SubStakeList,
     ToggleButton,
     WorkerRunwayDisplay,
-    Spinner
+    Spinner,
+    Address
 } from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/history";
@@ -26,12 +27,14 @@ export function Manage() {
 
     const context = useContext(Context)
     const {account} = context.wallet
-    const stakerData = context.stakerData
+
     const workerAddress = context.workerAddress.get
     const availableETH = context.availableETH.get
     const availableNU = context.availableNU.get
     const setAvailableETH = context.availableETH.set
     const setAvailableNU = context.availableNU.set
+
+    const [stakerData, setStakerData] = useState({})
 
     // TODO:  clean this into a for loop
     const [windingdown, setWindingdown]  = useState(false)
@@ -58,6 +61,10 @@ export function Manage() {
     const handleAddSubstake = () => {
         context.modals.triggerModal({message: "Add Substake", component: "CreateStake"})
     }
+
+    useEffect(() => {
+        setStakerData(context.stakerData)
+    },[account, context.stakerData])
 
     useEffect(() => {
         setWindingdown(context.pending.indexOf('winddown') > -1)
@@ -143,13 +150,13 @@ export function Manage() {
                     </InputBox>
                 </Col>
                 <Col xs={12} md={10} xl={6}>
-                    <InputBox>
+                    {stakerData.info ? <InputBox>
                         <Row>
                             <Col className="d-flex justify-content-flex-start mb-4">
                                 <h5>Running</h5>
                             </Col>
                         </Row>
-                        <Row >
+                        <Row>
                             <Col>
                                 <div className="d-flex justify-content-between align-items-center mb-2">
                                     <Grey>Worker</Grey>
@@ -158,7 +165,7 @@ export function Manage() {
                                <ButtonBox className="mb-3 mt-1 control-box">
                                    { workerAddress ?
                                    <div>
-                                    <strong>{workerAddress}</strong>
+                                    <strong><Address>{workerAddress}</Address></strong>
                                     <WorkerRunwayDisplay address={workerAddress}/>
                                     <DataRow>
                                         <strong>Last Committed Period</strong><span><Blue>{stakerData.info.nextCommittedPeriod || stakerData.info.nextCommittedPeriod}</Blue></span>
@@ -170,7 +177,7 @@ export function Manage() {
                                 <Grey className="mb-3">Staker</Grey>
                                </div>
                                <ButtonBox className="mb-3 control-box">
-                                   <strong>{account}</strong>
+                                   <strong><Address>{account}</Address></strong>
                                    <DataRow className="mt-3">
                                        <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>
@@ -185,10 +192,10 @@ export function Manage() {
                                 <Grey>Substakes</Grey>
                                 <PendingButton small activeCheck={addingsubstake} onClick={handleAddSubstake} abort={setAddingSubstake}>Add Substake</PendingButton>
                                 </div>
-                                {stakerData.substakes.length ? <SubStakeList substakes={stakerData.substakes} element={ButtonBox} /> : null}
+                                {stakerData.substakes ? <SubStakeList substakes={stakerData.substakes} element={ButtonBox} /> : null}
                             </Col>
                         </Row>
-                    </InputBox>
+                    </InputBox>: <InputBox><Spinner/></InputBox>}
                 </Col>
                 <Col xs={12}>
                     <div id="historyLabel" className="flex-row justify-content-lg-center text-center">

@@ -6,6 +6,14 @@ import {validateEthAddress} from '../utils'
 import {Blue, Grey} from '@project/react-app/src/components'
 
 
+export const Address = (props) => {
+
+    return (
+        <span className="eth-address">{props.children}</span>
+    )
+}
+
+
 export const WorkerRunwayDisplay = (props) => {
     const address = props.address
     const [balance, setBalance] = useState(null)
@@ -129,7 +137,7 @@ export const EthBalance = (props) => {
 
     return (
         <div>
-            {props.balance ? <strong><Blue>{props.balance}</Blue> <Grey>ETH</Grey></strong> : ''}
+            {props.balance ? <strong><Blue><Address>{props.balance}</Address></Blue> <Grey>ETH</Grey></strong> : ''}
         </div>
     )
 }

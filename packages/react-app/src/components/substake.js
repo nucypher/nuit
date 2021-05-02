@@ -32,14 +32,14 @@ export const SubStakeList = (props) => {
 
 
     useEffect(()=>{
+        console.log(props.substakes)
         setSubstakes(props.substakes)
         setSelection(props.substakes.map(() => false))
-    },[props.substakes])
+    },[account, props.substakes])
 
     const handleSelection = (index) => {
         setSelection(selection.map((s, i) => {return i == index ? !s : s }))
     }
-
 
 
     if (!account){

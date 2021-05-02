@@ -48,7 +48,7 @@ function getEventMeta(event) {
         event.windDown,
         event.worker
     ]
-    console.log(event.__typename, event.reStake)
+    //console.log(event.__typename, event.reStake)
     for (let data of datum) if (data !== undefined) {
         if (typeof(data) === 'boolean') return data ? 'Enabled' : 'Disabled'
         if (String(data).startsWith("0x")) return <a href={makeEtherscanAccountLink(data)}>{truncate(data)}</a>
