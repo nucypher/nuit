@@ -49,7 +49,7 @@ export default () => {
                 <Col xs={10} sm={7}>
                     <Card>
                         <Card.Body>
-                        <h4>Once you have selected a pool, follow the associated instructions for the pool. </h4>
+                        <h4>Once you have selected a pool, follow the associated instructions.</h4>
                         <p>No additional configuration is needed.</p>
                         </Card.Body>
                     </Card>
