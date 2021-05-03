@@ -2,19 +2,25 @@ import React from 'react'
 import { Container, Row, Col, Table, Card} from 'react-bootstrap/';
 import { Grey, Blue } from '../../../../components'
 
-const POOLPROVIDERS = [
-    {name:"Roma's thing he does", fee: "10%", link: "https://nucypher.com"},
-    {name:"TuxPool", fee: "30%", link: "https://nucypher.com"},
-    {name:"CoinList", fee: "15%", link: "https://tsm.coinlist.co/help/information-on-nucypher-nu-staking"},
-]
+import POOLPROVIDERS from './pools.json'
 
 export default () => {
     return (
         <Container>
             <Row className="d-flex justify-content-center mt-5 mb-2">
             <Col xs={10} sm={7}>
-                <h5 className="d-flex justify-content-center mb-3">Join a community run staking pool</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio mi purus duis et nisi. Libero, laoreet fermentum a pretium ac. Lectus porta elit, tortor viverra libero ultrices orci. Massa, molestie turpis consequat a mauris tincidunt augue egestas quis.</p>
+                <h5 className="d-flex justify-content-center mb-3">Join a Staking Pool</h5>
+                <p>Staking pools organize independent NU holders to act as a single Staker in the NuCypher protocol.
+                Participants deposit their NU into the pool and pool operators run a Worker node on
+                behalf of the entire pool.</p>
+
+                <p>Proceeds for each participant is calculated pro-rata based on their share
+                of the NU deposited in the pool. Pool participants don't need to worry about running a worker node
+                or the associated gas cost, but pool operators typically charge a percentage of staking rewards as a service fee.</p>
+
+                <p>Anyone looking to deploy and run their own staking pool can do so via the <a target="blank" href="https://docs.nucypher.com/en/latest/architecture/staking_contracts.html#staking-pool-contract">NuCypher Staking Pool Contract.</a>
+                </p>
+
                 <p>The following pool operators support the NuCypher Network <Grey>(alphabetical order):</Grey></p>
                 </Col>
             </Row>
@@ -43,7 +49,7 @@ export default () => {
                 <Col xs={10} sm={7}>
                     <Card>
                         <Card.Body>
-                        <h4>Once you have selected a pool, follow the instructions on the pool's site. </h4>
+                        <h4>Once you have selected a pool, follow the associated instructions.</h4>
                         <p>No additional configuration is needed.</p>
                         </Card.Body>
                     </Card>
