@@ -104,7 +104,6 @@ function App () {
     stakerInfo.lockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
     stakerInfo.futureLockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 1).call();
     stakerInfo.ownedTokens = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
-
     const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
     const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
     const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
@@ -136,6 +135,8 @@ function App () {
     const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(web3.utils.toBN(lockedStakerNits));
     const availableNUWithdrawal = stakerUnlockedNits
 
+    const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
+    setAvailableNU(stakerNuWallet)
 
     setStakerData({
         info: stakerInfo,
