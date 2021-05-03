@@ -23,6 +23,7 @@ import {
 } from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/history";
+import Web3 from "web3";
 
 export function Manage(props) {
 
@@ -180,19 +181,19 @@ export function Manage(props) {
                                <ButtonBox className="mb-3 mt-1 control-box">
                                    { workerAddress ?
                                     <div>
-                                        <strong><Address>{workerAddress}</Address></strong>
+                                        <strong><Address>{Web3.utils.toChecksumAddress(workerAddress)}</Address></strong>
                                         <WorkerRunwayDisplay address={workerAddress}/>
                                         <DataRow>
                                             <strong>Last Committed Period</strong><span><strong><Blue>{stakerData.info.nextCommittedPeriod || stakerData.info.nextCommittedPeriod}</Blue></strong></span>
                                         </DataRow>
-                                    </div> : <p> no worker associated with account</p>}
+                                    </div> : <p> No worker associated with account</p>}
                                </ButtonBox>
 
                                <div className="d-flex justify-content-between">
                                 <Grey className="mb-3">Staker</Grey>
                                </div>
                                <ButtonBox className="mb-3 control-box">
-                                   <strong><Address>{account}</Address></strong>
+                                   <strong><Address>{Web3.utils.toChecksumAddress(account)}</Address></strong>
                                    <DataRow className="mt-1">
                                        <strong>ETH Balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>

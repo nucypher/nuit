@@ -5,6 +5,7 @@ import {useQuery} from "@apollo/client";
 import {GET_STAKER_HISTORY} from "../graphql/subgraph";
 import {Context, truncateAddress} from "../services";
 import {PUBLIC_CHAINS} from "../constants";
+import Web3 from "web3";
 
 
 function makeEtherscanTxLink(txhash, networkName) {
@@ -92,7 +93,7 @@ function EventHistory(props) {
                     </td>
                     <td>
                         <a href={makeEtherscanAccountLink(event.transaction.from, networkName)}>
-                            {truncateAddress(event.transaction.from)}
+                            {truncateAddress(Web3.utils.toChecksumAddress(event.transaction.from))}
                         </a>
                     </td>
                     <td>{new Date(event.timestamp * 1000).toDateString()}</td>
