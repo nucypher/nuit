@@ -42,6 +42,7 @@ export function Manage() {
     const [bondingworker, setBondingWorker]  = useState(false)
     const [addingsubstake, setAddingSubstake] = useState(false)
     const [migrating, setMigrating] = useState(false)
+    const [withdrawingNU, setWithdrawingNU] = useState(false)
 
 
     const [showInactive, setShowInactive] = useState(false)
@@ -62,6 +63,10 @@ export function Manage() {
         context.modals.triggerModal({message: "Add Substake", component: "CreateStake"})
     }
 
+    const handleWithdrawNU = () => {
+        context.modals.triggerModal({message: "Withdraw NU", component: "WithdrawNU"})
+    }
+
     useEffect(() => {
         setStakerData(context.stakerData)
     },[account, context.stakerData])
@@ -72,6 +77,7 @@ export function Manage() {
         setBondingWorker(context.pending.indexOf('bondingworker') > -1)
         setAddingSubstake(context.pending.indexOf('addsubstake') > -1)
         setMigrating(context.pending.indexOf('migrate') > -1)
+        setWithdrawingNU(context.pending.indexOf('withdrawNU') > -1)
 
     }, [context.pending.length, context.pending])
 
@@ -108,7 +114,7 @@ export function Manage() {
                                         <strong>Staking</strong>
                                         <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
                                     </div>
-                                    <PrimaryButton className="mt-2 nowrap"> <NuBalance balance={stakerData.availableNUWithdrawal}/></PrimaryButton>
+                                    <PendingButton small activeCheck={withdrawingNU} onClick={handleWithdrawNU} className="mt-2 nowrap"> <NuBalance balance={stakerData.availableNUWithdrawal}/></PendingButton>
                                 </Col>
                                 <Col xs={6} xl={12}>
                                     <div className="nowrap">
@@ -164,11 +170,11 @@ export function Manage() {
                                 </div>
                                <ButtonBox className="mb-3 mt-1 control-box">
                                    { workerAddress ?
-                                   <div>
-                                    <strong><Address>{workerAddress}</Address></strong>
-                                    <WorkerRunwayDisplay address={workerAddress}/>
-                                    <DataRow>
-                                        <strong>Last Committed Period</strong><span><strong><Blue>{stakerData.info.nextCommittedPeriod || stakerData.info.nextCommittedPeriod}</Blue></strong></span>
+                                    <div>
+                                        <strong><Address>{workerAddress}</Address></strong>
+                                        <WorkerRunwayDisplay address={workerAddress}/>
+                                        <DataRow>
+                                            <strong>Last Committed Period</strong><span><strong><Blue>{stakerData.info.nextCommittedPeriod || stakerData.info.nextCommittedPeriod}</Blue></strong></span>
                                         </DataRow>
                                     </div> : <p> no worker associated with account</p>}
                                </ButtonBox>

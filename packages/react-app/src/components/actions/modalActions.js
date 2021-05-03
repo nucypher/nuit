@@ -3,3 +3,4 @@ export { BondWorker } from '@project/react-app/src/components/actions/bondWorker
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 export { DivideStake } from '@project/react-app/src/components/actions/divideStake'
 export { ExtendStake } from '@project/react-app/src/components/actions/extendStake'
+export { WithdrawNU } from '@project/react-app/src/components/actions/withdrawNU'
