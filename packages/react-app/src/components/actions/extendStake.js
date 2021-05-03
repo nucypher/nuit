@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow } from '@project/react-app/src/components'
+import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow, Period } from '@project/react-app/src/components'
 
-import { daysPerPeriod } from '@project/react-app/src/constants'
-import { daysToPeriods, periodsToDays, daysP } from '@project/react-app/src/services'
+import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
+import { daysToPeriods, periodsToDays } from '@project/react-app/src/services'
 
 import { Context, ContractCaller } from '@project/react-app/src/services'
 import { calcROI, MIN_STAKE } from '@project/react-app/src/constants'
-
 
 
 
@@ -19,13 +18,13 @@ export const ExtendStake = (props) => {
     const substake = props.substake
 
     const [duration, setDuration] = useState(7)
-    const [originalEndDate, setOriginalEndDate] = useState(periodsToDays(substake.unlockingDuration))
-    const [newEndDate, setNewEndDate] = useState(periodsToDays(substake.unlockingDuration) + daysPerPeriod)
+    const [originalEndDate, setOriginalEndDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration))
+    const [newEndDate, setNewEndDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + daysPerPeriod)
 
     const onDurationChanged = (duration) => {
-        setDuration(duration)
-        setOriginalEndDate(periodsToDays(substake.unlockingDuration))
-        setNewEndDate(parseInt(periodsToDays(parseInt(substake.unlockingDuration))) + parseInt(duration))
+        setDuration(getCurrentPeriod() + parseInt(duration))
+        setOriginalEndDate(getCurrentPeriod() + parseInt(substake.unlockingDuration))
+        setNewEndDate(parseInt(getCurrentPeriod() + parseInt(substake.unlockingDuration) + parseInt(duration)))
     }
 
     const handleAction = (e) => {
@@ -48,6 +47,7 @@ export const ExtendStake = (props) => {
 
     return(
         <Container>
+            {getCurrentPeriod()}
             <Row>
                 <Col className="d-flex ">
                     <p>Adds additional periods to the duratiomn of an existing stake.</p>
@@ -70,8 +70,8 @@ export const ExtendStake = (props) => {
                         <strong>New Duration</strong>
                     </DataRow>
                     <DataRow>
-                        <span><strong><Blue>{originalEndDate}</Blue></strong><Grey>Days</Grey></span>
-                        <span><strong><Blue>{newEndDate}</Blue></strong><Grey>Days</Grey></span>
+                        <span><strong><Blue><Period>{originalEndDate}</Period></Blue></strong></span>
+                        <span><strong><Blue><Period>{newEndDate}</Period></Blue></strong></span>
                     </DataRow>
                 </Col>
             </Row>

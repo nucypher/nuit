@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
-import {HeaderNav, NCLogo, SecondaryButton, ThemeButton} from '@project/react-app/src/components'
+import {HeaderNav, NCLogo, SecondaryButton, ThemeButton, Period} from '@project/react-app/src/components'
 import {Context, truncateAddress} from '@project/react-app/src/services'
-
+import { getCurrentPeriod } from '@project/react-app/src/constants'
 import {dark, light} from '@project/react-app/src/themes'
 import {NavLink} from "react-bootstrap";
 
@@ -45,6 +45,7 @@ export default function (props) {
     return (
         <HeaderNav>
             <NCLogo theme={theme}/>
+            <span>next period: <Period>{getCurrentPeriod()}</Period></span>
             <NavLink href="/new/worker">New Stake</NavLink>
             <NavLink href="/manage">Manage</NavLink>
             <NavLink href="https://www.nucypher.com/network">Learn</NavLink>

@@ -4,3 +4,5 @@ export { CreateStake } from '@project/react-app/src/components/actions/createSta
 export { DivideStake } from '@project/react-app/src/components/actions/divideStake'
 export { ExtendStake } from '@project/react-app/src/components/actions/extendStake'
 export { WithdrawNU } from '@project/react-app/src/components/actions/withdrawNU'
+export { Restake } from '@project/react-app/src/components/actions/restake'
+export { Winddown } from '@project/react-app/src/components/actions/winddown'

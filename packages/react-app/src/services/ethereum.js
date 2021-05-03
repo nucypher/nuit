@@ -20,7 +20,6 @@ export const ContractCaller = (contractInstance, context, eventnames) => {
     }
 
     return contractInstance.send({from: account}).on('transactionHash', (hash) => {
-
         context.setStakerUpdates(eventnames.concat(context.pending))
     }).on('confirmation', (confirmationNumber, receipt) => {
     }).on('receipt', (receipt) => {
@@ -31,5 +30,9 @@ export const ContractCaller = (contractInstance, context, eventnames) => {
     }).on('error', (error, receipt) => {
         console.log(error)
         console.log(receipt)
+        for (var event of eventnames) {
+            console.log(event);
+            eventQueue.unshift(event)
+        }
     })
 }
