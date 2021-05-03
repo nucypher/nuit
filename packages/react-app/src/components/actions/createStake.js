@@ -3,19 +3,20 @@ import { Container, Row, Col } from 'react-bootstrap/';
 import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
-import { calcROI } from '@project/react-app/src/constants'
+import { calcROI, MIN_STAKE } from '@project/react-app/src/constants'
 
 
 export const CreateStake = (props) => {
 
-    const [nuAllocated, setNuAllocation] = useState(props.amount || 15000)
-    const [maxNULimit, setMaxNULimit] = useState(0)
+    const context = useContext(Context)
+    const [nuAllocated, setNuAllocation] = useState(context.availableNU.get.toString())
+    const [maxNULimit, setMaxNULimit] = useState(context.availableNU.get)
     const [AllocationValid, setAllocationValid] = useState(true)
     const [invalidMessage, setInvalidMessage] = useState()
     const [duration, setDuration] = useState(props.duration || 30)
     const [roi, setRoi] = useState({apr: 0, net: 0})
 
-    const context = useContext(Context)
+
     const { contracts, web3 } = context.wallet
 
     const [addingsubstake, setAddingSubstake] = useState(false)
@@ -26,7 +27,7 @@ export const CreateStake = (props) => {
 
 
     const onAmountChanged = (amount) => {
-        if (amount >= 15000){
+        if (amount >= MIN_STAKE){
             setNuAllocation(amount)
 
             setAllocationValid(true)
@@ -51,9 +52,9 @@ export const CreateStake = (props) => {
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))
         }
-        if (maxNULimit < 15000){
+        if (maxNULimit < MIN_STAKE){
             setAllocationValid(false)
-            setInvalidMessage(`Balance of ${maxNULimit} NU insufficient for 15000 min. stake.`)
+            setInvalidMessage(`Balance of ${maxNULimit} NU insufficient for ${MIN_STAKE} min. stake.`)
         }
     }, [duration, AllocationValid, nuAllocated, maxNULimit])
 
@@ -86,7 +87,7 @@ export const CreateStake = (props) => {
             </Row>
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
-                    <NuStakeAllocator onBalanceUpdate={setMaxNULimit} valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} onChange={onAmountChanged}/>
+                    <NuStakeAllocator onBalanceUpdate={setMaxNULimit} valid={AllocationValid} invalidmessage={invalidMessage} initial={0} value={nuAllocated} initial={maxNULimit} onChange={onAmountChanged}/>
                 </Col>
             </Row>
             <Row>

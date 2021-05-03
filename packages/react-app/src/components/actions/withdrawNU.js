@@ -27,7 +27,6 @@ export const WithdrawNU = (props) => {
     const { web3, contracts } = context.wallet
     const stakerData = context.stakerData
     const [amount, setAmount] = useState(web3.utils.fromWei(context.stakerData.availableNUWithdrawal.toString()))
-    console.log(stakerData)
 
     const handleAction = (e) => {
 
@@ -51,7 +50,7 @@ export const WithdrawNU = (props) => {
         <Container>
             <Row>
 
-                <Col className="d-flex ">
+                <Col>
                     <p>How much. </p>
                     <NUWithdrawer onChange={e => setAmount(e)} value={amount}/>
                 </Col>
