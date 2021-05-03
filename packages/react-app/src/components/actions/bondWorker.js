@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Container, Row, Col, Form} from 'react-bootstrap/';
-import { ButtonBox, InputBox, PrimaryButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance } from '@project/react-app/src/components'
+import { ButtonBox, InputBox, PrimaryButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance, Address } from '@project/react-app/src/components'
 
-import { Context, ContractCaller } from '@project/react-app/src/utils'
+import { Context, ContractCaller } from '@project/react-app/src/services'
 
 export const BondWorker = (props) => {
 
@@ -27,7 +27,7 @@ export const BondWorker = (props) => {
                     <Grey>Worker</Grey>
                     </div>
                     <ButtonBox className="mb-3 mt-1">
-                        <small><strong>{workerAddress}</strong></small>
+                        <small><strong><Address>{workerAddress}</Address></strong></small>
                         <WorkerRunwayDisplay address={workerAddress}/>
                     </ButtonBox>
 
@@ -45,9 +45,9 @@ export const BondWorker = (props) => {
                 </Col>
             </Row> :
             <Row>
-                <Col xs={12} className="d-flex justify-content-center">
-                    <InputBox>
-                        <Form.Group>
+                <Col xs={12} className="d-flex justify-content-around">
+
+                        <Form.Group className="w100">
                             <WorkerETHAddressField
                                 label="Worker Address"
                                 value={workerAddress}
@@ -55,7 +55,7 @@ export const BondWorker = (props) => {
                                 description="The wallet address of a configured Ursula worker node."
                             />
                         </Form.Group>
-                    </InputBox>
+
                 </Col>
             </Row>
             }

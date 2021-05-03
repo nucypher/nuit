@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
 import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 
-import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/utils'
+import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
 import { calcROI } from '@project/react-app/src/constants'
 
 

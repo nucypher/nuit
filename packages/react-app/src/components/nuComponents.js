@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react';
 
-import { Context } from '@project/react-app/src/utils'
+import { Context } from '@project/react-app/src/services'
 
 import { Form, Button, Row, Col, Container} from 'react-bootstrap/';
 
@@ -45,7 +45,7 @@ export const NuStakeAllocator = (props) => {
     const context = useContext(Context)
     const {web3} = context.wallet
 
-    const [NUBalance, setNUBalance] = useState(null)
+    const [NUBalance, setNUBalance] = useState(props.initial || null)
     const [localValue, setLocalValue] = useState(props.value? props.value : '')
 
     const setValue = (value) => {

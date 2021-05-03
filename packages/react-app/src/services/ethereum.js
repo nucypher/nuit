@@ -1,35 +1,35 @@
-import React from "react";
-import { daysPerPeriod } from '@project/react-app/src/constants'
 
-export const truncate = (address) => {
+
+export const truncateAddress = (address) => {
     if (address){
         return `${address.slice(0,6)}...${address.slice(38,42)}`
     }
     return ''
 }
 
-export const validateEthAddress = (address) => {
+export const validateAddress = (address) => {
     return address.length === 42 && address.startsWith('0x')
 }
 
-export const Context = React.createContext();
-
 export const eventQueue = []
 
-export const ContractCaller = (contractInstance, context, name) => {
+export const ContractCaller = (contractInstance, context, eventnames) => {
     const {account} = context.wallet
+    if (!Array.isArray(eventnames)){
+        eventnames = [eventnames]
+    }
+
     return contractInstance.send({from: account}).on('transactionHash', (hash) => {
-        context.setStakerUpdates([name, ... context.pending])
+
+        context.setStakerUpdates(eventnames.concat(context.pending))
     }).on('confirmation', (confirmationNumber, receipt) => {
     }).on('receipt', (receipt) => {
-        eventQueue.unshift(name)
+        for (var event of eventnames) {
+            console.log(event);
+            eventQueue.unshift(event)
+        }
     }).on('error', (error, receipt) => {
         console.log(error)
         console.log(receipt)
     })
-}
-
-
-export const daysToPeriods = (days) => {
-  return Math.ceil(parseInt(days)/daysPerPeriod).toString()
 }

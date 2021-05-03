@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {ReactComponent as Moon} from '../assets/icons/moon.svg'
 import {ReactComponent as Sun} from '../assets/icons/sun.svg'
 
-export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance } from '@project/react-app/src/components/ethComponents'
+export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance, Address } from '@project/react-app/src/components/ethComponents'
 export { NuStakeAllocator, NuBalance } from '@project/react-app/src/components/nuComponents'
 export { Slider } from '@project/react-app/src/components/slider'
 export { CircleQ } from '@project/react-app/src/components/circleQ'
@@ -128,11 +128,11 @@ export const NCButtonBase = styled.button`
   white-space: nowrap;
 
   @media ${device.mobileM} {
-    min-width: ${ props => (props.width ? `${props.width}` : '7.5em')};
+    min-width: ${ props => ((props.small || props.tiny) ? 'unset' : '7.5em')};
   }
 
   @media ${device.tablet} {
-    min-width: ${ props => (props.width ? `${props.width}` : '9em')};
+    min-width: ${ props => ((props.small || props.tiny) ? 'unset' : '9em')};
   }
 
   ${props => props.hidden && 'hidden'} :focus {
@@ -334,6 +334,7 @@ export const SliderInput = styled.div`
 export const DataRow = styled.div`
   display: flex;
   justify-content: space-between;
+  white-space:nowrap;
 `
 
 export const PopupMessages = styled.div`
@@ -442,8 +443,8 @@ const SpinnerGraphic =styled.div`
   cursor:pointer;
 
   border-radius: 50%;
-  width: 3em;
-  height: 3em;
+  width: 2em;
+  height: 2em;
 
  &:after {
     border-radius: 50%;
@@ -455,10 +456,10 @@ const SpinnerGraphic =styled.div`
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
-  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-left: 1.1em solid #ffffff;
+  border-top: .5em solid rgba(128, 128, 128, 0.2);
+  border-right: .5em solid rgba(128, 128, 128, 0.2);
+  border-bottom: .5em solid rgba(128, 128, 128, 0.2);
+  border-left: .5em solid #aaaaaa;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
@@ -490,6 +491,6 @@ const SpinnerGraphic =styled.div`
 
 export const Spinner = () => {
   return (
-    <SpinnerGraphic className="mt-3"/>
+    <SpinnerGraphic/>
   )
 }

@@ -1,9 +1,17 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Context} from '@project/react-app/src/utils'
+import {Context} from '@project/react-app/src/services'
 import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
 import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
-import {validateEthAddress} from '../utils'
+import {validateAddress} from '../services'
 import {Blue, Grey} from '@project/react-app/src/components'
+
+
+export const Address = (props) => {
+
+    return (
+        <span className="eth-address">{props.children}</span>
+    )
+}
 
 
 export const WorkerRunwayDisplay = (props) => {
@@ -35,7 +43,7 @@ export const WorkerRunwayDisplay = (props) => {
                         <CircleQ/>
                     </OverlayTrigger>
                 </span>
-                <span><strong> {balance}</strong> ETH</span>
+                <EthBalance balance={balance}/>
             </div>
             <div className="d-flex justify-content-between">
                 <span>
@@ -44,7 +52,7 @@ export const WorkerRunwayDisplay = (props) => {
                         <CircleQ/>
                     </OverlayTrigger>
                 </span>
-                <span><strong>{runway}</strong> days</span>
+                <span><strong><Blue>{runway}</Blue> <Grey>DAYS</Grey></strong></span>
             </div>
         </div>
     )
@@ -71,7 +79,7 @@ export class WorkerETHAddressField extends React.Component{
         console.log(input)
         this.setState({rawValue: input});
 
-        if (validateEthAddress(input)){
+        if (validateAddress(input)){
             this.setState({validated: true, value: input})
             this.props.onChange(input)
         }
@@ -119,7 +127,9 @@ export const EthBalance = (props) => {
         if (!props.balance){
             function handleBalance(wei) {
                 const Amount = (parseFloat(wei) / 10 ** 18).toFixed(2);
-                props.onBalance(Amount)
+                if (props.onBalance){
+                    props.onBalance(Amount)
+                }
             }
             if (provider && address){
                 web3.eth.getBalance(address).then(handleBalance)

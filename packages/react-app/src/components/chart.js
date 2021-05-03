@@ -3,7 +3,7 @@ import React, {useContext} from 'react'
 import {useQuery} from '@apollo/client';
 import {GET_FINALIZED_GENESIS_PERIODS, GET_FINALIZED_PERIODS, GET_LATEST_FINALIZED_PERIOD} from "../graphql/subgraph";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
-import {Context} from "../utils";
+import {Context} from "../services";
 import {PUBLIC_CHAINS} from "../constants";
 import {apolloClients} from "../graphql/apollo";
 

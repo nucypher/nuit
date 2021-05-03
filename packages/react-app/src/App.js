@@ -17,7 +17,7 @@ import {Documentation, Home, Manage, NewStake} from '@project/react-app/src/page
 
 import {Container} from 'react-bootstrap/';
 
-import {Context, eventQueue} from '@project/react-app/src/utils';
+import {Context, eventQueue} from '@project/react-app/src/services';
 import {EMPTY_WORKER} from '@project/react-app/src/constants'
 
 
@@ -61,7 +61,7 @@ function App () {
     availableNU: {set: setAvailableNU, get: availableNU},
     availableETH: {set: setAvailableETH, get: availableETH},
 
-    /* populated by utils.ContractCaller,
+    /* populated by services.ContractCaller,
       pending is an array of strings that represent a pending
       transaction on the blockchain.
 
@@ -179,7 +179,7 @@ function App () {
         // clear the eventQueue
         eventQueue.splice(0, eventQueue.length)
       }
-    }, 10000)
+    }, 5000)
   }, [])
 
   return (

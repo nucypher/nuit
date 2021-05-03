@@ -7,7 +7,7 @@ import { InputBox, BondWorker } from '@project/react-app/src/components'
 export default (props) => {
 
     return (
-        <Container>
+        <Container fluid>
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
                     <h1>Bond Worker</h1>
@@ -15,7 +15,7 @@ export default (props) => {
             </Row>
 
             <Row className="d-flex justify-content-center">
-                <Col xs={12} >
+                <Col xs={12} md={8} >
                     <InputBox className="mt-3">
                         <BondWorker workerAddress={props.workerAddress}></BondWorker>
                     </InputBox>
