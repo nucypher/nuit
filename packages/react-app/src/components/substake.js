@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 
-import { Grey, DataRow, PrimaryButton, SecondaryButton,  NuBalance, Spinner} from '@project/react-app/src/components'
-import { Context, Merge, Divide } from '@project/react-app/src/services'
+import { Grey, DataRow, PrimaryButton, SecondaryButton,  NuBalance, Spinner, CircleQ} from '@project/react-app/src/components'
+import { Context, Merge, Divide, Remove, Extend } from '@project/react-app/src/services'
 
 import { Form } from 'react-bootstrap/';
 import { ContextProvider } from 'react-is';
@@ -17,7 +17,7 @@ const SubStake = (props) => {
     return(
     <div className="mt-3" key={props.data.id}>
         <DataRow>
-            {pending() ? <Spinner/> : <Form.Check disabled={pending()} onClick={(e) => props.onSelect(props.data.index, e)}></Form.Check>}
+            {pending() ? <Spinner/> : <Form.Check checked={props.selected} disabled={pending()} onChange={(e) => props.onSelect(props.data.index, e)}></Form.Check>}
             <strong>start: {props.data.firstPeriod}</strong>
             <strong>end: {props.data.lastPeriod}</strong>
             <span><NuBalance balance={props.data.lockedValue}/></span>
@@ -35,12 +35,13 @@ const STActionButton = (props) => {
     }
 
     const execute = (props) =>{
-        return props.action.execute(props.selection, props.substakes, context)
+        props.action.execute(props.selection, props.substakes, context)
+        props.resetSelection()
     }
 
     return (
         <span>
-        {isActive(props) ? <PrimaryButton small onClick={e => execute(props)}>{props.children}</PrimaryButton> : <SecondaryButton small>{props.children}</SecondaryButton>}
+        {isActive(props) ? <PrimaryButton small onClick={e => execute(props)}>{props.children}</PrimaryButton> : <SecondaryButton disabled={true} small>{props.children}</SecondaryButton>}
         </span>
     )
 }
@@ -68,6 +69,9 @@ export const SubStakeList = (props) => {
         setSelection(selection.map((s, i) => {return i == index ? !s : s }))
     }
 
+    const resetSelection = () => {
+        setSelection(props.substakes.map(() => false))
+    }
 
     if (!account){
         return (<div></div>)
@@ -75,10 +79,12 @@ export const SubStakeList = (props) => {
     return (
 
         <Component {...props}>
-            <DataRow>
-                <STActionButton selection={selection} substakes={substakes} action={Merge}>merge</STActionButton>
-                {/* <STActionButton selection={selection} substakes={substakes} action={Divide}>divide</STActionButton> */}
-            </DataRow>
+            <div className="d-flex justify-content-around">
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Merge}>merge<CircleQ tooltip="Merge two stakes with matching end dates"/></STActionButton>
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Divide}>divide<CircleQ tooltip="Divide a stake into two of at least 15000 each."/></STActionButton>
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Extend}>extend<CircleQ tooltip="Add more duration to a stake."/></STActionButton>
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Remove}>remove<CircleQ tooltip="Remove a completed or unlocked stake."/></STActionButton>
+            </div>
             {substakes.map((substake)=>{
                 return <SubStake key={`${account}.${substake.id}`} selected={selection[parseInt(substake.id)]} onSelect={handleSelection} data={substake} context={context} account={account} />
             })}

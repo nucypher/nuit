@@ -2,21 +2,21 @@ import React from 'react';
 import { SliderInput } from '@project/react-app/src/components'
 
 
-export const Slider = ({ duration, onChange, min=30, max=365 }) => {
+export const Slider = (props) => {
 
    return (
       <SliderInput>
          <input
             type="range"
-            min={min}
-            step="1"
-            value={duration || min }
-            max={max}
-            onChange={(e) => onChange(e.target.value)}
+            min={props.min}
+            step={props.step || 1}
+            value={props.value || props.min }
+            max={props.max}
+            onChange={(e) => props.onChange(e.target.value)}
          />
          <div>
-            <span>{min}</span>
-            <span>{max}</span>
+            <span>{props.min}</span>
+            <span>{props.max}</span>
          </div>
       </SliderInput>
    );

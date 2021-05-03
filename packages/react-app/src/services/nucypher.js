@@ -11,6 +11,10 @@ export const daysToPeriods = (days) => {
   return Math.ceil(parseInt(days)/daysPerPeriod).toString()
 }
 
+export const periodsToDays = (periods) => {
+  return parseInt(periods) * daysPerPeriod
+}
+
 
 export class Merge {
 
@@ -23,6 +27,8 @@ export class Merge {
 
     // since we know the selection length is always 2 this is simple
     const [stake1, stake2] = selected
+    if (stake1.lastPeriod === "1") return false
+    if (stake2.lastPeriod === "1") return false
     return stake1.lastPeriod === stake2.lastPeriod
   }
 
@@ -41,10 +47,38 @@ export class Merge {
 }
 
 
+export class Remove {
+
+  static validate(selection, substakes) {
+    const selected = _filterSelection(selection, substakes)
+
+    if (selected.length !== 1) return false
+    const [stake] = selected
+
+    if (stake.lastPeriod !== "1") return false
+    if (stake.unlockingDuration !== "0") return false
+
+    return true
+  }
+
+  static execute(selection, substakes, context) {
+    const selected = _filterSelection(selection, substakes)
+    const [stake] = selected
+    const { contracts } = context.wallet
+
+    ContractCaller(
+      contracts.STAKINGESCROW.methods.removeUnusedSubStake(stake.id),
+      context,
+      [`substakeupdate${stake.id}`]
+    )
+  }
+}
+
 export class Divide {
 
   static validate(selection, substakes) {
     const selected = _filterSelection(selection, substakes)
+    const [stake] = selected
     /*
     * @notice Divide sub stake into two parts
     * @param _index Index of the sub stake
@@ -54,7 +88,12 @@ export class Divide {
     // require(_newValue >= minAllowableLockedTokens && _additionalDuration > 0);
 
     // seems like we can let the contract handle this.
-    return selected.length === 1
+    if (selected.length !== 1) return false
+    if (parseInt(stake.lockedValue) < 30000000000000000000000) return false
+    if (stake.lastPeriod === "1") return false
+    if (stake.unlockingDuration === "0") return false
+
+    return true
   }
 
   static execute(selection, substakes, context) {
@@ -64,3 +103,22 @@ export class Divide {
 }
 
 
+
+export class Extend {
+
+  static validate(selection, substakes) {
+    const selected = _filterSelection(selection, substakes)
+    const [stake] = selected
+
+    if (selected.length !== 1) return false
+    if (stake.lastPeriod === "1") return false
+    if (stake.unlockingDuration === "0") return false
+
+    return true
+  }
+
+  static execute(selection, substakes, context) {
+    const selected = _filterSelection(selection, substakes)
+    context.modals.triggerModal({message: "Extend Stake", component: "ExtendStake", props: {substake: selected[0]}})
+  }
+}
