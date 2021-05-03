@@ -12,7 +12,7 @@ const TypeOver = (props) => {
 
 
     return (
-        <span onClick={e => setTyping(true)}>
+        <span className="typeover" onClick={e => setTyping(true)}>
             {typing ? <span onClick={e => {e.stopPropagation(); setTyping(false)}}> X </span> : null}
             {typing ? <input size={props.size || 10} onChange={e=>props.onChange(e.target.value)} type="text" value={props.children}></input>: <Blue>{props.children}</Blue>}
         </span>
