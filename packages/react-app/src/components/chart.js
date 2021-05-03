@@ -90,6 +90,7 @@ function round(value, decimals) {
 
 function tooltipFormatter(value, name, props) {
     if (name === "participationRate") value = value * 100
+    if (name === "circulatingSupply") name = "totalSupply"
     if (value) value = new Intl.NumberFormat('en').format(round(value))
     else value = '- '
     return [value, camelToTitleCase(name)]
