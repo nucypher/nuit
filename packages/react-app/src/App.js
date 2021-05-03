@@ -131,17 +131,10 @@ function App () {
     })();
 
 
-    const availableNUWithdrawal = parseInt(stakerInfo.ownedTokens) - parseInt(
-                                  (new web3.utils.BN(stakerInfo.value)
-                                    .sub(
-                                      new web3.utils.BN(
-                                        Math.max(
-                                          parseInt(stakerInfo.lockedTokens),
-                                          parseInt(stakerInfo.futureLockedTokens)
-                                        ).toString()
-                                      )
-                                    )
-                                  ))
+    // Get users locked tokens
+    const lockedStakerNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
+    const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(web3.utils.toBN(lockedStakerNits));
+    const availableNUWithdrawal = stakerUnlockedNits
 
 
     setStakerData({
@@ -156,6 +149,7 @@ function App () {
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)
     }
+
     context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
     context.setActionsCompleted([])
   }

@@ -115,7 +115,7 @@ export function Manage(props) {
                                         <strong>Staking</strong>
                                         <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
                                     </div>
-                                    <PendingButton small activeCheck={withdrawingNU} onClick={handleWithdrawNU} className="mt-2 nowrap"> <NuBalance balance={stakerData.availableNUWithdrawal}/></PendingButton>
+                                    <PendingButton activeCheck={withdrawingNU} onClick={handleWithdrawNU} className="mt-2 nowrap"> <NuBalance balance={stakerData.availableNUWithdrawal}/></PendingButton>
                                 </Col>
                                 <Col xs={6} xl={12}>
                                     <div className="nowrap">

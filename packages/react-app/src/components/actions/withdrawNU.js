@@ -12,12 +12,23 @@ const NUWithdrawer = (props) => {
     const context = useContext(Context)
     const { web3 } = context.wallet
 
-    const totalAvailable = web3.utils.fromWei(context.stakerData.availableNUWithdrawal.toString(),  'ether')
+    const stakerBalance = context.stakerData.availableNUWithdrawal.toString()
+    const totalAvailable = web3.utils.fromWei(stakerBalance,  'ether')
+
     const min = 0
     const max = totalAvailable
 
+    const handleClick  = (e) => {
+        props.onChange(totalAvailable)
+    }
+
     return (
-        <Slider onChange={e => props.onChange(e)} min={min} max={max} value={props.value}></Slider>
+        <div>
+            <div onClick={handleClick} className="w100 d-flex justify-content-end">
+                <NuBalance balance={stakerBalance}></NuBalance>
+            </div>
+            <Slider onChange={e => props.onChange(e)} min={min} max={max} value={props.value}></Slider>
+        </div>
     )
 }
 
@@ -26,12 +37,13 @@ export const WithdrawNU = (props) => {
     const context = useContext(Context)
     const { web3, contracts } = context.wallet
     const stakerData = context.stakerData
-    const [amount, setAmount] = useState(web3.utils.fromWei(context.stakerData.availableNUWithdrawal.toString()))
+    const maxAmount = web3.utils.fromWei(context.stakerData.availableNUWithdrawal.toString())
+    const [amount, setAmount] = useState(maxAmount)
 
     const handleAction = (e) => {
 
-        const withdraw = web3.utils.toWei(String(amount), "ether")
-
+        const withdraw = web3.utils.toWei(String(amount), "ether").toString()
+        console.log(withdraw)
         ContractCaller(
             contracts.STAKINGESCROW.methods.withdraw(
                 withdraw,
@@ -49,7 +61,6 @@ export const WithdrawNU = (props) => {
     return(
         <Container>
             <Row>
-
                 <Col>
                     <p>How much. </p>
                     <NUWithdrawer onChange={e => setAmount(e)} value={amount}/>
@@ -62,10 +73,7 @@ export const WithdrawNU = (props) => {
                 </DataRow>
                 </Col>
             </Row>
-
-
-
-            <Row noGutters className="d-flex justify-content-center mt-3">
+            <Row noGutters className="d-flex justify-content-center mt-5">
                 <Col className="d-flex justify-content-center">
                     <PendingButton disabled={!amount} onClick={handleAction} width="100%">Withdraw</PendingButton>
                 </Col>
