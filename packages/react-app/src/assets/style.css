@@ -254,7 +254,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 /*Footer*/
 
 .footer {
-    padding: 2em;
+    padding: 5em;
     background-color: black;
     color: white;
     min-height: 15em;
@@ -276,6 +276,8 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 .footer ul > li {
     color: #1E65F3;
     font-weight: 600;
+    margin-top: 2vh;
+    font-size: 18px;
 }
 
 #copyright-year {
@@ -283,6 +285,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     bottom: .1rem;
     font-weight: 100;
     left: 2rem;
+    color: #828A9C;
 }
 
 .eth-address{
