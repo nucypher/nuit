@@ -4,24 +4,7 @@ import { Grey, Blue, InputBox, WorkerETHAddressField, PrimaryButton } from '../.
 import { Link } from 'react-router-dom'
 
 
-
-const SERVICEPROVIDERS = [
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-    {name: "Ankr", link: "https://ankr.com"},
-    {name: "BisonTrails", link: "https://bisontrails.com"},
-    {name: "CoinList", link: "https://coinlist.com"},
-]
+import SERVICEPROVIDERS from './providers.json'
 
 export default (props) => {
     return (
@@ -53,7 +36,7 @@ export default (props) => {
                 <Col xs={12}>
                     <Row noGutters className="d-flex justify-content-left">
                         {SERVICEPROVIDERS.map((sp, index)=>{
-                             return <Col key={index} xs={6} sm={3}><Blue className="mr-2">•</Blue><a href={sp.link}>{sp.name}</a></Col>
+                             return <Col key={index} xs={6} sm={3}><Blue className="mr-2">•</Blue><a href={sp.website}>{sp.name}</a></Col>
                         })}
                     </Row>
                 </Col>

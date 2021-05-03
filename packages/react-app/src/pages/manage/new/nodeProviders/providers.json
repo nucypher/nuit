@@ -1,0 +1,299 @@
+[
+   {
+      "name": "4BLOCK.TEAM",
+      "contact": {
+         "email": "business@4block.team",
+         "twitter": "https://twitter.com/4BLOCK_TEAM",
+         "telegram": "@MBGBuzzer",
+         "wechat": "@MBGBuzzer",
+         "discord": "@MBGBuzzer[4Block.Team]#4774"
+      },
+      "website": "http://4block.team/"
+   },
+   {
+      "name": "Ankr",
+      "contact": {
+         "email": "sales@ankr.com"
+      },
+      "website": "https://www.ankr.com/"
+   },
+   {
+      "name": "Anonstake",
+      "contact": {
+         "email": "support@anonstake.com",
+         "telegram": "https://t.me/anonstakecom"
+      },
+      "website": "https://anonstake.com"
+   },
+   {
+      "name": "Baking Bad",
+      "contact": {
+         "email": "hello@baking-bad.org",
+         "telegram": "@MisterWalker"
+      },
+      "website": "https://baking-bad.org/"
+   },
+   {
+      "name": "BisonTrails",
+      "contact": {
+         "email": "viktor@bisontrails.co",
+         "discord": "@Viktor Bunin | Judging Steward#7847"
+      },
+      "website": "https://bisontrails.co/"
+   },
+   {
+      "name": "Bit Cat🐱",
+      "contact": {
+         "email": "bitcat365.com@gmail.com",
+         "telegram": "https://t.me/joinchat/LBbAfRU0nlwushyr9sfJAQ",
+         "wechat": "@sanxiacat"
+      },
+      "website": "https://www.bitcat365.com"
+   },
+   {
+      "name": "Chainflow",
+      "contact": {
+         "email": "hello@chainflow.io",
+         "telegram": "@chris_remus",
+         "discord": "@chris-chainflow"
+      },
+      "website": "https://chainflow.io/staking/"
+   },
+   {
+      "name": "ChainodeTech",
+      "contact": {
+         "email": "contact@chainode.tech",
+         "telegram": "https://t.me/ChainodeTech",
+         "discord": "https://discord.gg/ZkMeNU9"
+      },
+      "website": "https://chainode.tech/"
+   },
+   {
+      "name": "Consensus Networks",
+      "contact": {
+         "email": "info@consensusnetworks.com",
+         "telegram": "https://t.me/joinchat/H2fpmhfRTp70fkSmLc34tQ",
+         "twitter": "@ConsensusNet",
+         "discord": "https://discord.gg/DsCyht"
+      },
+      "website": "https://consensusnetworks.com/"
+   },
+   {
+      "name": "Cryptium Labs",
+      "contact": {
+         "email": "hello@cryptium.ch",
+         "telegram": "@",
+         "wechat": "@",
+         "discord": "@y"
+      },
+      "website": "https://cryptium.ch/"
+   },
+   {
+      "name": "Cryptium Labs",
+      "contact": {
+         "email": "hello@cryptium.ch",
+         "telegram": "@",
+         "wechat": "@",
+         "discord": "https://discord.gg/UrCyMFf"
+      },
+      "website": "https://cryptium.ch/"
+   },
+   {
+      "name": "DELIGHT",
+      "contact": {
+         "email": "contact@delightlabs.io",
+         "keybase": "https://keybase.io/delight_labs"
+      },
+      "website": "https://delightlabs.io/"
+   },
+   {
+      "name": "DokiaCapital",
+      "contact": {
+         "email": "",
+         "telegram": "@awrelll",
+         "discord": "@aurel - DokiaCapital#2094"
+      },
+      "website": "https://staking.dokia.cloud/"
+   },
+   {
+      "name": "Figment Networks",
+      "contact": {
+         "email": "contact@figment.network",
+         "telegram": "@claymenzel",
+         "discord": "@claymenzel#0569"
+      },
+      "website": "https://figment.network/"
+   },
+   {
+      "name": "HashQuark",
+      "contact": {
+         "email": "contact@hashquark.io",
+         "telegram": "HashQuark Official",
+         "wechat": "HashQuarkPool"
+      },
+      "website": "https://www.hashquark.io/"
+   },
+   {
+      "name": "IZ0",
+      "contact": {
+         "email": "alexandru.ticea@izo.ro",
+         "telegram": "@alexticea",
+         "discord": "@alexticea#3560"
+      },
+      "website": "https://izo.ro/"
+   },
+   {
+      "name": "InfStones",
+      "contact": {
+         "email": "contact@infinitystones.io",
+         "telegram": "https://t.me/infstones",
+         "wechat": "@InfStones",
+         "discord": "@infinitystones#2856"
+      },
+      "website": "https://infstones.io/"
+   },
+   {
+      "name": "Masternode24",
+      "contact": {
+         "email": "nucypher@masternode24.de",
+         "telegram": "@alex_m24",
+         "discord": "Alex [Masternode24]#0722"
+      },
+      "website": "https://www.masternode24.de/"
+   },
+   {
+      "name": "Nodeasy",
+      "contact": {
+         "email": "wenzhihao@bitopia.cn",
+         "telegram": "@wenzhihao",
+         "wechat": "VikiPedia",
+         "discord": "Zhihao Nodeasy.com#9563"
+      },
+      "website": "https://www.nodeasy.com/"
+   },
+   {
+      "name": "P2P Validator",
+      "contact": {
+         "email": "am@p2p.org",
+         "telegram": "@P2Pstaking"
+      },
+      "website": "https://p2p.org"
+   },
+   {
+      "name": "RockX",
+      "contact": {
+         "email": "support@rockx.com",
+         "linkedin": "https://www.linkedin.com/company/23771114/",
+         "twitter": "https://twitter.com/rockx_official",
+         "medium": "https://medium.com/rockx"
+      },
+      "website": "https://www.rockx.com/"
+   },
+   {
+      "name": "SNZPool",
+      "contact": {
+         "email": "hi@snzholding.com",
+         "telegram": "@snzpool",
+         "wechat": "@blackbear10000",
+         "discord": "@Shuai.Yuan#7989"
+      },
+      "website": "https://snzholding.com/"
+   },
+   {
+      "name": "Staked",
+      "contact": {
+         "email": "staked@staked.us",
+         "telegram": "@staked_official",
+         "wechat": "@colekennelly",
+         "discord": "@cole at staked.us #0429"
+      },
+      "website": "https://staked.us/"
+   },
+   {
+      "name": "Stakin",
+      "contact": {
+         "email": "hello@stakin.com",
+         "telegram": "https://t.me/stakin",
+         "keybase": "https://keybase.io/stakin",
+         "twitter": "https://twitter.com/stakinofficial"
+      },
+      "website": "http://stakin.com/"
+   },
+   {
+      "name": "Wetez",
+      "contact": {
+         "email": "huangdj521@gmail.com",
+         "telegram": "",
+         "wechat": "",
+         "discord": "Jun | Wetez#9950"
+      },
+      "website": "http://www.wetez.io/"
+   },
+   {
+      "name": "block42",
+      "contact": {
+         "email": "office@block42.tech",
+         "telegram": "@block42_nucypher"
+      },
+      "website": "https://block42.tech"
+   },
+   {
+      "name": "cp287",
+      "contact": {
+         "email": "illlefr4u@gmail.com",
+         "telegram": "@fr4ulll"
+      },
+      "website": "https://cp0x.com/"
+   },
+   {
+      "name": "FreshNU",
+      "contact": {
+         "telegram": "@onegaia"
+      },
+      "website": ""
+   },
+   {
+      "name": "itokenpool",
+      "contact": {
+         "email": "haizhitiantang1@163.com",
+         "telegram": "itokenpool",
+         "wechat": "xdoubless"
+      },
+      "website": "http://www.itokenpool.com/"
+   },
+   {
+      "name": "melea",
+      "contact": {
+         "email": "meleacrypto@gmail.com",
+         "telegram": "https://t.me/meleabs",
+         "Twitter": "https://twitter.com/cryptomeleabs"
+      },
+      "website": "https://meleatrust.com/"
+   },
+   {
+      "name": "stakefish",
+      "contact": {
+         "email": "hi@stake.fish",
+         "telegram": "@stakedotfish",
+         "wechat": "@stakefish"
+      },
+      "website": "https://stake.fish/"
+   },
+   {
+      "name": "stakewolf",
+      "contact": {
+         "email": "stakewolf@gmail.com",
+         "telegram": "https://t.me/CryptoRoxy",
+         "Twitter": "https://twitter.com/stakewolf"
+      },
+      "website": "http://stakewolf.com/"
+   },
+   {
+      "name": "staking.nu",
+      "contact": {
+         "email": "ping@staking.nu",
+         "telegram": "@staking_nu"
+      },
+      "website": "https://www.staking.nu/"
+   }
+]
