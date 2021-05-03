@@ -54,7 +54,6 @@ export class Remove {
 
     if (selected.length !== 1) return false
     const [stake] = selected
-    console.log(stake)
 
     if (stake.lastPeriod !== "1") return false
     if (stake.unlockingDuration !== "0") return false

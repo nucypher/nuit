@@ -16,7 +16,6 @@ const StakeDivider = (props) => {
     const max = (totalAvailable - min)
 
 
-
     return (
         <Slider onChange={e => props.onChange(e)} min={min} max={max} value={props.value}></Slider>
     )
@@ -38,7 +37,6 @@ export const DivideStake = (props) => {
 
     const onChangeDivider = (value) => {
         setNewNU(value)
-        console.log(newNU)
     }
 
     const onDurationChanged = (duration) => {
@@ -69,8 +67,8 @@ export const DivideStake = (props) => {
     return(
         <Container>
             <Row>
-                <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>Set Stake</h1>
+                <Col className="d-flex ">
+                    <p>Slice some of a stake off into a new stake.  The new stake must be extended by at least one period beyond the end date of the original. </p>
                 </Col>
             </Row>
             <Row>

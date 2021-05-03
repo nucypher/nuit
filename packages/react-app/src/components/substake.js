@@ -41,7 +41,7 @@ const STActionButton = (props) => {
 
     return (
         <span>
-        {isActive(props) ? <PrimaryButton small onClick={e => execute(props)}>{props.children}</PrimaryButton> : <SecondaryButton small>{props.children}</SecondaryButton>}
+        {isActive(props) ? <PrimaryButton small onClick={e => execute(props)}>{props.children}</PrimaryButton> : <SecondaryButton disabled={true} small>{props.children}</SecondaryButton>}
         </span>
     )
 }

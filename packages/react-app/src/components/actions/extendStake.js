@@ -49,8 +49,8 @@ export const ExtendStake = (props) => {
     return(
         <Container>
             <Row>
-                <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>Extend Stake</h1>
+                <Col className="d-flex ">
+                    <p>Adds additional periods to the duratiomn of an existing stake.</p>
                 </Col>
             </Row>
             <Row>
