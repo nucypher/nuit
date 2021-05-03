@@ -3,7 +3,9 @@ import React, {useContext} from 'react'
 import {Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import {useQuery} from "@apollo/client";
 import {GET_STAKER_HISTORY} from "../graphql/subgraph";
-import {Context, truncateAddress} from "../services";
+import {truncateAddress} from "../services";
+import {Context, truncate} from "../utils";
+import {PUBLIC_CHAINS} from "../constants";
 
 
 function makeEtherscanTxLink(txhash, networkName) {
@@ -48,7 +50,6 @@ function getEventMeta(event) {
         event.windDown,
         event.worker
     ]
-    //console.log(event.__typename, event.reStake)
     for (let data of datum) if (data !== undefined) {
         if (typeof(data) === 'boolean') return data ? 'Enabled' : 'Disabled'
         if (String(data).startsWith("0x")) return <a href={makeEtherscanAccountLink(data)}>{truncateAddress(data)}</a>
@@ -58,43 +59,60 @@ function getEventMeta(event) {
 }
 
 
-
 function EventHistory(props) {
 
     const context = useContext(Context)
-    const { account, provider } = context.wallet
-
-    let chainId;
-    if (provider) {
+    const {account, provider} = context.wallet
+    let chainId, networkName;
+    if (provider && provider.chainID) {
         chainId = provider.chainID
+        networkName = PUBLIC_CHAINS[chainId].toLowerCase();
     }
 
+    // query
     let {loading, error, data} = useQuery(
         GET_STAKER_HISTORY,
         {variables: {address: account}},
     );
 
+    // handle query
     if (loading) return <p>Loading...</p>;
     if (error) return <p><i>There was a problem fetching staker history.</i></p>
 
+    // post-processing
     let eventRows = []
     if (data.staker) {
         for (const event of data.staker.events) {
-            if ((props.filter) && !(eventTypes[props.filter].includes(event.__typename)) ) continue
+            if ((props.filter) && !(eventTypes[props.filter].includes(event.__typename))) continue
             eventRows.push(
                 <tr key={event.id}>
                     <td>
-                        <a href={makeEtherscanTxLink(event.transaction.id)}>{event.__typename.replace("Event", "")}</a>
+                        <a href={makeEtherscanTxLink(event.transaction.id)}>
+                            {event.__typename.replace("Event", "")}
+                        </a>
+                    </td>
+                    <td>
+                        <a href={makeEtherscanAccountLink(event.transaction.from, networkName)}>
+                            {truncate(event.transaction.from)}
+                        </a>
                     </td>
                     <td>{truncateAddress(event.transaction.from)}</td>
                     <td>{new Date(event.timestamp * 1000).toDateString()}</td>
                     <td>{getEventMeta(event)}</td>
                 </tr>
             )
-          }
+        }
     }
 
-    return (<Table striped borderless hover className="text-left">
+    // TODO: Paginate
+    // let pages = [1, 2, 3]
+    // const paginationBasic = (
+    //   <div>
+    //     <Pagination size="sm">{pages}</Pagination>
+    //   </div>
+    // );
+
+    return (<Table striped borderless hover className="text-left" variant={props.theme.name}>
             <thead>
             <tr>
                 <th>Name</th>
@@ -104,30 +122,30 @@ function EventHistory(props) {
             </tr>
             </thead>
             <tbody>
-              {eventRows}
+            {eventRows}
             </tbody>
         </Table>
     )
 }
 
 
-export function HistoryPane() {
+export function HistoryPane(props) {
     return (
         <Row className="justify-content-center text-center full-width">
             <Col>
                 <div id="eventHistory" className="justify-content-center">
-                <Tabs defaultActiveKey="all" id="uncontrolled-tab-example">
-                    <Tab eventKey="all" title="All Events">
-                        <EventHistory/>
-                    </Tab>
-                    <Tab eventKey="user" title="User Events">
-                        <EventHistory filter={"user"}/>
-                    </Tab>
-                    <Tab eventKey="system" title="System Events">
-                        <EventHistory filter={"system"}/>
-                    </Tab>
-                </Tabs>
-                    </div>
+                    <Tabs defaultActiveKey="all" id="uncontrolled-tab-example">
+                        <Tab eventKey="all" title="All Events">
+                            <EventHistory theme={props.theme}/>
+                        </Tab>
+                        <Tab eventKey="user" title="User Events">
+                            <EventHistory filter={"user"} theme={props.theme}/>
+                        </Tab>
+                        <Tab eventKey="system" title="System Events">
+                            <EventHistory filter={"system"} theme={props.theme}/>
+                        </Tab>
+                    </Tabs>
+                </div>
             </Col>
         </Row>
     )

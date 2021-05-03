@@ -23,7 +23,7 @@ import {
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/history";
 
-export function Manage() {
+export function Manage(props) {
 
     const context = useContext(Context)
     const {account} = context.wallet
@@ -201,7 +201,7 @@ export function Manage() {
                     <div id="historyLabel" className="flex-row justify-content-lg-center text-center">
                         <h4>History</h4>
                     </div>
-                    <HistoryPane/>
+                    <HistoryPane theme={props.theme}/>
                 </Col>
             </Row>}
         </Container>
