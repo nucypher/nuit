@@ -3,8 +3,21 @@ import { Container, Row, Col } from 'react-bootstrap/';
 import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
-import { calcROI, MIN_STAKE } from '@project/react-app/src/constants'
+import { calcROI, MIN_STAKE, daysPerPeriod } from '@project/react-app/src/constants'
 
+
+const TypeOver = (props) => {
+
+    const [typing, setTyping] = useState(false)
+
+
+    return (
+        <span onClick={e => setTyping(true)}>
+            {typing ? <span onClick={e => {e.stopPropagation(); setTyping(false)}}> X </span> : null}
+            {typing ? <input size={props.size || 10} onChange={e=>props.onChange(e.target.value)} type="text" value={props.children}></input>: <Blue>{props.children}</Blue>}
+        </span>
+    )
+}
 
 export const CreateStake = (props) => {
 
@@ -94,9 +107,9 @@ export const CreateStake = (props) => {
                 <Col className="mr-4 ml-3">
                     <div className="d-flex justify-content-between">
                         <Grey>Duration</Grey>
-                        <strong><Blue>{duration}</Blue> <Grey>Days</Grey></strong>
+                        <strong><TypeOver onChange={onDurationChanged}>{duration}</TypeOver> <Grey>Days</Grey></strong>
                     </div>
-                    <Slider duration={duration} onChange={onDurationChanged} />
+                    <Slider step={daysPerPeriod} min={daysPerPeriod} max={daysPerPeriod * 52 * 3} value={duration} onChange={onDurationChanged} />
                 </Col>
             </Row>
             <Row noGutters className="d-flex justify-content-center mt-3">
@@ -104,12 +117,14 @@ export const CreateStake = (props) => {
                     <h5 className="nowrap mr-3">Estimated ROI</h5>
                     <strong className="nowrap">
                         <Blue>
-                            {roi.apr.toFixed(2)} %
-                            <CircleQ tooltip="estimate based on duration of stake and current network participation"/>
+                            {roi.apr.toFixed(2)} % (APR)
+                            <CircleQ tooltip="Estimate based on duration of stake and current network participation"/>
                         </Blue>
                         <br/><Grey>{roi.net.toFixed(2)} NU</Grey>
                     </strong>
+                    <br></br>
                 </Col>
+                <Col xs={8}><p><small><i>This is an estimate based on a rough extrapolation of historical data.  Please DYOR and assume that future results may vary.</i></small></p></Col>
             </Row>
             <Row noGutters className="d-flex justify-content-center mt-3">
                 <Col className="d-flex justify-content-center">
