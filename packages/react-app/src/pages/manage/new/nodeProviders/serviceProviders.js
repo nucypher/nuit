@@ -36,7 +36,7 @@ export default (props) => {
                 <Col xs={12}>
                     <Row noGutters className="d-flex justify-content-left">
                         {SERVICEPROVIDERS.map((sp, index)=>{
-                             return <Col key={index} xs={6} sm={3}><Blue className="mr-2">•</Blue><a href={sp.website}>{sp.name}</a></Col>
+                             return <Col key={index} xs={6} sm={3}><Blue className="mr-2">•</Blue><a target="blank" href={sp.website}>{sp.name}</a></Col>
                         })}
                     </Row>
                 </Col>
