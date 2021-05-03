@@ -34,8 +34,11 @@ export default (props) => {
                         What you need to know?
                     </h4>
                     <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non ipsum viverra ipsum est non ac dignissim diam. Euismod blandit viverra pretium est mi convallis. Eu risus, sed sit mi vulputate tortor vestibulum integer. Nam ante at quis eget volutpat dignissim lobortis. Dictum congue ipsum in dis ultricies.
-Neque a pellentesque et rutrum dui diam euismod. Dictum cursus tincidunt at aliquam et vehicula. Ut pellentesque elementum interdum accumsan laoreet. Faucibus id ullamcorper eu venenatis facilisi. Suspendisse fermentum euismod tincidunt enim, arcu cursus. Fames placerat enim, elit commodo venenatis.
+                    This operation will deposit NU into NuCypher's <i>StakingEscrow</i> smart contract, and lock it
+                    for the specified duration. Once NU is staked in the smart contract, a bonded Worker must be
+                    run to unlock it. The associated Worker must make periodic automated commitments (every 7 days)
+                    which cost at least ~200k gas units, depending on how many sub-stakes you have. If you are running a
+                    self-hosted Worker, be sure to consider this operational cost when creating a stake.
                     </p>
                 </Col>
             </Row>
