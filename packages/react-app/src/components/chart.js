@@ -95,6 +95,22 @@ function tooltipFormatter(value, name, props) {
     return [value, camelToTitleCase(name)]
 }
 
+function scrubPeriods(periods) {
+    let formattedPeriods = []
+    for (let period of periods) {
+        if (Number(period.circulatingSupply) === 0) {
+            period = Object.assign({}, period)
+            period.circulatingSupply = null;
+            period.participationRate = null;
+        }
+        formattedPeriods.push(period)
+    }
+    return formattedPeriods
+}
+
+function calculateNewStakerDelta(period1, period2) {
+
+}
 
 export default function StakerChart() {
 
@@ -124,7 +140,12 @@ export default function StakerChart() {
 
     // process genesis periods (take evey seventh element)
     for (let i = 0; i < gData.periods.length; i = i + 7) normalizedPeriods.push(gData.periods[i])
-    normalizedPeriods.push(...data.periods.slice(1, data.periods.length - 1))
+
+    // nullify partially unfinalized period circulating supply and participation
+    let periods = scrubPeriods(data.periods)
+
+    // do not include the current period since it is completely unfinalized
+    normalizedPeriods.push(...periods.slice(1, periods.length - 1))
 
     return (
         <div>
