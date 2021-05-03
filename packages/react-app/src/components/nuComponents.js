@@ -100,7 +100,7 @@ export const Period = (props) => {
         if (parseInt(data) === 1){
             return '----'
         }
-        return context.periodsAsDate ? moment(parseInt(data) * 168 * 60 * 60 * 1000).format("YYYY-MM-DD") : data
+        return context.periodsAsDate ? moment(parseInt(data) * 168 * 60 * 60 * 1000).format("YYYY-MM-DD") : "#"+data
     }
 
     const toggleFormat = () => {

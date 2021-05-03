@@ -44,8 +44,6 @@ export function Manage(props) {
     const [addingsubstake, setAddingSubstake] = useState(false)
     const [migrating, setMigrating] = useState(false)
     const [withdrawingNU, setWithdrawingNU] = useState(false)
-
-
     const [showInactive, setShowInactive] = useState(false)
 
     const handleChangeWorker = () => {
@@ -115,14 +113,24 @@ export function Manage(props) {
                                         <strong>Staking</strong>
                                         <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
                                     </div>
-                                    <PendingButton activeCheck={withdrawingNU} onClick={handleWithdrawNU} className="mt-2 nowrap"> <NuBalance balance={stakerData.availableNUWithdrawal}/></PendingButton>
+                                    <PendingButton
+                                        small
+                                        activeCheck={withdrawingNU}
+                                        onClick={handleWithdrawNU}
+                                        className="mt-2 reward-button">
+                                        {Number(stakerData.availableNUWithdrawal)>0 ? 'Withdraw ' : ''}
+                                        <NuBalance balance={stakerData.availableNUWithdrawal}/>
+                                    </PendingButton>
                                 </Col>
                                 <Col xs={6} xl={12}>
                                     <div className="nowrap">
                                         <strong>Policy</strong>
                                         <CircleQ tooltip="ETH rewards collected from policy fees"/>
                                     </div>
-                                    <PrimaryButton className="mt-2 nowrap"> {stakerData.availableETHWithdrawal} <Grey>ETH</Grey></PrimaryButton>
+                                    <PendingButton className="mt-2 reward-button">
+                                        {Number(stakerData.availableETHWithdrawal) > 0 ? 'Withdraw ' : ''}{stakerData.availableETHWithdrawal}
+                                        <Grey> ETH</Grey>
+                                    </PendingButton>
                                 </Col>
                                 </Row>
                             </Col>
@@ -185,11 +193,11 @@ export function Manage(props) {
                                </div>
                                <ButtonBox className="mb-3 control-box">
                                    <strong><Address>{account}</Address></strong>
-                                   <DataRow className="mt-3">
-                                       <strong>ETH balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
+                                   <DataRow className="mt-1">
+                                       <strong>ETH Balance</strong><span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                                     </DataRow>
                                     <DataRow>
-                                       <strong>NU balance <small>(wallet)</small></strong><span><NuBalance balance={availableNU} onBalance={setAvailableNU}/></span>
+                                       <strong>NU Balance <small>(wallet)</small></strong><span><NuBalance balance={availableNU} onBalance={setAvailableNU}/></span>
                                     </DataRow>
                                     <DataRow>
                                        <strong>Total NU Locked</strong><span><NuBalance balance={stakerData.lockedNU}/></span>
