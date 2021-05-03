@@ -22,11 +22,6 @@ export function Home () {
             </Row>
             <br/>
             <Row>
-                <ButtonGroup aria-label="Timeframe" id="timeframe-buttons">
-                  <SecondaryButton>All-time</SecondaryButton>
-                  <SecondaryButton>12 Months</SecondaryButton>
-                  <SecondaryButton>30 Days</SecondaryButton>
-                </ButtonGroup>
                 <Col className="d-flex justify-content-center pb-5">
                     <div id="chart-container">
                         <StakerGraph />
