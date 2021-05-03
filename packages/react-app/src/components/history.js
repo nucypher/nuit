@@ -3,8 +3,7 @@ import React, {useContext} from 'react'
 import {Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import {useQuery} from "@apollo/client";
 import {GET_STAKER_HISTORY} from "../graphql/subgraph";
-import {truncateAddress} from "../services";
-import {Context, truncate} from "../utils";
+import {Context, truncateAddress} from "../services";
 import {PUBLIC_CHAINS} from "../constants";
 
 
@@ -93,10 +92,9 @@ function EventHistory(props) {
                     </td>
                     <td>
                         <a href={makeEtherscanAccountLink(event.transaction.from, networkName)}>
-                            {truncate(event.transaction.from)}
+                            {truncateAddress(event.transaction.from)}
                         </a>
                     </td>
-                    <td>{truncateAddress(event.transaction.from)}</td>
                     <td>{new Date(event.timestamp * 1000).toDateString()}</td>
                     <td>{getEventMeta(event)}</td>
                 </tr>

@@ -101,11 +101,14 @@ export default function StakerChart() {
         {variables: {epoch: epoch}, client: client}
     );
 
+    // handle query
     if (genesisLoading || loading) return <p>Loading...</p>;
     if (genesisError || error) return <p><i>There was a problem fetching the latest network status.</i></p>
 
     // post-processing
     let normalizedPeriods = [];
+
+    // process genesis periods (take evey seventh element)
     for (let i = 0; i < genesisData.periods.length; i = i + 7) normalizedPeriods.push(genesisData.periods[i])
     normalizedPeriods.push(...data.periods.slice(1, data.periods.length - 1))
 
@@ -182,7 +185,6 @@ export default function StakerChart() {
                     dataKey="totalStaked"
                     type="monotone"
                     unit=" NU"
-                    // stackId="1"
                     stroke="#1E65F3"
                     strokeWidth={2.5}
                     fillOpacity={1}

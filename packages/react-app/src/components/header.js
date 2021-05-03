@@ -48,7 +48,7 @@ export default function (props) {
             <NavLink href="/new/worker">New Stake</NavLink>
             <NavLink href="/manage">Manage</NavLink>
             <NavLink href="https://www.nucypher.com/network">Learn</NavLink>
-            <ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton>
+            <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div>
             <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
         </HeaderNav>
     )
