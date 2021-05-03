@@ -22,7 +22,9 @@ const TypeOver = (props) => {
 export const CreateStake = (props) => {
 
     const context = useContext(Context)
-    const [nuAllocated, setNuAllocation] = useState(context.availableNU.get.toString())
+    const { contracts, web3 } = context.wallet
+
+    const [nuAllocated, setNuAllocation] = useState(web3.utils.fromWei(context.availableNU.get.toString(),  'ether'))
     const [maxNULimit, setMaxNULimit] = useState(context.availableNU.get)
     const [AllocationValid, setAllocationValid] = useState(true)
     const [invalidMessage, setInvalidMessage] = useState()
@@ -30,7 +32,7 @@ export const CreateStake = (props) => {
     const [roi, setRoi] = useState({apr: 0, net: 0})
 
 
-    const { contracts, web3 } = context.wallet
+
 
     const [addingsubstake, setAddingSubstake] = useState(false)
 
@@ -100,7 +102,7 @@ export const CreateStake = (props) => {
             </Row>
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
-                    <NuStakeAllocator onBalanceUpdate={setMaxNULimit} valid={AllocationValid} invalidmessage={invalidMessage} initial={0} value={nuAllocated} initial={maxNULimit} onChange={onAmountChanged}/>
+                    <NuStakeAllocator onBalanceUpdate={setMaxNULimit} valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} initial={maxNULimit || 0} onChange={onAmountChanged}/>
                 </Col>
             </Row>
             <Row>
