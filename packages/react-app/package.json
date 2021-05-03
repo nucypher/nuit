@@ -33,6 +33,7 @@
     "eslint-plugin-flowtype": "^4.6.0",
     "graphql": "15",
     "ipfs-http-client": "^45.0.0",
+    "moment": "^2.29.1",
     "react": "16.14.0",
     "react-bootstrap": "^1.5.2",
     "react-dom": "16.14.0",

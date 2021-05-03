@@ -1,11 +1,12 @@
 import React from 'react'
+import moment from 'moment'
 import { useState, useEffect, useContext } from 'react';
 
 import { Context } from '@project/react-app/src/services'
 
 import { Form, Button, Row, Col, Container} from 'react-bootstrap/';
 
-import { Grey, Blue, Input} from '@project/react-app/src/components'
+import { Grey, Blue, Input, DateSpan} from '@project/react-app/src/components'
 
 
 export const NuBalance = (props) => {
@@ -89,4 +90,23 @@ export const NuStakeAllocator = (props) => {
             </Row>
     </Container>
     )
+}
+
+export const Period = (props) => {
+
+    const context = useContext(Context)
+
+    const display = (data) => {
+        if (parseInt(data) === 1){
+            return '----'
+        }
+        return context.periodsAsDate ? moment(parseInt(data) * 168 * 60 * 60 * 1000).format("YYYY/MM/DD") : data
+    }
+
+    const toggleFormat = () => {
+        context.setPeriodsAsDate(!context.periodsAsDate)
+    }
+
+    return <DateSpan onClick={toggleFormat}>{display(props.children)}</DateSpan>
+
 }

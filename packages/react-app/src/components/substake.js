@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 
-import { Grey, DataRow, PrimaryButton, SecondaryButton,  NuBalance, Spinner, CircleQ} from '@project/react-app/src/components'
+import { Grey, DataRow, PrimaryButton, SecondaryButton,  NuBalance, Spinner, CircleQ, Period} from '@project/react-app/src/components'
 import { Context, Merge, Divide, Remove, Extend } from '@project/react-app/src/services'
 
 import { Form } from 'react-bootstrap/';
@@ -15,11 +15,11 @@ const SubStake = (props) => {
     }
 
     return(
-    <div className="mt-3" key={props.data.id}>
-        <DataRow>
+    <div key={props.data.id} >
+        <DataRow className="d-flex justify-content-between">
             {pending() ? <Spinner/> : <Form.Check checked={props.selected} disabled={pending()} onChange={(e) => props.onSelect(props.data.index, e)}></Form.Check>}
-            <strong>start: {props.data.firstPeriod}</strong>
-            <strong>end: {props.data.lastPeriod}</strong>
+            <strong><Period>{props.data.firstPeriod}</Period></strong>
+            <strong><Period>{props.data.lastPeriod}</Period></strong>
             <span><NuBalance balance={props.data.lockedValue}/></span>
         </DataRow>
     </div>
@@ -84,6 +84,12 @@ export const SubStakeList = (props) => {
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Divide}>divide<CircleQ tooltip="Divide a stake into two of at least 15000 each."/></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Extend}>extend<CircleQ tooltip="Add more duration to a stake."/></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Remove}>remove<CircleQ tooltip="Remove a completed or unlocked stake."/></STActionButton>
+            </div>
+            <div className="d-flex justify-content-between">
+                <span></span>
+                <span>start</span>
+                <span>end</span>
+                <span>value</span>
             </div>
             {substakes.map((substake)=>{
                 return <SubStake key={`${account}.${substake.id}`} selected={selection[parseInt(substake.id)]} onSelect={handleSelection} data={substake} context={context} account={account} />

@@ -3,6 +3,10 @@ const MIN_STAKE = 15000
 
 export const daysPerPeriod = 7
 
+export const getCurrentPeriod = () => {
+    return Math.round(Math.floor(new Date().getTime() / 86400000) / daysPerPeriod)
+}
+
 const EMPTY_WORKER = "0x0000000000000000000000000000000000000000"
 
 const calcROI = (amount, duration) => {

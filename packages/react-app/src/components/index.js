@@ -6,7 +6,7 @@ import {ReactComponent as Moon} from '../assets/icons/moon.svg'
 import {ReactComponent as Sun} from '../assets/icons/sun.svg'
 
 export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance, Address } from '@project/react-app/src/components/ethComponents'
-export { NuStakeAllocator, NuBalance } from '@project/react-app/src/components/nuComponents'
+export { NuStakeAllocator, NuBalance, Period } from '@project/react-app/src/components/nuComponents'
 export { Slider } from '@project/react-app/src/components/slider'
 export { CircleQ } from '@project/react-app/src/components/circleQ'
 
@@ -109,6 +109,12 @@ export const Image = styled.img`
 
 export const HR = styled.hr`
   border-top: 2px solid ${props =>  props.theme.colors[props.color||'#828A9C']};
+`
+
+export const DateSpan = styled.span`
+  width: 7.5em;
+  display:inline-block;
+  cursor:pointer;
 `
 
 export const NCButtonBase = styled.button`

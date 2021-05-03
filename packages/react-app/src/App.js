@@ -35,10 +35,13 @@ function App () {
   const [stakerUpdates, setStakerUpdates] = useState([])
   const [actionsCompleted, setActionsCompleted] = useState([])
   const [modal, triggerModal] = useState(null)
+  const [periodsAsDate, setPeriodsAsDate] = useState(true)
 
   const [privacy, setPrivacy] = useState(null)
 
   const context = {
+    periodsAsDate,
+    setPeriodsAsDate,
     privacy,
     wallet: {
       provider,
