@@ -196,7 +196,7 @@ function App () {
                 <NewStake />
               </Route>
               <Route path="/manage">
-                <Manage />
+                <Manage theme={theme}/>
               </Route>
               <Route path="/Documentation">
                 <Documentation />
