@@ -74,7 +74,7 @@ export function Manage(props) {
     useEffect(() => {
         setWindingdown(context.pending.indexOf('winddown') > -1)
         setRestaking(context.pending.indexOf('restake') > -1)
-        setBondingWorker(context.pending.indexOf('bondingworker') > -1)
+        setBondingWorker(context.pending.indexOf('bondworker') > -1)
         setAddingSubstake(context.pending.indexOf('addsubstake') > -1)
         setMigrating(context.pending.indexOf('migrate') > -1)
         setWithdrawingNU(context.pending.indexOf('withdrawNU') > -1)

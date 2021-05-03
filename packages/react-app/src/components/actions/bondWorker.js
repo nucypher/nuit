@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col, Form} from 'react-bootstrap/';
-import { ButtonBox, InputBox, PrimaryButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance, Address } from '@project/react-app/src/components'
+import { ButtonBox, InputBox, PrimaryButton, PendingButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance, Address } from '@project/react-app/src/components'
 
 import { Context, ContractCaller } from '@project/react-app/src/services'
 
 export const BondWorker = (props) => {
 
     const [workerAddress, setWorkerAddress] = useState(props.workerAddress)
+    const [bondingworker, setBondingWorker]  = useState(false)
 
     const context = useContext(Context)
     const { account, contracts, web3 } = context.wallet
@@ -14,9 +15,15 @@ export const BondWorker = (props) => {
 
     const HandleBondWorker = () => {
         const address = web3.utils.toChecksumAddress(workerAddress)
-        props.setShow(false)
+        if (props.setShow){
+            props.setShow(false)
+        }
         ContractCaller(contracts.STAKINGESCROW.methods.bondWorker(address), context, 'bondworker')
     }
+
+    useEffect(() => {
+        setBondingWorker(context.pending.indexOf('bondworker') > -1)
+    })
 
     return(
         <Container>
@@ -41,7 +48,7 @@ export const BondWorker = (props) => {
                         </DataRow>
                     </ButtonBox>
 
-                    <PrimaryButton onClick={HandleBondWorker}>Bond Worker</PrimaryButton>
+                    <PendingButton activeCheck={bondingworker} abort={setBondingWorker} onClick={HandleBondWorker}>Bond Worker</PendingButton>
                 </Col>
             </Row> :
             <Row>
