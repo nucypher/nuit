@@ -131,7 +131,7 @@ function App () {
     })();
 
 
-    // Get users locked tokens
+    // Available Unlocked NU (thx stakeit)
     const lockedStakerNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
     const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(web3.utils.toBN(lockedStakerNits));
     const availableNUWithdrawal = stakerUnlockedNits

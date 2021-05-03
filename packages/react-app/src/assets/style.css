@@ -265,3 +265,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     overflow:hidden;
     text-overflow: ellipsis;
 }
+
+.typeover{
+    cursor:pointer
+}
