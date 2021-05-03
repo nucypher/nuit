@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client'
 
-export const GET_FINALIZED_GENESIS_PERIODS = gql`
-    {
-        periods (where: {timestamp_gt: 1, genesis: true, finalized: true}, first: 365) {
+export const GET_GENESIS_PERIODS = gql`
+     query Periods($epoch: Int!){
+        periods (where: {timestamp_gt: $epoch, genesis: true}, first: 365) {
             timestamp
             totalStaked
             circulatingSupply
@@ -12,9 +12,9 @@ export const GET_FINALIZED_GENESIS_PERIODS = gql`
         }
     }
 `
-export const GET_FINALIZED_PERIODS = gql`
-    {
-        periods (where: {timestamp_gt: 1, genesis: false}, first: 52) {
+export const GET_PERIODS = gql`
+    query Periods($epoch: Int!){
+        periods (where: {timestamp_gt: $epoch, genesis: false}, first: 52) {
             timestamp
             totalStaked
             circulatingSupply
@@ -28,10 +28,10 @@ export const GET_FINALIZED_PERIODS = gql`
 export const GET_LATEST_FINALIZED_PERIOD = gql`
     {
         periods (where: {circulatingSupply_gt: 0},
-            orderBy: timestamp,
-            orderDirection: desc,
-            finalized: true,
-            first: 1) {
+                         orderBy: timestamp,
+                         orderDirection: desc,
+                         finalized: true,
+                         first: 1) {
             id
             timestamp
             activeStakers
@@ -46,7 +46,7 @@ export const GET_LATEST_FINALIZED_PERIOD = gql`
 
 export const GET_STAKER_HISTORY = gql`
     query Staker($address: String!) {
-        staker (id: $address, first: 1000) {
+        staker (id: $address) {
             id
             events (orderBy: timestamp, orderDirection: desc, first: 1000) {
                 id
