@@ -28,3 +28,9 @@ Official NuCypher web staking UI.  This repository is currently a work-in-progre
 docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn react-app:start
 
 ```
+
+
+### to deploy to AWS:
+* first run `yarn react-app:build` if you haven't built the app
+* ensure you have an [AWS profile configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) called "nucypher"
+* then `yarn deploy`
