@@ -41,6 +41,12 @@ function threeMonthsAgo() {
     return dateToUTCEpoch(d)
 }
 
+function sixMonthsAgo() {
+    let d = new Date()
+    d.setMonth(d.getMonth() - 6)
+    return dateToUTCEpoch(d)
+}
+
 class SupplyActiveDot extends React.Component {
     render() {
         const {cx, cy} = this.props;
@@ -166,19 +172,20 @@ export default function StakerChart() {
                     12 Months
                 </SecondaryButton>
                 <SecondaryButton onClick={() => {
+                    const t = {epoch: sixMonthsAgo()}
+                    refetch(t);
+                    gRefetch(t)
+                }}>
+                    6 Months
+                </SecondaryButton>
+                <SecondaryButton onClick={() => {
                     const t = {epoch: threeMonthsAgo()}
                     refetch(t);
                     gRefetch(t)
                 }}>
                     3 Months
                 </SecondaryButton>
-                <SecondaryButton onClick={() => {
-                    const t = {epoch: oneMonthAgo()}
-                    refetch(t);
-                    gRefetch(t)
-                }}>
-                    30 Days
-                </SecondaryButton>
+
             </ButtonGroup>
             <ResponsiveContainer aspect={2.38974359}>
 

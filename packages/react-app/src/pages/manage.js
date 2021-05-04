@@ -24,6 +24,8 @@ import {
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/history";
 import Web3 from "web3";
+import {Badge} from "react-bootstrap";
+import {getCurrentPeriod} from "../constants";
 
 export function Manage(props) {
 
@@ -100,6 +102,18 @@ export function Manage(props) {
             {migrating ? <Row><Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col></Row> :
             <Row className="d-flex justify-content-center">
                 <Col xs={12} md={10} xl={4}>
+                    <InputBox id="current-period" className="mb-2">
+                        <Row noGutters>
+                            <Col className="d-flex justify-content-flex-start">
+                                <h5>Current Period {getCurrentPeriod()}</h5>
+                            </Col>
+                        </Row>
+                        <Row noGutters>
+                            <Col className="d-flex justify-content-flex-start">
+                                <span>Next Period in {getCurrentPeriod()}</span>
+                            </Col>
+                        </Row>
+                    </InputBox>
                     <InputBox>
                         <Row noGutters>
                             <Col className="d-flex justify-content-flex-start mb-1">

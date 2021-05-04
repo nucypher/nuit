@@ -1,8 +1,9 @@
 import {Col, Container, Row} from 'react-bootstrap/';
-import {Blue, Grey, HR, Purple} from "./index";
+import {Blue, Grey, HR, Period, Purple} from "./index";
 import React from "react";
 import {useQuery} from "@apollo/client";
 import {GET_LATEST_FINALIZED_PERIOD} from "../graphql/subgraph";
+import {getCurrentPeriod} from "../constants";
 
 export default function NetworkStats() {
 
@@ -19,7 +20,14 @@ export default function NetworkStats() {
     let stakers = period.activeStakers ? Number(period.activeStakers).toLocaleString(locale) : "-"
 
     return (
-        <Row xs={1} md={3} className="d-flex justify-content-centered">
+        <Row xs={1} md={4} className="d-flex justify-content-centered">
+            <Col>
+                <div>
+                    <HR color="black"></HR>
+                    <h5><strong>Current Period</strong></h5>
+                    <h2><strong>{getCurrentPeriod()}</strong></h2>
+                </div>
+            </Col>
             <Col className="d-flex justify-content-center">
                 <div>
                     <HR color="blue"></HR>
