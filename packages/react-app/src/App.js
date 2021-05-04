@@ -106,7 +106,8 @@ function App () {
     stakerInfo.ownedTokens = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
     const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
     const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
-    const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
+
+    const policyInfo = stakerInfo.worker === EMPTY_WORKER ? null : await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
 
     let lockedNU = 0.0;
     // getting an array with all substakes
@@ -132,12 +133,19 @@ function App () {
 
     // Available Unlocked NU (thx stakeit)
     const lockedStakerNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
-    const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(web3.utils.toBN(lockedStakerNits));
+    const lockedStakerFutureNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 1).call();
+
+    const past = web3.utils.toBN(lockedStakerNits)
+    const future = web3.utils.toBN(lockedStakerFutureNits)
+
+    // Math.max doesn't work on BNs
+    const amt = past > future ? past : future
+
+    const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(amt);
     const availableNUWithdrawal = stakerUnlockedNits
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
     setAvailableNU(stakerNuWallet)
-
     setStakerData({
         info: stakerInfo,
         flags,
@@ -145,7 +153,7 @@ function App () {
         lockedNU,
         policyInfo,
         availableNUWithdrawal,
-        availableETHWithdrawal: policyInfo[3]
+        availableETHWithdrawal: policyInfo ? policyInfo.reward : 0// this data is showing 777 if no stakes exist
     })
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)

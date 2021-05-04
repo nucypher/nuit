@@ -54,7 +54,7 @@ function getEventMeta(event) {
         if (typeof(data) === 'boolean') return data ? 'Enabled' : 'Disabled'
         if (String(data).startsWith("0x")) return <a href={makeEtherscanAccountLink(data)}>{truncateAddress(data)}</a>
         if (event.__typename === "CommitmentEvent") return 'Period #' + data
-        else return Math.fround(data).toLocaleString("en-US") + " NU"
+        else return (Math.round(data * 100) / 100).toLocaleString("en-US") + " NU"
     }
 }
 

@@ -52,8 +52,29 @@ hr {
     padding: 0.5rem 2rem;
 }
 
+.navbar-nav{
+    flex-direction: row;
+    white-space: nowrap;
+    justify-content: end;
+}
+
+@media (min-width: 992px){
+
+    .navbar-expand-lg .navbar-collapse {
+        display: inline-block!important;
+    }
+}
+
+#wallet-button {
+    max-width: 180px;
+    min-width: 180px;
+    padding: 11px;
+}
+
 .reward-button {
     min-height: 64px;
+    display: flex;
+    justify-content: center;
 }
 
 .accordion {
@@ -127,11 +148,18 @@ hr {
     padding: 0.2rem;
 }
 
+
 #substake-control-buttons {
     margin-bottom: 1.5rem;
 }
 
 #substake-list-header {
+    color: #828A9C;
+}
+
+#substake-control table{
+    width: 100vw;
+    height: 100vh;
 
 }
 
