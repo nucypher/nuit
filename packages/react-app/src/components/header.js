@@ -6,6 +6,8 @@ import {dark, light} from '@project/react-app/src/themes'
 import {Nav, Navbar, Form} from "react-bootstrap";
 import Web3 from "web3";
 
+import {Link} from 'react-router-dom'
+
 function WalletLogo(props) {
     const provider = props.provider
     const isMetaMask = provider && provider.isMetaMask
@@ -50,9 +52,9 @@ export default function (props) {
               <Navbar.Collapse  id="basic-navbar-nav">
               <span>next period: <Period>{getCurrentPeriod()}</Period></span>
               <Nav className="d-flex justify-content-between">
-                <Nav.Link href="/new/worker">New Stake</Nav.Link>
-                <Nav.Link href="/manage">Manage</Nav.Link>
-                <Nav.Link href="https://www.nucypher.com/network">Learn</Nav.Link>
+                <Link to="/new/worker">New Stake</Link>
+                <Link to="/manage">Manage</Link>
+                <a href="https://www.nucypher.com/network">Learn</a>
               </Nav>
               </Navbar.Collapse>
               <Nav className="d-flex justify-content-between">
