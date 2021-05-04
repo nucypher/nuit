@@ -30,7 +30,7 @@ export default function NetworkStats() {
             <Col className="d-flex justify-content-center">
                 <div>
                     <HR color="purple"></HR>
-                    <h5><strong>Circulating Supply</strong></h5>
+                    <h5><strong>Total Supply</strong></h5>
                     <h2><strong><Purple>{supply}</Purple></strong></h2>
                 </div>
             </Col>

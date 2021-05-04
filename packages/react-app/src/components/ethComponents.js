@@ -35,11 +35,11 @@ export const WorkerRunwayDisplay = (props) => {
     }, [address, provider, web3.eth, web3.utils])
 
     return (
-        <div className="mt-3">
+        <div className="mt-1">
             <div className="d-flex justify-content-between">
                 <span>
-                    <strong>Eth balance </strong>
-                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">What is this for? </Tooltip>}>
+                    <strong>Eth Balance </strong>
+                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Balance in worker's eth account </Tooltip>}>
                         <CircleQ/>
                     </OverlayTrigger>
                 </span>

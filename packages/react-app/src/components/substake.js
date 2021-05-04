@@ -16,7 +16,7 @@ const SubStake = (props) => {
 
     return(
     <div key={props.data.id} >
-        <DataRow className="d-flex justify-content-between">
+        <DataRow className="substake">
             {pending() ? <Spinner/> : <Form.Check checked={props.selected} disabled={pending()} onChange={(e) => props.onSelect(props.data.index, e)}></Form.Check>}
             <strong><Period>{props.data.firstPeriod}</Period></strong>
             <strong><Period>{props.data.lastPeriod}</Period></strong>
@@ -78,18 +78,12 @@ export const SubStakeList = (props) => {
     }
     return (
 
-        <Component {...props}>
-            <div className="d-flex justify-content-around">
-                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Merge}>merge<CircleQ tooltip="Merge two stakes with matching end dates"/></STActionButton>
-                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Divide}>divide<CircleQ tooltip="Divide a stake into two of at least 15000 each."/></STActionButton>
-                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Extend}>extend<CircleQ tooltip="Add more duration to a stake."/></STActionButton>
-                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Remove}>remove<CircleQ tooltip="Remove a completed or unlocked stake."/></STActionButton>
-            </div>
-            <div className="d-flex justify-content-between">
-                <span></span>
-                <span>start</span>
-                <span>end</span>
-                <span>value</span>
+        <Component {...props} id="substake-control" className="control-box">
+            <div id="substake-control-buttons" className="d-flex justify-content-around">
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Merge}>Merge<CircleQ tooltip="Merge two stakes with matching end dates"/></STActionButton>
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Divide}>Divide<CircleQ tooltip="Divide a stake into two of at least 15000 each."/></STActionButton>
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Extend}>Extend<CircleQ tooltip="Add more duration to a stake."/></STActionButton>
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Remove}>Remove<CircleQ tooltip="Remove a completed or unlocked stake."/></STActionButton>
             </div>
             {substakes.map((substake)=>{
                 return <SubStake key={`${account}.${substake.id}`} selected={selection[parseInt(substake.id)]} onSelect={handleSelection} data={substake} context={context} account={account} />

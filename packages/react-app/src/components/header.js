@@ -1,9 +1,10 @@
 import React, {useContext} from 'react'
-import {HeaderNav, NCLogo, SecondaryButton, ThemeButton, Period} from '@project/react-app/src/components'
+import {HeaderNav, NCLogo, Period, SecondaryButton, ThemeButton} from '@project/react-app/src/components'
 import {Context, truncateAddress} from '@project/react-app/src/services'
-import { getCurrentPeriod } from '@project/react-app/src/constants'
+import {getCurrentPeriod} from '@project/react-app/src/constants'
 import {dark, light} from '@project/react-app/src/themes'
 import {NavLink} from "react-bootstrap";
+import Web3 from "web3";
 
 function WalletLogo(props) {
     const provider = props.provider
@@ -26,7 +27,7 @@ function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) 
         }}
       >
         <WalletLogo provider={provider}/>
-        {!provider ? 'Connect' : truncateAddress(account)}
+        {!provider ? 'Connect' : truncateAddress(Web3.utils.toChecksumAddress(account))}
       </SecondaryButton>
     )
   }

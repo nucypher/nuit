@@ -1,11 +1,12 @@
 body {
     margin: 0;
     font-family: "Helvetica Neue", "Open Sans", sans-serif !important;
+    font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
+h1, h5 {
     font-weight: 600;
 }
 
@@ -51,12 +52,38 @@ hr {
     padding: 0.5rem 2rem;
 }
 
+.reward-button {
+    min-height: 64px;
+}
 
 .control-box {
     line-height: 2em;
-    padding: 25px;
+    padding: 24px !important;
 }
 
+.settings-button {
+
+}
+
+#substake-control {
+    padding-top: 1rem;
+}
+
+.substake {
+    display: flex;
+    justify-content: flex-start;
+    border-top: 1px solid #D4D4D4;
+    text-align: left;
+    padding: 0.2rem;
+}
+
+#substake-control-buttons {
+    margin-bottom: 1.5rem;
+}
+
+#substake-list-header {
+
+}
 
 #homeSVG {
     /* max-width: 100%; */
@@ -113,8 +140,8 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 
 /*Event History */
 #historyLabel {
-    margin-top: 4vh;
-    margin-bottom: 4vh;
+    margin-top: 6rem;
+    margin-bottom: 1vh;
     font-weight: 600;
 }
 
@@ -125,8 +152,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 }
 
 #eventHistory table {
-    font-weight: 600;
-    border-top: 1px solid #828A9C;
+    border-top: 1px solid #E0E4E8;
     margin-top: 1px;
 }
 
@@ -137,10 +163,10 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 }
 
 #eventHistory td {
-    padding: 1rem;
+    padding: 18px;
 }
 
-#eventHistory tr:hover {
+#eventHistory tr:hover:not(:first-child) {
     border: 1px solid #1E65F3;
 }
 
@@ -228,7 +254,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 /*Footer*/
 
 .footer {
-    padding: 2em;
+    padding: 5em;
     background-color: black;
     color: white;
     min-height: 15em;
@@ -250,6 +276,8 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 .footer ul > li {
     color: #1E65F3;
     font-weight: 600;
+    margin-top: 2vh;
+    font-size: 18px;
 }
 
 #copyright-year {
@@ -257,6 +285,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     bottom: .1rem;
     font-weight: 100;
     left: 2rem;
+    color: #828A9C;
 }
 
 .eth-address{
