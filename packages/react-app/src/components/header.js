@@ -18,6 +18,7 @@ function WalletLogo(props) {
 function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) {
     return (
       <SecondaryButton
+          id="wallet-button"
           className="mr-lg-5"
             onClick={() => {
               if (!provider) {
@@ -50,17 +51,14 @@ export default function (props) {
               <Navbar.Brand><NCLogo theme={theme}/></Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse  id="basic-navbar-nav">
-              <span>next period: <Period>{getCurrentPeriod()}</Period></span>
-              <Nav className="d-flex justify-content-between">
-                <Link to="/new/worker">New Stake</Link>
-                <Link to="/manage">Manage</Link>
-                <a href="https://www.nucypher.com/network">Learn</a>
-              </Nav>
-              </Navbar.Collapse>
-              <Nav className="d-flex justify-content-between">
+              <Nav className="d-flex justify-content-end align-items-center">
+                <Link to="/new/worker" className="mr-4">New Stake</Link>
+                <Link to="/manage" className="mr-4">Manage</Link>
+                <Link to="https://www.nucypher.com/network">Learn</Link>
                 <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div>
                 <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
               </Nav>
+              </Navbar.Collapse>
           </Navbar>
         </HeaderNav>
     )

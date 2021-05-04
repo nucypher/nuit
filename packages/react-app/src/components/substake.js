@@ -14,20 +14,19 @@ const SubStake = (props) => {
     }
 
     return(
-    <Row key={props.data.id}>
-        <Col xs={12} sm={3} className="d-flex justify-content-center">
+    <Row key={props.data.id} className="d-flex justify-content-between substake">
+        <Col xs={1} className="d-flex justify-content-start">
             {pending() ? <Spinner/> : <Form.Check checked={props.selected} disabled={pending()} onChange={(e) => props.onSelect(props.data.index, e)}></Form.Check>}
         </Col>
-        <Col xs={12} sm={3} className="d-flex justify-content-center">
+        <Col xs={12} sm={3} className="d-flex justify-content-start">
             <strong><Period>{props.data.firstPeriod}</Period></strong>
         </Col>
-        <Col xs={12} sm={3} className="d-flex justify-content-center">
+        <Col xs={12} sm={3} className="d-flex justify-content-start">
             <strong><Period>{props.data.lastPeriod}</Period></strong>
         </Col>
-        <Col xs={12} sm={3} className="d-flex justify-content-center">
-            <span><NuBalance balance={props.data.lockedValue}/></span>
+        <Col xs={12} sm={3} className="d-flex justify-content-end">
+            <NuBalance balance={props.data.lockedValue}/>
         </Col>
-
     </Row>
     )
 }
@@ -91,6 +90,20 @@ export const SubStakeList = (props) => {
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Extend}>Extend<CircleQ tooltip="Add more duration to a stake."/></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes} action={Remove}>Remove<CircleQ tooltip="Remove a completed or unlocked stake."/></STActionButton>
             </Row>
+            <Row className="d-flex justify-content-between" id="substake-list-header">
+                <Col xs={1} className="d-flex justify-content-start">
+                </Col>
+                <Col xs={12} sm={3} className="d-flex justify-content-start">
+                    Start
+                </Col>
+                <Col xs={12} sm={3} className="d-flex justify-content-start">
+                    End
+                </Col>
+                <Col xs={12} sm={3} className="d-flex justify-content-start">
+                    Value
+                </Col>
+            </Row>
+
             {substakes.map((substake)=>{
                 return <SubStake key={`${account}.${substake.id}`} selected={selection[parseInt(substake.id)]} onSelect={handleSelection} data={substake} context={context} account={account} />
             })}

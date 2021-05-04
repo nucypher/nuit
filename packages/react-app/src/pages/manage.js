@@ -119,8 +119,12 @@ export function Manage(props) {
                                         activeCheck={withdrawingNU}
                                         onClick={handleWithdrawNU}
                                         className="mt-2 reward-button">
-                                        {Number(stakerData.availableNUWithdrawal)>0 ? 'Withdraw ' : ''}
-                                        <NuBalance balance={stakerData.availableNUWithdrawal}/>
+                                        <div className="d-flex">
+                                            <span className="mr-2">
+                                                {Number(stakerData.availableNUWithdrawal)>0 ? 'Withdraw ' : ''}
+                                             </span>
+                                            <NuBalance balance={stakerData.availableNUWithdrawal}/>
+                                        </div>
                                     </PendingButton>
                                 </Col>
                                 <Col xs={6} xl={12}>

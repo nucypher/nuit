@@ -65,8 +65,16 @@ hr {
     }
 }
 
+#wallet-button {
+    max-width: 180px;
+    min-width: 180px;
+    padding: 11px;
+}
+
 .reward-button {
     min-height: 64px;
+    display: flex;
+    justify-content: center;
 }
 
 .accordion {
@@ -146,7 +154,7 @@ hr {
 }
 
 #substake-list-header {
-
+    color: #828A9C;
 }
 
 #substake-control table{

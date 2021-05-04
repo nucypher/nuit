@@ -24,10 +24,10 @@ export const NuBalance = (props) => {
         }
     }, [ account, provider, contracts, props ])
 
-    const humanizedBalance = Math.fround(parseFloat(props.balance) / 10 ** 18).toLocaleString("en-US")
+    const humanizedBalance = (Math.round((parseFloat(props.balance) / 10 ** 18) * 100 ) / 100).toLocaleString("en-US")
     return (
-        <span>
-            {props.balance ? <strong><Blue>{props.balance ? <strong><Blue>{humanizedBalance}</Blue> <Grey>NU</Grey></strong> : ''}</Blue></strong> : ''}
+        <span className="d-flex flex-xs-nowrap">
+            {props.balance ? <strong className="d-flex"><Blue className="mr-1">{humanizedBalance}</Blue> <Grey>NU</Grey></strong> : ''}
         </span>
     )
 }
