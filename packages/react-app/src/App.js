@@ -146,7 +146,6 @@ function App () {
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
     setAvailableNU(stakerNuWallet)
-    console.log(stakerInfo)
     setStakerData({
         info: stakerInfo,
         flags,
