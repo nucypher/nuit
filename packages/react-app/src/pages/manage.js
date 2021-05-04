@@ -209,7 +209,7 @@ export function Manage(props) {
                                     </DataRow>
                                </ButtonBox>
                                <div className="d-flex justify-content-between align-items-center mb-2">
-                                <Grey>Substakes</Grey>
+                                <Grey>Sub-stakes</Grey>
                                 <PendingButton small activeCheck={addingsubstake} onClick={handleAddSubstake} abort={setAddingSubstake}>Add Substake</PendingButton>
                                 </div>
                                 {stakerData.substakes ? <SubStakeList substakes={stakerData.substakes} element={ButtonBox} /> : null}
