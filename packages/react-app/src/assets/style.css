@@ -52,6 +52,19 @@ hr {
     padding: 0.5rem 2rem;
 }
 
+.navbar-nav{
+    flex-direction: row;
+    white-space: nowrap;
+    justify-content: end;
+}
+
+@media (min-width: 992px){
+
+    .navbar-expand-lg .navbar-collapse {
+        display: inline-block!important;
+    }
+}
+
 .reward-button {
     min-height: 64px;
 }
@@ -127,11 +140,18 @@ hr {
     padding: 0.2rem;
 }
 
+
 #substake-control-buttons {
     margin-bottom: 1.5rem;
 }
 
 #substake-list-header {
+
+}
+
+#substake-control table{
+    width: 100vw;
+    height: 100vh;
 
 }
 

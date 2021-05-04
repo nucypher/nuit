@@ -3,31 +3,30 @@ import {HeaderNav, NCLogo, Period, SecondaryButton, ThemeButton} from '@project/
 import {Context, truncateAddress} from '@project/react-app/src/services'
 import {getCurrentPeriod} from '@project/react-app/src/constants'
 import {dark, light} from '@project/react-app/src/themes'
-import {NavLink} from "react-bootstrap";
+import {Nav, Navbar, Form} from "react-bootstrap";
 import Web3 from "web3";
 
 function WalletLogo(props) {
     const provider = props.provider
     const isMetaMask = provider && provider.isMetaMask
     if (isMetaMask) return <img className="mr-2" src={require('../assets/icons/metamask.svg')}/>
-    else return ''
+    else return <img className="mr-2" src={require('../assets/icons/walletconnect.svg')}/>
 }
 
 function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) {
     return (
       <SecondaryButton
           className="mr-lg-5"
-        width="12"
-        onClick={() => {
-          if (!provider) {
-            loadWeb3Modal()
-          } else {
-            logoutOfWeb3Modal()
-          }
-        }}
-      >
-        <WalletLogo provider={provider}/>
-        {!provider ? 'Connect' : truncateAddress(Web3.utils.toChecksumAddress(account))}
+            onClick={() => {
+              if (!provider) {
+                loadWeb3Modal()
+              } else {
+                logoutOfWeb3Modal()
+              }
+            }}
+          >
+        {provider ? <WalletLogo provider={provider}/> : 'connect'}
+        <Navbar.Collapse>{!provider ? '': truncateAddress(Web3.utils.toChecksumAddress(account))}</Navbar.Collapse>
       </SecondaryButton>
     )
   }
@@ -45,13 +44,22 @@ export default function (props) {
 
     return (
         <HeaderNav>
-            <NCLogo theme={theme}/>
-            <span>next period: <Period>{getCurrentPeriod()}</Period></span>
-            <NavLink href="/new/worker">New Stake</NavLink>
-            <NavLink href="/manage">Manage</NavLink>
-            <NavLink href="https://www.nucypher.com/network">Learn</NavLink>
-            <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div>
-            <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
+          <Navbar expand="lg">
+              <Navbar.Brand><NCLogo theme={theme}/></Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse  id="basic-navbar-nav">
+              <span>next period: <Period>{getCurrentPeriod()}</Period></span>
+              <Nav className="d-flex justify-content-between">
+                <Nav.Link href="/new/worker">New Stake</Nav.Link>
+                <Nav.Link href="/manage">Manage</Nav.Link>
+                <Nav.Link href="https://www.nucypher.com/network">Learn</Nav.Link>
+              </Nav>
+              </Navbar.Collapse>
+              <Nav className="d-flex justify-content-between">
+                <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div>
+                <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
+              </Nav>
+          </Navbar>
         </HeaderNav>
     )
 }

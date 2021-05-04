@@ -52,10 +52,6 @@ export const device = {
 export const HeaderNav = styled.header`
   background-color: ${props => props.theme.colors.background};
   min-height: 70px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
   color: ${props => props.theme.colors.text.standard};
 `
 
@@ -134,7 +130,7 @@ export const NCButtonBase = styled.button`
   white-space: nowrap;
 
   @media ${device.mobileM} {
-    min-width: ${ props => ((props.small || props.tiny) ? 'unset' : '7.5em')};
+    min-width: 'unset';
   }
 
   @media ${device.tablet} {
@@ -231,10 +227,14 @@ export const PendingButton = (props) => {
 
 
 const NCLogoContainer = styled.div`
-  position: absolute;
-  left:1em;
-  font-size:2em;
-  font-weight:600
+  display:inline-block;
+  font-size:1em;
+  font-weight:600;
+
+  @media ${device.mobileL} {
+    font-size:2em;
+    font-weight:600;
+  }
 `
 
 export const InputBox = styled.div`
