@@ -1,0 +1,18 @@
+[
+   {
+      "question": "What is the role of the Worker?",
+      "answer": "The Worker is the bonded delegate of a Staker and an active network node, performing work on behalf of a Staker. Workers must remain online to provide uninterrupted on-demand services."
+   },
+   {
+      "question": "Can my Staker and Worker address be the same?",
+      "answer": "Technically, yes, but it is not recommended. The accounts have different security considerations - the Staker address is high-value and can be a hardware wallet (with NU and ETH) that performs stake management, while the Worker address is low-value and needs to remain unlocked while running (software wallet with ETH) since it is used by an Ursula node. You should stake with one address and set the Worker to be a different address."
+   },
+   {
+      "question": "Why can't I bond to a different Worker address?",
+      "answer": "Once bonded, the Worker address cannot be changed for a minimum of 2 periods (14 days)."
+   },
+   {
+      "question": "Do Worker accounts require NU?",
+      "answer": "Worker accounts only need ETH to pay for transaction gas and do not need NU for any reason; do not keep any NU in the worker’s account."
+   }
+]
