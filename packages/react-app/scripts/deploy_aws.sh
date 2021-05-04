@@ -1,5 +1,8 @@
+# intended to be run via: `yarn deploy`
 
-
+set -e
+# TODO...OR NOT can everyone just name their profile
+# 'nucypher' so we can keep this simple :)
 export AWS_PROFILE=nucypher
 
 BUCKET=s3://nc-nuit
@@ -11,6 +14,7 @@ fi
 
 echo "pushing local react/build to $BUCKET"
 aws s3 sync packages/react-app/build $BUCKET --delete
+
 
 countdown() {
     secs=$1
