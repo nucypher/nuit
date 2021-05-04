@@ -1,23 +1,18 @@
 import React from 'react'
-import { Container, Row, Col, Card } from 'react-bootstrap/';
+import {Card, Col, Container, Row} from 'react-bootstrap/';
 import Accordion from 'react-bootstrap/Accordion'
-import { ButtonBox, NoBorderButton } from '../../../components'
+import {ButtonBox, NoBorderButton} from '../../../components'
 
-import { ReactComponent as JoinPoolIcon } from '../../../assets/icons/joinPool.svg'
-import { ReactComponent as ServiceProviderIcon } from '../../../assets/icons/serviceProvider.svg'
-import { ReactComponent as SelfHostedIcon } from '../../../assets/icons/selfHostedWorker.svg'
+import {ReactComponent as JoinPoolIcon} from '../../../assets/icons/joinPool.svg'
+import {ReactComponent as ServiceProviderIcon} from '../../../assets/icons/serviceProvider.svg'
+import {ReactComponent as SelfHostedIcon} from '../../../assets/icons/selfHostedWorker.svg'
 
 
 import JoinPool from './nodeProviders/joinPool'
 import ServiceProvider from './nodeProviders/serviceProviders'
 import SelfHosted from './nodeProviders/selfHosted'
 
-import {
-    useRouteMatch,
-    Route,
-    Switch,
-    NavLink
-  } from 'react-router-dom'
+import {NavLink, Route, Switch, useRouteMatch} from 'react-router-dom'
 
 import FAQ_QUESTIONS from './worker_faq.json'
 
@@ -62,10 +57,12 @@ export default (props) => {
             </Row>
             <Row className="d-flex justify-content-center">
                 <Col sm={8} xs={12} className="d-flex justify-content-center">
-                    <Accordion>
+                    <Accordion id="self-hosted-accordian">
                     {FAQ_QUESTIONS.map((faq, index) => (
                         <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey={index.toString()}><b>Q: {faq.question}</b></Accordion.Toggle>
+                            <Accordion.Toggle as={Card.Header} eventKey={index.toString()}>
+                                <b>{faq.question}</b><i className={true ? "faq-plus":"faq-minus"}></i>
+                            </Accordion.Toggle>
                             <Accordion.Collapse eventKey={index.toString()}>
                                <Card.Body>{faq.answer}</Card.Body>
                             </Accordion.Collapse>
