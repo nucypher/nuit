@@ -56,6 +56,56 @@ hr {
     min-height: 64px;
 }
 
+.accordion {
+    overflow-anchor: none;
+    width: 100%;
+    border-radius: 0;
+    margin-bottom: 4em;
+}
+
+.card-header {
+    padding-top: 2em;
+    height: 88px;
+    margin-bottom: 0;
+    background-color: #F3F4F4;
+    border-bottom: 1px solid #E0E4E8;
+    border-radius: 0;
+    align-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header .faq-plus {
+    background-image: url("icons/blue-plus.svg");
+    height: 20px;
+    width: 20px;
+}
+
+.card-header > .faq-plus:hover {
+    background-image: url("icons/plus-hover.svg");
+}
+
+.card-header .faq-minus {
+    background-image: url("icons/blue-minus.svg");
+    height: 20px;
+    width: 20px;
+}
+
+.card-header > .faq-minus:hover {
+    background-image: url("icons/minus-hover.svg");
+}
+
+#self-hosted-accordian .card {
+    background-color: #F3F4F4;
+    border-top: 1px solid #E0E4E8;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    border-bottom: none;
+}
+
 .control-box {
     line-height: 2em;
     padding: 24px !important;
