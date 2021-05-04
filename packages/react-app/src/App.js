@@ -106,7 +106,8 @@ function App () {
     stakerInfo.ownedTokens = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
     const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
     const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
-    const policyInfo = await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
+
+    const policyInfo = stakerInfo.worker === EMPTY_WORKER ? null : await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
 
     let lockedNU = 0.0;
     // getting an array with all substakes
@@ -145,7 +146,7 @@ function App () {
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
     setAvailableNU(stakerNuWallet)
-
+    console.log(stakerInfo)
     setStakerData({
         info: stakerInfo,
         flags,
@@ -153,7 +154,7 @@ function App () {
         lockedNU,
         policyInfo,
         availableNUWithdrawal,
-        availableETHWithdrawal: policyInfo[3]
+        availableETHWithdrawal: policyInfo ? policyInfo.reward : 0// this data is showing 777 if no stakes exist
     })
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)
