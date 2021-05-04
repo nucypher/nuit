@@ -132,7 +132,15 @@ function App () {
 
     // Available Unlocked NU (thx stakeit)
     const lockedStakerNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
-    const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(web3.utils.toBN(lockedStakerNits));
+    const lockedStakerFutureNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 1).call();
+
+    const past = web3.utils.toBN(lockedStakerNits)
+    const future = web3.utils.toBN(lockedStakerFutureNits)
+
+    // Math.max doesn't work on BNs
+    const amt = past > future ? past : future
+
+    const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(amt);
     const availableNUWithdrawal = stakerUnlockedNits
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
