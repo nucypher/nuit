@@ -81,7 +81,7 @@ export function Manage(props) {
                     complete. <Spinner/></h3></Col></Row> :
                 <Row className="d-flex justify-content-center">
                     <Col xs={12} md={10} xl={4}>
-                        <CurrentPeriodPanel/>
+                        {/*<CurrentPeriodPanel/>*/}
                         <RewardsPanel {...stakerData} />
                         <StakeSettingsPanel {...stakerData}/>
                     </Col>
