@@ -20,14 +20,7 @@ export default function NetworkStats() {
     let stakers = period.activeStakers ? Number(period.activeStakers).toLocaleString(locale) : "-"
 
     return (
-        <Row xs={1} md={4} className="d-flex justify-content-centered">
-            <Col>
-                <div>
-                    <HR color="black"></HR>
-                    <h5><strong>Current Period</strong></h5>
-                    <h2><strong>{getCurrentPeriod()}</strong></h2>
-                </div>
-            </Col>
+        <Row xs={1} md={3} className="d-flex justify-content-centered">
             <Col className="d-flex justify-content-center">
                 <div>
                     <HR color="blue"></HR>
