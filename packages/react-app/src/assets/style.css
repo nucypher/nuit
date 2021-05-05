@@ -111,6 +111,18 @@ hr {
     margin-top: -1px;
 }
 
+.circleQ svg{
+    stroke: #1E65F3;
+}
+
+.bluebg .circleQ svg {
+    stroke: white;
+}
+
+.bluebg .circleQ svg circle {
+    stroke: white;
+}
+
 #remaining-time {
     margin-left: 2px;
 }
@@ -133,9 +145,6 @@ hr {
     width: 33%;
 }
 
-/*.new-stake-method:hover:not(.active) {*/
-/*    border: 1px solid #1E65F3;*/
-/*}*/
 
 .collect-worker {
     max-width: 608px;
