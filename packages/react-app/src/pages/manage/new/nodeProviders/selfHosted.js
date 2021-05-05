@@ -19,7 +19,7 @@ export default (props) => {
                             <p>Periodic automated commitments are required to signal continued availability. Currently,
                                 Worker nodes must perform one commitment transaction every 7 days each costing ~200k
                                 gas. Average cost for last 30 days: </p>
-                            <h3><Badge variant="secondary">.1ETH / Month</Badge></h3>
+                            <h3><Badge variant="secondary">.1 ETH/mo</Badge></h3>
                         </Card.Body>
                     </Card>
                 </Col>

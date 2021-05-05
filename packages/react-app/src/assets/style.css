@@ -91,6 +91,7 @@ hr {
     flex-direction: row;
     white-space: nowrap;
     justify-content: end;
+    font-family: "gt-america-mono-regular", "Open Sans", sans-serif
 }
 
 @media (min-width: 992px){
@@ -163,17 +164,11 @@ hr {
     border: none;
     margin-left: 6px;
     width: 100% !important;
-    padding-top: 17px;
-    padding-bottom: 17px;
-    padding-left: 24px;
-    padding-right: 25px;
+    padding: 17px 25px 17px 24px;
 }
 
 #worker-runway {
-    padding: 24px;
-    padding-top: 6px;
-    padding-left: 2rem;
-    padding-right: 3rem;
+    padding: 6px 3rem 24px 2rem;
 }
 
 .collect-worker.valid {
@@ -222,6 +217,14 @@ hr {
     justify-content: center;
 }
 
+.badge-secondary {
+    padding: 6px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #828A9C;
+    border-radius: 6px;
+}
+
 .accordion {
     overflow-anchor: none;
     width: 100%;
@@ -261,6 +264,15 @@ hr {
 
 .card-header > .faq-minus:hover {
     background-image: url("icons/minus-hover.svg");
+}
+
+
+.accordion .card-body {
+    font-family: "Open Sans";
+    flex: 1 1 auto;
+    min-height: 1px;
+    font-weight: 100;
+    padding: 2em 3rem 3rem;
 }
 
 #self-hosted-accordian .card {
