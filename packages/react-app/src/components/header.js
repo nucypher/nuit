@@ -54,7 +54,7 @@ export default function (props) {
               <Nav className="d-flex justify-content-end align-items-center">
                 <Link to="/new/worker" className="mr-4">New Stake</Link>
                 <Link to="/manage" className="mr-4">Manage</Link>
-                <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div>
+                {/* <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div> */}
                 <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
               </Nav>
               </Navbar.Collapse>
