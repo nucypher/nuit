@@ -172,7 +172,7 @@ export const PurpleButton = styled(PrimaryButton)`
   color: white;
 `
 
-export const SecondaryButton = styled(PrimaryButton)`
+export const SecondaryButton = styled(NCButtonBase)`
   background: ${props => props.theme.buttons.secondary.background};
   border: ${props => props.theme.buttons.secondary.border};
   color: ${props => props.theme.buttons.secondary.text.main};
