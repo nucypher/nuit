@@ -21,7 +21,7 @@ export const light = {
                 main:'#FFFFFF',
                 sub: 'rgba(255, 255, 255, 0.4)',
             },
-            border: 'none'
+            border: '2px solid #1E65F3'
         },
         secondary: {
             background: 'none',
@@ -65,7 +65,7 @@ export const dark = {
                 main:'#FFFFFF',
                 sub: 'rgba(255, 255, 255, 0.4)',
             },
-            border: 'none'
+            border: '2px solid #1E65F3'
         },
         secondary: {
             background: 'none',
