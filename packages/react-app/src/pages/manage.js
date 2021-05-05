@@ -15,7 +15,7 @@ export function Manage(props) {
 
     const context = useContext(Context)
     const {account} = context.wallet
-    
+
     const [migrating, setMigrating] = useState(false)
     const [stakerData, setStakerData] = useState({})
 
@@ -39,10 +39,13 @@ export function Manage(props) {
                     <h1>Manage Staked Nu</h1>
                 </Col>
             </Row>
-            {migrating
-                ? <Row><Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col></Row>
+            {migrating || !account
+                ? <Row> {migrating ?
+                    <Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col> :
+                    <Col className="d-flex justify-content-center"><h3>Please connect a wallet/account to use this page.</h3></Col>}
+                </Row>
                 : <Row className="d-flex justify-content-center">
-                    
+
                     { /* Left Side */}
                     <Col xs={12} md={10} xl={4}>
                         <CurrentPeriodPanel/>
