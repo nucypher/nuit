@@ -54,7 +54,7 @@ export default function (props) {
               <Nav className="d-flex justify-content-end align-items-center">
                 <Link to="/new/worker" className="mr-4">New Stake</Link>
                 <Link to="/manage" className="mr-4">Manage</Link>
-                <Link to="https://www.nucypher.com/network">Learn</Link>
+                <a href="https://www.coinbase.com/earn/nucypher" target="blank">Learn</a>
                 <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div>
                 <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
               </Nav>
