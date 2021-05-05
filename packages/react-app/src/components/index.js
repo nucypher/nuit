@@ -170,6 +170,7 @@ export const Error = styled('span')`
 export const PurpleButton = styled(PrimaryButton)`
   background: ${props => props.theme.colors.purple};
   color: white;
+  border-color: ${props => props.theme.colors.purple};
 `
 
 export const SecondaryButton = styled(NCButtonBase)`

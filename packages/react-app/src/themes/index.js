@@ -11,6 +11,7 @@ export const light = {
         },
         blue: '#1E65F3',
         purple: '#6B32D8',
+        grey75: '#828A9C',
         red: 'red',
         shadow: '0px 16px 40px -16px rgba(55, 55, 55, 0.3)'
     },
@@ -55,6 +56,7 @@ export const dark = {
         },
         blue: '#1E65F3',
         red: 'red',
+        grey75: '#828A9C',
         purple: '#6B32D8',
         shadow: '0px 16px 40px -16px rgba(55, 55, 55, 0.3)'
     },
