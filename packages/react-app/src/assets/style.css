@@ -61,6 +61,20 @@ hr {
 }
 
 
+.alert-primary {
+    color: #fff;
+    background-color: #1e65f3;
+    border-color: #b8daff;
+    font-family: gt-america-mono-regular;
+    text-align: center;
+    font-size: 18px;
+}
+
+.alert-primary a {
+    text-decoration: underline;
+    margin-left: 11px;
+}
+
 #NCmain {
     width: 100%;
     padding-top: 2em;

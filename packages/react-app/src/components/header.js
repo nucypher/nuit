@@ -3,7 +3,7 @@ import {HeaderNav, NCLogo, Period, SecondaryButton, ThemeButton} from '@project/
 import {Context, truncateAddress} from '@project/react-app/src/services'
 import {getCurrentPeriod} from '@project/react-app/src/constants'
 import {dark, light} from '@project/react-app/src/themes'
-import {Nav, Navbar, Form} from "react-bootstrap";
+import {Nav, Navbar, Form, Alert} from "react-bootstrap";
 import Web3 from "web3";
 
 import {Link} from 'react-router-dom'
@@ -47,6 +47,10 @@ export default function (props) {
 
     return (
         <HeaderNav>
+        <Alert variant="primary">
+            This is a public beta release!  Please direct bug reports or feature requests to the
+            <a href="https://github.com/nucypher/nuit/issues/new">issue tracker</a>.
+        </Alert>
           <Navbar expand="lg">
               <Navbar.Brand><NCLogo theme={theme}/></Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
