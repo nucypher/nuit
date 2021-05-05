@@ -6,7 +6,11 @@ import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAx
 import {Context} from "../services";
 import {apolloClients} from "../graphql/apollo";
 import {ButtonGroup, SecondaryButton} from "./index";
-import {Row} from "../pages/home";
+
+
+//
+// Datetime utils
+//
 
 
 function epochToHumanDate(epoch) {
@@ -18,48 +22,17 @@ function dateToUTCEpoch(d) {
     return Number(Math.round(utcMilllisecondsSinceEpoch / 1000))
 }
 
-function calculatePastDate(months_ago) {
+function calculatePastEpoch(months_ago) {
     let d = new Date()
     d.setMonth(d.getMonth() - months_ago)
     return dateToUTCEpoch(d)
 }
 
-class SupplyActiveDot extends React.Component {
-    render() {
-        const {cx, cy} = this.props;
-        // console.log(this.props.payload.circulatingSupply)
-        return (
-            <circle cx={cx} cy={cy} r={4} stroke="#6B32D8" strokeWidth={2.5} fill="white"/>
-        );
-    }
-}
-
-class ActiveStakersActiveDot extends React.Component {
-    render() {
-        const {cx, cy} = this.props;
-        // console.log(this.props.payload.circulatingSupply)
-        return (
-            <circle cx={cx} cy={cy} r={4} stroke="#828A9C" strokeWidth={2.5} fill="white"/>
-        );
-    }
-}
 
 
-class StakedActiveDot extends React.Component {
-    render() {
-        const {cx, cy} = this.props;
-        return (
-            <circle
-                cx={cx}
-                cy={cy}
-                r={4}
-                stroke="#1E65F3"
-                strokeWidth={2.5}
-                fill="white"
-            />
-        );
-    }
-}
+//
+// Formatters
+//
 
 function camelToTitleCase(text) {
     let result = text.replace(/([A-Z])/g, " $1");
@@ -96,14 +69,58 @@ function scrubPeriods(periods) {
     return formattedPeriods
 }
 
+//
+// Components
+//
+
+class StyledActiveDot extends React.Component {
+    render() {
+        const {cx, cy} = this.props;
+        return (
+            <circle
+                cx={cx}
+                cy={cy}
+                r={4}
+                stroke={this.props.color}
+                strokeWidth={2.5}
+                fill="white"
+            />
+        );
+    }
+}
+
+
+function TimeFrameControls(props) {
+
+    function refetch(startEpoch) {
+        const t = {epoch: startEpoch}
+        for (let f of props.refetchers) f(t)
+    }
+
+    return (
+        <ButtonGroup aria-label="Timeframe" id="timeframe-buttons">
+            <SecondaryButton onClick={() => {
+                refetch(1)
+            }}>All-time</SecondaryButton>
+
+            <SecondaryButton onClick={() => {
+                refetch(calculatePastEpoch(6))
+            }}>6 Months</SecondaryButton>
+
+            <SecondaryButton onClick={() => {
+                refetch(calculatePastEpoch(3))
+            }}>3 Months</SecondaryButton>
+        </ButtonGroup>
+
+    )
+}
+
 export default function StakerChart() {
 
     const context = useContext(Context)
-    const {provider, account, web3} = context.wallet
+    const {provider} = context.wallet
     let chainID;
-    if (provider) {
-        chainID = provider.chainId || 0
-    }
+    if (provider) chainID = provider.chainId || 0
 
     let epoch = 1; // "all-time" is default
     const client = apolloClients[chainID || 0]
@@ -133,40 +150,7 @@ export default function StakerChart() {
 
     return (
         <div>
-            <ButtonGroup aria-label="Timeframe" id="timeframe-buttons">
-
-                <SecondaryButton onClick={() => {
-                    const t = {epoch: 1}
-                    refetch(t);
-                    gRefetch(t)
-                }}>
-                    All-time
-                </SecondaryButton>
-
-                {/* Introduce when there is 12+ months od data */}
-                {/*<SecondaryButton onClick={() => {*/}
-                {/*    const t = {epoch: oneYearAgo()}*/}
-                {/*    refetch(t);*/}
-                {/*    gRefetch(t)*/}
-                {/*}}>*/}
-                {/*    12 Months*/}
-                {/*</SecondaryButton>*/}
-                <SecondaryButton onClick={() => {
-                    const t = {epoch: calculatePastDate(6)}
-                    refetch(t);
-                    gRefetch(t)
-                }}>
-                    6 Months
-                </SecondaryButton>
-                <SecondaryButton onClick={() => {
-                    const t = {epoch: calculatePastDate(3)}
-                    refetch(t);
-                    gRefetch(t)
-                }}>
-                    3 Months
-                </SecondaryButton>
-
-            </ButtonGroup>
+            <TimeFrameControls refetchers={[refetch, gRefetch]}/>
             <ResponsiveContainer aspect={2.38974359}>
 
                 <AreaChart
@@ -185,12 +169,10 @@ export default function StakerChart() {
                         type="number"
                         scale="time"
                         tickSize={2}
-                        // tick={{transform: 'translate(80, 0)'}}
                         tickCount={3}
                         tickFormatter={xFormatter}
                         tickMargin={5}
                         interval={4}
-                        // startOffset={2}
                         domain={['dataMin', 'dataMax']}
                         axisLine={false}
                         mirror={false}
@@ -230,7 +212,7 @@ export default function StakerChart() {
                         stroke="#6B32D8"
                         strokeWidth={2.5}
                         fillOpacity={0}
-                        activeDot={<SupplyActiveDot/>}
+                        activeDot={<StyledActiveDot color="#6B32D8"/>}
                     />
 
                     <Area
@@ -241,7 +223,7 @@ export default function StakerChart() {
                         strokeWidth={2.5}
                         fillOpacity={1}
                         fill="url(#colorPv)"
-                        activeDot={<StakedActiveDot/>}
+                        activeDot={<StyledActiveDot color="#1E65F3"/>}
                     />
 
                     <Area
@@ -252,7 +234,7 @@ export default function StakerChart() {
                         strokeWidth={2}
                         fillOpacity={0}
                         yAxisId={1}
-                        activeDot={<ActiveStakersActiveDot/>}
+                        activeDot={<StyledActiveDot color="#828A9C"/>}
                     />
 
                     <Area
@@ -269,4 +251,3 @@ export default function StakerChart() {
         </div>
     )
 }
-
