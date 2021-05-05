@@ -28,7 +28,7 @@ export default (props) => {
                 </Col>
             </Row>
             <Row noGutters className="d-flex justify-content-center">
-                <Col sm={8} xs={12}  className="d-flex justify-content-center">
+                <Col xs={12}  className="d-flex justify-content-center">
                     <ButtonBox id="stake-method-selector">
                         <NavLink className="new-stake-method" to={`${url}/service`} activeClassName="active"><NoBorderButton><ServiceProviderIcon/><div>Service Provider</div></NoBorderButton></NavLink>
                         <NavLink className="new-stake-method" to={`${url}/pwn`} activeClassName="active"><NoBorderButton><SelfHostedIcon/><div>Selfhosted Worker</div></NoBorderButton></NavLink>
