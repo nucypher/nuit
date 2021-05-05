@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import {Context} from '@project/react-app/src/services'
 import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
 import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
+import {ReactComponent as Reset} from '@project/react-app/src/assets/icons/reset-x.svg'
 import {validateAddress} from '../services'
 import {Blue, Grey} from '@project/react-app/src/components'
 import {Image} from "react-bootstrap";
@@ -116,7 +117,7 @@ export class WorkerETHAddressField extends React.Component {
                         className={this.state.validated ? 'valid' : ''}
                     />
                     {this.state.validated ? <Button onClick={this.reset} variant="link">
-                        <Image id="clear-selection" src={require('../assets/icons/reset-x.svg')}/>
+                        <Reset id="clear-selection"/>
                     </Button> : null}
                 </div>
                 <div id="worker-runway">
