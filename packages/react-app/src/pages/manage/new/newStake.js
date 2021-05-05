@@ -24,7 +24,7 @@ export function NewStake() {
         <Container>
             <Row>
                 <Breadcrumbs paths={[
-                    {path:'/', label: 'root', enabled: true },
+                    {path:'/', label: 'Home', enabled: true },
                     {path:'worker', label: 'Create Worker', enabled: true },
                     {path: 'set-stake', label: 'Set Stake', enabled: workerAddress !== undefined || context.workerAddress.get},
                     {path: 'bond', label: 'Bond', enabled: workerAddress !== null && stakerData.lockedNU > 15000}

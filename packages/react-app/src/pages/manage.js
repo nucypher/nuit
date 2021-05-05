@@ -29,8 +29,8 @@ export function Manage(props) {
         <Container fluid>
             <Row>
                 <Breadcrumbs paths={[
-                    {path: '/', label: 'root', enabled: true},
-                    {path: '/manage', label: 'manage', enabled: true},
+                    {path: '/', label: 'Home', enabled: true},
+                    {path: '/manage', label: 'Manage', enabled: true},
                 ]}/>
             </Row>
 
