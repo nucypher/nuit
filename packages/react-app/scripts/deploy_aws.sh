@@ -6,7 +6,7 @@ set -e
 export AWS_PROFILE=nucypher
 
 if [ ! -f ./packages/react-app/.env.production ]; then
-    echo "no .env.production found.  Your build may not be production ready."
+    echo "no '.env.production' file found.  Your build may not be production-ready."
     exit 1
 fi
 
@@ -53,4 +53,3 @@ else
         fi
     fi
 fi
-
