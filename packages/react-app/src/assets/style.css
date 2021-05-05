@@ -1,6 +1,29 @@
+@font-face {
+    font-family: 'basis-grotesque-medium';
+    src: url('../assets/fonts/basis-grotesque-medium.eot');
+    src: url('../assets/fonts/basis-grotesque-medium.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/basis-grotesque-medium.woff') format('woff'),
+         url('../assets/fonts/basis-grotesque-medium.woff2') format('woff2'),
+         url('../assets/fonts/basis-grotesque-medium.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gt-america-mono-regular';
+    src: url('../assets/fonts/GT-America-Mono-Regular.eot');
+    src: url('../assets/fonts/GT-America-Mono-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/GT-America-Mono-Regular.woff') format('woff'),
+         url('../assets/fonts/GT-America-Mono-Regular.woff2') format('woff2'),
+         url('../assets/fonts/GT-America-Mono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin: 0;
-    font-family: "Helvetica Neue", "Open Sans", sans-serif !important;
+    font-family: "basis-grotesque-medium", "Open Sans", sans-serif !important;
+    font-weight: 100;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -51,6 +74,12 @@ hr {
 
 .NC-buttonBox .btn {
     border-radius: 12px;
+}
+
+.navbar-brand {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .nav-link {
@@ -342,6 +371,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     background-color: black;
     color: white;
     min-height: 15em;
+    font-family: gt-america-mono-regular;
 }
 
 .footer span {
