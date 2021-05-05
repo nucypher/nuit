@@ -15,7 +15,7 @@ BUCKET=s3://nc-nuit
 URL=https://stake.nucypher.community
 if [[ $1 == production ]]; then
     BUCKET=s3://nc-nuit-production
-    URL=https://stake.nucypher.com
+    URL=https://stake.nucypher.community
 fi
 
 echo "pushing local react/build to $BUCKET"
@@ -33,8 +33,8 @@ countdown() {
     echo
 }
 
-countdown 5 "opening browser to $URL"
-if read -r -s -n 1 -t 5 -p #key in a sense has no use at all
+countdown 5 "opening browser to $URL (hit any key to cancel)"
+if read -r -s -n 1 -t 5 #key in a sense has no use at all
 then
     echo "aborted"
 else

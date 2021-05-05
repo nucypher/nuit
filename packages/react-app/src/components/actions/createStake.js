@@ -28,7 +28,7 @@ export const CreateStake = (props) => {
     const [maxNULimit, setMaxNULimit] = useState(context.availableNU.get)
     const [AllocationValid, setAllocationValid] = useState(true)
     const [invalidMessage, setInvalidMessage] = useState()
-    const [duration, setDuration] = useState(props.duration || 30)
+    const [duration, setDuration] = useState(props.duration || daysPerPeriod * 10)
     const [roi, setRoi] = useState({apr: 0, net: 0})
 
     const [addingsubstake, setAddingSubstake] = useState(false)
@@ -108,7 +108,7 @@ export const CreateStake = (props) => {
                         <Grey>Duration</Grey>
                         <strong><TypeOver onChange={onDurationChanged}>{duration}</TypeOver> <Grey>Days</Grey></strong>
                     </div>
-                    <Slider step={daysPerPeriod} min={daysPerPeriod} max={daysPerPeriod * 52 * 3} value={duration} onChange={onDurationChanged} />
+                    <Slider step={daysPerPeriod} min={daysPerPeriod} max={daysPerPeriod * 52} value={duration} onChange={onDurationChanged} />
                 </Col>
             </Row>
             <Row noGutters className="d-flex justify-content-center mt-3">
