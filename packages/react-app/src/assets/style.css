@@ -71,6 +71,10 @@ hr {
     padding: 11px;
 }
 
+#remaining-time {
+    margin-left: 2px;
+}
+
 .reward-button {
     min-height: 64px;
     display: flex;

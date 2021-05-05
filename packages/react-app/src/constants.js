@@ -2,9 +2,16 @@
 const MIN_STAKE = 15000
 
 export const daysPerPeriod = 7
+export const secondsPerDay = 86400
+export const millisecondsPerDay = secondsPerDay * 1000
+export const millisecondsPerPeriod = millisecondsPerDay * daysPerPeriod
 
 export const getCurrentPeriod = () => {
-    return Math.round(Math.floor(new Date().getTime() / 86400000) / daysPerPeriod)
+    return Math.floor(Math.floor(new Date().getTime() / millisecondsPerDay) / daysPerPeriod)
+}
+
+export function periodToEpoch(period) {
+    return period * millisecondsPerPeriod
 }
 
 const EMPTY_WORKER = "0x0000000000000000000000000000000000000000"
