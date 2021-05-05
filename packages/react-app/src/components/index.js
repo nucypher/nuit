@@ -230,6 +230,7 @@ const NCLogoContainer = styled.div`
   display:inline-block;
   font-size:1em;
   font-weight:600;
+  font-family: basis-grotesque-medium;
 
   @media ${device.mobileL} {
     font-size:2em;
