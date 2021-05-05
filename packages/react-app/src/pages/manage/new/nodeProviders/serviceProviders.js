@@ -55,7 +55,7 @@ export default (props) => {
                 </Col>
                 <Col xs={12} className="d-flex justify-content-center">
                     <InputBox>
-                        <Form.Group>
+                        <Form.Group >
                             <WorkerETHAddressField
                                 label="Worker Address"
                                 value={props.workerAddress}

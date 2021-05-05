@@ -15,7 +15,7 @@ export default (props) => {
     return (
         <Container>
             <Row className="d-flex justify-content-center">
-                <Col xs={12} >
+                <Col xs={12}>
                     <InputBox>
                         <Form>
                             <CreateStake {...props} />
@@ -25,7 +25,7 @@ export default (props) => {
             </Row>
             <Row className="d-flex justify-content-center">
                 <Col xs={4} className="d-flex justify-content-center biglink mt-3">
-                {stakerData.lockedNU ? <Link to="/new/bond"><PrimaryButton>Continue</PrimaryButton></Link> : ''}
+                    {stakerData.lockedNU ? <Link to="/new/bond"><PrimaryButton>Continue</PrimaryButton></Link> : ''}
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center mt-5">
