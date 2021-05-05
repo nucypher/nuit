@@ -9,6 +9,7 @@ import {HistoryPane} from "../components/manage/history";
 import RewardsPanel from "../components/manage/rewards";
 import StakeSettingsPanel from "../components/manage/settings";
 import StakerControlPanel from "../components/manage/staking";
+import CurrentPeriodPanel from "../components/manage/period";
 
 export function Manage(props) {
 
@@ -44,7 +45,7 @@ export function Manage(props) {
                     
                     { /* Left Side */}
                     <Col xs={12} md={10} xl={4}>
-                        {/*<CurrentPeriodPanel/>*/}
+                        <CurrentPeriodPanel/>
                         <RewardsPanel {...stakerData} />
                         <StakeSettingsPanel {...stakerData}/>
                     </Col>
@@ -61,6 +62,7 @@ export function Manage(props) {
                         </div>
                         <HistoryPane theme={props.theme}/>
                     </Col>
+
                 </Row>}
         </Container>
     )

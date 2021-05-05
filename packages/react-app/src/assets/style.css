@@ -106,6 +106,107 @@ hr {
     padding: 11px;
 }
 
+.circleQ {
+    padding-left: 8px;
+    margin-top: -1px;
+}
+
+#remaining-time {
+    margin-left: 2px;
+}
+
+/*New Worker Selection*/
+
+#stake-method-selector {
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
+    border-radius: 24px;
+}
+
+#clear-selection {
+    height: 12px;
+}
+
+.new-stake-method {
+    border-radius: 16px;
+    width: 33%;
+}
+
+/*.new-stake-method:hover:not(.active) {*/
+/*    border: 1px solid #1E65F3;*/
+/*}*/
+
+.collect-worker {
+    max-width: 608px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1em;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.collect-worker input {
+    background-color: #f3f4f4;
+    outline: 4px solid #f3f4f4;
+    box-shadow: none;
+    border-radius: 6px;
+    border: none;
+    margin-left: 6px;
+    width: 100% !important;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-left: 24px;
+    padding-right: 25px;
+}
+
+#worker-runway {
+    padding: 24px;
+    padding-top: 6px;
+    padding-left: 2rem;
+    padding-right: 3rem;
+}
+
+.collect-worker.valid {
+    background-color: #e9edf0;
+}
+
+.form-control.valid:focus {
+    background-color: transparent;
+}
+
+.collect-worker input.valid{
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #f3f4f4;
+    outline: 4px solid #f3f4f4;
+    box-shadow: none;
+    border: 2px solid #1E65F3;
+    border-radius: 6px;
+}
+
+.collect-worker .form-group, .form-control {
+    width: 100%;
+    background-color: #e9edf0;
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 0;
+}
+
+.collect-worker button {
+    margin-left: -5em;
+    margin-top: -4px;
+}
+
+.collect-worker-label {
+    color: #828A9C;
+}
+
 .reward-button {
     min-height: 64px;
     display: flex;
@@ -126,7 +227,7 @@ hr {
     background-color: #F3F4F4;
     border-bottom: 1px solid #E0E4E8;
     border-radius: 0;
-    align-content: center;
+    align-items: center;
     padding-left: 24px;
     padding-right: 24px;
     display: flex;
@@ -185,7 +286,13 @@ hr {
 
 
 #substake-control-buttons {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+#substake-control-buttons button {
+    justify-content: center;
+    display: flex;
+    align-content: center;
 }
 
 #substake-list-header {
@@ -252,10 +359,12 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 }
 
 /*Event History */
+
 #historyLabel {
     margin-top: 6rem;
-    margin-bottom: 1vh;
+    margin-bottom: 3em;
     font-weight: 600;
+    margin-left: -2em;
 }
 
 #eventHistory > nav {

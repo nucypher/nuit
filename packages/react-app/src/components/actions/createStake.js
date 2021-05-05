@@ -31,9 +31,6 @@ export const CreateStake = (props) => {
     const [duration, setDuration] = useState(props.duration || 30)
     const [roi, setRoi] = useState({apr: 0, net: 0})
 
-
-
-
     const [addingsubstake, setAddingSubstake] = useState(false)
 
     useEffect(() => {

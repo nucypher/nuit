@@ -29,10 +29,10 @@ export default (props) => {
             </Row>
             <Row noGutters className="d-flex justify-content-center">
                 <Col sm={8} xs={12}  className="d-flex justify-content-center">
-                    <ButtonBox className="d-flex grow">
-                        <NavLink to={`${url}/service`} activeClassName="active"><NoBorderButton><ServiceProviderIcon/><div>Service Provider</div></NoBorderButton></NavLink>
-                        <NavLink to={`${url}/pwn`} activeClassName="active"><NoBorderButton><SelfHostedIcon/><div>Selfhosted Worker</div></NoBorderButton></NavLink>
-                        <NavLink to={`${url}/join`} activeClassName="active"><NoBorderButton><JoinPoolIcon/><div>Join Pool</div></NoBorderButton></NavLink>
+                    <ButtonBox id="stake-method-selector">
+                        <NavLink className="new-stake-method" to={`${url}/service`} activeClassName="active"><NoBorderButton><ServiceProviderIcon/><div>Service Provider</div></NoBorderButton></NavLink>
+                        <NavLink className="new-stake-method" to={`${url}/pwn`} activeClassName="active"><NoBorderButton><SelfHostedIcon/><div>Selfhosted Worker</div></NoBorderButton></NavLink>
+                        <NavLink className="new-stake-method" to={`${url}/join`} activeClassName="active"><NoBorderButton><JoinPoolIcon/><div>Join Pool</div></NoBorderButton></NavLink>
                     </ButtonBox>
                 </Col>
             </Row>
@@ -56,7 +56,7 @@ export default (props) => {
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center">
-                <Col sm={8} xs={12} className="d-flex justify-content-center">
+                <Col md={8} xs={12} className="d-flex justify-content-center">
                     <Accordion id="self-hosted-accordian">
                     {FAQ_QUESTIONS.map((faq, index) => (
                         <Card>

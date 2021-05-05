@@ -4,6 +4,7 @@ import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
 import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
 import {validateAddress} from '../services'
 import {Blue, Grey} from '@project/react-app/src/components'
+import {Image} from "react-bootstrap";
 
 
 export const Address = (props) => {
@@ -18,7 +19,7 @@ export const WorkerRunwayDisplay = (props) => {
     const address = props.address
     const [balance, setBalance] = useState(null)
     const [runway, setRunway] = useState(null)
-    const {provider, web3 } = useContext(Context).wallet
+    const {provider, web3} = useContext(Context).wallet
 
     useEffect(() => {
         function handleBalance(balance) {
@@ -29,7 +30,8 @@ export const WorkerRunwayDisplay = (props) => {
             const ethCostPerDay = .03  // Todo : use a price oracle
             setRunway(((ethAmount / ethCostPerDay).toFixed() * periodLength).toFixed(0))
         }
-        if (provider){
+
+        if (provider) {
             web3.eth.getBalance(address).then(handleBalance)
         }
     }, [address, provider, web3.eth, web3.utils])
@@ -48,7 +50,9 @@ export const WorkerRunwayDisplay = (props) => {
             <div className="d-flex justify-content-between">
                 <span>
                     <strong>Estimated Runway </strong>
-                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Based on approximate gas usage of 200,000 and 7 day periods</Tooltip>}>
+                    <OverlayTrigger
+                        overlay={<Tooltip id="tooltip-disabled">Based on approximate gas usage of 200,000 and 7 day
+                            periods</Tooltip>}>
                         <CircleQ/>
                     </OverlayTrigger>
                 </span>
@@ -58,7 +62,7 @@ export const WorkerRunwayDisplay = (props) => {
     )
 }
 
-export class WorkerETHAddressField extends React.Component{
+export class WorkerETHAddressField extends React.Component {
 
     constructor(props) {
         super(props);
@@ -73,23 +77,23 @@ export class WorkerETHAddressField extends React.Component{
         if (props.value) {
             this.handleInputChange(props.value)
         }
-      }
+    }
 
-    handleInputChange(input){
+    handleInputChange(input) {
         console.log(input)
         this.setState({rawValue: input});
 
-        if (validateAddress(input)){
+        if (validateAddress(input)) {
             this.setState({validated: true, value: input})
             this.props.onChange(input)
         }
     }
 
-    showDescription(){
+    showDescription() {
         return this.props.description && this.state.validated === false
     }
 
-    reset(){
+    reset() {
         this.setState({
             value: null,
             validated: false,
@@ -98,23 +102,35 @@ export class WorkerETHAddressField extends React.Component{
         this.props.onChange(null)
     }
 
-    render(){
-        return <div>
-            {this.props.label ? <Form.Label>Worker Address</Form.Label>:<span/>}
-            <Form.Control
-                value={this.state.rawValue}
-                onChange={e => this.handleInputChange(e.target.value)}
-                type="text"
-                placeholder="0x...."
-                className={this.state.validated ? 'valid': <span/>}
-            />
-            {this.state.validated ? <Button onClick={this.reset} variant="link">X</Button> : null}
-            {this.showDescription() ? <Form.Text className="text-muted">{this.props.description}</Form.Text> : <span/>}
-            {this.state.validated ? <WorkerRunwayDisplay address={this.state.value}/> :<span/>}
-        </div>
+    render() {
+        return (
+
+            <div className={"collect-worker " + (this.state.validated ? 'valid' : '')}>
+                <div>
+                    <Form.Control
+                        disabled={this.state.validated}
+                        value={this.state.rawValue}
+                        onChange={e => this.handleInputChange(e.target.value)}
+                        type="text"
+                        // placeholder="0x...."
+                        className={this.state.validated ? 'valid' : ''}
+                    />
+                    {this.state.validated ? <Button onClick={this.reset} variant="link">
+                        <Image id="clear-selection" src={require('../assets/icons/reset-x.svg')}/>
+                    </Button> : null}
+                </div>
+                <div id="worker-runway">
+                    {
+                        this.showDescription()
+                            ? <Form.Text className="text-muted">{this.props.description}</Form.Text>
+                            : <span/>
+                    }
+                    {this.state.validated ? <WorkerRunwayDisplay address={this.state.value}/> : <span/>}
+                </div>
+            </div>
+        )
     }
 }
-
 
 
 export const EthBalance = (props) => {
@@ -124,18 +140,19 @@ export const EthBalance = (props) => {
     let address = props.address || account
 
     useEffect(() => {
-        if (!props.balance){
+        if (!props.balance) {
             function handleBalance(wei) {
                 const Amount = (parseFloat(wei) / 10 ** 18).toFixed(2);
-                if (props.onBalance){
+                if (props.onBalance) {
                     props.onBalance(Amount)
                 }
             }
-            if (provider && address){
+
+            if (provider && address) {
                 web3.eth.getBalance(address).then(handleBalance)
             }
         }
-    }, [ address, props, provider, web3 ])
+    }, [address, props, provider, web3])
 
     return (
         <div>

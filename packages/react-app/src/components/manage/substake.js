@@ -98,17 +98,14 @@ export const SubStakeList = (props) => {
                     tooltip="Remove a completed or unlocked stake."/></STActionButton>
             </Row>
             <Row className="d-flex justify-content-between" id="substake-list-header">
-                <Col xs={1} className="d-flex justify-content-start">
-                </Col>
+                <Col xs={1} className="d-flex justify-content-start"></Col>
                 <Col xs={12} sm={3} className="d-flex justify-content-start">
                     Start
                 </Col>
                 <Col xs={12} sm={3} className="d-flex justify-content-start">
                     End
                 </Col>
-                <Col xs={12} sm={3} className="d-flex justify-content-start">
-                    Value
-                </Col>
+                <Col xs={12} sm={3}></Col>
             </Row>
 
             {substakes.map((substake) => {
