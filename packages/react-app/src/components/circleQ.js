@@ -5,7 +5,7 @@ import { Tooltip, OverlayTrigger} from 'react-bootstrap/';
 export const CircleQ = ({ tooltip }) => {
 
     return (
-        <span className="p-2">
+        <span className="circleQ">
             <OverlayTrigger overlay={<Tooltip>{tooltip}</Tooltip>}>
             <TheIcon/>
         </OverlayTrigger>

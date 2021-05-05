@@ -71,6 +71,11 @@ hr {
     padding: 11px;
 }
 
+.circleQ {
+    padding-left: 8px;
+    margin-top: -1px;
+}
+
 #remaining-time {
     margin-left: 2px;
 }
@@ -154,7 +159,13 @@ hr {
 
 
 #substake-control-buttons {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+#substake-control-buttons button {
+    justify-content: center;
+    display: flex;
+    align-content: center;
 }
 
 #substake-list-header {

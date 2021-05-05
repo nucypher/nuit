@@ -22,10 +22,10 @@ export default function CurrentPeriodPanel() {
         <InputBox id="current-period" className="mb-4">
             <Row noGutters>
                 <Col className="d-flex justify-content-flex-start">
-                        <h5 className="d-flex align-items-center">
-                            <span>Current Period #{currentPeriodNumber}</span>
-                            <CircleQ tooltip={tooltipMessage}/>
-                        </h5>
+                    <h5 className="d-flex align-content-center">
+                        <span>Current Period #{currentPeriodNumber}</span>
+                        <CircleQ tooltip={tooltipMessage}/>
+                    </h5>
                 </Col>
             </Row>
             <Row noGutters>

@@ -31,7 +31,7 @@ export default function RewardsPanel(props) {
                 <Col>
                     <Row className="d-flex justify-content-between">
                         <Col xs={6} xl={12} className="mb-3">
-                            <div className="nowrap">
+                            <div className="nowrap d-flex align-content-center">
                                 <strong>Staking</strong>
                                 <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
                             </div>
@@ -49,7 +49,7 @@ export default function RewardsPanel(props) {
                             </PendingButton>
                         </Col>
                         <Col xs={6} xl={12}>
-                            <div className="nowrap">
+                            <div className="nowrap d-flex align-content-center">
                                 <strong>Policy</strong>
                                 <CircleQ tooltip="ETH rewards collected from policy fees"/>
                             </div>
