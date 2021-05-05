@@ -5,6 +5,12 @@ set -e
 # 'nucypher' so we can keep this simple :)
 export AWS_PROFILE=nucypher
 
+if [ ! -f ./packages/react-app/.env.production ]; then
+    echo "no '.env.production' file found.  Your build may not be production-ready."
+    exit 1
+fi
+
+
 BUCKET=s3://nc-nuit
 URL=https://stake.nucypher.community
 if [[ $1 == production ]]; then
@@ -14,7 +20,6 @@ fi
 
 echo "pushing local react/build to $BUCKET"
 aws s3 sync packages/react-app/build $BUCKET --delete
-
 
 countdown() {
     secs=$1
@@ -48,4 +53,3 @@ else
         fi
     fi
 fi
-

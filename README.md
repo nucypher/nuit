@@ -30,8 +30,9 @@ docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn re
 ```
 
 
-### to deploy to AWS:
-* first run `docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn react-app:build` if you haven't built the app
-* ensure you have an [AWS profile configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) called "nucypher"
-* then `yarn deploy`
+### To deploy to AWS:
+
+* Check that you have an `.env.production` file located at `packages/react-app/.env.production` containing an Infura APP id for WalletConnect functionality. It should contain the following `REACT_APP_INFURA_ID=<app ID from infura>`
+* Run `docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn react-app:build` to build the app
+* Ensure you have an [AWS profile configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) called "nucypher", then `yarn deploy`
    * to deploy to production `yarn deploy production`
