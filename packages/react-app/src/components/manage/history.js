@@ -2,9 +2,9 @@ import React, {useContext} from 'react'
 
 import {Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import {useQuery} from "@apollo/client";
-import {GET_STAKER_HISTORY} from "../graphql/subgraph";
-import {Context, truncateAddress} from "../services";
-import {PUBLIC_CHAINS} from "../constants";
+import {GET_STAKER_HISTORY} from "../../graphql/subgraph";
+import {Context, truncateAddress} from "../../services";
+import {PUBLIC_CHAINS} from "../../constants";
 import Web3 from "web3";
 
 

@@ -1,8 +1,8 @@
-import {CircleQ} from "./circleQ";
-import {Grey, InputBox, NuBalance, PendingButton} from "./index";
+import {CircleQ} from "../circleQ";
+import {Grey, InputBox, NuBalance, PendingButton} from "../index";
 import React, {useContext, useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
-import {Context} from "../services";
+import {Context} from "../../services";
 
 
 export default function RewardsPanel(props) {

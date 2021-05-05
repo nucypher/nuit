@@ -1,9 +1,8 @@
 import {Col, Container, Row} from 'react-bootstrap/';
-import {Blue, Grey, HR, Period, Purple} from "./index";
+import {Blue, Grey, HR, Purple} from "./index";
 import React from "react";
 import {useQuery} from "@apollo/client";
 import {GET_LATEST_FINALIZED_PERIOD} from "../graphql/subgraph";
-import {getCurrentPeriod} from "../constants";
 
 export default function NetworkStats() {
 
