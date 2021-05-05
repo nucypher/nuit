@@ -5,14 +5,9 @@ import {GET_GENESIS_PERIODS, GET_PERIODS} from "../graphql/subgraph";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import {Context} from "../services";
 import {apolloClients} from "../graphql/apollo";
-import moment from "moment";
 import {ButtonGroup, SecondaryButton} from "./index";
 import {Row} from "../pages/home";
 
-
-const xFormatter = (s) => {
-    return new Date(s * 1000).toLocaleDateString("en-US", {month: "short"}).toLowerCase();
-}
 
 function epochToHumanDate(epoch) {
     return new Date(epoch * 1000).toDateString("en-US")
@@ -23,27 +18,9 @@ function dateToUTCEpoch(d) {
     return Number(Math.round(utcMilllisecondsSinceEpoch / 1000))
 }
 
-function oneYearAgo() {
+function calculatePastDate(months_ago) {
     let d = new Date()
-    d.setFullYear(d.getFullYear() - 1);
-    return dateToUTCEpoch(d)
-}
-
-function oneMonthAgo() {
-    let d = new Date()
-    d.setMonth(d.getMonth() - 1)
-    return dateToUTCEpoch(d)
-}
-
-function threeMonthsAgo() {
-    let d = new Date()
-    d.setMonth(d.getMonth() - 3)
-    return dateToUTCEpoch(d)
-}
-
-function sixMonthsAgo() {
-    let d = new Date()
-    d.setMonth(d.getMonth() - 6)
+    d.setMonth(d.getMonth() - months_ago)
     return dateToUTCEpoch(d)
 }
 
@@ -94,6 +71,10 @@ function round(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
 
+const xFormatter = (s) => {
+    return new Date(s * 1000).toLocaleDateString("en-US", {month: "short"}).toLowerCase();
+}
+
 function tooltipFormatter(value, name, props) {
     if (name === "participationRate") value = value * 100
     if (name === "circulatingSupply") name = "totalSupply"
@@ -113,10 +94,6 @@ function scrubPeriods(periods) {
         formattedPeriods.push(period)
     }
     return formattedPeriods
-}
-
-function calculateNewStakerDelta(period1, period2) {
-
 }
 
 export default function StakerChart() {
@@ -157,6 +134,7 @@ export default function StakerChart() {
     return (
         <div>
             <ButtonGroup aria-label="Timeframe" id="timeframe-buttons">
+
                 <SecondaryButton onClick={() => {
                     const t = {epoch: 1}
                     refetch(t);
@@ -164,22 +142,24 @@ export default function StakerChart() {
                 }}>
                     All-time
                 </SecondaryButton>
+
+                {/* Introduce when there is 12+ months od data */}
+                {/*<SecondaryButton onClick={() => {*/}
+                {/*    const t = {epoch: oneYearAgo()}*/}
+                {/*    refetch(t);*/}
+                {/*    gRefetch(t)*/}
+                {/*}}>*/}
+                {/*    12 Months*/}
+                {/*</SecondaryButton>*/}
                 <SecondaryButton onClick={() => {
-                    const t = {epoch: oneYearAgo()}
-                    refetch(t);
-                    gRefetch(t)
-                }}>
-                    12 Months
-                </SecondaryButton>
-                <SecondaryButton onClick={() => {
-                    const t = {epoch: sixMonthsAgo()}
+                    const t = {epoch: calculatePastDate(6)}
                     refetch(t);
                     gRefetch(t)
                 }}>
                     6 Months
                 </SecondaryButton>
                 <SecondaryButton onClick={() => {
-                    const t = {epoch: threeMonthsAgo()}
+                    const t = {epoch: calculatePastDate(3)}
                     refetch(t);
                     gRefetch(t)
                 }}>
