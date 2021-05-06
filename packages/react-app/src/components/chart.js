@@ -5,7 +5,7 @@ import {GET_GENESIS_PERIODS, GET_PERIODS} from "../graphql/subgraph";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import {Context} from "../services";
 import {apolloClients} from "../graphql/apollo";
-import {ButtonGroup, SecondaryButton} from "./index";
+import {ButtonGroup, SecondaryButton, Spinner} from "./index";
 
 
 //
@@ -133,8 +133,8 @@ export default function StakerChart() {
     );
 
     // handle query
-    if (gLoading || loading) return <p>Loading...</p>;
-    if (gError || error) return <p><i>There was a problem fetching the latest network status.</i></p>
+    if (gLoading || loading) return <i/>
+    if (gError || error) return <p className='d-flex justify-content-center'><i>There was a problem fetching the latest network status.</i></p>
 
     // post-processing
     let normalizedPeriods = [];
