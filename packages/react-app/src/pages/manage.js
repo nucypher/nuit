@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import {Context} from '@project/react-app/src/services'
 
 import {Col, Container, Row} from 'react-bootstrap/';
-import {Spinner} from '@project/react-app/src/components'
+import {Spinner, ConnectPLS} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/manage/history";
 import RewardsPanel from "../components/manage/rewards";
@@ -42,7 +42,7 @@ export function Manage(props) {
             {migrating || !account
                 ? <Row> {migrating ?
                     <Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col> :
-                    <Col className="d-flex justify-content-center"><h3>Please connect a wallet/account to use this page.</h3></Col>}
+                    <Col className="d-flex justify-content-center"><ConnectPLS/></Col>}
                 </Row>
                 : <Row className="d-flex justify-content-center">
 

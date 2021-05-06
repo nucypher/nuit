@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {Badge, Card, Col, Container, Form, Row} from 'react-bootstrap/';
 import {InputBox, PrimaryButton, WorkerETHAddressField} from '../../../../components'
 import {Link} from 'react-router-dom'
+import { Context } from '@project/react-app/src/services'
 
 export default (props) => {
+
+    const context = useContext(Context)
+
+    const { account } = context.wallet
+
+    const [canContinue, setCanContinue] = useState(false)
+
+    useEffect(()=>{
+        console.log(account, props.workerAddress)
+        setCanContinue(account && props.workerAddress)
+    }, [account, props.workerAddress])
+
+
     return (
         <Container>
             <Row className="d-flex justify-content-center mt-5 mb-2">
@@ -44,7 +58,7 @@ export default (props) => {
                             />
                         </Form.Group>
                             {
-                                props.workerAddress
+                                canContinue
                                 ? <Link to="/new/set-stake"><PrimaryButton>Continue</PrimaryButton></Link>
                                 : ''
                             }
