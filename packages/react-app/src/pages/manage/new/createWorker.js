@@ -59,7 +59,7 @@ export default (props) => {
                 <Col md={8} xs={12} className="d-flex justify-content-center">
                     <Accordion id="self-hosted-accordian">
                     {FAQ_QUESTIONS.map((faq, index) => (
-                        <Card>
+                        <Card key={`faq${index}`}>
                             <Accordion.Toggle as={Card.Header} eventKey={index.toString()}>
                                 <b>{faq.question}</b><i className={true ? "faq-plus":"faq-minus"}></i>
                             </Accordion.Toggle>

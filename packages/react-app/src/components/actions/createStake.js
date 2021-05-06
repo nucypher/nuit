@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ } from '@project/react-app/src/components'
+import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, ConnectPLS } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
 import { calcROI, MIN_STAKE, daysPerPeriod } from '@project/react-app/src/constants'
@@ -24,7 +24,8 @@ export const CreateStake = (props) => {
     const context = useContext(Context)
     const { contracts, web3 } = context.wallet
 
-    const [nuAllocated, setNuAllocation] = useState(web3.utils.fromWei(context.availableNU.get.toString(),  'ether'))
+
+    const [nuAllocated, setNuAllocation] = useState()
     const [maxNULimit, setMaxNULimit] = useState(context.availableNU.get)
     const [AllocationValid, setAllocationValid] = useState(true)
     const [invalidMessage, setInvalidMessage] = useState()
@@ -90,8 +91,15 @@ export const CreateStake = (props) => {
         )
     }
 
+    useEffect(()=>{
+        if(web3){
+            setNuAllocation(web3.utils.fromWei(context.availableNU.get.toString(),  'ether'))
+        }
+    },[web3, context.availableNU])
+
     return(
         <Container>
+            {web3 ? <div>
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
                     <h1>Set Stake</h1>
@@ -129,8 +137,7 @@ export const CreateStake = (props) => {
                 <Col className="d-flex justify-content-center">
                     <PendingButton disabled={!AllocationValid} activeCheck={addingsubstake} abort={setAddingSubstake} onClick={handleAction} width="100%">Create Stake</PendingButton>
                 </Col>
-            </Row>
-
+            </Row></div>:<ConnectPLS/>}
         </Container>
     )
 }

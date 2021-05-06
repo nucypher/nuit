@@ -502,3 +502,10 @@ export const Spinner = () => {
     <SpinnerGraphic/>
   )
 }
+
+
+export const ConnectPLS = () => {
+  return(
+    <h3>Please connect a wallet/account to continue.</h3>
+  )
+}

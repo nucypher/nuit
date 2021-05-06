@@ -4,8 +4,7 @@ import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
 import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
 import {ReactComponent as Reset} from '@project/react-app/src/assets/icons/reset-x.svg'
 import {validateAddress} from '../services'
-import {Blue, Grey} from '@project/react-app/src/components'
-import {Image} from "react-bootstrap";
+import {Blue, Grey, ConnectPLS} from '@project/react-app/src/components'
 
 
 export const Address = (props) => {
@@ -32,33 +31,36 @@ export const WorkerRunwayDisplay = (props) => {
             setRunway(((ethAmount / ethCostPerDay).toFixed() * periodLength).toFixed(0))
         }
 
-        if (provider) {
+        if (web3) {
             web3.eth.getBalance(address).then(handleBalance)
         }
-    }, [address, provider, web3.eth, web3.utils])
+    }, [address, provider, web3])
 
     return (
         <div className="mt-1">
-            <div className="d-flex justify-content-between">
-                <span>
-                    <strong>Eth Balance </strong>
-                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Balance in worker's eth account </Tooltip>}>
-                        <CircleQ/>
-                    </OverlayTrigger>
-                </span>
-                <EthBalance balance={balance}/>
-            </div>
-            <div className="d-flex justify-content-between">
-                <span>
-                    <strong>Estimated Runway </strong>
-                    <OverlayTrigger
-                        overlay={<Tooltip id="tooltip-disabled">Based on approximate gas usage of 200,000 and 7 day
-                            periods</Tooltip>}>
-                        <CircleQ/>
-                    </OverlayTrigger>
-                </span>
-                <span><strong><Blue>{runway}</Blue> <Grey>DAYS</Grey></strong></span>
-            </div>
+            {web3 ?
+            <div>
+                <div className="d-flex justify-content-between">
+                    <span>
+                        <strong>Eth Balance </strong>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Balance in worker's eth account </Tooltip>}>
+                            <CircleQ/>
+                        </OverlayTrigger>
+                    </span>
+                    <EthBalance balance={balance}/>
+                </div>
+                <div className="d-flex justify-content-between">
+                    <span>
+                        <strong>Estimated Runway </strong>
+                        <OverlayTrigger
+                            overlay={<Tooltip id="tooltip-disabled">Based on approximate gas usage of 200,000 and 7 day
+                                periods</Tooltip>}>
+                            <CircleQ/>
+                        </OverlayTrigger>
+                    </span>
+                    <span><strong><Blue>{runway}</Blue> <Grey>DAYS</Grey></strong></span>
+                </div>
+            </div>:<ConnectPLS/>}
         </div>
     )
 }
