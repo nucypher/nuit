@@ -12,10 +12,11 @@ fi
 
 
 BUCKET=s3://nc-nuit
-URL=https://stake.nucypher.community
+URL=https://dn3gsazzaajb.cloudfront.net/
+
 if [[ $1 == production ]]; then
     BUCKET=s3://nc-nuit-production
-    URL=https://stake.nucypher.community
+    URL=https://stake.nucypher.network
 fi
 
 echo "pushing local react/build to $BUCKET"
