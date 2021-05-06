@@ -34,7 +34,7 @@ export const Winddown = (props) => {
             </Row>
             <Row>
                 <Col>
-                    <PrimaryButton onClick={e => handleAction(!stakerData.flags.windDown)}>Set Wind down to: {stakerData.flags.windDown ? 'OFF': 'ON'}</PrimaryButton>
+                    <PrimaryButton onClick={e => handleAction(!stakerData.flags.windDown)}>Set Wind Down to: {stakerData.flags.windDown ? 'OFF': 'ON'}</PrimaryButton>
                 </Col>
             </Row>
         </Container>
