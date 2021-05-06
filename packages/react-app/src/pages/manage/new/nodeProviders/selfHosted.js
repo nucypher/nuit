@@ -13,7 +13,6 @@ export default (props) => {
     const [canContinue, setCanContinue] = useState(false)
 
     useEffect(()=>{
-        console.log(account, props.workerAddress)
         setCanContinue(account && props.workerAddress)
     }, [account, props.workerAddress])
 
