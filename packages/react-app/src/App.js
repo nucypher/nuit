@@ -211,7 +211,6 @@ function App () {
         <MessagePublisher/>
         <ModalDispatcher/>
         <Main id="NCmain">
-          <Container>
             <Switch>
               <Route path="/new">
                 <NewStake />
@@ -219,14 +218,10 @@ function App () {
               <Route path="/manage">
                 <Manage theme={theme}/>
               </Route>
-              <Route path="/Documentation">
-                <Documentation />
-              </Route>
               <Route path="/">
                 <Home />
               </Route>
             </Switch>
-          </Container>
         </Main>
         <Footer/>
         </Router>

@@ -1,9 +1,8 @@
 import React, {useContext} from 'react'
-import {HeaderNav, NCLogo, Period, SecondaryButton, ThemeButton} from '@project/react-app/src/components'
+import {HeaderNav, NCLogo, SecondaryButton, ThemeButton} from '@project/react-app/src/components'
 import {Context, truncateAddress} from '@project/react-app/src/services'
-import {getCurrentPeriod} from '@project/react-app/src/constants'
 import {dark, light} from '@project/react-app/src/themes'
-import {Nav, Navbar, Form, Alert} from "react-bootstrap";
+import {Alert, Nav, Navbar} from "react-bootstrap";
 import Web3 from "web3";
 
 import {Link} from 'react-router-dom'
@@ -15,24 +14,24 @@ function WalletLogo(props) {
     else return <img className="mr-2" src={require('../assets/icons/walletconnect.svg')}/>
 }
 
-function WalletButton ({ provider, loadWeb3Modal, logoutOfWeb3Modal, account }) {
+function WalletButton({provider, loadWeb3Modal, logoutOfWeb3Modal, account}) {
     return (
-      <SecondaryButton
-          id="wallet-button"
-          className="mr-lg-5"
+        <SecondaryButton
+            id="wallet-button"
+            className="mr-lg-5"
             onClick={() => {
-              if (!provider) {
-                loadWeb3Modal()
-              } else {
-                logoutOfWeb3Modal()
-              }
+                if (!provider) {
+                    loadWeb3Modal()
+                } else {
+                    logoutOfWeb3Modal()
+                }
             }}
-          >
-        {provider ? <WalletLogo provider={provider}/> : 'connect'}
-        <Navbar.Collapse>{!provider ? '': truncateAddress(Web3.utils.toChecksumAddress(account))}</Navbar.Collapse>
-      </SecondaryButton>
+        >
+            {provider ? <WalletLogo provider={provider}/> : 'Connect Wallet'}
+            <Navbar.Collapse>{!provider ? '' : truncateAddress(Web3.utils.toChecksumAddress(account))}</Navbar.Collapse>
+        </SecondaryButton>
     )
-  }
+}
 
 
 export default function (props) {
@@ -43,27 +42,40 @@ export default function (props) {
 
     React.useEffect(() => {
         props.setTheme(theme => window.localStorage.getItem('theme') === 'dark' ? dark : props.theme)
-      }, [props])
+    }, [props])
 
     return (
         <HeaderNav>
-        <Alert variant="primary">
-            This is a public beta release!  Please direct bug reports or feature requests to the
-            <a href="https://github.com/nucypher/nuit/issues/new">issue tracker</a>.
-        </Alert>
-          <Navbar expand="lg">
-              <Navbar.Brand><NCLogo theme={theme}/></Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse  id="basic-navbar-nav">
-              <Nav className="d-flex justify-content-end align-items-center">
-                <Link to="/new/worker" className="mr-4">New Stake</Link>
-                <Link to="/manage" className="mr-4">Manage</Link>
-                <a href="https://www.coinbase.com/earn/nucypher" target="blank" className="mr-4">Learn</a>
-                {/* <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div> */}
-                <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} account={account}/>
-              </Nav>
-              </Navbar.Collapse>
-          </Navbar>
+            <Alert variant="primary">
+                This is a public beta release! Please direct bug reports or feature requests to the
+                <a href="https://github.com/nucypher/nuit/issues/new">issue tracker</a>.
+            </Alert>
+            <Navbar expand="lg">
+                <Navbar.Brand><NCLogo theme={theme}/></Navbar.Brand>
+                <img id="tiny-wallet"
+                     src={require('../assets/icons/small-wallet.svg')}
+                     onClick={loadWeb3Modal}
+                ></img>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="d-flex justify-content-end align-items-center">
+
+                        <Nav.Link href="/new/worker">New Stake</Nav.Link>
+                        <Nav.Link href="/manage">Manage</Nav.Link>
+                        <Nav.Link href="https://www.coinbase.com/earn/nucypher" target="blank">Learn</Nav.Link>
+
+                        {/*TODO: Dark Theme */}
+                        {/* <div><ThemeButton theme={{current: theme, setTheme, light, dark}} ></ThemeButton></div>*/}
+
+                        <WalletButton provider={provider}
+                                      loadWeb3Modal={loadWeb3Modal}
+                                      logoutOfWeb3Modal={logoutOfWeb3Modal}
+                                      account={account}/>
+                    </Nav>
+                </Navbar.Collapse>
+
+            </Navbar>
         </HeaderNav>
     )
 }

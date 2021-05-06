@@ -151,11 +151,14 @@ export default function StakerChart() {
     return (
         <div>
             <TimeFrameControls refetchers={[refetch, gRefetch]}/>
-            <ResponsiveContainer aspect={2.38974359}>
+            <ResponsiveContainer
+                width="100%"
+                minHeight={400}
+            >
 
                 <AreaChart
                     data={normalizedPeriods}
-                    margin={{top: 0, right: 15, left: 15, bottom: 0}}
+                    margin={{top: 0, right: 0, left: 10, bottom: 0}}
                 >
                     <defs>
                         <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
@@ -168,6 +171,8 @@ export default function StakerChart() {
                         dataKey="timestamp"
                         type="number"
                         scale="time"
+                        transform={"translante(0, 20)"}
+                        tick={{ fill: '#828A9C', fontSize: '12px', transform: 'translate(0, 5)' }}
                         tickSize={2}
                         tickCount={3}
                         tickFormatter={xFormatter}
@@ -176,6 +181,7 @@ export default function StakerChart() {
                         domain={['dataMin', 'dataMax']}
                         axisLine={false}
                         mirror={false}
+                        allowDataOverflow={true}
                     />
 
                     <YAxis hide="true"
@@ -202,7 +208,7 @@ export default function StakerChart() {
                         formatter={tooltipFormatter}
                         cursor={{stroke: '#1E65F3', opacity: 0.5}}
                         offset={15}
-                        wrapperStyle={{opacity: 0.9}}
+                        wrapperStyle={{opacity: 0.85, borderRadius: "24px"}}
                     />
 
                     <Area

@@ -4,13 +4,12 @@ import {NCLogo} from "./index";
 
 export default function () {
     return (
-        <Container fluid className="footer">
-            <Row>
-                <Col>
+            <Row className="footer">
+                <Col xs={3} id="footer-logo">
                 <NCLogo/>
                 <span id="copyright-year">2021</span>
                 </Col>
-                <Col>
+                <Col xs={6} md={3}>
                     <span>Community</span>
                     <ul className="d-flex flex-column justify-content-around">
                         <li><a target="_blank" href='https://discord.gg/7rmXa3S'>Chat</a></li>
@@ -18,7 +17,7 @@ export default function () {
                         <li><a target="_blank" href='https://github.com/nucypher/'>Github</a></li>
                     </ul>
                 </Col>
-                <Col>
+                <Col xs={6} md={3}>
                     <span>Resources</span>
                     <ul>
                         <li><a target="_blank" href='https://blog.nucypher.com/'>Blog</a></li>
@@ -27,7 +26,7 @@ export default function () {
                         <li><a href='https://www.nucypher.com/newsletter'>Mailing List</a></li>
                     </ul>
                 </Col>
-                <Col>
+                <Col xs={6} md={3}>
                     <span>Use Cases</span>
                     <ul>
                         <li><a href='https://www.nucypher.com/secrets-management'>Secrets Management</a></li>
@@ -35,6 +34,5 @@ export default function () {
                     </ul>
                 </Col>
             </Row>
-        </Container>
     )
 }

@@ -31,27 +31,10 @@ body {
     width: auto;
 }
 
-#root {
-    height: 100%;
-}
-
-h1, h5 {
-    font-weight: 600;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-a a:visited {
-    text-decoration: none;
-    color: inherit;
-}
-
-a:hover {
-    text-decoration: none;
-}
+h1, h5 {font-weight: 600;}
+a {text-decoration: none; color: inherit;}
+a a:visited {text-decoration: none; color: inherit;}
+a:hover {text-decoration: none;}
 
 hr {
     width: 20%;
@@ -60,14 +43,18 @@ hr {
     margin-right: 80%;
 }
 
+/*Alert*/
 
 .alert-primary {
     color: #fff;
     background-color: #1e65f3;
-    border-color: #b8daff;
-    font-family: gt-america-mono-regular;
+    font-family: gt-america-mono-regular, monospace;
     text-align: center;
     font-size: 18px;
+    border: none;
+    width: 100%;
+    border-radius: 0;
+    margin-bottom: 0;
 }
 
 .alert-primary a {
@@ -90,22 +77,31 @@ hr {
     border-radius: 12px;
 }
 
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("../assets/icons/hamburger-light.svg") !important;
+    border: none !important;
+}
+
 .navbar-brand {
     font-size: 16px;
     display: flex;
     align-items: center;
 }
 
-.nav-link {
-    display: block;
-    padding: 0.5rem 2rem;
+.navbar-nav .nav-link {
+    padding-right: 3.5rem;
+    padding-left: .5rem;
+    font-family: "gt-america-mono-regular", "Open Sans", sans-serif
 }
 
-.navbar-nav{
-    flex-direction: row;
-    white-space: nowrap;
-    justify-content: end;
-    font-family: "gt-america-mono-regular", "Open Sans", sans-serif
+#tiny-wallet {
+    margin-left: auto;
+    padding-right: 1em;
+    display: none;
 }
 
 @media (min-width: 992px){
@@ -113,10 +109,57 @@ hr {
     .navbar-expand-lg .navbar-collapse {
         display: inline-block!important;
     }
+
+    .nav-link {padding-right: 3em!important;}
+
+
+    .container-fluid {
+        max-width: 1200px;
+        width: 80% !important;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
+@media (max-width: 768px){
+
+    .container-fluid {
+        max-width: 760px;
+        width: 90% !important;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .nav-link {padding-right: 0!important;}
+    #footer-logo { display: none }
+
+}
+
+@media (max-width: 576px) {
+
+    .container-fluid {
+        max-width:100% !important;
+        padding-left:0;
+        padding-right:0;
+    }
+
+    #tiny-wallet {display: inline;}
+
+    #stats {
+        display: flex;
+        justify-content: flex-start !important;
+        flex-direction: column;
+        height: 10em;
+        padding-left: 1em;
+    }
+
+    #footer-logo { display: none }
+
+}
+
+
 #wallet-button {
-    max-width: 180px;
+    max-width: 190px;
     min-width: 180px;
     padding: 11px;
 }
@@ -147,8 +190,9 @@ hr {
 #stake-method-selector {
     display: flex;
     justify-content: space-around;
-    flex-grow: 1;
     border-radius: 24px;
+    max-width: 40em;
+    width: 100%;
 }
 
 #clear-selection {
@@ -157,7 +201,6 @@ hr {
 
 .new-stake-method {
     border-radius: 16px;
-    width: 33%;
 }
 
 
@@ -340,6 +383,13 @@ hr {
 
 }
 
+.form-check-input {
+    position: absolute;
+    margin-top: .3rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 #homeSVG {
     /* max-width: 100%; */
     overflow: auto;
@@ -481,6 +531,11 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 
 /*Network Graph*/
 
+#stats {
+    display: flex;
+    font-size: 30px;
+}
+
 #chart-container {
     width: 100%;
 }
@@ -515,13 +570,17 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     background-color: black;
     color: white;
     min-height: 15em;
-    font-family: gt-america-mono-regular;
+    font-family: gt-america-mono-regular, monospace;
 }
 
 .footer span {
     font-weight: 900;
 }
 
+#footer-logo {
+    margin-top: -0.7em;
+    font-size: 12px;
+}
 
 .footer ul {
     text-decoration: none;

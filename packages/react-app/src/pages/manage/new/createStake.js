@@ -13,9 +13,9 @@ export default (props) => {
     const stakerData = context.stakerData
 
     return (
-        <Container>
+        <div>
             <Row className="d-flex justify-content-center">
-                <Col xs={12}>
+                <Col xs={8}>
                     <InputBox>
                         <Form>
                             <CreateStake {...props} />
@@ -42,6 +42,6 @@ export default (props) => {
                     </p>
                 </Col>
             </Row>
-        </Container>
+        </div>
     )
 }

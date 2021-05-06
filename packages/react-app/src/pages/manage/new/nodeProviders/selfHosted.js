@@ -34,7 +34,7 @@ export default (props) => {
                 <Col xs={12} className="d-flex justify-content-center mb-5">
                     <h4>Enter Worker Address to Proceed</h4>
                 </Col>
-                <Col xs={8}>
+                <Col xs={12} md={8}>
                     <InputBox>
                         <Form.Group>
                             <span className="collect-worker-label">Worker Address</span>
