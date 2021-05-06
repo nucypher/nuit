@@ -22,6 +22,22 @@ export default () => {
                 </p>
 
                 <p>The following pool operators support the NuCypher Network <Grey>(alphabetical order):</Grey></p>
+                <Card className="mt-4 mb-4">
+                    <Card.Body>
+                        <Row>
+                            <Col xs={1}>
+                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12.5" cy="12" r="12" fill="#E12C2C"/>
+                            <path d="M12.5 4.5C11.6925 4.5 11.0575 5.19014 11.1246 5.99482L11.6877 12.7526C11.7229 13.1751 12.0761 13.5 12.5 13.5C12.9239 13.5 13.2771 13.175 13.3123 12.7526L13.8754 5.99482C13.9425 5.19014 13.3075 4.5 12.5 4.5Z" fill="white"/>
+                            <path d="M12.5 18.75C13.3284 18.75 14 18.0784 14 17.25C14 16.4216 13.3284 15.75 12.5 15.75C11.6716 15.75 11 16.4216 11 17.25C11 18.0784 11.6716 18.75 12.5 18.75Z" fill="white"/>
+                            </svg>
+                            </Col>
+                            <Col>
+                                <p>This is a community-generated list. Pools/operators have not been vetted or endorsed by the core development team. Use your judgement in selecting a pool.</p>
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                </Card>
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center mb-2">
