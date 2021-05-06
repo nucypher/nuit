@@ -36,7 +36,7 @@ export function Manage(props) {
 
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>Manage Staked Nu</h1>
+                    <h1>Manage Staked NU</h1>
                 </Col>
             </Row>
             {migrating || !account

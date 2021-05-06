@@ -19,16 +19,22 @@ export const Winddown = (props) => {
         <Container>
             <Row>
                 <Col>
-                <p>
-                    The proportion of staking rewards received by a staker depends on the stake size and the remaining locked duration.
-                    When wind down is enabled, the locked duration decreases after each period which results in reduced staking yield. When disabled, the stake’s locked duration remains constant and improves staking yield. See <a href="https://docs.nucypher.com/en/latest/architecture/sub_stakes.html#sub-stake-winddown">Winding down</a> for more information.
-                    Wind down is <strong>disabled</strong> by default.
+                <p className="preformatted">
+                    Wind Down ("Auto-Extend")<br/><br/>
+
+                    <ul>
+                        <li>When wind down is <i>enabled</i>, the locked duration decreases after each period and reduces staking yield.</li><br/>
+                        <li>When wind down is <i>disabled</i>, the stake’s locked duration remains constant and improves staking yield.</li>
+                    </ul>
+
+                    See <a href="https://docs.nucypher.com/en/latest/architecture/sub_stakes.html#sub-stake-winddown">winding down</a> for more information.
+                    wind down is <strong>disabled</strong> by default.
                 </p>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <PrimaryButton onClick={e => handleAction(!stakerData.flags.windDown)}>Set Winddown to: {stakerData.flags.windDown ? 'OFF': 'ON'}</PrimaryButton>
+                    <PrimaryButton onClick={e => handleAction(!stakerData.flags.windDown)}>Set Wind down to: {stakerData.flags.windDown ? 'OFF': 'ON'}</PrimaryButton>
                 </Col>
             </Row>
         </Container>

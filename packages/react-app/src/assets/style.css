@@ -43,6 +43,15 @@ hr {
     margin-right: 80%;
 }
 
+.preformatted {
+    font-family: 'Open Sans', sans-serif;
+    white-space: pre-wrap;
+}
+
+.preformatted a {
+    text-decoration: underline;
+}
+
 /*Alert*/
 
 .alert-primary {
@@ -111,7 +120,6 @@ hr {
     }
 
     .nav-link {padding-right: 3em!important;}
-
 
     .container-fluid {
         max-width: 1200px;

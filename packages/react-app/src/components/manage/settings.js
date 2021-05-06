@@ -12,11 +12,11 @@ export default function StakeSettingsPanel(props) {
     const [restaking, setRestaking] = useState(false)
 
     const handleChangeRestake = () => {
-        context.modals.triggerModal({message: "Toggle Restake", component: "Restake"})
+        context.modals.triggerModal({message: "Toggle Re-stake", component: "Restake"})
     }
 
     const handleChangeWindDown = () => {
-        context.modals.triggerModal({message: "Toggle WindDown", component: "Winddown"})
+        context.modals.triggerModal({message: "Toggle Wind Down", component: "Winddown"})
     }
 
     useEffect(() => {

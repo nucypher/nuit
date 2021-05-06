@@ -103,7 +103,7 @@ export default function StakerControlPanel(props) {
                                            activeCheck={addingsubstake}
                                            onClick={handleAddSubstake}
                                            abort={setAddingSubstake}>
-                                Add Substake
+                                Add Sub-stake
                             </PendingButton>
                         </div>
                         {

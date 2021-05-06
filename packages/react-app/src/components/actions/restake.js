@@ -19,7 +19,7 @@ export const Restake = (props) => {
         <Container>
             <Row>
                 <Col>
-                <p>
+                <p className="preformatted">
                     As your Ursula performs work, all rewards are automatically added to your existing stake to optimize earnings. This feature, called re-staking, is enabled by default.
                 </p>
                 </Col>

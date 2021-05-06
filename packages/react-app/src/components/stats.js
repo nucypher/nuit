@@ -7,7 +7,7 @@ import {GET_LATEST_FINALIZED_PERIOD} from "../graphql/subgraph";
 export default function NetworkStats() {
 
     let {loading, error, data} = useQuery(GET_LATEST_FINALIZED_PERIOD);
-    if (loading) return <p className='d-flex justify-content-center'><Spinner /></p>;
+    if (loading) return <div className='d-flex justify-content-center'><Spinner /></div>;
     if (error) {
         return <p className='d-flex justify-content-center'><i>There was a problem fetching the latest network status.</i></p>
     }
