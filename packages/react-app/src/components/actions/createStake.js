@@ -1,23 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, ConnectPLS } from '@project/react-app/src/components'
+import { TypeOver, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, ConnectPLS } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
 import { calcROI, MIN_STAKE, daysPerPeriod } from '@project/react-app/src/constants'
-
-
-const TypeOver = (props) => {
-
-    const [typing, setTyping] = useState(false)
-
-
-    return (
-        <span className="typeover" onClick={e => setTyping(true)}>
-            {typing ? <span onClick={e => {e.stopPropagation(); setTyping(false)}}> X </span> : null}
-            {typing ? <input size={props.size || 10} onChange={e=>props.onChange(e.target.value)} type="text" value={props.children}></input>: <Blue>{props.children}</Blue>}
-        </span>
-    )
-}
 
 export const CreateStake = (props) => {
 
@@ -55,6 +41,7 @@ export const CreateStake = (props) => {
     }
 
     const onDurationChanged = (duration) => {
+        if (duration < daysPerPeriod) return
         setDuration(duration)
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))

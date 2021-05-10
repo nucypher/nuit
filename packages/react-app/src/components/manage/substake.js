@@ -103,7 +103,7 @@ export const SubStakeList = (props) => {
                     Start
                 </Col>
                 <Col xs={12} sm={3} className="d-flex justify-content-start">
-                    End
+                    Unlock
                 </Col>
                 <Col xs={12} sm={3}></Col>
             </Row>

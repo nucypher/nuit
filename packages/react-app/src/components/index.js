@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import {Link} from 'react-router-dom'
@@ -507,5 +507,31 @@ export const Spinner = () => {
 export const ConnectPLS = () => {
   return(
     <h3>Please connect a wallet/account to continue.</h3>
+  )
+}
+
+
+export const TypeOver = (props) => {
+
+  const [typing, setTyping] = useState(false)
+  const [internalValue, setInternalValue] = useState(parseInt(props.children))
+
+  const validate = (e) => {
+    const val = e.target.value
+    if (val && parseInt(val)){
+      props.onChange(val)
+    }
+    setInternalValue(val)
+  }
+
+  useEffect(() =>{
+    setInternalValue(props.children)
+  }, [props.children])
+
+  return (
+      <span className="typeover" onClick={e => setTyping(true)}>
+          {typing ? <span onClick={e => {e.stopPropagation(); setTyping(false)}}> X </span> : null}
+          {typing ? <input size={props.size || 10} onChange={validate} type="text" value={internalValue}></input>: <Blue>{internalValue}</Blue>}
+      </span>
   )
 }

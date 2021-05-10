@@ -1,7 +1,7 @@
 // NuCypher constants
 const MIN_STAKE = 15000
 
-export const daysPerPeriod = 7
+export const daysPerPeriod = 7.0
 export const secondsPerDay = 86400
 export const millisecondsPerDay = secondsPerDay * 1000
 export const millisecondsPerPeriod = millisecondsPerDay * daysPerPeriod
@@ -14,10 +14,24 @@ export function periodToEpoch(period) {
     return period * millisecondsPerPeriod
 }
 
+export const roundToPeriod = (n) => {
+    /*
+    rounds to the next period.
+    given 7 day periods, input of 15 returns 21.
+    */
+    if(n > 0)
+        return Math.ceil(n/daysPerPeriod) * daysPerPeriod;
+    else if( n < 0)
+        return Math.floor(n/daysPerPeriod) * daysPerPeriod;
+    else
+        return daysPerPeriod;
+}
+
 const EMPTY_WORKER = "0x0000000000000000000000000000000000000000"
 
 const calcROI = (amount, duration) => {
 
+    duration = roundToPeriod(duration)
     const MaxEffectiveDuration = Math.min(365, duration)
 
     const dailyRewardMultiplier = (.05 * MaxEffectiveDuration + 13.4) // based on plotting actual min stake yield

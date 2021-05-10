@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow, Period } from '@project/react-app/src/components'
+import { TypeOver, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow, Period } from '@project/react-app/src/components'
 
 import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 import { daysToPeriods, periodsToDays } from '@project/react-app/src/services'
@@ -19,12 +19,12 @@ export const ExtendStake = (props) => {
 
     const [duration, setDuration] = useState(7)
     const [originalEndDate, setOriginalEndDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration))
-    const [newEndDate, setNewEndDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + daysPerPeriod)
+    const [newEndDate, setNewEndDate] = useState(originalEndDate + 1)
 
     const onDurationChanged = (duration) => {
-        setDuration(getCurrentPeriod() + parseInt(duration))
-        setOriginalEndDate(getCurrentPeriod() + parseInt(substake.unlockingDuration))
-        setNewEndDate(parseInt(getCurrentPeriod() + parseInt(substake.unlockingDuration) + parseInt(duration)))
+        if (duration < daysPerPeriod) return
+        setDuration(parseInt(duration))
+        setNewEndDate(originalEndDate + parseInt(duration)/daysPerPeriod)
     }
 
     const handleAction = (e) => {
@@ -47,7 +47,6 @@ export const ExtendStake = (props) => {
 
     return(
         <Container>
-            {getCurrentPeriod()}
             <Row>
                 <Col className="d-flex ">
                     <p>Adds additional periods to the duratiomn of an existing stake.</p>
@@ -57,7 +56,7 @@ export const ExtendStake = (props) => {
                 <Col className="mr-4 ml-3">
                     <div className="d-flex justify-content-between">
                         <Grey>Additional Duration</Grey>
-                        <strong><Blue>{duration}</Blue> <Grey>Days</Grey></strong>
+                        <strong><TypeOver onChange={onDurationChanged}>{duration}</TypeOver> <Grey>Days</Grey></strong>
                     </div>
                     <Slider step={7} min={7} max={364} value={duration} onChange={onDurationChanged} />
                 </Col>
@@ -66,8 +65,8 @@ export const ExtendStake = (props) => {
             <Row className="mt-3">
                 <Col>
                     <DataRow>
-                        <strong>Original Duration</strong>
-                        <strong>New Duration</strong>
+                        <strong>Original End Period</strong>
+                        <strong>New End Period</strong>
                     </DataRow>
                     <DataRow>
                         <span><strong><Blue><Period>{originalEndDate}</Period></Blue></strong></span>
