@@ -33,7 +33,7 @@ export default function RewardsPanel(props) {
                         <Col xs={6} xl={12} className="mb-3">
                             <div className="nowrap d-flex align-content-center">
                                 <strong>Staking</strong>
-                                <CircleQ tooltip="NU Rewards earned by committing to work for the network"/>
+                                <CircleQ>NU Rewards earned by committing to work for the network</CircleQ>
                             </div>
                             <PendingButton
                                 small
@@ -51,7 +51,7 @@ export default function RewardsPanel(props) {
                         <Col xs={6} xl={12}>
                             <div className="nowrap d-flex align-content-center">
                                 <strong>Policy</strong>
-                                <CircleQ tooltip="ETH rewards collected from policy fees"/>
+                                <CircleQ>ETH rewards collected from policy fees</CircleQ>
                             </div>
                             <PendingButton className="mt-2 reward-button">
                                 {Number(props.availableETHWithdrawal) > 0 ? 'Withdraw ' : ''}{props.availableETHWithdrawal}

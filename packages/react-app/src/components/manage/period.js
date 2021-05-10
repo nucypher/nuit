@@ -24,7 +24,7 @@ export default function CurrentPeriodPanel() {
                 <Col className="d-flex justify-content-flex-start">
                     <h5 className="d-flex align-content-center">
                         <span>Current Period #{currentPeriodNumber}</span>
-                        <CircleQ tooltip={tooltipMessage}/>
+                        <CircleQ>{tooltipMessage}</CircleQ>
                     </h5>
                 </Col>
             </Row>
