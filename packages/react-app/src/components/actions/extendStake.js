@@ -18,7 +18,7 @@ export const ExtendStake = (props) => {
     const substake = props.substake
 
     const [duration, setDuration] = useState(7)
-    const [originalUnlockDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + 1)
+    const [originalUnlockDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + 2)
     const [newUnlockDate, setNewUnlockDate] = useState(originalUnlockDate + 1)
 
     const onDurationChanged = (duration) => {
@@ -29,8 +29,8 @@ export const ExtendStake = (props) => {
 
     const handleAction = (e) => {
 
-        const hex = web3.utils.numberToHex(daysToPeriods(duration))
-
+        const extensionLength = (newUnlockDate - originalUnlockDate)
+        const hex = web3.utils.numberToHex(extensionLength)
         ContractCaller(
             contracts.STAKINGESCROW.methods.prolongStake(
                 substake.id,
@@ -65,8 +65,8 @@ export const ExtendStake = (props) => {
             <Row className="mt-3">
                 <Col>
                     <DataRow>
-                        <strong>Unlock Date <small>(if winding down)</small></strong>
-                        <strong>New Unlock Period</strong>
+                        <strong>Unlock Date <small><CircleQ>Unlock date only applies if "wind down" is turned on (you can toggle that at /manage).</CircleQ></small></strong>
+                        <strong>New Unlock Date</strong>
                     </DataRow>
                     <DataRow>
                         <span><strong><Blue><Period>{originalUnlockDate}</Period></Blue></strong></span>
