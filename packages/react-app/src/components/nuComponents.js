@@ -51,7 +51,6 @@ export const NuStakeAllocator = (props) => {
     const [localValue, setLocalValue] = useState(props.value? props.value : '')
 
     const setValue = (value) => {
-
         setLocalValue(value)
         try{
             props.onChange(value)
@@ -66,6 +65,11 @@ export const NuStakeAllocator = (props) => {
             props.onBalanceUpdate(web3.utils.fromWei(value.toString(), 'ether'))
         }
     }
+
+    useEffect(()=>{
+        const value = props.value || web3.utils.fromWei(( props.initial || 0).toString(), 'ether')
+        setLocalValue(value)
+    }, [props.value])
 
     return (
         <Container>

@@ -108,7 +108,7 @@ export const HR = styled.hr`
 `
 
 export const DateSpan = styled.span`
-  width: 7.5em;
+  white-space: nowrap;
   display:inline-block;
   cursor:pointer;
 `

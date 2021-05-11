@@ -18,13 +18,13 @@ export const ExtendStake = (props) => {
     const substake = props.substake
 
     const [duration, setDuration] = useState(7)
-    const [originalEndDate, setOriginalEndDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration))
-    const [newEndDate, setNewEndDate] = useState(originalEndDate + 1)
+    const [originalUnlockDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + 1)
+    const [newUnlockDate, setNewUnlockDate] = useState(originalUnlockDate + 1)
 
     const onDurationChanged = (duration) => {
         if (duration < daysPerPeriod) return
         setDuration(parseInt(duration))
-        setNewEndDate(originalEndDate + parseInt(duration)/daysPerPeriod)
+        setNewUnlockDate(originalUnlockDate + parseInt(duration)/daysPerPeriod)
     }
 
     const handleAction = (e) => {
@@ -49,7 +49,7 @@ export const ExtendStake = (props) => {
         <Container>
             <Row>
                 <Col className="d-flex ">
-                    <p>Adds additional periods to the duratiomn of an existing stake.</p>
+                    <p>Adds additional periods to the duration of an existing stake.</p>
                 </Col>
             </Row>
             <Row>
@@ -61,16 +61,15 @@ export const ExtendStake = (props) => {
                     <Slider step={7} min={7} max={364} value={duration} onChange={onDurationChanged} />
                 </Col>
             </Row>
-
             <Row className="mt-3">
                 <Col>
                     <DataRow>
-                        <strong>Original End Period</strong>
-                        <strong>New End Period</strong>
+                        <strong>Unlock Date <small>(if winding down)</small></strong>
+                        <strong>New Unlock Period</strong>
                     </DataRow>
                     <DataRow>
-                        <span><strong><Blue><Period>{originalEndDate}</Period></Blue></strong></span>
-                        <span><strong><Blue><Period>{newEndDate}</Period></Blue></strong></span>
+                        <span><strong><Blue><Period>{originalUnlockDate}</Period></Blue></strong></span>
+                        <span><strong><Blue><Period>{newUnlockDate}</Period></Blue></strong></span>
                     </DataRow>
                 </Col>
             </Row>

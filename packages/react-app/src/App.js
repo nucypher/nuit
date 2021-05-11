@@ -156,10 +156,10 @@ function App () {
         availableNUWithdrawal,
         availableETHWithdrawal: policyInfo ? policyInfo.reward : 0// this data is showing 777 if no stakes exist
     })
+    console.log(substakes)
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)
     }
-
     context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
     context.setActionsCompleted([])
   }

@@ -1,4 +1,4 @@
-import { daysPerPeriod } from '@project/react-app/src/constants'
+import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 import { ContractCaller } from './ethereum'
 
 
@@ -55,7 +55,7 @@ export class Remove {
     if (selected.length !== 1) return false
     const [stake] = selected
 
-    if (stake.lastPeriod !== "1") return false
+    if (parseInt(stake.lastPeriod) >= getCurrentPeriod()) return false
     if (stake.unlockingDuration !== "0") return false
 
     return true
