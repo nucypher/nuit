@@ -21,17 +21,30 @@ const ShowMessage = (message) => {
 const ToastMessage = (props) => {
 
     const [show, setShow] = useState(true);
+    const context = useContext(Context)
 
     const index = props.message.index
     const onHide = props.onHide
+    const pending = props.message.pending
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setShow(false);
-            onHide(index)
-        }, 6000);
-        return () => clearTimeout(timer);
-      }, [index, onHide]);
+        if (!props.message.pending) {
+            const timer = setTimeout(() => {
+                setShow(false);
+                onHide(index)
+            }, 6000);
+            return () => clearTimeout(timer);
+        }
+    }, [index, onHide]);
+
+    useEffect(() => {
+        if (pending){
+            if (context.pending.indexOf(pending) === -1){
+                setShow(false);
+                onHide(index)
+            }
+        }
+    }, [context.pending])
 
     return (
         <Toast onClose={(e) => {props.onHide(props.message.index, setShow)}} show={show}>

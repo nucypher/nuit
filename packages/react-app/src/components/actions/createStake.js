@@ -97,7 +97,8 @@ export const CreateStake = (props) => {
                 amount,
                 hex),
             context,
-            'addsubstake'
+            'addsubstake',
+            'Create New Stake'
         )
     }
 

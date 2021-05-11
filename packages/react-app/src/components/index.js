@@ -346,7 +346,7 @@ export const DataRow = styled.div`
 `
 
 export const PopupMessages = styled.div`
-  position:absolute;
+  position:fixed;
   right:0px;
   top: 75px;
 `

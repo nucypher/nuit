@@ -55,7 +55,8 @@ export const DivideStake = (props) => {
                 amount,
                 hex),
             context,
-            [`substakeupdate${substake.id}`]
+            [`substakeupdate${substake.id}`],
+            `Divide stake #${substake.index}`
         )
 
         e.preventDefault()

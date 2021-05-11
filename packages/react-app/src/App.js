@@ -156,7 +156,6 @@ function App () {
         availableNUWithdrawal,
         availableETHWithdrawal: policyInfo ? policyInfo.reward : 0// this data is showing 777 if no stakes exist
     })
-    console.log(substakes)
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)
     }
@@ -193,7 +192,6 @@ function App () {
     setInterval(async () => {
       if (eventQueue.length){
         //trigger a refresh of staker data
-        console.log(eventQueue)
         setActionsCompleted([...eventQueue])
 
         setStakerUpdated(Date.now())
@@ -208,7 +206,6 @@ function App () {
       <ThemeProvider theme={theme}>
         <Router>
         <Header theme={theme} setTheme={setTheme}/>
-        <MessagePublisher/>
         <ModalDispatcher/>
         <Main id="NCmain">
             <Switch>
@@ -225,6 +222,7 @@ function App () {
         </Main>
         <Footer/>
         </Router>
+        <MessagePublisher/>
       </ThemeProvider>
     </Context.Provider>
   )

@@ -41,7 +41,8 @@ export class Merge {
     ContractCaller(
       contracts.STAKINGESCROW.methods.mergeStake(stake1.id, stake2.id),
       context,
-      [`substakeupdate${stake1.id}`, `substakeupdate${stake2.id}`]
+      [`substakeupdate${stake1.id}`, `substakeupdate${stake2.id}`],
+      `merging substakes ${stake1.id} and ${stake2.id}`
     )
   }
 }
@@ -69,7 +70,8 @@ export class Remove {
     ContractCaller(
       contracts.STAKINGESCROW.methods.removeUnusedSubStake(stake.id),
       context,
-      [`substakeupdate${stake.id}`]
+      [`substakeupdate${stake.id}`],
+      `removing substake #${stake.id}`
     )
   }
 }

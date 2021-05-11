@@ -36,7 +36,8 @@ export const ExtendStake = (props) => {
                 substake.id,
                 hex),
             context,
-            [`substakeupdate${substake.id}`]
+            [`substakeupdate${substake.id}`],
+            `Extend stake #${substake.index}`
         )
 
         e.preventDefault()
