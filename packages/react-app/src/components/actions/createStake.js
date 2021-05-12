@@ -97,7 +97,7 @@ export const CreateStake = (props) => {
 
         const stakeLength = (unlockDate - 1) - getCurrentPeriod()
 
-        console.log(getCurrentPeriod() + stakeLength)
+        // console.log(getCurrentPeriod() + stakeLength)
 
         const hex = web3.utils.numberToHex(stakeLength)
 
