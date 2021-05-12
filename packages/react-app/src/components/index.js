@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import {Link} from 'react-router-dom'
@@ -108,7 +108,7 @@ export const HR = styled.hr`
 `
 
 export const DateSpan = styled.span`
-  width: 7.5em;
+  white-space: nowrap;
   display:inline-block;
   cursor:pointer;
 `
@@ -175,8 +175,8 @@ export const PurpleButton = styled(PrimaryButton)`
 
 export const SecondaryButton = styled(NCButtonBase)`
   background: ${props => props.theme.buttons.secondary.background};
-  border: ${props => props.theme.buttons.secondary.border};
-  color: ${props => props.theme.buttons.secondary.text.main};
+  border: ${props => (props.disabled ? props.theme.buttons.secondary.border.disabled: props.theme.buttons.secondary.border.main)};
+  color: ${props => (props.disabled ? props.theme.buttons.secondary.text.disabled: props.theme.buttons.secondary.text.main)};
 `
 
 export const NoBorderButton = styled(SecondaryButton)`
@@ -346,7 +346,7 @@ export const DataRow = styled.div`
 `
 
 export const PopupMessages = styled.div`
-  position:absolute;
+  position:fixed;
   right:0px;
   top: 75px;
 `
@@ -507,5 +507,31 @@ export const Spinner = () => {
 export const ConnectPLS = () => {
   return(
     <h3>Please connect a wallet/account to continue.</h3>
+  )
+}
+
+
+export const TypeOver = (props) => {
+
+  const [typing, setTyping] = useState(false)
+  const [internalValue, setInternalValue] = useState(parseInt(props.children))
+
+  const validate = (e) => {
+    const val = e.target.value
+    if (val && parseInt(val)){
+      props.onChange(val)
+    }
+    setInternalValue(val)
+  }
+
+  useEffect(() =>{
+    setInternalValue(props.children)
+  }, [props.children])
+
+  return (
+      <span className="typeover" onClick={e => setTyping(true)}>
+          {typing ? <span onClick={e => {e.stopPropagation(); setTyping(false)}}> X </span> : null}
+          {typing ? <input size={props.size || 10} onChange={validate} type="text" value={internalValue}></input>: <Blue>{internalValue}</Blue>}
+      </span>
   )
 }

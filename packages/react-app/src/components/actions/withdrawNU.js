@@ -49,7 +49,8 @@ export const WithdrawNU = (props) => {
                 withdraw,
             ),
             context,
-            [`withdrawNU`]
+            [`withdrawNU`],
+            `withdraw ${amount} NU`
         )
 
         e.preventDefault()

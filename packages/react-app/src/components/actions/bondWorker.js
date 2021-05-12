@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col, Form} from 'react-bootstrap/';
 import { ButtonBox, InputBox, PrimaryButton, PendingButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance, Address } from '@project/react-app/src/components'
 
-import { Context, ContractCaller } from '@project/react-app/src/services'
+import { Context, ContractCaller, truncateAddress } from '@project/react-app/src/services'
 
 export const BondWorker = (props) => {
 
@@ -18,7 +18,7 @@ export const BondWorker = (props) => {
         if (props.setShow){
             props.setShow(false)
         }
-        ContractCaller(contracts.STAKINGESCROW.methods.bondWorker(address), context, 'bondworker')
+        ContractCaller(contracts.STAKINGESCROW.methods.bondWorker(address), context, 'bondworker', `Bonding worker ${truncateAddress(workerAddress)}`)
     }
 
     useEffect(() => {

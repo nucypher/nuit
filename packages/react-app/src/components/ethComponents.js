@@ -5,6 +5,7 @@ import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/cir
 import {ReactComponent as Reset} from '@project/react-app/src/assets/icons/reset-x.svg'
 import {validateAddress} from '../services'
 import {Blue, Grey, ConnectPLS} from '@project/react-app/src/components'
+import { daysPerPeriod } from '@project/react-app/src/constants'
 
 
 export const Address = (props) => {
@@ -26,9 +27,8 @@ export const WorkerRunwayDisplay = (props) => {
             const ethAmount = web3.utils.fromWei(balance, 'ether')
             setBalance(parseFloat(ethAmount).toFixed(2))
 
-            const periodLength = 7  // Todo : get this from the contract?
             const ethCostPerDay = .03  // Todo : use a price oracle
-            setRunway(((ethAmount / ethCostPerDay).toFixed() * periodLength).toFixed(0))
+            setRunway(((ethAmount / ethCostPerDay).toFixed() * daysPerPeriod).toFixed(0))
         }
 
         if (web3) {

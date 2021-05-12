@@ -159,7 +159,6 @@ function App () {
     if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
         setWorkerAddress(stakerInfo.worker)
     }
-
     context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
     context.setActionsCompleted([])
   }
@@ -193,7 +192,6 @@ function App () {
     setInterval(async () => {
       if (eventQueue.length){
         //trigger a refresh of staker data
-        console.log(eventQueue)
         setActionsCompleted([...eventQueue])
 
         setStakerUpdated(Date.now())
@@ -208,7 +206,6 @@ function App () {
       <ThemeProvider theme={theme}>
         <Router>
         <Header theme={theme} setTheme={setTheme}/>
-        <MessagePublisher/>
         <ModalDispatcher/>
         <Main id="NCmain">
             <Switch>
@@ -225,6 +222,7 @@ function App () {
         </Main>
         <Footer/>
         </Router>
+        <MessagePublisher/>
       </ThemeProvider>
     </Context.Provider>
   )

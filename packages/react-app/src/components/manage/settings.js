@@ -40,8 +40,7 @@ export default function StakeSettingsPanel(props) {
                         <Col xs={6} xl={12} className="mb-3">
                             <div className="nowrap d-flex align-content-center">
                                 <strong className="nowrap">Re-Stake</strong>
-                                <CircleQ
-                                    tooltip="Compound your staking returns by automatically re-staking each period's rewards."/>
+                                <CircleQ>Compound your staking returns by automatically re-staking each period's rewards.</CircleQ>
                             </div>
                             <ToggleButton abort={setRestaking}
                                           activeCheck={restaking}
@@ -51,7 +50,7 @@ export default function StakeSettingsPanel(props) {
                         <Col xs={6} xl={12}>
                             <div className="nowrap d-flex align-content-center">
                                 <strong className="nowrap">Wind Down</strong>
-                                <CircleQ tooltip="Each period committed will reduce stake length by one period."/>
+                                <CircleQ>Each period committed will reduce stake length by one period.</CircleQ>
                             </div>
                             <ToggleButton abort={setWindingdown}
                                           activeCheck={windingdown}

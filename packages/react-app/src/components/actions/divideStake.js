@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow } from '@project/react-app/src/components'
+import { PendingButton, Slider, Grey, Blue, DataRow, CircleQ, Period } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
-import { calcROI, MIN_STAKE } from '@project/react-app/src/constants'
+import {  MIN_STAKE, daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 
 
 const StakeDivider = (props) => {
@@ -31,7 +31,10 @@ export const DivideStake = (props) => {
 
 
     const [newNU, setNewNU] = useState(15000)
-    const [duration, setDuration] = useState(7)
+    const [duration, setDuration] = useState(daysPerPeriod)
+    const [originalUnlockDate] = useState(parseInt(substake.lastPeriod) + 1)
+    const [newUnlockDate, setNewUnlockDate] = useState(originalUnlockDate + 1)
+
     const [roi, setRoi] = useState({apr: 0, net: 0})
     const [AllocationValid, setAllocationValid] = useState(true)
 
@@ -41,13 +44,16 @@ export const DivideStake = (props) => {
 
     const onDurationChanged = (duration) => {
         setDuration(duration)
+        setNewUnlockDate(originalUnlockDate + parseInt(duration)/daysPerPeriod)
     }
 
 
     const handleAction = (e) => {
 
         const amount = web3.utils.toWei(String(newNU), "ether")
-        const hex = web3.utils.numberToHex(daysToPeriods(duration))
+
+        const extensionLength = (newUnlockDate - originalUnlockDate)
+        const hex = web3.utils.numberToHex(extensionLength)
 
         ContractCaller(
             contracts.STAKINGESCROW.methods.divideStake(
@@ -55,7 +61,8 @@ export const DivideStake = (props) => {
                 amount,
                 hex),
             context,
-            [`substakeupdate${substake.id}`]
+            [`substakeupdate${substake.id}`],
+            `Divide stake #${substake.index}`
         )
 
         e.preventDefault()
@@ -79,6 +86,15 @@ export const DivideStake = (props) => {
                     <StakeDivider value={newNU} onChange={onChangeDivider} stake={substake} />
                 </Col>
             </Row>
+            <Row>
+                <Col className="mr-4 ml-3">
+                    <div className="d-flex justify-content-between">
+                        <Grey>Additional Duration</Grey>
+                        <strong><Blue>{duration}</Blue> <Grey>Days</Grey></strong>
+                    </div>
+                    <Slider step={daysPerPeriod} min={daysPerPeriod} max={364} value={duration} onChange={onDurationChanged} />
+                </Col>
+            </Row>
             <Row className="mt-3">
                 <Col>
                     <DataRow>
@@ -89,17 +105,17 @@ export const DivideStake = (props) => {
                         <span><strong><Blue>{totalOriginalValue - newNU}</Blue></strong></span>
                         <span><strong><Blue>{newNU}</Blue></strong></span>
                     </DataRow>
+                    <DataRow>
+                        <strong>Unlock Date <small><CircleQ>Unlock date only applies if "wind down" is turned on (you can toggle that at /manage).</CircleQ></small></strong>
+                        <strong>New Stake Unlock Date</strong>
+                    </DataRow>
+                    <DataRow>
+                        <span><strong><Blue><Period>{originalUnlockDate}</Period></Blue></strong></span>
+                        <span><strong><Blue><Period>{newUnlockDate}</Period></Blue></strong></span>
+                    </DataRow>
                 </Col>
             </Row>
-            <Row>
-                <Col className="mr-4 ml-3">
-                    <div className="d-flex justify-content-between">
-                        <Grey>Additional Duration</Grey>
-                        <strong><Blue>{duration}</Blue> <Grey>Days</Grey></strong>
-                    </div>
-                    <Slider step={7} min={7} max={364} value={duration} onChange={onDurationChanged} />
-                </Col>
-            </Row>
+
             <Row noGutters className="d-flex justify-content-center mt-3">
                 <Col className="d-flex justify-content-center">
                     <PendingButton disabled={!AllocationValid} onClick={handleAction} width="100%">Divide Stake</PendingButton>

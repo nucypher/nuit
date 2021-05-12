@@ -4,9 +4,12 @@ import { useState, useEffect, useContext } from 'react';
 
 import { Context } from '@project/react-app/src/services'
 
+
 import { Form, Button, Row, Col, Container} from 'react-bootstrap/';
 
 import { Grey, Blue, Input, DateSpan} from '@project/react-app/src/components'
+import { millisecondsPerPeriod } from '@project/react-app/src/constants'
+
 
 
 export const NuBalance = (props) => {
@@ -51,7 +54,6 @@ export const NuStakeAllocator = (props) => {
     const [localValue, setLocalValue] = useState(props.value? props.value : '')
 
     const setValue = (value) => {
-
         setLocalValue(value)
         try{
             props.onChange(value)
@@ -66,6 +68,11 @@ export const NuStakeAllocator = (props) => {
             props.onBalanceUpdate(web3.utils.fromWei(value.toString(), 'ether'))
         }
     }
+
+    useEffect(()=>{
+        const value = props.value || web3.utils.fromWei(( props.initial || 0).toString(), 'ether')
+        setLocalValue(value)
+    }, [props.value])
 
     return (
         <Container>
@@ -101,7 +108,7 @@ export const Period = (props) => {
         if (parseInt(data) === 1){
             return '----'
         }
-        return context.periodsAsDate ? moment(parseInt(data) * 168 * 60 * 60 * 1000).format("YYYY-MM-DD") : "#"+data
+        return context.periodsAsDate ? moment(parseInt(data) * millisecondsPerPeriod).format("YYYY-MM-DD") : "#"+data
     }
 
     const toggleFormat = () => {

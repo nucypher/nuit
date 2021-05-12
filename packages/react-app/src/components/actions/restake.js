@@ -12,7 +12,7 @@ export const Restake = (props) => {
 
     const handleAction = (value) => {
         props.setShow(false)
-        ContractCaller(contracts.STAKINGESCROW.methods.setReStake(value), context, 'restake')
+        ContractCaller(contracts.STAKINGESCROW.methods.setReStake(value), context, 'restake', `turn ${value ? 'on': 'off'} restaking`)
     }
 
     return(

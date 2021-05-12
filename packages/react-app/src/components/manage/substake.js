@@ -24,7 +24,7 @@ const SubStake = (props) => {
                 <strong><Period>{props.data.firstPeriod}</Period></strong>
             </Col>
             <Col xs={12} sm={3} className="d-flex justify-content-start">
-                <strong><Period>{props.data.lastPeriod}</Period></strong>
+                <strong><Period>{parseInt(props.data.lastPeriod) + 1}</Period></strong>
             </Col>
             <Col xs={12} sm={3} className="d-flex justify-content-end">
                 <NuBalance balance={props.data.lockedValue}/>
@@ -50,7 +50,7 @@ const STActionButton = (props) => {
         <Col xs={12} sm={3} className="mb-1 w100">
             {isActive(props) ?
                 <PrimaryButton width="100%" tiny onClick={e => execute(props)}>{props.children}</PrimaryButton> :
-                <SecondaryButton width="100%" disabled={true} tiny>{props.children}</SecondaryButton>}
+                <SecondaryButton width="100%" disabled tiny>{props.children}</SecondaryButton>}
         </Col>
     )
 }
@@ -85,17 +85,14 @@ export const SubStakeList = (props) => {
         <Component {...props} id="substake-control" className="control-box">
             <Row noGutters id="substake-control-buttons" className="d-flex justify-content-around">
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
-                                action={Merge}>Merge<CircleQ
-                    tooltip="Merge two stakes with matching end dates"/></STActionButton>
+                                action={Merge}>Merge<CircleQ>Merge two stakes with matching end dates</CircleQ></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
-                                action={Divide}>Divide<CircleQ
-                    tooltip="Divide a stake into two of at least 15000 each."/></STActionButton>
+                                action={Divide}>Divide<CircleQ>Divide a stake into two of at least 15000 each</CircleQ></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
-                                action={Extend}>Extend<CircleQ
-                    tooltip="Add more duration to a stake."/></STActionButton>
+                                action={Extend}>Extend<CircleQ>Add more duration to a stake</CircleQ></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
-                                action={Remove}>Remove<CircleQ
-                    tooltip="Remove a completed or unlocked stake."/></STActionButton>
+                                action={Remove}>Remove<CircleQ>Remove a completed or unlocked stake</CircleQ>
+                </STActionButton>
             </Row>
             <Row className="d-flex justify-content-between" id="substake-list-header">
                 <Col xs={1} className="d-flex justify-content-start"></Col>
@@ -103,7 +100,7 @@ export const SubStakeList = (props) => {
                     Start
                 </Col>
                 <Col xs={12} sm={3} className="d-flex justify-content-start">
-                    End
+                    Unlock
                 </Col>
                 <Col xs={12} sm={3}></Col>
             </Row>

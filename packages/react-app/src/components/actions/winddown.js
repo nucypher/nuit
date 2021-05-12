@@ -12,7 +12,7 @@ export const Winddown = (props) => {
 
     const handleAction = async (value) => {
         props.setShow(false)
-        ContractCaller(contracts.STAKINGESCROW.methods.setWindDown(value), context, 'winddown')
+        ContractCaller(contracts.STAKINGESCROW.methods.setWindDown(value), context, 'winddown', `turn ${value ? 'on': 'off'} winddown`)
     }
 
     return(

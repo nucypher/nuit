@@ -28,9 +28,12 @@ export const light = {
             background: 'none',
             text: {
                 main:'#1E65F3',
-                sub: 'rgba(30, 101, 243, 0.4)',
+                disabled: 'rgba(30, 101, 243, 0.4)',
             },
-            border: '2px solid #1E65F3'
+            border: {
+                main: '2px solid #1E65F3',
+                disabled: '2px solid rgba(30, 101, 243, 0.4)'
+            }
         },
         disabled: {
             background: 'none',

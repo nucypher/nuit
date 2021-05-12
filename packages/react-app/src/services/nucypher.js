@@ -1,11 +1,9 @@
-import { daysPerPeriod } from '@project/react-app/src/constants'
+import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 import { ContractCaller } from './ethereum'
-
 
 function _filterSelection(selection, substakes){
   return substakes.filter((st,index) => {return selection[index]})
 }
-
 
 export const daysToPeriods = (days) => {
   return Math.ceil(parseInt(days)/daysPerPeriod).toString()
@@ -14,7 +12,6 @@ export const daysToPeriods = (days) => {
 export const periodsToDays = (periods) => {
   return parseInt(periods) * daysPerPeriod
 }
-
 
 export class Merge {
 
@@ -41,7 +38,8 @@ export class Merge {
     ContractCaller(
       contracts.STAKINGESCROW.methods.mergeStake(stake1.id, stake2.id),
       context,
-      [`substakeupdate${stake1.id}`, `substakeupdate${stake2.id}`]
+      [`substakeupdate${stake1.id}`, `substakeupdate${stake2.id}`],
+      `merging substakes ${stake1.id} and ${stake2.id}`
     )
   }
 }
@@ -55,7 +53,7 @@ export class Remove {
     if (selected.length !== 1) return false
     const [stake] = selected
 
-    if (stake.lastPeriod !== "1") return false
+    if (parseInt(stake.lastPeriod) >= getCurrentPeriod()) return false
     if (stake.unlockingDuration !== "0") return false
 
     return true
@@ -69,7 +67,8 @@ export class Remove {
     ContractCaller(
       contracts.STAKINGESCROW.methods.removeUnusedSubStake(stake.id),
       context,
-      [`substakeupdate${stake.id}`]
+      [`substakeupdate${stake.id}`],
+      `removing substake #${stake.id}`
     )
   }
 }
