@@ -6,6 +6,7 @@ import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAx
 import {Context} from "../services";
 import {apolloClients} from "../graphql/apollo";
 import {ButtonGroup, SecondaryButton, Spinner} from "./index";
+import { daysPerPeriod } from '@project/react-app/src/constants'
 
 
 //
@@ -140,7 +141,7 @@ export default function StakerChart() {
     let normalizedPeriods = [];
 
     // process genesis periods (take evey seventh element)
-    for (let i = 0; i < gData.periods.length; i = i + 7) normalizedPeriods.push(gData.periods[i])
+    for (let i = 0; i < gData.periods.length; i = i + daysPerPeriod) normalizedPeriods.push(gData.periods[i])
 
     // nullify partially unfinalized period circulating supply and participation
     let periods = scrubPeriods(data.periods)

@@ -1,11 +1,9 @@
 import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 import { ContractCaller } from './ethereum'
 
-
 function _filterSelection(selection, substakes){
   return substakes.filter((st,index) => {return selection[index]})
 }
-
 
 export const daysToPeriods = (days) => {
   return Math.ceil(parseInt(days)/daysPerPeriod).toString()
@@ -14,7 +12,6 @@ export const daysToPeriods = (days) => {
 export const periodsToDays = (periods) => {
   return parseInt(periods) * daysPerPeriod
 }
-
 
 export class Merge {
 

@@ -4,9 +4,12 @@ import { useState, useEffect, useContext } from 'react';
 
 import { Context } from '@project/react-app/src/services'
 
+
 import { Form, Button, Row, Col, Container} from 'react-bootstrap/';
 
 import { Grey, Blue, Input, DateSpan} from '@project/react-app/src/components'
+import { millisecondsPerPeriod } from '@project/react-app/src/constants'
+
 
 
 export const NuBalance = (props) => {
@@ -105,7 +108,7 @@ export const Period = (props) => {
         if (parseInt(data) === 1){
             return '----'
         }
-        return context.periodsAsDate ? moment(parseInt(data) * 168 * 60 * 60 * 1000).format("YYYY-MM-DD") : "#"+data
+        return context.periodsAsDate ? moment(parseInt(data) * millisecondsPerPeriod).format("YYYY-MM-DD") : "#"+data
     }
 
     const toggleFormat = () => {

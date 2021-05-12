@@ -59,9 +59,9 @@ export const CreateStake = (props) => {
     }
 
     const onDurationChanged = (duration) => {
-        if (duration < daysPerPeriod) return
+        if (duration < daysPerPeriod * 4) return
         setDuration(duration)
-        setUnlockDate(getCurrentPeriod() + duration/daysPerPeriod + 1)
+        setUnlockDate(getCurrentPeriod() + duration/daysPerPeriod + 2)
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))
         }
@@ -86,8 +86,18 @@ export const CreateStake = (props) => {
 
         const amount = web3.utils.toWei(String(nuAllocated), "ether")
 
-        // this value should be the length of the stake in periods
-        const stakeLength = unlockDate - getCurrentPeriod()
+        /*
+        stakeLength
+            this value should be the length of the stake in periods
+            we subtract 1 from the "unlock date" as displayed to the user because
+            we want the "lastPeriod" of the stake (as recognized by the contract)
+            as opposed to the human readable "unlock date"
+            which is the period following the lastPeriod of the stake
+        */
+
+        const stakeLength = (unlockDate - 1) - getCurrentPeriod()
+
+        console.log(getCurrentPeriod() + stakeLength)
 
         const hex = web3.utils.numberToHex(stakeLength)
 
@@ -123,7 +133,7 @@ export const CreateStake = (props) => {
                         <Grey>Duration</Grey>
                         <strong><TypeOver onChange={onDurationChanged}>{duration}</TypeOver> <Grey>Days</Grey></strong>
                     </div>
-                    <Slider step={daysPerPeriod} min={daysPerPeriod} max={daysPerPeriod * 52} value={duration} onChange={onDurationChanged} />
+                    <Slider step={daysPerPeriod} min={daysPerPeriod} max={daysPerPeriod * 365/daysPerPeriod} value={duration} onChange={onDurationChanged} />
                 </Col>
             </Row>
             <Row noGutters className="d-flex justify-content-center mt-3">
@@ -144,7 +154,7 @@ export const CreateStake = (props) => {
                 <Col>
                     <DataRow>
                         <strong>Stake Amount</strong>
-                        <strong>Unlock Date</strong>
+                        <strong>Unlock Date <small><CircleQ>Unlock date only applicable if "wind down" is turned on (you can toggle that at /manage).</CircleQ></small></strong>
                     </DataRow>
                     <DataRow>
                         <h5><Blue>{nuAllocated}</Blue></h5>

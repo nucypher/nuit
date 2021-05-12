@@ -24,7 +24,7 @@ const SubStake = (props) => {
                 <strong><Period>{props.data.firstPeriod}</Period></strong>
             </Col>
             <Col xs={12} sm={3} className="d-flex justify-content-start">
-                <strong><Period>{props.data.lastPeriod}</Period></strong>
+                <strong><Period>{parseInt(props.data.lastPeriod) + 1}</Period></strong>
             </Col>
             <Col xs={12} sm={3} className="d-flex justify-content-end">
                 <NuBalance balance={props.data.lockedValue}/>
@@ -50,7 +50,7 @@ const STActionButton = (props) => {
         <Col xs={12} sm={3} className="mb-1 w100">
             {isActive(props) ?
                 <PrimaryButton width="100%" tiny onClick={e => execute(props)}>{props.children}</PrimaryButton> :
-                <SecondaryButton width="100%" disabled={true} tiny>{props.children}</SecondaryButton>}
+                <SecondaryButton width="100%" disabled tiny>{props.children}</SecondaryButton>}
         </Col>
     )
 }

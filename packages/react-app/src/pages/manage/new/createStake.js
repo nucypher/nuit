@@ -14,11 +14,6 @@ export default (props) => {
 
     return (
         <div>
-            <Row>
-                <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>New Stake</h1>
-                </Col>
-            </Row>
             <Row className="d-flex justify-content-center">
                 <Col xs={8}>
                     <InputBox>

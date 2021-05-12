@@ -17,8 +17,8 @@ export const ExtendStake = (props) => {
 
     const substake = props.substake
 
-    const [duration, setDuration] = useState(7)
-    const [originalUnlockDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + 2)
+    const [duration, setDuration] = useState(daysPerPeriod)
+    const [originalUnlockDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + 1)
     const [newUnlockDate, setNewUnlockDate] = useState(originalUnlockDate + 1)
 
     const onDurationChanged = (duration) => {
@@ -59,7 +59,7 @@ export const ExtendStake = (props) => {
                         <Grey>Additional Duration</Grey>
                         <strong><TypeOver onChange={onDurationChanged}>{duration}</TypeOver> <Grey>Days</Grey></strong>
                     </div>
-                    <Slider step={7} min={7} max={364} value={duration} onChange={onDurationChanged} />
+                    <Slider step={daysPerPeriod} min={daysPerPeriod} max={364} value={duration} onChange={onDurationChanged} />
                 </Col>
             </Row>
             <Row className="mt-3">

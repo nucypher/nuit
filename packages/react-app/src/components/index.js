@@ -175,8 +175,8 @@ export const PurpleButton = styled(PrimaryButton)`
 
 export const SecondaryButton = styled(NCButtonBase)`
   background: ${props => props.theme.buttons.secondary.background};
-  border: ${props => props.theme.buttons.secondary.border};
-  color: ${props => props.theme.buttons.secondary.text.main};
+  border: ${props => (props.disabled ? props.theme.buttons.secondary.border.disabled: props.theme.buttons.secondary.border.main)};
+  color: ${props => (props.disabled ? props.theme.buttons.secondary.text.disabled: props.theme.buttons.secondary.text.main)};
 `
 
 export const NoBorderButton = styled(SecondaryButton)`
