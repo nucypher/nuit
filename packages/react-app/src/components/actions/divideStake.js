@@ -32,7 +32,7 @@ export const DivideStake = (props) => {
 
     const [newNU, setNewNU] = useState(15000)
     const [duration, setDuration] = useState(daysPerPeriod)
-    const [originalUnlockDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + 1)
+    const [originalUnlockDate] = useState(parseInt(substake.lastPeriod) + 1)
     const [newUnlockDate, setNewUnlockDate] = useState(originalUnlockDate + 1)
 
     const [roi, setRoi] = useState({apr: 0, net: 0})

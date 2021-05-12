@@ -18,7 +18,7 @@ export const ExtendStake = (props) => {
     const substake = props.substake
 
     const [duration, setDuration] = useState(daysPerPeriod)
-    const [originalUnlockDate] = useState(getCurrentPeriod() + parseInt(substake.unlockingDuration) + 1)
+    const [originalUnlockDate] = useState(parseInt(substake.lastPeriod) + 1)
     const [newUnlockDate, setNewUnlockDate] = useState(originalUnlockDate + 1)
 
     const onDurationChanged = (duration) => {
