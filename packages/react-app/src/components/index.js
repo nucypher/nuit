@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {ReactComponent as Moon} from '../assets/icons/moon.svg'
 import {ReactComponent as Sun} from '../assets/icons/sun.svg'
 
-export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance, Address } from '@project/react-app/src/components/ethComponents'
+export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance, Address, DisplayWei } from '@project/react-app/src/components/ethComponents'
 export { NuStakeAllocator, NuBalance, Period } from '@project/react-app/src/components/nuComponents'
 export { Slider } from '@project/react-app/src/components/slider'
 export { CircleQ } from '@project/react-app/src/components/circleQ'

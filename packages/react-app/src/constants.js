@@ -1,3 +1,4 @@
+import Web3 from "web3";
 // NuCypher constants
 const MIN_STAKE = 15000
 
@@ -27,9 +28,23 @@ export const roundToPeriod = (n) => {
         return daysPerPeriod;
 }
 
+export const formatNumber = (value, decimals) => {
+    value = parseFloat(value)
+    if (decimals !== undefined){
+        value = value.toFixed(decimals)
+    }
+    return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+}
+
+export const formatWei = (value) => {
+    return formatNumber(Web3.utils.fromWei((value || 0).toString()))
+}
+
 const EMPTY_WORKER = "0x0000000000000000000000000000000000000000"
 
 const calcROI = (amount, duration) => {
+
+    amount = Web3.utils.fromWei(amount.toString(), 'ether')
 
     duration = roundToPeriod(duration)
     const MaxEffectiveDuration = Math.min(365, duration)

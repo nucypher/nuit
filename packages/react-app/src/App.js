@@ -122,7 +122,7 @@ function App () {
                 stakedata.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
                   account, stakedata.id).call();
                 substakeList.push(stakedata);
-                lockedNU += parseInt(stakedata.unlockingDuration) > 0 ? parseInt(stakedata.lockedValue) : 0
+                lockedNU += parseInt(stakedata.unlockingDuration) > 0 ? stakedata.lockedValue : 0
             }
             return substakeList;
         } else {

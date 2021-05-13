@@ -5,7 +5,18 @@ import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/cir
 import {ReactComponent as Reset} from '@project/react-app/src/assets/icons/reset-x.svg'
 import {validateAddress} from '../services'
 import {Blue, Grey, ConnectPLS} from '@project/react-app/src/components'
-import { daysPerPeriod } from '@project/react-app/src/constants'
+import { daysPerPeriod, formatWei } from '@project/react-app/src/constants'
+
+
+export const DisplayWei = (props) => {
+
+    const context = useContext(Context)
+    const { web3 } = context.wallet
+
+    return (
+        <span>{formatWei(props.children)}</span>
+    )
+}
 
 
 export const Address = (props) => {

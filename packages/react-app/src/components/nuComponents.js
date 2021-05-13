@@ -7,7 +7,7 @@ import { Context } from '@project/react-app/src/services'
 
 import { Form, Button, Row, Col, Container} from 'react-bootstrap/';
 
-import { Grey, Blue, Input, DateSpan} from '@project/react-app/src/components'
+import { Grey, Blue, Input, DateSpan, DisplayWei} from '@project/react-app/src/components'
 import { millisecondsPerPeriod } from '@project/react-app/src/constants'
 
 
@@ -27,10 +27,9 @@ export const NuBalance = (props) => {
         }
     }, [ account, provider, contracts, props ])
 
-    const humanizedBalance = (Math.round((parseFloat(props.balance) / 10 ** 18) * 100 ) / 100).toLocaleString("en-US")
     return (
         <span className="d-flex flex-xs-nowrap">
-            {props.balance ? <strong className="d-flex"><Blue className="mr-1">{humanizedBalance}</Blue> <Grey>NU</Grey></strong> : ''}
+            {props.balance ? <strong className="d-flex"><Blue className="mr-1"><DisplayWei>{props.balance}</DisplayWei></Blue> <Grey>NU</Grey></strong> : ''}
         </span>
     )
 }
@@ -51,12 +50,13 @@ export const NuStakeAllocator = (props) => {
     const {web3} = context.wallet
 
     const [NUBalance, setNUBalance] = useState(props.initial || null)
-    const [localValue, setLocalValue] = useState(props.value? props.value : '')
+    const [localValue, setLocalValue] = useState(props.value ? props.value : '')
 
     const setValue = (value) => {
         setLocalValue(value)
+        if (!value) return
         try{
-            props.onChange(value)
+            props.onChange(web3.utils.toWei(value.replace(/[^\d.-]/g, ''),  'ether'))
         } catch(err){
             console.error(err)
         }
@@ -70,9 +70,9 @@ export const NuStakeAllocator = (props) => {
     }
 
     useEffect(()=>{
-        const value = props.value || web3.utils.fromWei(( props.initial || 0).toString(), 'ether')
-        setLocalValue(value)
-    }, [props.value])
+        const value = props.value || props.initial
+        setLocalValue(web3.utils.fromWei(value.toString(), 'ether'))
+    }, [])
 
     return (
         <Container>

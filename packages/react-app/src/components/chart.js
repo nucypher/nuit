@@ -172,7 +172,7 @@ export default function StakerChart() {
                         dataKey="timestamp"
                         type="number"
                         scale="time"
-                        transform={"translante(0, 20)"}
+                        transform={"translate(0, 20)"}
                         tick={{ fill: '#828A9C', fontSize: '12px', transform: 'translate(0, 5)' }}
                         tickSize={2}
                         tickCount={3}

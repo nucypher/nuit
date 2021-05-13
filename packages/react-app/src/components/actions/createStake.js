@@ -1,19 +1,21 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { TypeOver, DataRow, HR, Period, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, ConnectPLS } from '@project/react-app/src/components'
+import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
 
-import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
-import { calcROI, MIN_STAKE, daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
+import { Context, ContractCaller } from '@project/react-app/src/services'
+import { calcROI, MIN_STAKE, daysPerPeriod, getCurrentPeriod, formatWei, formatNumber } from '@project/react-app/src/constants'
+
 
 export const CreateStake = (props) => {
 
     const context = useContext(Context)
     const { contracts, web3 } = context.wallet
 
+    const MIN_STAKE_BN = web3.utils.toBN(web3.utils.toWei(MIN_STAKE.toString(),  'ether'))
+
 
     const [nuAllocated, setNuAllocation] = useState()
-    const [maxNULimit, setMaxNULimit] = useState(context.availableNU.get)
-    const [humanNuLimit, setHumanNuLimit] = useState(0)
+    const [maxNULimit] = useState(web3.utils.toBN(context.availableNU.get || 0))
     const [AllocationValid, setAllocationValid] = useState(true)
     const [invalidMessage, setInvalidMessage] = useState()
     const [duration, setDuration] = useState(props.duration || daysPerPeriod * 10)
@@ -29,15 +31,18 @@ export const CreateStake = (props) => {
 
 
     const onAmountChanged = (amount) => {
+        // amount in wei
         if (!amount) return
+
+        const amount_bn = web3.utils.toBN(amount)
         const rules = [
             {
-                rule: (amount >= MIN_STAKE),
-                message: `Amount ${amount} is less than the minimum 15,000 NU.`
+                rule: amount_bn.gte(MIN_STAKE_BN),
+                message: `Amount ${formatWei(amount)} is less than the minimum 15,000 NU.`
             },
             {
-                rule: (web3.utils.toWei(amount.toString(),  'ether') <= context.availableNU.get),
-                message: `Amount ${amount} exceeds total NU holdings for account.`
+                rule: amount_bn.lte(maxNULimit),
+                message: `Amount ${formatWei(amount)} exceeds total NU holdings for account.`
             }
         ]
 
@@ -47,12 +52,12 @@ export const CreateStake = (props) => {
             return r.rule
         })){
             setNuAllocation(amount)
-
             setAllocationValid(true)
             if (amount && duration){
                 setRoi(calcROI(amount, duration))
             }
         } else{
+            // setNuAllocation(0)
             setAllocationValid(false)
             setInvalidMessage(message)
         }
@@ -84,8 +89,6 @@ export const CreateStake = (props) => {
             props.setShow(false)
         }
 
-        const amount = web3.utils.toWei(String(nuAllocated), "ether")
-
         /*
         stakeLength
             this value should be the length of the stake in periods
@@ -104,7 +107,7 @@ export const CreateStake = (props) => {
         ContractCaller(
             contracts.NU.methods.approveAndCall(
                 contracts.STAKINGESCROW._address,
-                amount,
+                nuAllocated,
                 hex),
             context,
             'addsubstake',
@@ -112,11 +115,11 @@ export const CreateStake = (props) => {
         )
     }
 
-    useEffect(()=>{
-        if(web3 && !nuAllocated){
-            onAmountChanged(web3.utils.fromWei(context.availableNU.get.toString(),  'ether'))
+    useEffect(() => {
+        if(web3 && nuAllocated === undefined){
+            onAmountChanged(context.availableNU.get)
         }
-    },[web3, context.availableNU.get])
+    })
 
     return(
         <Container>
@@ -141,10 +144,10 @@ export const CreateStake = (props) => {
                     <h5 className="nowrap mr-3">Estimated ROI</h5>
                     <strong className="nowrap">
                         <Blue>
-                            {roi.apr.toFixed(2)} % (APR)
+                            {formatNumber(roi.apr, 2)} % (APR)
                             <CircleQ>Estimate based on duration of stake and current network participation</CircleQ>
                         </Blue>
-                        <br/><Grey>{roi.net.toFixed(2)} NU</Grey>
+                        <br/><Grey>{formatNumber(roi.net, 0)} NU</Grey>
                     </strong>
                     <br></br>
                 </Col>
@@ -157,7 +160,7 @@ export const CreateStake = (props) => {
                         <strong>Unlock Date <small><CircleQ>Unlock date only applicable if "wind down" is turned on (you can toggle that at /manage).</CircleQ></small></strong>
                     </DataRow>
                     <DataRow>
-                        <h5><Blue>{nuAllocated}</Blue></h5>
+                        {nuAllocated ? <h5><Blue><DisplayWei>{nuAllocated}</DisplayWei></Blue></h5>:<h5></h5>}
                         <h5><Blue><Period>{unlockDate}</Period></Blue></h5>
                     </DataRow>
                 </Col>
