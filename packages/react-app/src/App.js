@@ -20,8 +20,6 @@ import {Container} from 'react-bootstrap/';
 import {Context, eventQueue} from '@project/react-app/src/services';
 import {EMPTY_WORKER} from '@project/react-app/src/constants'
 import {Alert} from "react-bootstrap";
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
-
 
 function App () {
 
