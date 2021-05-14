@@ -33,7 +33,11 @@ export const formatNumber = (value, decimals) => {
     if (decimals !== undefined){
         value = value.toFixed(decimals)
     }
-    return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+
+    // this formats 100000000.9999090123123 like 100,000,000.9999090123123
+    return value.toString().replace(/^[+-]?\d+/, function(int) {
+        return int.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+      });
 }
 
 export const formatWei = (value, decimals) => {

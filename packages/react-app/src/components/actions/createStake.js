@@ -37,6 +37,10 @@ export const CreateStake = (props) => {
         const amount_bn = web3.utils.toBN(amount)
         const rules = [
             {
+                rule: maxNULimit.gt(MIN_STAKE_BN),
+                message: `Balance of ${maxNULimit} NU insufficient for ${MIN_STAKE} min. stake.`
+            },
+            {
                 rule: amount_bn.gte(MIN_STAKE_BN),
                 message: `Amount ${formatWei(amount)} is less than the minimum 15,000 NU.`
             },
@@ -75,10 +79,6 @@ export const CreateStake = (props) => {
     useEffect(() => {
         if (nuAllocated && duration){
             setRoi(calcROI(nuAllocated, duration))
-        }
-        if (maxNULimit < MIN_STAKE){
-            setAllocationValid(false)
-            setInvalidMessage(`Balance of ${maxNULimit} NU insufficient for ${MIN_STAKE} min. stake.`)
         }
     }, [duration, AllocationValid, nuAllocated, maxNULimit])
 

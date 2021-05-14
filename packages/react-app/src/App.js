@@ -176,7 +176,7 @@ function App () {
   useEffect(() => {
     // populate any notifications based on user state.
 
-    if (stakerData.flags && stakerData.flags.migrated === false && stakerData.lockedNU){
+    if (stakerData.flags && stakerData.flags.migrated === false && stakerData.info.lockedTokens !== "0"){
       context.modals.triggerModal({message: "Staker must be migrated", component: "Migrate"})
     }
   }, [stakerData.flags])
