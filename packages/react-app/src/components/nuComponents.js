@@ -29,7 +29,7 @@ export const NuBalance = (props) => {
 
     return (
         <span className="d-flex flex-xs-nowrap">
-            {props.balance ? <strong className="d-flex"><Blue className="mr-1"><DisplayWei>{props.balance}</DisplayWei></Blue> <Grey>NU</Grey></strong> : ''}
+            {props.balance ? <strong className="d-flex"><Blue className="mr-1"><DisplayWei fixed={2}>{props.balance}</DisplayWei></Blue> <Grey>NU</Grey></strong> : ''}
         </span>
     )
 }

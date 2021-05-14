@@ -20,6 +20,7 @@ import {Container} from 'react-bootstrap/';
 import {Context, eventQueue} from '@project/react-app/src/services';
 import {EMPTY_WORKER} from '@project/react-app/src/constants'
 import {Alert} from "react-bootstrap";
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 
 function App () {
@@ -110,7 +111,7 @@ function App () {
 
     const policyInfo = stakerInfo.worker === EMPTY_WORKER ? null : await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
 
-    let lockedNU = 0.0;
+    let lockedNU = web3.utils.toBN(0)
     // getting an array with all substakes
     const substakes = await (async () => {
         if (getSubStakesLength !== '0') {
@@ -122,7 +123,11 @@ function App () {
                 stakedata.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
                   account, stakedata.id).call();
                 substakeList.push(stakedata);
-                lockedNU += parseInt(stakedata.unlockingDuration) > 0 ? stakedata.lockedValue : 0
+
+                if (parseInt(stakedata.unlockingDuration)){
+                  lockedNU = lockedNU.add( web3.utils.toBN(stakedata.lockedValue) )
+                }
+
             }
             return substakeList;
         } else {

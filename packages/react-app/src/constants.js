@@ -36,8 +36,8 @@ export const formatNumber = (value, decimals) => {
     return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
 }
 
-export const formatWei = (value) => {
-    return formatNumber(Web3.utils.fromWei((value || 0).toString()))
+export const formatWei = (value, decimals) => {
+    return formatNumber(Web3.utils.fromWei((value || 0).toString()), decimals)
 }
 
 const EMPTY_WORKER = "0x0000000000000000000000000000000000000000"
