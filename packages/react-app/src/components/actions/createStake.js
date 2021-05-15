@@ -38,7 +38,7 @@ export const CreateStake = (props) => {
         const rules = [
             {
                 rule: maxNULimit.gt(MIN_STAKE_BN),
-                message: `Balance of ${maxNULimit} NU insufficient for ${MIN_STAKE} min. stake.`
+                message: `Balance of ${formatWei(maxNULimit)} NU insufficient for ${MIN_STAKE} min. stake.`
             },
             {
                 rule: amount_bn.gte(MIN_STAKE_BN),
