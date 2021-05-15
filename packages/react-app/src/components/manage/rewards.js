@@ -42,7 +42,7 @@ export default function RewardsPanel(props) {
                                 className="mt-2 reward-button">
                                 <div className="d-flex">
                                 <span className="mr-2">
-                                    {Number(props.availableNUWithdrawal) > 0 ? 'Withdraw ' : ''}
+                                    {Number(props.availableNUWithdrawal) > 0 ? 'Withdraw ' : ' '}
                                  </span>
                                     <NuBalance balance={props.availableNUWithdrawal}/>
                                 </div>
@@ -54,8 +54,8 @@ export default function RewardsPanel(props) {
                                 <CircleQ>ETH rewards collected from policy fees</CircleQ>
                             </div>
                             <PendingButton className="mt-2 reward-button">
-                                {Number(props.availableETHWithdrawal) > 0 ? 'Withdraw ' : ''}{props.availableETHWithdrawal}
-                                <Grey> ETH</Grey>
+                                {Number(props.availableETHWithdrawal) > 0 ? 'Withdraw ' : ' '}{props.availableETHWithdrawal || "0"}
+                                &nbsp;<Grey> ETH</Grey>
                             </PendingButton>
                         </Col>
                     </Row>

@@ -21,7 +21,6 @@ import {Context, eventQueue} from '@project/react-app/src/services';
 import {EMPTY_WORKER} from '@project/react-app/src/constants'
 import {Alert} from "react-bootstrap";
 
-
 function App () {
 
   const [theme, setTheme] = useState(light);
@@ -110,7 +109,7 @@ function App () {
 
     const policyInfo = stakerInfo.worker === EMPTY_WORKER ? null : await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
 
-    let lockedNU = 0.0;
+    let lockedNU = web3.utils.toBN(0)
     // getting an array with all substakes
     const substakes = await (async () => {
         if (getSubStakesLength !== '0') {
@@ -122,7 +121,11 @@ function App () {
                 stakedata.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
                   account, stakedata.id).call();
                 substakeList.push(stakedata);
-                lockedNU += parseInt(stakedata.unlockingDuration) > 0 ? parseInt(stakedata.lockedValue) : 0
+
+                if (parseInt(stakedata.unlockingDuration)){
+                  lockedNU = lockedNU.add( web3.utils.toBN(stakedata.lockedValue) )
+                }
+
             }
             return substakeList;
         } else {
@@ -173,7 +176,7 @@ function App () {
   useEffect(() => {
     // populate any notifications based on user state.
 
-    if (stakerData.flags && stakerData.flags.migrated === false && stakerData.lockedNU){
+    if (stakerData.flags && stakerData.flags.migrated === false && stakerData.info.lockedTokens !== "0"){
       context.modals.triggerModal({message: "Staker must be migrated", component: "Migrate"})
     }
   }, [stakerData.flags])

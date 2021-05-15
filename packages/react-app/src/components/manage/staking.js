@@ -9,7 +9,8 @@ import {
     NuBalance,
     PendingButton,
     Spinner,
-    WorkerRunwayDisplay
+    WorkerRunwayDisplay,
+    DisplayWei,
 } from "../index";
 import Web3 from "web3";
 import React, {useContext, useEffect, useState} from "react";

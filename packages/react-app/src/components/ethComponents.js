@@ -5,7 +5,18 @@ import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/cir
 import {ReactComponent as Reset} from '@project/react-app/src/assets/icons/reset-x.svg'
 import {validateAddress} from '../services'
 import {Blue, Grey, ConnectPLS} from '@project/react-app/src/components'
-import { daysPerPeriod } from '@project/react-app/src/constants'
+import { daysPerPeriod, formatWei } from '@project/react-app/src/constants'
+
+
+export const DisplayWei = (props) => {
+
+    const context = useContext(Context)
+    const { web3 } = context.wallet
+
+    return (
+        <span>{formatWei(props.children, props.fixed)}</span>
+    )
+}
 
 
 export const Address = (props) => {
@@ -25,7 +36,7 @@ export const WorkerRunwayDisplay = (props) => {
     useEffect(() => {
         function handleBalance(balance) {
             const ethAmount = web3.utils.fromWei(balance, 'ether')
-            setBalance(parseFloat(ethAmount).toFixed(2))
+            setBalance(balance)
 
             const ethCostPerDay = .03  // Todo : use a price oracle
             setRunway(((ethAmount / ethCostPerDay).toFixed() * daysPerPeriod).toFixed(0))
@@ -83,7 +94,6 @@ export class WorkerETHAddressField extends React.Component {
     }
 
     handleInputChange(input) {
-        console.log(input)
         this.setState({rawValue: input});
 
         if (validateAddress(input)) {
@@ -145,9 +155,8 @@ export const EthBalance = (props) => {
     useEffect(() => {
         if (!props.balance) {
             function handleBalance(wei) {
-                const Amount = (parseFloat(wei) / 10 ** 18).toFixed(2);
                 if (props.onBalance) {
-                    props.onBalance(Amount)
+                    props.onBalance(wei)
                 }
             }
 
@@ -159,7 +168,7 @@ export const EthBalance = (props) => {
 
     return (
         <div>
-            {props.balance ? <strong><Blue>{props.balance}</Blue> <Grey>ETH</Grey></strong> : ''}
+            {props.balance ? <strong><Blue><DisplayWei fixed={3}>{props.balance}</DisplayWei></Blue> <Grey>ETH</Grey></strong> : ''}
         </div>
     )
 }
