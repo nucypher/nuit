@@ -47,11 +47,11 @@ const STActionButton = (props) => {
     }
 
     return (
-        <Col xs={12} sm={3} className="mb-1 w100">
+        <div className="mb-1">
             {isActive(props) ?
-                <PrimaryButton width="100%" tiny onClick={e => execute(props)}>{props.children}</PrimaryButton> :
-                <SecondaryButton width="100%" disabled tiny>{props.children}</SecondaryButton>}
-        </Col>
+                <PrimaryButton tiny onClick={e => execute(props)}>{props.children}</PrimaryButton> :
+                <SecondaryButton disabled tiny>{props.children}</SecondaryButton>}
+        </div>
     )
 }
 
@@ -83,7 +83,9 @@ export const SubStakeList = (props) => {
     return (
 
         <Component {...props} id="substake-control" className="control-box">
-            <Row noGutters id="substake-control-buttons" className="d-flex justify-content-around">
+            <div noGutters id="substake-control-buttons" className="d-flex justify-content-around w100">
+                <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
+                                action={Merge}>Increase<CircleQ>Add more NU to an existing stake</CircleQ></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
                                 action={Merge}>Merge<CircleQ>Merge two stakes with matching end dates</CircleQ></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
@@ -93,7 +95,7 @@ export const SubStakeList = (props) => {
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
                                 action={Remove}>Remove<CircleQ>Remove a completed or unlocked stake</CircleQ>
                 </STActionButton>
-            </Row>
+            </div>
             <Row className="d-flex justify-content-between" id="substake-list-header">
                 <Col xs={1} className="d-flex justify-content-start"></Col>
                 <Col xs={12} sm={3} className="d-flex justify-content-start">

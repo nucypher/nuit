@@ -166,6 +166,18 @@ hr {
 }
 
 
+@media (max-width: 500px) {
+    #substake-control-buttons.d-flex{
+        display:block !important;
+    }
+
+    #substake-control-buttons>div{
+        width:100%;
+    }
+}
+
+
+
 #wallet-button {
     max-width: 190px;
     min-width: 180px;
@@ -192,6 +204,11 @@ hr {
 button:disabled .circleQ svg {
     opacity: .5;
 }
+
+.tight .circleQ{
+    padding-left:3px;
+}
+
 
 
 #remaining-time {
@@ -378,12 +395,20 @@ button:disabled .circleQ svg {
 
 #substake-control-buttons {
     margin-bottom: 0.8rem;
+    flex:nowrap;
+}
+
+#substake-control-buttons>div{
+    flex-grow: 10;
+    margin:1px;
+    white-space:nowrap;
 }
 
 #substake-control-buttons button {
     justify-content: center;
     display: flex;
     align-content: center;
+    font-size:.8em;
 }
 
 #substake-list-header {
