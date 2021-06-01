@@ -3,6 +3,7 @@ export { BondWorker } from '@project/react-app/src/components/actions/bondWorker
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 export { DivideStake } from '@project/react-app/src/components/actions/divideStake'
 export { ExtendStake } from '@project/react-app/src/components/actions/extendStake'
+export { IncreaseStake } from '@project/react-app/src/components/actions/increaseStake'
 export { WithdrawNU } from '@project/react-app/src/components/actions/withdrawNU'
 export { Restake } from '@project/react-app/src/components/actions/restake'
 export { Winddown } from '@project/react-app/src/components/actions/winddown'

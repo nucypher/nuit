@@ -57,9 +57,10 @@ export const NuStakeAllocator = (props) => {
 
     const setValue = (value) => {
         setLocalValue(value)
-        if (!value) return
         try{
-            props.onChange(web3.utils.toWei(value.replace(/[^\d.-]/g, ''),  'ether'))
+            // allow numbers, "-"" and "."
+            // don't allow ".."
+            props.onChange(web3.utils.toWei(value.replace(/[^0-9.]/g, '').replace(/\.{2,}/g, '.'),  'ether'))
         } catch(err){
             console.error(err)
         }

@@ -27,8 +27,9 @@ function App () {
   const [message, setMessage] = useState(null)
   const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(setMessage)
 
-  const [availableNU, setAvailableNU] = useState(0);
+  const [availableNU, setAvailableNU] = useState(0)
   const [availableETH, setAvailableETH] = useState(0)
+  const [NUallowance, setNUallowance] = useState(0)
   const [workerAddress, setWorkerAddress] = useState(null)
   const [stakerData, setStakerData] = useState({substakes:[]})
   const [stakerUpdated, setStakerUpdated] =  useState(0)
@@ -63,6 +64,7 @@ function App () {
     workerAddress: {set: setWorkerAddress, get: workerAddress},
     availableNU: {set: setAvailableNU, get: availableNU},
     availableETH: {set: setAvailableETH, get: availableETH},
+    NUallowance: {set: setNUallowance, get: NUallowance},
 
     /* populated by services.ContractCaller,
       pending is an array of strings that represent a pending
@@ -150,6 +152,12 @@ function App () {
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
     setAvailableNU(stakerNuWallet)
+
+    // don't wait for this
+    contracts.NU.methods.allowance(account, contracts.STAKINGESCROW._address).call().then(r=>{
+      setNUallowance(web3.utils.toBN(r))
+    })
+
     setStakerData({
         info: stakerInfo,
         flags,

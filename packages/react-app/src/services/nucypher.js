@@ -121,3 +121,25 @@ export class Extend {
     context.modals.triggerModal({message: "Extend Stake", component: "ExtendStake", props: {substake: selected[0]}})
   }
 }
+
+
+export class Increase {
+
+  static validate(selection, substakes, context) {
+    const selected = _filterSelection(selection, substakes)
+    const [stake] = selected
+
+    if (selected.length !== 1) return false
+    if (stake.lastPeriod === "1") return false
+    if (stake.unlockingDuration === "0") return false
+
+    if (context.availableNU.get === "0") return false
+
+    return true
+  }
+
+  static execute(selection, substakes, context) {
+    const selected = _filterSelection(selection, substakes)
+    context.modals.triggerModal({message: "Increase Stake", component: "IncreaseStake", props: {substake: selected[0]}})
+  }
+}

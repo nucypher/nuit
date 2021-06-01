@@ -27,7 +27,6 @@ export default function StakeSettingsPanel(props) {
 
     return (
         <InputBox className="mt-4 mb-4">
-
             <Row noGutters>
                 <Col className="d-flex justify-content-flex-start mb-1">
                     <h5>Settings</h5>

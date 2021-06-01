@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 
 import {CircleQ, NuBalance, Period, PrimaryButton, SecondaryButton, Spinner} from '@project/react-app/src/components'
-import {Context, Divide, Extend, Merge, Remove} from '@project/react-app/src/services'
+import {Context, Divide, Extend, Merge, Remove, Increase} from '@project/react-app/src/services'
 
 import {Col, Form, Row} from 'react-bootstrap/';
 
@@ -38,12 +38,11 @@ const STActionButton = (props) => {
     const context = useContext(Context)
 
     const isActive = (props) => {
-        return props.action.validate(props.selection, props.substakes)
+        return props.action.validate(props.selection, props.substakes, context)
     }
 
     const execute = (props) => {
         props.action.execute(props.selection, props.substakes, context)
-        props.resetSelection()
     }
 
     return (
@@ -69,7 +68,7 @@ export const SubStakeList = (props) => {
     useEffect(() => {
         setSubstakes(props.substakes)
         setSelection(props.substakes.map(() => false))
-    }, [account, props.substakes])
+    }, [context.stakerData.lockedNU, account, props.substakes])
 
     const handleSelection = (index) => {
         setSelection(selection.map((s, i) => {
@@ -83,9 +82,9 @@ export const SubStakeList = (props) => {
     return (
 
         <Component {...props} id="substake-control" className="control-box">
-            <div noGutters id="substake-control-buttons" className="d-flex justify-content-around w100">
+            <div id="substake-control-buttons" className="d-flex justify-content-around w100">
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
-                                action={Merge}>Increase<CircleQ>Add more NU to an existing stake</CircleQ></STActionButton>
+                                action={Increase}>Increase<CircleQ>Add more NU to an existing stake</CircleQ></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
                                 action={Merge}>Merge<CircleQ>Merge two stakes with matching end dates</CircleQ></STActionButton>
                 <STActionButton resetSelection={resetSelection} selection={selection} substakes={substakes}
