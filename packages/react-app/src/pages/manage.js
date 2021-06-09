@@ -7,7 +7,6 @@ import {Spinner, ConnectPLS} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {HistoryPane} from "../components/manage/history";
 import RewardsPanel from "../components/manage/rewards";
-import DebugPanel from "../components/manage/debugPanel";
 import StakeSettingsPanel from "../components/manage/settings";
 import StakerControlPanel from "../components/manage/staking";
 import CurrentPeriodPanel from "../components/manage/period";
@@ -66,14 +65,6 @@ export function Manage(props) {
                         </div>
                         <HistoryPane theme={props.theme}/>
                     </Col>
-
-                    {!process.env.NODE_ENV || process.env.NODE_ENV === 'development' && <Col xs={12}>
-                        <div id="debugPanel" className="flex-row justify-content-lg-center text-center">
-                            <h4>Debug</h4>
-                        </div>
-                        <DebugPanel theme={props.theme}/>
-                    </Col>}
-
                 </Row>}
         </Container>
     )

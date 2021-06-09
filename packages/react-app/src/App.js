@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import Web3 from "web3";
 import {BrowserRouter as Router, Route, Switch,} from 'react-router-dom'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +13,7 @@ import {light} from '@project/react-app/src/themes'
 
 import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
+import DebugPanel from '@project/react-app/src/components/debugPanel';
 import {MessagePublisher, ModalDispatcher} from '@project/react-app/src/components/messaging'
 import {Documentation, Home, Manage, NewStake} from '@project/react-app/src/pages'
 
@@ -29,7 +31,7 @@ function App () {
 
   const [availableNU, setAvailableNU] = useState(0)
   const [availableETH, setAvailableETH] = useState(0)
-  const [NUallowance, setNUallowance] = useState(0)
+  const [NUallowance, setNUallowance] = useState(new Web3.utils.BN("0"))
   const [workerAddress, setWorkerAddress] = useState(null)
   const [stakerData, setStakerData] = useState({substakes:[]})
   const [stakerUpdated, setStakerUpdated] =  useState(0)
@@ -234,6 +236,7 @@ function App () {
         <Footer/>
         </Router>
         <MessagePublisher/>
+        {!process.env.NODE_ENV || process.env.NODE_ENV === 'development' && <DebugPanel/>}
       </ThemeProvider>
     </Context.Provider>
   )
