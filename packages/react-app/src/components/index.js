@@ -223,7 +223,7 @@ export const PendingButton = (props) => {
   }
 
   return (
-      <div className="d-flex justify-content-center">{ props.activeCheck ?
+      <div className="d-flex justify-content-center button-or-spinner">{ props.activeCheck ?
           <Spinner onClick={handleAbort}/> :
           <PrimaryButton {...props}>{props.children}</PrimaryButton>
       }</div>

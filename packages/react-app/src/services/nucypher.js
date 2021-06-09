@@ -1,5 +1,6 @@
 import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 import { ContractCaller } from './ethereum'
+import Web3 from "web3";
 
 function _filterSelection(selection, substakes){
   return substakes.filter((st,index) => {return selection[index]})
@@ -141,5 +142,43 @@ export class Increase {
   static execute(selection, substakes, context) {
     const selected = _filterSelection(selection, substakes)
     context.modals.triggerModal({message: "Increase Stake", component: "IncreaseStake", props: {substake: selected[0]}})
+  }
+}
+
+export const setNUAllowance = async (amountWei, context) => {
+  const { contracts } = context.wallet
+  const amount_bn = Web3.utils.toBN(amountWei)
+
+  if (context.NUallowance.get === '0') {
+      ContractCaller(
+          contracts.NU.methods.approve(
+              contracts.STAKINGESCROW._address,
+              amountWei
+          ),
+          context,
+          [`approvingNUspend`],
+          `Approving NU spend`
+      )
+  } else if (amount_bn.gt(context.NUallowance.get)) {
+      ContractCaller(
+          contracts.NU.methods.increaseAllowance(
+              contracts.STAKINGESCROW._address,
+              amount_bn.sub(context.NUallowance.get)
+          ),
+          context,
+          [`approvingNUspend`],
+          `Approving NU spend`
+      )
+  } else {
+    ContractCaller(
+      contracts.NU.methods.decreaseAllowance(
+          contracts.STAKINGESCROW._address,
+          context.NUallowance.get
+      ),
+      context,
+      [`approvingNUspend`],
+      `Approving NU spend`
+  )
+
   }
 }

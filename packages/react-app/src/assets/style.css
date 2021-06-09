@@ -304,6 +304,10 @@ button:disabled .circleQ svg {
     justify-content: center;
 }
 
+.button-or-spinner{
+    min-height: 51px;
+}
+
 .badge-secondary {
     padding: 6px 10px;
     font-size: 14px;

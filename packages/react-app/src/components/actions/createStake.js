@@ -1,21 +1,23 @@
 import React, { useContext, useState, useEffect } from 'react'
+import Web3 from "web3";
+
 import { Container, Row, Col } from 'react-bootstrap/';
 import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
 
-import { Context, ContractCaller } from '@project/react-app/src/services'
+import { Context, ContractCaller, setNUAllowance } from '@project/react-app/src/services'
 import { calcROI, MIN_STAKE, daysPerPeriod, getCurrentPeriod, formatWei, formatNumber } from '@project/react-app/src/constants'
 
 
 export const CreateStake = (props) => {
 
     const context = useContext(Context)
-    const { contracts, web3 } = context.wallet
+    const { contracts, account } = context.wallet
 
-    const MIN_STAKE_BN = web3.utils.toBN(web3.utils.toWei(MIN_STAKE.toString(),  'ether'))
+    const MIN_STAKE_BN = Web3.utils.toBN(Web3.utils.toWei(MIN_STAKE.toString(),  'ether'))
 
 
     const [nuAllocated, setNuAllocation] = useState()
-    const [maxNULimit] = useState(web3.utils.toBN(context.availableNU.get || 0))
+    const [maxNULimit] = useState(Web3.utils.toBN(context.availableNU.get || 0))
     const [AllocationValid, setAllocationValid] = useState(true)
     const [invalidMessage, setInvalidMessage] = useState()
     const [duration, setDuration] = useState(props.duration || daysPerPeriod * 10)
@@ -24,6 +26,7 @@ export const CreateStake = (props) => {
     const [unlockDate, setUnlockDate] = useState(getCurrentPeriod() + 11)
 
     const [addingsubstake, setAddingSubstake] = useState(false)
+    const [approvingNUspend, setApprovingNUspend] = useState(false)
 
     useEffect(() => {
         setAddingSubstake(context.pending.indexOf('addsubstake') > -1)
@@ -34,12 +37,8 @@ export const CreateStake = (props) => {
         // amount in wei
         if (!amount) return
 
-        const amount_bn = web3.utils.toBN(amount)
+        const amount_bn = Web3.utils.toBN(amount)
         const rules = [
-            {
-                rule: maxNULimit.gt(MIN_STAKE_BN),
-                message: `Balance of ${formatWei(maxNULimit)} NU insufficient for ${MIN_STAKE} min. stake.`
-            },
             {
                 rule: amount_bn.gte(MIN_STAKE_BN),
                 message: `Amount ${formatWei(amount)} is less than the minimum 15,000 NU.`
@@ -82,6 +81,9 @@ export const CreateStake = (props) => {
         }
     }, [duration, AllocationValid, nuAllocated, maxNULimit])
 
+    const setAllowance = () => {
+        setNUAllowance("0", context)
+    }
 
     const handleAction = (e) => {
         e.preventDefault()
@@ -102,7 +104,7 @@ export const CreateStake = (props) => {
 
         // console.log(getCurrentPeriod() + stakeLength)
 
-        const hex = web3.utils.numberToHex(stakeLength)
+        const hex = Web3.utils.numberToHex(stakeLength)
 
         ContractCaller(
             contracts.NU.methods.approveAndCall(
@@ -116,14 +118,18 @@ export const CreateStake = (props) => {
     }
 
     useEffect(() => {
-        if(web3 && nuAllocated === undefined){
+        if(Web3 && nuAllocated === undefined){
             onAmountChanged(context.availableNU.get)
         }
     })
 
+    useEffect(() => {
+        setApprovingNUspend(context.pending.indexOf('approvingNUspend') > -1)
+    }, [context.pending.length, context.pending])
+
     return(
         <Container>
-            {web3 ? <div>
+            {account ? <div>
 
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
@@ -167,8 +173,12 @@ export const CreateStake = (props) => {
             </Row>
             <Row noGutters className="d-flex justify-content-center mt-3">
                 <Col className="d-flex justify-content-center">
-                    <PendingButton disabled={!AllocationValid} activeCheck={addingsubstake} abort={setAddingSubstake} onClick={handleAction} width="100%">Create Stake</PendingButton>
-                </Col>
+                    {
+                        context.NUallowance.get.isZero() ?
+                            <PendingButton disabled={!AllocationValid} activeCheck={addingsubstake} abort={setAddingSubstake} onClick={handleAction} width="100%">Create Stake</PendingButton> :
+                            <PendingButton activeCheck={approvingNUspend} onClick={setAllowance} width="100%"><small>Allow NU spend</small></PendingButton>
+                    }
+               </Col>
             </Row></div>:<ConnectPLS/>}
         </Container>
     )
