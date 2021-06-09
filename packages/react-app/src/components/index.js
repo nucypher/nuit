@@ -142,10 +142,6 @@ export const NCButtonBase = styled.button`
     outline: none;
   }
 
-  .tight & {
-    width: unset;
-  }
-
   width: ${ props => (props.width ? `${props.width}` : '100%')};
   padding: ${ props => ((props.small || props.tiny) ? `${props.tiny ? '1px' : spaces.xs} ${props.tiny ? '1px' : spaces.sm}` : `${spaces.md} ${spaces.xl}`)};
 

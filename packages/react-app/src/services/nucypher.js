@@ -178,7 +178,6 @@ export const setNUAllowance = async (amountWei, context) => {
       context,
       [`approvingNUspend`],
       `Approving NU spend`
-  )
-
+    )
   }
 }

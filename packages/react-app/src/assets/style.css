@@ -205,12 +205,6 @@ button:disabled .circleQ svg {
     opacity: .5;
 }
 
-.tight .circleQ{
-    padding-left:3px;
-}
-
-
-
 #remaining-time {
     margin-left: 2px;
 }
