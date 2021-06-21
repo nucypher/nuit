@@ -35,13 +35,7 @@ export class Merge {
     const [stake1, stake2] = selected
     const { contracts } = context.wallet
 
-
-    ContractCaller(
-      contracts.STAKINGESCROW.methods.mergeStake(stake1.id, stake2.id),
-      context,
-      [`substakeupdate${stake1.id}`, `substakeupdate${stake2.id}`],
-      `merging substakes ${stake1.id} and ${stake2.id}`
-    )
+    context.modals.triggerModal({message: "Merge Stakes", component: "MergeStakes", props: {stake1, stake2}})
   }
 }
 
