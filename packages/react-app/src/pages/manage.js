@@ -65,7 +65,6 @@ export function Manage(props) {
                         </div>
                         <HistoryPane theme={props.theme}/>
                     </Col>
-
                 </Row>}
         </Container>
     )

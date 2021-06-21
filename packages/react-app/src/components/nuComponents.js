@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '@project/react-app/src/services'
 
 
-import { Form, Button, Row, Col, Container} from 'react-bootstrap/';
+import { Form, Button, Row, Col, Container, Tooltip, OverlayTrigger} from 'react-bootstrap/';
 
 import { Grey, Blue, Input, DateSpan, DisplayWei} from '@project/react-app/src/components'
 import { millisecondsPerPeriod } from '@project/react-app/src/constants'
@@ -29,7 +29,10 @@ export const NuBalance = (props) => {
 
     return (
         <span className="d-flex flex-xs-nowrap">
-            {props.balance ? <strong className="d-flex"><Blue className="mr-1"><DisplayWei fixed={3}>{props.balance}</DisplayWei></Blue> <Grey>NU</Grey></strong> : ''}
+            {props.balance ?
+            <OverlayTrigger overlay={<Tooltip><DisplayWei>{props.balance}</DisplayWei></Tooltip>}>
+                <strong className="d-flex"><Blue className="mr-1"><DisplayWei fixed={0}>{props.balance}</DisplayWei></Blue> <Grey>NU</Grey></strong>
+            </OverlayTrigger>: ''}
         </span>
     )
 }
@@ -54,9 +57,10 @@ export const NuStakeAllocator = (props) => {
 
     const setValue = (value) => {
         setLocalValue(value)
-        if (!value) return
         try{
-            props.onChange(web3.utils.toWei(value.replace(/[^\d.-]/g, ''),  'ether'))
+            // allow numbers, "-"" and "."
+            // don't allow ".."
+            props.onChange(web3.utils.toWei(value.replace(/[^0-9.]/g, '').replace(/\.{2,}/g, '.'),  'ether'))
         } catch(err){
             console.error(err)
         }

@@ -1,5 +1,6 @@
 import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 import { ContractCaller } from './ethereum'
+import Web3 from "web3";
 
 function _filterSelection(selection, substakes){
   return substakes.filter((st,index) => {return selection[index]})
@@ -34,13 +35,7 @@ export class Merge {
     const [stake1, stake2] = selected
     const { contracts } = context.wallet
 
-
-    ContractCaller(
-      contracts.STAKINGESCROW.methods.mergeStake(stake1.id, stake2.id),
-      context,
-      [`substakeupdate${stake1.id}`, `substakeupdate${stake2.id}`],
-      `merging substakes ${stake1.id} and ${stake2.id}`
-    )
+    context.modals.triggerModal({message: "Merge Stakes", component: "MergeStakes", props: {stake1, stake2}})
   }
 }
 
@@ -119,5 +114,64 @@ export class Extend {
   static execute(selection, substakes, context) {
     const selected = _filterSelection(selection, substakes)
     context.modals.triggerModal({message: "Extend Stake", component: "ExtendStake", props: {substake: selected[0]}})
+  }
+}
+
+
+export class Increase {
+
+  static validate(selection, substakes, context) {
+    const selected = _filterSelection(selection, substakes)
+    const [stake] = selected
+
+    if (selected.length !== 1) return false
+    if (stake.lastPeriod === "1") return false
+    if (stake.unlockingDuration === "0") return false
+
+    if (context.availableNU.get === "0") return false
+
+    return true
+  }
+
+  static execute(selection, substakes, context) {
+    const selected = _filterSelection(selection, substakes)
+    context.modals.triggerModal({message: "Increase Stake", component: "IncreaseStake", props: {substake: selected[0]}})
+  }
+}
+
+export const setNUAllowance = async (amountWei, context) => {
+  const { contracts } = context.wallet
+  const amount_bn = Web3.utils.toBN(amountWei)
+
+  if (context.NUallowance.get === '0') {
+      ContractCaller(
+          contracts.NU.methods.approve(
+              contracts.STAKINGESCROW._address,
+              amountWei
+          ),
+          context,
+          [`approvingNUspend`],
+          `Approving NU spend`
+      )
+  } else if (amount_bn.gt(context.NUallowance.get)) {
+      ContractCaller(
+          contracts.NU.methods.increaseAllowance(
+              contracts.STAKINGESCROW._address,
+              amount_bn.sub(context.NUallowance.get)
+          ),
+          context,
+          [`approvingNUspend`],
+          `Approving NU spend`
+      )
+  } else {
+    ContractCaller(
+      contracts.NU.methods.decreaseAllowance(
+          contracts.STAKINGESCROW._address,
+          context.NUallowance.get
+      ),
+      context,
+      [`approvingNUspend`],
+      `Approving NU spend`
+    )
   }
 }
