@@ -24,14 +24,20 @@ Official NuCypher web staking UI.  This repository is currently a work-in-progre
     Add new libraries to main react app
 ```
 
-### To run in Docker (recommended)
+### Running in docker (recommended)
+_Note: all these commands can be run without Docker via eg: `yarn react-app:start`.  Docker is used to reduce some of the variables between different local Node environments._
 
+##### install (on first run or after dependency changes)
+```
+docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn install
+```
+
+##### run the dev server
 ```
 docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn react-app:start
-
 ```
 
-### To build.
+##### Build for production
 ```
 # PRODUCTION
 docker run -it -v $(pwd):/work --workdir /work -p 3000:3000 node:latest yarn react-app:build-production
@@ -40,8 +46,7 @@ docker run -it -v $(pwd):/work --workdir /work -p 3000:3000 node:latest yarn rea
 docker run -it -v $(pwd):/work --workdir /work -p 3000:3000 node:latest yarn react-app:build-staging
 ```
 
-
-### To deploy to AWS:
+##### To deploy to AWS:
 
 * Check that you have an `.env.production` file located at `packages/react-app/.env.production` containing:
   1. An Infura APP id for WalletConnect functionality - `REACT_APP_INFURA_ID=<app ID from infura>`
