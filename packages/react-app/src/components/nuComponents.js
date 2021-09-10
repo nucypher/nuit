@@ -1,20 +1,15 @@
 import React from 'react'
 import moment from 'moment'
 import { useState, useEffect, useContext } from 'react';
-
+import Web3 from "web3";
 import { Context } from '@project/react-app/src/services'
-
-
 import { Form, Button, Row, Col, Container, Tooltip, OverlayTrigger} from 'react-bootstrap/';
-
 import { Grey, Blue, Input, DateSpan, DisplayWei} from '@project/react-app/src/components'
 import { millisecondsPerPeriod } from '@project/react-app/src/constants'
 
-
-
 export const NuBalance = (props) => {
     const context = useContext(Context)
-    const {provider, account, contracts } = context.wallet
+    const { provider, account, contracts } = context.wallet
 
     useEffect(() => {
         if (!props.balance && props.onBalance){
@@ -49,18 +44,15 @@ function NuCLickDisplay (props) {
 
 export const NuStakeAllocator = (props) => {
 
-    const context = useContext(Context)
-    const {web3} = context.wallet
-
     const [NUBalance, setNUBalance] = useState(props.initial || null)
     const [localValue, setLocalValue] = useState(props.value ? props.value : '')
 
-    const setValue = (value) => {
+    const setValue = value => {
         setLocalValue(value)
-        try{
-            // allow numbers, "-"" and "."
+        try {
+            // allow numbers, "-" and "."
             // don't allow ".."
-            props.onChange(web3.utils.toWei(value.replace(/[^0-9.]/g, '').replace(/\.{2,}/g, '.'),  'ether'))
+            props.onChange(Web3.utils.toWei(value.replace(/[^0-9.]/g, '').replace(/\.{2,}/g, '.'),  'ether'))
         } catch(err){
             console.error(err)
         }
@@ -69,23 +61,23 @@ export const NuStakeAllocator = (props) => {
     const handleNuBalance = (value) => {
         setNUBalance(value)
         if (props.onBalanceUpdate && value){
-            props.onBalanceUpdate(web3.utils.fromWei(value.toString(), 'ether'))
+            props.onBalanceUpdate(Web3.utils.fromWei(value.toString(), 'ether'))
         }
     }
 
     useEffect(()=>{
         const value = props.value || props.initial
-        setLocalValue(web3.utils.fromWei(value.toString(), 'ether'))
-    }, [])
+        setLocalValue(Web3.utils.fromWei(value.toString(), 'ether'))
+    }, [props.value, props.initial])
 
     return (
         <Container>
             <Row>
                 <Col>
-                    <div className="d-flex justify-content-between">
+                    { props.initial ? <div className="d-flex justify-content-between">
                         <Grey>Stake</Grey>
-                        <NuCLickDisplay onClick={(e) => setValue(web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={handleNuBalance}/>
-                    </div>
+                        <NuCLickDisplay onClick={(e) => setValue(Web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={handleNuBalance}/>
+                    </div> : '' }
                 </Col>
             </Row>
             <Row>
@@ -93,7 +85,7 @@ export const NuStakeAllocator = (props) => {
                     <Form.Control
                         as={Input}
                         onChange={(e) => setValue(e.target.value)}
-                        isInvalid={props.valid === false }
+                        isInvalid={props.valid === false}
                         type="text"
                         value={localValue}
                     />
