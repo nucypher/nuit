@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {Badge, Card, Col, Container, Form, Row} from 'react-bootstrap/';
+import {Badge, Card, Col, Container, Form, Row } from 'react-bootstrap/';
 import {InputBox, PrimaryButton, WorkerETHAddressField} from '../../../../components'
 import {Link} from 'react-router-dom'
 import { Context } from '@project/react-app/src/services'
@@ -16,6 +16,9 @@ export default (props) => {
         setCanContinue(account && props.workerAddress)
     }, [account, props.workerAddress])
 
+    const handleEstimateRewards = () => {
+        context.modals.triggerModal({message: "Estimate Rewards", component: "EstimateRewards"})
+    }
 
     return (
         <Container>
@@ -35,6 +38,8 @@ export default (props) => {
                             <h3><Badge variant="secondary">.1 ETH/mo</Badge></h3>
                         </Card.Body>
                     </Card>
+                    <h4>Estimated ROI</h4>
+                    <PrimaryButton small onClick={handleEstimateRewards}>Estimate Rewards</PrimaryButton>
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center mt-5 mb-2">

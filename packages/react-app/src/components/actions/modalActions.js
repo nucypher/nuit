@@ -1,6 +1,7 @@
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { BondWorker } from '@project/react-app/src/components/actions/bondWorker'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
+export { EstimateRewards } from '@project/react-app/src/components/actions/estimateRewards'
 export { DivideStake } from '@project/react-app/src/components/actions/divideStake'
 export { MergeStakes } from '@project/react-app/src/components/actions/mergeStakes'
 export { ExtendStake } from '@project/react-app/src/components/actions/extendStake'
