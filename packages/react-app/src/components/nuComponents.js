@@ -12,7 +12,7 @@ import { millisecondsPerPeriod } from '@project/react-app/src/constants'
 
 
 
-export const NuBalance = (props) => {
+export const TokenBalance = (props) => {
     const context = useContext(Context)
     const {provider, account, contracts } = context.wallet
 
@@ -30,19 +30,20 @@ export const NuBalance = (props) => {
     return (
         <span className="d-flex flex-xs-nowrap">
             {props.balance ?
-            <OverlayTrigger overlay={<Tooltip><DisplayWei>{props.balance}</DisplayWei></Tooltip>}>
-                <strong className="d-flex"><Blue className="mr-1"><DisplayWei fixed={0}>{props.balance}</DisplayWei></Blue> <Grey>NU</Grey></strong>
+            <OverlayTrigger overlay={<Tooltip>exactly: <DisplayWei>{props.balance}</DisplayWei></Tooltip>}>
+                <strong className="d-flex"><Blue className="mr-1"><DisplayWei fixed={0}>{props.balance}</DisplayWei></Blue> <Grey>{props.label||"NU"}</Grey></strong>
             </OverlayTrigger>: ''}
         </span>
     )
 }
 
 
+
 function NuCLickDisplay (props) {
 
     return (
         <Button onClick={props.onClick} variant="link">
-            <NuBalance balance={props.balance} onBalance={props.onBalance}/>
+            <TokenBalance balance={props.balance} onBalance={props.onBalance}/>
         </Button>
     )
 }

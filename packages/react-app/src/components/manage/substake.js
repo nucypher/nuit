@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 
-import {CircleQ, NuBalance, Period, PrimaryButton, SecondaryButton, Spinner} from '@project/react-app/src/components'
+import {CircleQ, TokenBalance, Period, PrimaryButton, SecondaryButton, Spinner} from '@project/react-app/src/components'
 import {Context, Divide, Extend, Merge, Remove, Increase} from '@project/react-app/src/services'
 
 import {Col, Form, Row} from 'react-bootstrap/';
@@ -27,7 +27,7 @@ const SubStake = (props) => {
                 <strong><Period>{parseInt(props.data.lastPeriod) + 1}</Period></strong>
             </Col>
             <Col xs={12} sm={3} className="d-flex justify-content-end">
-                <NuBalance balance={props.data.lockedValue}/>
+                <TokenBalance balance={props.data.lockedValue}/>
             </Col>
         </Row>
     )

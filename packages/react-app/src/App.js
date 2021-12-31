@@ -15,7 +15,7 @@ import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
 import DebugPanel from '@project/react-app/src/components/debugPanel';
 import {MessagePublisher, ModalDispatcher} from '@project/react-app/src/components/messaging'
-import {Documentation, Home, Manage, NewStake} from '@project/react-app/src/pages'
+import {Documentation, Home, Manage, NewStake, Wrap} from '@project/react-app/src/pages'
 
 import {Container} from 'react-bootstrap/';
 
@@ -30,6 +30,8 @@ function App () {
   const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(setMessage)
 
   const [availableNU, setAvailableNU] = useState(0)
+  const [availableKEEP, setAvailableKEEP] = useState(0)
+  const [availableT, setAvailableT] = useState(0)
   const [availableETH, setAvailableETH] = useState(0)
   const [NUallowance, setNUallowance] = useState(new Web3.utils.BN("0"))
   const [workerAddress, setWorkerAddress] = useState(null)
@@ -65,6 +67,8 @@ function App () {
     stakerData: stakerData,
     workerAddress: {set: setWorkerAddress, get: workerAddress},
     availableNU: {set: setAvailableNU, get: availableNU},
+    availableT: {set: setAvailableT, get: availableT},
+    availableKEEP: {set: setAvailableKEEP, get: availableKEEP},
     availableETH: {set: setAvailableETH, get: availableETH},
     NUallowance: {set: setNUallowance, get: NUallowance},
 
@@ -105,75 +109,16 @@ function App () {
   const updateStakerData = async (contracts, context) => {
 
     const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
-    stakerInfo.lockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
-    stakerInfo.futureLockedTokens = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 1).call();
-    stakerInfo.ownedTokens = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
-    const flags = await contracts.STAKINGESCROW.methods.getFlags(account).call()
-    const getSubStakesLength = await contracts.STAKINGESCROW.methods.getSubStakesLength(account).call()
-
-    const policyInfo = stakerInfo.worker === EMPTY_WORKER ? null : await contracts.POLICYMANAGER.methods.nodes(stakerInfo.worker).call();
-
-    let lockedNU = web3.utils.toBN(0)
-    // getting an array with all substakes
-    const substakes = await (async () => {
-        if (getSubStakesLength !== '0') {
-            let substakeList = [];
-            for (let i = 0; i < getSubStakesLength; i++) {
-                let stakedata = await contracts.STAKINGESCROW.methods.getSubStakeInfo(account, i).call();
-                stakedata.index = i
-                stakedata.id = i.toString()
-                stakedata.lastPeriod = await contracts.STAKINGESCROW.methods.getLastPeriodOfSubStake(
-                  account, stakedata.id).call();
-                substakeList.push(stakedata);
-
-                if (parseInt(stakedata.unlockingDuration)){
-                  lockedNU = lockedNU.add( web3.utils.toBN(stakedata.lockedValue) )
-                }
-
-            }
-            return substakeList;
-        } else {
-            let substakeList = null;
-            return substakeList;
-        }
-    })();
-
-
-    // Available Unlocked NU (thx stakeit)
-    const lockedStakerNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 0).call();
-    const lockedStakerFutureNits = await contracts.STAKINGESCROW.methods.getLockedTokens(account, 1).call();
-
-    const past = web3.utils.toBN(lockedStakerNits)
-    const future = web3.utils.toBN(lockedStakerFutureNits)
-
-    // Math.max doesn't work on BNs
-    const amt = past > future ? past : future
-
-    const stakerUnlockedNits = web3.utils.toBN(stakerInfo.value).sub(amt);
-    const availableNUWithdrawal = stakerUnlockedNits
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
     setAvailableNU(stakerNuWallet)
 
-    // don't wait for this
-    contracts.NU.methods.allowance(account, contracts.STAKINGESCROW._address).call().then(r=>{
-      setNUallowance(web3.utils.toBN(r))
-    })
+    const keepWallet = await contracts.KEEP.methods.balanceOf(account).call()
+    setAvailableKEEP(keepWallet)
 
-    setStakerData({
-        info: stakerInfo,
-        flags,
-        substakes: substakes || [],
-        lockedNU,
-        policyInfo,
-        availableNUWithdrawal,
-        availableETHWithdrawal: policyInfo ? policyInfo.reward : 0// this data is showing 777 if no stakes exist
-    })
-    if (stakerInfo.worker && stakerInfo.worker !== EMPTY_WORKER){
-        setWorkerAddress(stakerInfo.worker)
-    }
-    context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
-    context.setActionsCompleted([])
+    const TWallet = await contracts.T.methods.balanceOf(account).call()
+    setAvailableT(TWallet)
+
   }
 
   useEffect(() => {
@@ -225,9 +170,10 @@ function App () {
               <Route path="/new">
                 <NewStake />
               </Route>
-              <Route path="/manage">
-                <Manage theme={theme}/>
+              <Route path="/wrap">
+                <Wrap theme={theme}/>
               </Route>
+
               <Route path="/">
                 <Home />
               </Route>

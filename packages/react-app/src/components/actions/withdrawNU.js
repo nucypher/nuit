@@ -4,7 +4,7 @@ import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, Cir
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
 import { calcROI, MIN_STAKE } from '@project/react-app/src/constants'
-import { NuBalance } from '../nuComponents';
+import { TokenBalance } from '../nuComponents';
 
 
 const NUWithdrawer = (props) => {
@@ -25,7 +25,7 @@ const NUWithdrawer = (props) => {
     return (
         <div>
             <div onClick={handleClick} className="w100 d-flex justify-content-end">
-                <NuBalance balance={stakerBalance}></NuBalance>
+                <TokenBalance balance={stakerBalance}></TokenBalance>
             </div>
             <Slider onChange={e => props.onChange(e)} min={min} max={max} value={props.value}></Slider>
         </div>

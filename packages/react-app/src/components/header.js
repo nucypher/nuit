@@ -61,8 +61,6 @@ export default function (props) {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="d-flex justify-content-end align-items-center">
 
-                        <Nav.Link><Link to="/new/worker">New Stake</Link></Nav.Link>
-                        <Nav.Link><Link to="/manage">Manage</Link></Nav.Link>
                         <Nav.Link href="https://www.coinbase.com/earn/nucypher" target="blank">Learn</Nav.Link>
 
                         {/*TODO: Dark Theme */}

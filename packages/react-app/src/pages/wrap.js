@@ -10,8 +10,9 @@ import RewardsPanel from "../components/manage/rewards";
 import StakeSettingsPanel from "../components/manage/settings";
 import StakerControlPanel from "../components/manage/staking";
 import CurrentPeriodPanel from "../components/manage/period";
+import AssetsPanel from "../components/manage/assets";
 
-export function Manage(props) {
+export function Wrap(props) {
 
     const context = useContext(Context)
     const {account} = context.wallet
@@ -30,13 +31,13 @@ export function Manage(props) {
             <Row>
                 <Breadcrumbs paths={[
                     {path: '/', label: 'Home', enabled: true},
-                    {path: '/manage', label: 'Manage', enabled: true},
+                    {path: '/wrap', label: 'Wrap', enabled: true},
                 ]}/>
             </Row>
 
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>Manage Staked NU</h1>
+                    <h1>Wrap NU and KEEP</h1>
                 </Col>
             </Row>
             {migrating || !account
@@ -48,8 +49,7 @@ export function Manage(props) {
 
                     { /* Left Side */}
                     <Col xs={12} md={10} xl={4}>
-                        <CurrentPeriodPanel/>
-                        <RewardsPanel {...stakerData} />
+                        <AssetsPanel/>
 
                     </Col>
 
