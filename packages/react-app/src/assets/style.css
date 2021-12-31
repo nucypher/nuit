@@ -178,7 +178,14 @@ hr {
     }
 }
 
-
+#primer {
+    width: 90%;
+    font-size: 20px;
+    font-family: "basis-grotesque-medium", "Open Sans", sans-serif;
+    text-align: center;
+    padding: 2em;
+    padding-left: 5em;
+}
 
 #wallet-button {
     max-width: 190px;

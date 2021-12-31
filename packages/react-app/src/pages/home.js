@@ -17,7 +17,11 @@ export function Home() {
             </Row>
             <Row>
                 <Col>
-                    <p>The merge is in progress.  Some explanation of the situation here.</p>
+                    <p id="primer">
+                        Stake information is temporarily not displayable on the dashboard during the transition to Threshold.
+                        Existing NU and KEEP stakers will be grandfathered into Threshold via special staking adapters.
+                        It is not necessary to keep your worker node up until until the instructions for Threshold staking are shared.
+                    </p>
                 </Col>
             </Row>
             <Row>
@@ -50,7 +54,7 @@ export function Home() {
                 </Col>
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <a className="mb-3 w100"
-                       href="https://docs.nucypher.com/en/latest/staking/overview.html"><SecondaryButton><strong>Documentation</strong></SecondaryButton></a>
+                       href="https://docs.nucypher.com/en/latest/staking/overview.html"><SecondaryButton><strong>PRE Documentation</strong></SecondaryButton></a>
                 </Col>
 
             </Row>
