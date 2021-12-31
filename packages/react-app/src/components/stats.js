@@ -29,15 +29,15 @@ export default function NetworkStats() {
             <Col xs={6} md={4} className="d-flex justify-content-center">
                 <div>
                     <HR color="purple"></HR>
-                    <h5><strong>Total Supply</strong></h5>
+                    <h5><strong>Fixed Supply</strong></h5>
                     <h2><strong><Purple>{supply}</Purple></strong></h2>
                 </div>
             </Col>
             <Col xs={6} md={4} className="d-flex justify-content-center">
                 <div>
                     <HR color="grey75"></HR>
-                    <h5><strong>Active Stakers</strong></h5>
-                    <h2><strong><Grey>{stakers}</Grey></strong></h2>
+                    <h5><strong>T Conversion Ratio</strong></h5>
+                    <h2><strong><Grey>~3.25924249</Grey></strong></h2>
                 </div>
             </Col>
         </Row>
