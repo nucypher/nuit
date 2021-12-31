@@ -108,7 +108,7 @@ function App () {
 
   const updateStakerData = async (contracts, context) => {
 
-    const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
+    // const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
     setAvailableNU(stakerNuWallet)
