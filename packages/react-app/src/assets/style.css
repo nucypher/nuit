@@ -56,13 +56,15 @@ hr {
 
 .alert-primary {
     color: #fff;
-    background-color: #1e65f3;
+    background-color: #805AD5;
     font-family: gt-america-mono-regular, monospace;
     text-align: center;
     font-size: 18px;
     border: none;
     width: 100%;
     border-radius: 0;
+    background-image: url("https://threshold.network/static/media/Swoosh.9da782f3.svg");
+    background-position-y: center;
     margin-bottom: 0;
 }
 
