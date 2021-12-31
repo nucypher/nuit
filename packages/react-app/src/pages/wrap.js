@@ -18,12 +18,6 @@ export function Wrap(props) {
     const {account} = context.wallet
 
     const [migrating, setMigrating] = useState(false)
-    const [stakerData, setStakerData] = useState({})
-
-    useEffect(() => {
-        setStakerData(context.stakerData)
-        setMigrating(context.pending.indexOf('migrate') > -1)
-    }, [account, context.stakerData])
 
     return (
 
@@ -50,7 +44,6 @@ export function Wrap(props) {
                     { /* Left Side */}
                     <Col xs={12} md={10} xl={4}>
                         <AssetsPanel/>
-
                     </Col>
 
                     {/* Right Side */}

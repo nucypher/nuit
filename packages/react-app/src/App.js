@@ -108,7 +108,7 @@ function App () {
 
   const updateStakerData = async (contracts, context) => {
 
-    // const stakerInfo = await contracts.STAKINGESCROW.methods.stakerInfo(account).call()
+    context.setStakerUpdates(context.pending.filter(f=>{return context.actionsCompleted.indexOf(f) === -1}))
 
     const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
     setAvailableNU(stakerNuWallet)
@@ -156,7 +156,7 @@ function App () {
         // clear the eventQueue
         eventQueue.splice(0, eventQueue.length)
       }
-    }, 5000)
+    }, 1000)
   }, [])
 
   return (

@@ -8,3 +8,4 @@ export { IncreaseStake } from '@project/react-app/src/components/actions/increas
 export { WithdrawNU } from '@project/react-app/src/components/actions/withdrawNU'
 export { Restake } from '@project/react-app/src/components/actions/restake'
 export { Winddown } from '@project/react-app/src/components/actions/winddown'
+export { WrapNU } from '@project/react-app/src/components/actions/wrapNU'

@@ -8,15 +8,18 @@ import {Context} from "../../services";
 export default function AssetsPanel(props) {
 
     const context = useContext(Context)
-    const [withdrawingNU, setWithdrawingNU] = useState(false)
-    const handleWithdrawNU = () => {
-        context.modals.triggerModal({message: "Withdraw NU", component: "WithdrawNU"})
+
+    const [wrappingNU, setwrappingNU] = useState(false)
+
+    const handleWrapNU = () => {
+        context.modals.triggerModal({message: "Wrapp NU", component: "WrapNU"})
     }
 
     useEffect(() => {
-            setWithdrawingNU(context.pending.indexOf('withdrawNU') > -1)
-        }, [context.pending.length, context.pending]
-    )
+        setwrappingNU(context.pending.indexOf('wrappingNU') > -1)
+    }, [context.pending.length, context.pending]
+)
+
 
     return (
         <InputBox>
@@ -28,8 +31,14 @@ export default function AssetsPanel(props) {
             </Row>
 
             <Row noGutters>
-                <Col>
-                    <TokenBalance balance={context.availableNU.get}/>
+                <Col xs={3}>
+                <TokenBalance balance={context.availableNU.get}/>
+                <PendingButton
+                                activeCheck={wrappingNU}
+                                onClick={handleWrapNU}
+                                abort={setwrappingNU}>
+                    Wrap NU
+                </PendingButton>
                 </Col>
                 <Col>
                 <TokenBalance balance={context.availableKEEP.get} label="KEEP"/>

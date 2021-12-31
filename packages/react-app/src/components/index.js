@@ -13,6 +13,7 @@ export { CircleQ } from '@project/react-app/src/components/circleQ'
 export { BondWorker } from '@project/react-app/src/components/actions/bondWorker'
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
+export { WrapNU } from '@project/react-app/src/components/actions/wrapNU'
 
 export { SubStakeList } from '@project/react-app/src/components/manage/substake'
 

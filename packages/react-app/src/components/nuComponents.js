@@ -84,7 +84,7 @@ export const NuStakeAllocator = (props) => {
             <Row>
                 <Col>
                     <div className="d-flex justify-content-between">
-                        <Grey>Stake</Grey>
+                        <Grey>{props.label || "Stake"}</Grey>
                         <NuCLickDisplay onClick={(e) => setValue(web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={handleNuBalance}/>
                     </div>
                 </Col>
