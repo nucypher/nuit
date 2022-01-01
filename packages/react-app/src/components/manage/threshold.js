@@ -14,11 +14,12 @@ export default function ThresholdBalance(props) {
         </Tooltip>
     );
 
-    const {account, provider, contracts} = context.wallet
-    let chainId, networkName;
-    if (provider && provider.networkVersion) {
+    const {provider, contracts} = context.wallet
+    let chainId, networkName, Taddress;
+    if (provider && provider.networkVersion && contracts.T) {
         chainId = provider.networkVersion
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
+        Taddress = contracts.T._address
     }
     return (
 
@@ -42,7 +43,7 @@ export default function ThresholdBalance(props) {
                                     delay={{show: 1200, hide: 400}}
                                     overlay={renderTooltip}
                                 >
-                                    <a href={makeEtherscanAccountLink(contracts.T._address, networkName)}>
+                                    <a href={makeEtherscanAccountLink(Taddress, networkName)}>
                                         <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                     </a>
                                 </OverlayTrigger>

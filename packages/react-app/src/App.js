@@ -136,12 +136,12 @@ function App () {
     const NUtoTDivisor = await contracts.NUVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
     setNUratio((NUtoTRatio / NUtoTDivisor).toFixed(14))
 
-    const KEEPtoTRatio = await contracts.KEEPVENDINGMACHINE.methods.ratio().call()
-    const KEEPtoTDivisor = await contracts.NUVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
-    setKEEPratio((KEEPtoTRatio / KEEPtoTDivisor).toFixed(14))
-
     const totalNUconversion = await contracts.NUVENDINGMACHINE.methods.conversionToT(stakerNuWallet).call()
     setMaxNUconversion(totalNUconversion)
+
+    const KEEPtoTRatio = await contracts.KEEPVENDINGMACHINE.methods.ratio().call()
+    const KEEPtoTDivisor = await contracts.KEEPVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
+    setKEEPratio((KEEPtoTRatio / KEEPtoTDivisor).toFixed(14))
 
     const totalKEEPconversion = await contracts.KEEPVENDINGMACHINE.methods.conversionToT(keepWallet).call()
     setMaxKEEPconversion(totalKEEPconversion)

@@ -8,7 +8,7 @@
     "answer": "The NuCypher Network staking contract was upgraded to ensure that legacy NU stakes can interoperate with the Threshold Network. Previous staking management functions are no longer supported through the NuCypher CLI/UI. Read-only stake information is still available and will be displayed here in a near-future update."
   },
   {
-    "question": "What are the conversion ratios for NU and KEEP into T?",
+    "question": "What are the mainnet conversion ratios for NU and KEEP into T?",
     "answer": "The ratio for 1 NU is 3.259242493160745 T.  The ratio for 1 KEEP is 4.783188631255016 T."
   },
   {

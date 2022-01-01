@@ -35,11 +35,13 @@ export default function AssetsPanel(props) {
         setwrappingKEEP(context.pending.indexOf('wrappingKEEP') > -1)
     }, [context.pending.length, context.pending])
 
-    const {account, provider, contracts} = context.wallet
-    let chainId, networkName;
-    if (provider && provider.networkVersion) {
+    const {provider, contracts} = context.wallet
+    let chainId, networkName, NUvendingAddress, KEEPvendingAddress;
+    if (provider && provider.networkVersion && contracts.NUVENDINGMACHINE && contracts.NUVENDINGMACHINE) {
         chainId = provider.networkVersion
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
+        NUvendingAddress = contracts.NUVENDINGMACHINE._address
+        KEEPvendingAddress = contracts.KEEPVENDINGMACHINE._address
     }
     return (
         <InputBox>
@@ -62,7 +64,7 @@ export default function AssetsPanel(props) {
                                     delay={{show: 1200, hide: 400}}
                                     overlay={renderTooltip}
                                 >
-                                    <a href={makeEtherscanAccountLink(contracts.NUVENDINGMACHINE._address, networkName)}>
+                                    <a href={makeEtherscanAccountLink(NUvendingAddress, networkName)}>
                                     <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                 </a>
                                 </OverlayTrigger>
@@ -94,7 +96,7 @@ export default function AssetsPanel(props) {
                                     delay={{show: 1200, hide: 400}}
                                     overlay={renderTooltip}
                                 >
-                                    <a href={makeEtherscanAccountLink(contracts.KEEPVENDINGMACHINE._address, networkName)}>
+                                    <a href={makeEtherscanAccountLink(KEEPvendingAddress, networkName)}>
                                         <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                     </a>
                                 </OverlayTrigger>
