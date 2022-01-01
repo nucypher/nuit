@@ -1,7 +1,7 @@
 export default [
-"KEEPVendingMachine",
+"NUVendingMachine",
 "v0.0.0",
-"0x254439Dd2B841E19161bD050D4805029196E29C4",[
+"0x1CCA7E410eE41739792eA0A24e00349Dd247680e",[
     {
        "inputs":[
           {
