@@ -1,0 +1,24 @@
+[
+  {
+    "question": "What is this?",
+    "answer": "This interfaces exposes two deployments of the VendingMachine contract for wrapping NU or KEEP into T tokens. The VendingMachine smart contract converts NU to T using a fixed conversion ratio that will be available indefinitely. Existing NU stakers *cannot* use the VendingMachine contract, instead existing NU/KEEP stakers will be grandfathered into Threshold via special staking adapters. It is not necessary to keep your worker node up until until the instructions for Threshold staking are shared."
+  },
+  {
+    "question": "What happened to my NU staking details?",
+    "answer": "The NuCypher Network staking contract was upgraded to ensure that legacy NU stakes can interoperate with the Threshold Network. Previous staking management functions are no longer supported through the NuCypher CLI/UI. Read-only stake information is still available and will be displayed here in a near-future update."
+  },
+  {
+    "question": "What are the conversion ratios for NU and KEEP into T?",
+    "answer": "The ratio for 1 NU is 3.259242493160745 T.  The ratio for 1 KEEP is 4.783188631255016 T."
+  },
+  {
+    "question": "Once I have converted tokens into T can I unwrap them?",
+    "answer": "Yes, unwrapping NU is supported by the VendingMachine contracts will also be supported by this interface in a near-future update."
+  },
+  {
+    "question": "What are the mainnet deployment details?",
+    "answer": "The NU VendingMachine contract is 0x1cca7e410ee41739792ea0a24e00349dd247680e.\nThe KEEP VendingMachine contract is 0xe47c80e8c23f6b4a1ae41c34837a0599d5d16bb0.\nThe T token contract is 0xcdf7028ceab81fa0c6971208e83fa7872994bee5."
+  }
+]
+
+

@@ -137,12 +137,12 @@ export function HistoryPane(props) {
                         <Tab eventKey="all" title="All Events">
                             <EventHistory theme={props.theme}/>
                         </Tab>
-                        <Tab eventKey="user" title="User Events">
-                            <EventHistory filter={"user"} theme={props.theme}/>
-                        </Tab>
-                        <Tab eventKey="system" title="System Events">
-                            <EventHistory filter={"system"} theme={props.theme}/>
-                        </Tab>
+                        {/*<Tab eventKey="user" title="User Events">*/}
+                        {/*    <EventHistory filter={"user"} theme={props.theme}/>*/}
+                        {/*</Tab>*/}
+                        {/*<Tab eventKey="system" title="System Events">*/}
+                        {/*    <EventHistory filter={"system"} theme={props.theme}/>*/}
+                        {/*</Tab>*/}
                     </Tabs>
                 </div>
             </Col>

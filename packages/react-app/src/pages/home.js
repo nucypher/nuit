@@ -50,7 +50,7 @@ export function Home() {
                         NU</strong></PrimaryButton></Link>
                 </Col> */}
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
-                    <Link className="mb-3 w100" to="/wrap"><PurpleButton><strong>Wrap NU/KEEP</strong></PurpleButton></Link>
+                    <Link className="mb-3 w100" to="/wrap"><PurpleButton><strong>Upgrade NU/KEEP</strong></PurpleButton></Link>
                 </Col>
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <a className="mb-3 w100"

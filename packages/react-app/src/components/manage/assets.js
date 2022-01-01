@@ -12,7 +12,7 @@ export default function AssetsPanel(props) {
     const [wrappingKEEP, setwrappingKEEP] = useState(false)
 
     const handleWrapNU = () => {
-        context.modals.triggerModal({message: "Wrap NU", component: "WrapNU"})
+        context.modals.triggerModal({message: "NU to T Upgrade", component: "WrapNU"})
     }
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function AssetsPanel(props) {
 
 
     const handleWrapKEEP = () => {
-        context.modals.triggerModal({message: "Wrap KEEP", component: "WrapKEEP"})
+        context.modals.triggerModal({message: "KEEP to T Upgrade", component: "WrapKEEP"})
     }
 
     const renderTooltip = (props) => (
@@ -40,13 +40,13 @@ export default function AssetsPanel(props) {
 
             <Row noGutters>
                 <Col className="d-flex justify-content-flex-start mb-1">
-                    <h5>Assets</h5>
+                    <h5>Vending Machines</h5>
                 </Col>
             </Row>
 
             <Row noGutters>
                 <Col xs={12}>
-                    <Row className="mb-3">
+                    <Row className="mb-3 flex-row align-items-center">
                         <Col xs={12} sm={6}>
                             <div className="assetDisplay">
                                 <img src={require('../../assets/icons/nu.svg')}/>
@@ -64,16 +64,21 @@ export default function AssetsPanel(props) {
                         </Col>
                         <Col xs={12} sm={6}>
                             <PendingButton
-                                        activeCheck={wrappingNU}
-                                        onClick={handleWrapNU}
-                                        abort={setwrappingNU}>
-                            Wrap NU
+                                activeCheck={wrappingNU}
+                                onClick={handleWrapNU}
+                                abort={setwrappingNU}>
+                                <div className="conversionHint">
+                                    <span>Upgrade</span>
+                                    <img src={require('../../assets/icons/nu.svg')}/>
+                                    <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
+                                    <img src={require('../../assets/icons/t.svg')}/>
+                                </div>
                             </PendingButton>
                         </Col>
                     </Row>
                 </Col>
                 <Col xs={12}>
-                <Row className="mb-3">
+                    <Row className="mb-3 flex-row align-items-center">
                         <Col xs={12} sm={6}>
                             <div className="assetDisplay">
                                 <img src={require('../../assets/icons/keep.svg')}/>
@@ -91,21 +96,17 @@ export default function AssetsPanel(props) {
                         </Col>
                         <Col xs={12} sm={6}>
                             <PendingButton
-                                        activeCheck={wrappingKEEP}
-                                        onClick={handleWrapKEEP}
-                                        abort={setwrappingKEEP}>
-                            Wrap KEEP
+                                id="keep-button"
+                                activeCheck={wrappingKEEP}
+                                onClick={handleWrapKEEP}
+                                abort={setwrappingKEEP}>
+                                <div className="conversionHint">
+                                    <span>Upgrade</span>
+                                    <img src={require('../../assets/icons/keep.svg')}/>
+                                    <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
+                                    <img src={require('../../assets/icons/t.svg')}/>
+                                </div>
                             </PendingButton>
-                        </Col>
-                    </Row>
-                </Col>
-                <Col xs={12}>
-                    <Row>
-                    <Col xs={12} sm={6}>
-                            <TokenBalance balance={context.availableT.get} label="T"/>
-                        </Col>
-                        <Col xs={12} sm={6}>
-                            <SecondaryButton disabled="true">unwrap someday soon</SecondaryButton>
                         </Col>
                     </Row>
                 </Col>

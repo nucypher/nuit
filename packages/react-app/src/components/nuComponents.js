@@ -30,7 +30,7 @@ export const TokenBalance = (props) => {
     return (
         <span className="d-flex flex-xs-nowrap">
             {props.balance ?
-            <OverlayTrigger overlay={<Tooltip>exactly: <DisplayWei>{props.balance}</DisplayWei></Tooltip>}>
+            <OverlayTrigger overlay={<Tooltip>Exactly <DisplayWei>{props.balance}</DisplayWei></Tooltip>}>
                 <strong className="d-flex"><Blue className="mr-1"><DisplayWei fixed={0}>{props.balance}</DisplayWei></Blue> <Grey>{props.label||"NU"}</Grey></strong>
             </OverlayTrigger>: ''}
         </span>
