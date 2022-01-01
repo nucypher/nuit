@@ -18,7 +18,7 @@ export function Home() {
             <Row>
                 <Col>
                     <p id="primer">
-                        Stake information is temporarily not displayable on the dashboard during the transition to Threshold.
+                        Your stake information is temporarily not displayable on the dashboard during the transition to Threshold.
                         Existing NU and KEEP stakers will be grandfathered into Threshold via special staking adapters.
                         It is not necessary to keep your worker node up until until the instructions for Threshold staking are shared.
                     </p>
