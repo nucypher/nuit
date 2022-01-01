@@ -43,6 +43,9 @@ export function Wrap(props) {
                         <br/><br/>
                         Locked NU / KEEP <b>cannot</b> be wrapped to T until their stakes unlock. There
                         is no time pressure or disadvantage in waiting to upgrade T.
+                        <br></br>
+                        <br></br>
+                        <small>Note: This is a temporary wrapping UI for for early users/testers to upgrade their NU and KEEP to T while the official Threshold UI is finalized.</small>
                     </p>
                 </Col>
             </Row>
