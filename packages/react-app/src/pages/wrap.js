@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react'
 import {Context} from '@project/react-app/src/services'
 
 import {Col, Container, Row} from 'react-bootstrap/';
-import {ConnectPLS} from '@project/react-app/src/components'
+import {ConnectPLS, InputBox} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import AssetsPanel from "../components/manage/assets";
 import Accordion from "react-bootstrap/Accordion";
@@ -11,6 +11,7 @@ import FAQ_QUESTIONS from "./manage/new/wrapping_faq.json";
 import {Card} from "react-bootstrap";
 import ThresholdBalance from "../components/manage/threshold";
 import RatioPanel from "../components/manage/ratio";
+import Disclaimer from "../components/manage/disclaimer";
 
 export function Wrap(props) {
 
@@ -37,15 +38,6 @@ export function Wrap(props) {
             <Row>
                 <Col className="d-flex justify-content-center">
                     <p>
-                        The NU / KEEP Vending Machine smart contracts to convert NU / KEEP to T
-                        using a fixed conversion ratio will be available indefinitely.
-                        Only liquid NU / KEEP tokens can be wrapped to T.
-                        <br/><br/>
-                        Locked NU / KEEP <b>cannot</b> be wrapped to T until their stakes unlock. There
-                        is no time pressure or disadvantage in waiting to upgrade T.
-                        <br></br>
-                        <br></br>
-                        <small>Note: This is a temporary wrapping UI for for early users/testers to upgrade their NU and KEEP to T while the official Threshold UI is finalized.</small>
                     </p>
                 </Col>
             </Row>
@@ -54,7 +46,9 @@ export function Wrap(props) {
                 : <Row className="d-flex justify-content-center">
 
                     {/* Above */}
-                    <Col xs={12}>
+                    <Col xs={12} sm={12} md={10}>
+                        <Disclaimer/>
+                        <br/>
                     </Col>
 
                     { /* Left Side */}
