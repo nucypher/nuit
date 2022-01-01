@@ -713,3 +713,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 .typeover{
     cursor:pointer
 }
+
+.thresholdwordmark {
+    width: 60%;
+}
