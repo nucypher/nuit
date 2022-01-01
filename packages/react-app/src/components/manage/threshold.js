@@ -34,7 +34,7 @@ export default function ThresholdBalance(props) {
                                     delay={{show: 1200, hide: 400}}
                                     overlay={renderTooltip}
                                 >
-                                    <a href={"https://etherscan.io/address/0x1cca7e410ee41739792ea0a24e00349dd247680e"}>
+                                    <a href={"https://etherscan.io/address/0xcdf7028ceab81fa0c6971208e83fa7872994bee5"}>
                                         <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                     </a>
                                 </OverlayTrigger>
