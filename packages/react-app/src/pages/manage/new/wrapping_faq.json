@@ -1,11 +1,15 @@
 [
   {
     "question": "What is this?",
-    "answer": "This interfaces exposes two deployments of the VendingMachine contract for wrapping NU or KEEP into T tokens. The VendingMachine smart contract converts NU to T using a fixed conversion ratio that will be available indefinitely. Existing NU stakers *cannot* use the VendingMachine contract, instead existing NU/KEEP stakers will be grandfathered into Threshold via special staking adapters. It is not necessary to keep your worker node up until until the instructions for Threshold staking are shared."
+    "answer": "This interfaces exposes two deployments of the VendingMachine contract for wrapping NU or KEEP into T tokens. The VendingMachine smart contract wraps NU into T using a fixed conversion ratio that will be available indefinitely. Existing NU stakers *cannot* use the VendingMachine contract, only liquid NU / KEEP tokens can be wrapped to T. Instead existing NU/KEEP stakers will be grandfathered into Threshold via special staking adapters. It is not necessary to keep your worker node up until until the instructions for Threshold staking are shared."
   },
   {
     "question": "What happened to my NU staking details?",
     "answer": "The NuCypher Network staking contract was upgraded to ensure that legacy NU stakes can interoperate with the Threshold Network. Previous staking management functions are no longer supported through the NuCypher CLI/UI. Read-only stake information is still available and will be displayed here in a near-future update."
+  },
+  {
+    "question": "Can I wrap staked NU/KEEP?",
+    "answer": "No. Existing NU stakers *cannot* use the VendingMachine contract, only liquid NU / KEEP tokens can be wrapped to T. Instead existing NU/KEEP stakers will be grandfathered into Threshold via special staking adapters."
   },
   {
     "question": "What are the mainnet conversion ratios for NU and KEEP into T?",
@@ -13,7 +17,7 @@
   },
   {
     "question": "Once I have converted tokens into T can I unwrap them?",
-    "answer": "Yes, unwrapping NU is supported by the VendingMachine contracts will also be supported by this interface in a near-future update."
+    "answer": "Yes, unwrapping NU is supported by the VendingMachine contracts will also be supported by this interface and the official threshold dashboard in a near-future update."
   },
   {
     "question": "What are the mainnet deployment details?",

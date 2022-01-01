@@ -241,7 +241,17 @@ button:disabled .circleQ svg {
     align-items: center;
     justify-content: left;
     left: 0;
-    /*margin-bottom: 0.5em;*/
+    margin-bottom: 0.5em;
+}
+
+#disclaimer {
+    background-color: #7038f1;
+    color: white;
+    height: 1em;
+    border-radius: 5px;
+    display: flex;
+    align-content: center;
+    align-items: center;
 }
 
 .ratio {
