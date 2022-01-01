@@ -76,7 +76,7 @@ export default function AssetsPanel(props) {
                             <TokenBalance balance={context.availableT.get} label="T"/>
                         </Col>
                         <Col xs={12} sm={6}>
-                            <SecondaryButton disabled="true">unwrap someday soon</SecondaryButton>
+                            <SecondaryButton disabled="true">Unwrap (someday soon)</SecondaryButton>
                         </Col>
                     </Row>
                 </Col>
