@@ -34,6 +34,18 @@ export function Wrap(props) {
                     <h1>Upgrade NU/KEEP</h1>
                 </Col>
             </Row>
+            <Row>
+                <Col className="d-flex justify-content-center">
+                    <p>
+                        The NU / KEEP Vending Machine smart contracts to convert NU / KEEP to T
+                        using a fixed conversion ratio will be available indefinitely.
+                        Only liquid NU / KEEP tokens can be wrapped to T.
+                        <br/><br/>
+                        Locked NU / KEEP <b>cannot</b> be wrapped to T until their stakes unlock. There
+                        is no time pressure or disadvantage in waiting to upgrade T.
+                    </p>
+                </Col>
+            </Row>
             {!account
                 ? <Row> {<Col className="d-flex justify-content-center"><ConnectPLS/></Col>}</Row>
                 : <Row className="d-flex justify-content-center">

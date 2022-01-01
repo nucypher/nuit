@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import Web3 from "web3";
 
 import { Container, Row, Col } from 'react-bootstrap/';
-import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
+import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, Purple, NuStakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, setKEEPAllowance } from '@project/react-app/src/services'
 import { calcTReturn, MIN_STAKE, daysPerPeriod, getCurrentPeriod, formatWei, formatNumber } from '@project/react-app/src/constants'
@@ -94,7 +94,7 @@ export const WrapKEEP = (props) => {
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
                     <NuStakeAllocator
-                        label="KEEP to wrap"
+                        label="KEEP Available"
                         denomination="KEEP"
                         valid={AllocationValid}
                         invalidmessage={invalidMessage}
@@ -105,6 +105,12 @@ export const WrapKEEP = (props) => {
             </Row>
 
             <Row noGutters className="d-flex justify-content-center mt-3">
+                <Col xs={6} className="d-flex justify-content-between">
+                    <strong className="nowrap">
+                        <Grey>T conversion ratio: {formatNumber(context.KEEPratio.get, 4)}
+                        </Grey>
+                    </strong>
+                </Col>
                 {/*<Col xs={6} className="d-flex justify-content-between">*/}
                 {/*    <h5 className="nowrap mr-3">T thee shall has't</h5>*/}
                 {/*    <strong className="nowrap">*/}
@@ -124,8 +130,8 @@ export const WrapKEEP = (props) => {
                         <strong>T Amount</strong>
                     </DataRow>
                     <DataRow>
-                        {nuAllocated ? <h5><Blue><DisplayWei>{nuAllocated}</DisplayWei></Blue></h5>:<h5></h5>}
-                        <h5><Blue>{formatNumber(Tback, 2)}</Blue></h5>
+                        {nuAllocated ? <h5><Blue><DisplayWei fixed={4}>{nuAllocated}</DisplayWei></Blue></h5>:<h5></h5>}
+                        <h5><Purple>{formatNumber(Tback, 4)}</Purple></h5>
                     </DataRow>
                 </Col>
             </Row>
