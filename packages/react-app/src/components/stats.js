@@ -15,29 +15,29 @@ export default function NetworkStats() {
     const locale = "en-US"
     let supply = period.circulatingSupply ? Math.round(period.circulatingSupply).toLocaleString(locale) : "-"
     let staked = period.totalStaked ? Math.round(period.totalStaked).toLocaleString(locale) : "Pending"
-    let stakers = period.activeStakers ? Number(period.activeStakers).toLocaleString(locale) : "Pending"
+    // let stakers = period.activeStakers ? Number(period.activeStakers).toLocaleString(locale) : "Pending"
 
     return (
-        <Row id="stats">
-            <Col xs={6} md={4} className="d-flex justify-content-center">
+        <Row>
+            <Col xs={12} md={4} className="d-flex justify-content-center">
                 <div>
                     <HR color="blue"></HR>
                     <h5><strong>Total NU Staked</strong></h5>
                     <h2><strong><Blue>{staked}</Blue></strong></h2>
                 </div>
             </Col>
-            <Col xs={6} md={4} className="d-flex justify-content-center">
+            <Col xs={12} md={4} className="d-flex justify-content-center">
                 <div>
                     <HR color="purple"></HR>
                     <h5><strong>Fixed Supply</strong></h5>
                     <h2><strong><Purple>{supply}</Purple></strong></h2>
                 </div>
             </Col>
-            <Col xs={6} md={4} className="d-flex justify-content-center">
+            <Col xs={12} md={4} className="d-flex justify-content-center">
                 <div>
                     <HR color="grey75"></HR>
                     <h5><strong>T Conversion Ratio</strong></h5>
-                    <h2><strong><Grey>~3.25924249</Grey></strong></h2>
+                    <h2><strong><Grey>~3.259</Grey></strong></h2>
                 </div>
             </Col>
         </Row>

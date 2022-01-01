@@ -33,6 +33,13 @@ function App () {
   const [availableKEEP, setAvailableKEEP] = useState(0)
   const [availableT, setAvailableT] = useState(0)
   const [availableETH, setAvailableETH] = useState(0)
+  const [NUratio, setNUratio] = useState(0)
+  const [KEEPratio, setKEEPratio] = useState(0)
+
+  const [maxKEEPconversion, setMaxKEEPconversion] = useState(0)
+  const [maxNUconversion, setMaxNUconversion] = useState(0)
+
+
   const [NUallowance, setNUallowance] = useState(new Web3.utils.BN("0"))
   const [workerAddress, setWorkerAddress] = useState(null)
   const [stakerData, setStakerData] = useState({substakes:[]})
@@ -71,6 +78,12 @@ function App () {
     availableKEEP: {set: setAvailableKEEP, get: availableKEEP},
     availableETH: {set: setAvailableETH, get: availableETH},
     NUallowance: {set: setNUallowance, get: NUallowance},
+    NUratio: {set: setNUratio, get: NUratio},
+    KEEPratio: {set: setKEEPratio, get: KEEPratio},
+
+    maxKEEPconversion: {set: setMaxKEEPconversion, get: maxKEEPconversion},
+    maxNUconversion: {set: setMaxNUconversion, get: maxNUconversion},
+
 
     /* populated by services.ContractCaller,
       pending is an array of strings that represent a pending
@@ -118,6 +131,20 @@ function App () {
 
     const TWallet = await contracts.T.methods.balanceOf(account).call()
     setAvailableT(TWallet)
+
+    const NUtoTRatio = await contracts.NUVENDINGMACHINE.methods.ratio().call()
+    const NUtoTDivisor = await contracts.NUVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
+    setNUratio((NUtoTRatio / NUtoTDivisor).toFixed(14))
+
+    const totalNUconversion = await contracts.NUVENDINGMACHINE.methods.conversionToT(stakerNuWallet).call()
+    setMaxNUconversion(totalNUconversion)
+
+    const KEEPtoTRatio = await contracts.KEEPVENDINGMACHINE.methods.ratio().call()
+    const KEEPtoTDivisor = await contracts.KEEPVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
+    setKEEPratio((KEEPtoTRatio / KEEPtoTDivisor).toFixed(14))
+
+    const totalKEEPconversion = await contracts.KEEPVENDINGMACHINE.methods.conversionToT(keepWallet).call()
+    setMaxKEEPconversion(totalKEEPconversion)
 
   }
 

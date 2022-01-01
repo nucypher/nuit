@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useState} from 'react'
 
 import {Context} from '@project/react-app/src/services'
 
 import {Col, Container, Row} from 'react-bootstrap/';
-import {Spinner, ConnectPLS} from '@project/react-app/src/components'
+import {ConnectPLS} from '@project/react-app/src/components'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
-import {HistoryPane} from "../components/manage/history";
-import RewardsPanel from "../components/manage/rewards";
-import StakeSettingsPanel from "../components/manage/settings";
-import StakerControlPanel from "../components/manage/staking";
-import CurrentPeriodPanel from "../components/manage/period";
 import AssetsPanel from "../components/manage/assets";
+import Accordion from "react-bootstrap/Accordion";
+import FAQ_QUESTIONS from "./manage/new/wrapping_faq.json";
+import {Card} from "react-bootstrap";
+import ThresholdBalance from "../components/manage/threshold";
+import RatioPanel from "../components/manage/ratio";
 
 export function Wrap(props) {
 
@@ -31,34 +31,57 @@ export function Wrap(props) {
 
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>Wrap NU/KEEP</h1>
+                    <h1>Upgrade NU/KEEP</h1>
                 </Col>
             </Row>
-            {migrating || !account
-                ? <Row> {migrating ?
-                    <Col className="d-flex justify-content-center"><h3><Spinner/>Please wait for migration to complete. <Spinner/></h3></Col> :
-                    <Col className="d-flex justify-content-center"><ConnectPLS/></Col>}
-                </Row>
+            {!account
+                ? <Row> {<Col className="d-flex justify-content-center"><ConnectPLS/></Col>}</Row>
                 : <Row className="d-flex justify-content-center">
 
+                    {/* Above */}
+                    <Col xs={12}>
+                    </Col>
+
                     { /* Left Side */}
-                    <Col xs={12} md={10}>
+                    <Col xs={12} md={10} xl={6}>
                         <AssetsPanel/>
+                        <br/>
                     </Col>
 
                     {/* Right Side */}
-                    <Col xs={12} md={10} xl={6}>
-                       {/* <StakerControlPanel {...stakerData}/> */}
+                    <Col xs={12} md={10} xl={4}>
+                        <ThresholdBalance/>
+                        <br/>
+                        <RatioPanel/>
+                        {/* <StakerControlPanel {...stakerData}/> */}
                     </Col>
 
                     {/* Below */}
                     <Col xs={12}>
                         <div id="historyLabel" className="flex-row justify-content-lg-center text-center">
-                            <h4>History</h4>
+                            <h4>Token Upgrade FAQs</h4>
                         </div>
-                        <HistoryPane theme={props.theme}/>
+                        <Accordion id="self-hosted-accordian">
+                        {FAQ_QUESTIONS.map((faq, index) => (
+                            <Card key={`faq${index}`}>
+                                <Accordion.Toggle as={Card.Header} eventKey={index.toString()}>
+                                    <b>{faq.question}</b><i className={true ? "faq-plus":"faq-minus"}></i>
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey={index.toString()}>
+                                    <Card.Body><p>{faq.answer}</p></Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        ))}
+                        </Accordion>
+
+                        {/*<div id="historyLabel" className="flex-row justify-content-lg-center text-center">*/}
+                        {/*    <h4>History</h4>*/}
+                        {/*</div>*/}
+                        {/*<HistoryPane theme={props.theme}/>*/}
+
                     </Col>
-                </Row>}
+                </Row>
+            }
         </Container>
     )
 }

@@ -236,6 +236,59 @@ button:disabled .circleQ svg {
     border-radius: 16px;
 }
 
+.assetDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    left: 0;
+    /*margin-bottom: 0.5em;*/
+}
+
+.ratio {
+    display: flex;
+}
+
+.ratio img {
+    opacity: 0.5;
+}
+
+.conversionHint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conversionHint span {
+    margin-right: 1em;
+}
+
+.assetDisplay img {
+    margin-right: 1em;
+}
+
+#keep-button {
+    color: #48dbb4;
+    background-color: black;
+    border-color: black;
+}
+
+#keep-button .conversionArrow {
+    filter: invert(100%);
+}
+
+.contractIcon {
+    width: 1em;
+    height: 100%;
+    opacity: 0.3;
+    margin-left: 0.5em;
+    margin-top: -3px;
+}
+
+
+.contractIcon:hover {
+    opacity: 0.5;
+}
+
 
 .collect-worker {
     max-width: 608px;
@@ -308,7 +361,7 @@ button:disabled .circleQ svg {
 }
 
 .button-or-spinner{
-    min-height: 51px;
+    /*min-height: 51px;*/
 }
 
 .badge-secondary {

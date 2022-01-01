@@ -4,21 +4,9 @@ import {Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import {useQuery} from "@apollo/client";
 import {GET_STAKER_HISTORY} from "../../graphql/subgraph";
 import {Context, truncateAddress} from "../../services";
-import {PUBLIC_CHAINS} from "../../constants";
+import {makeEtherscanAccountLink, makeEtherscanTxLink, PUBLIC_CHAINS} from "../../constants";
 import Web3 from "web3";
 
-
-function makeEtherscanTxLink(txhash, networkName) {
-    return 'https://'
-        + (networkName ? (networkName + '.') : '')
-        + 'etherscan.io/tx/' + txhash
-}
-
-function makeEtherscanAccountLink(address, networkName) {
-    return 'https://'
-        + (networkName ? (networkName + '.') : '')
-        + 'etherscan.io/address/' + address
-}
 
 
 // Allow list and categorize of events to display
@@ -137,12 +125,12 @@ export function HistoryPane(props) {
                         <Tab eventKey="all" title="All Events">
                             <EventHistory theme={props.theme}/>
                         </Tab>
-                        <Tab eventKey="user" title="User Events">
-                            <EventHistory filter={"user"} theme={props.theme}/>
-                        </Tab>
-                        <Tab eventKey="system" title="System Events">
-                            <EventHistory filter={"system"} theme={props.theme}/>
-                        </Tab>
+                        {/*<Tab eventKey="user" title="User Events">*/}
+                        {/*    <EventHistory filter={"user"} theme={props.theme}/>*/}
+                        {/*</Tab>*/}
+                        {/*<Tab eventKey="system" title="System Events">*/}
+                        {/*    <EventHistory filter={"system"} theme={props.theme}/>*/}
+                        {/*</Tab>*/}
                     </Tabs>
                 </div>
             </Col>

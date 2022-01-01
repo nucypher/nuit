@@ -29,7 +29,6 @@ export const WrapKEEP = (props) => {
         setWrappingKEEP(context.pending.indexOf('wrappingKEEP') > -1)
     })
 
-
     const onAmountChanged = (amount) => {
         // amount in wei
         if (!amount) return
@@ -50,7 +49,7 @@ export const WrapKEEP = (props) => {
             setNuAllocation(amount)
             setAllocationValid(true)
             if (amount && duration){
-                setTReturn(calcTReturn(amount, "KEEP"))
+                setTReturn(calcTReturn(amount, context.KEEPratio.get))
             }
         } else{
             // setNuAllocation(0)
@@ -59,18 +58,9 @@ export const WrapKEEP = (props) => {
         }
     }
 
-    const onDurationChanged = (duration) => {
-        if (duration < daysPerPeriod * 4) return
-        setDuration(duration)
-        setUnlockDate(getCurrentPeriod() + duration/daysPerPeriod + 2)
-        if (nuAllocated && duration){
-            setTReturn(calcTReturn(nuAllocated, "KEEP"))
-        }
-    }
-
     useEffect(() => {
         if (nuAllocated){
-            setTReturn(calcTReturn(nuAllocated, "KEEP"))
+            setTReturn(calcTReturn(nuAllocated, context.KEEPratio.get))
         }
     }, [duration, AllocationValid, nuAllocated, maxKEEPLimit])
 
@@ -103,28 +93,35 @@ export const WrapKEEP = (props) => {
 
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
-                    <NuStakeAllocator label="KEEP to wrap" valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} initial={maxKEEPLimit} onChange={onAmountChanged}/>
+                    <NuStakeAllocator
+                        label="KEEP to wrap"
+                        denomination="KEEP"
+                        valid={AllocationValid}
+                        invalidmessage={invalidMessage}
+                        value={nuAllocated}
+                        initial={maxKEEPLimit}
+                        onChange={onAmountChanged}/>
                 </Col>
             </Row>
 
             <Row noGutters className="d-flex justify-content-center mt-3">
-                <Col xs={6} className="d-flex justify-content-between">
-                    <h5 className="nowrap mr-3">T thee shall has't</h5>
-                    <strong className="nowrap">
-                        <Blue>
-                            {formatNumber(Tback, 2)}
+                {/*<Col xs={6} className="d-flex justify-content-between">*/}
+                {/*    <h5 className="nowrap mr-3">T thee shall has't</h5>*/}
+                {/*    <strong className="nowrap">*/}
+                {/*        <Blue>*/}
+                {/*            {formatNumber(Tback, 2)}*/}
 
-                        </Blue>
-                        <br/><Grey>{formatNumber(Tback, 0)} T</Grey>
-                    </strong>
-                    <br></br>
-                </Col>
+                {/*        </Blue>*/}
+                {/*        <br/><Grey>{formatNumber(Tback, 0)} T</Grey>*/}
+                {/*    </strong>*/}
+                {/*    <br></br>*/}
+                {/*</Col>*/}
             </Row>
             <Row className="mt-3">
                 <Col>
                     <DataRow>
-                        <strong>Wrapping KEEP Amount</strong>
-                        <strong>To T Amount</strong>
+                        <strong>KEEP Amount</strong>
+                        <strong>T Amount</strong>
                     </DataRow>
                     <DataRow>
                         {nuAllocated ? <h5><Blue><DisplayWei>{nuAllocated}</DisplayWei></Blue></h5>:<h5></h5>}
@@ -135,7 +132,21 @@ export const WrapKEEP = (props) => {
             <Row noGutters className="d-flex justify-content-center mt-3">
                 <Col className="d-flex justify-content-center">
 
-                    <PendingButton disabled={!AllocationValid} activeCheck={wrappingKEEP} abort={setWrappingKEEP} onClick={handleAction} width="100%">Wrap this KEEP</PendingButton>
+                    <PendingButton
+                        id="keep-button"
+                        disabled={!AllocationValid}
+                        activeCheck={wrappingKEEP}
+                        abort={setWrappingKEEP}
+                        onClick={handleAction}
+                        width="100%">
+
+                                <div className="conversionHint">
+                                    <span>Upgrade</span>
+                                    <img src={require('../../assets/icons/keep.svg')}/>
+                                    <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
+                                    <img src={require('../../assets/icons/t.svg')}/>
+                                </div>
+                    </PendingButton>
 
                </Col>
             </Row></div>:<ConnectPLS/>}
