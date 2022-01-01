@@ -5,7 +5,7 @@ export function Documentation() {
     return (
         <Container>
             <Row>
-                <h1>Documentation</h1>
+                <h1>PRE Documentation</h1>
             </Row>
         </Container>
     )

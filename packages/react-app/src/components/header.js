@@ -47,8 +47,7 @@ export default function (props) {
     return (
         <HeaderNav>
             <Alert variant="primary">
-                This is a public beta release! Please direct bug reports or feature requests to the
-                <a href="https://github.com/nucypher/nuit/issues/new">issue tracker</a>.
+                NuCypher is transitioning to the<a href="https://threshold.network/">Threshold Network</a>.
             </Alert>
             <Navbar expand="lg">
                 <Navbar.Brand><NCLogo theme={theme}/></Navbar.Brand>
