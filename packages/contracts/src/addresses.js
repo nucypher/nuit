@@ -39,11 +39,11 @@ const addresses = {
     1:      MAINNET,
     "0x1":  MAINNET,
 
-    "0x4":  RINKEBY,
-    4:      RINKEBY,
+    // "0x4":  RINKEBY,
+    // 4:      RINKEBY,
 
-    "0x5":  GOERLI,
-    5:      GOERLI,
+    // "0x5":  GOERLI,
+    // 5:      GOERLI,
 
     "0x3": ROPSTEN,
     3: ROPSTEN
