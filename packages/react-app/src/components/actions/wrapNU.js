@@ -113,22 +113,15 @@ export const WrapNU = (props) => {
 
             <Row noGutters className="d-flex justify-content-center mt-3">
                 <Col xs={6} className="d-flex justify-content-between">
-                    <h5 className="nowrap mr-3">T thee shall has't</h5>
-                    <strong className="nowrap">
-                        <Blue>
-                            {formatNumber(Tback, 2)}
-
-                        </Blue>
-                        <br/><Grey>{formatNumber(Tback, 0)} T</Grey>
-                    </strong>
+                    {/*<Slider min={0} max={maxNULimit}></Slider>*/}
                     <br></br>
                 </Col>
             </Row>
             <Row className="mt-3">
                 <Col>
                     <DataRow>
-                        <strong>Wrapping NU Amount</strong>
-                        <strong>To T Amount</strong>
+                        <strong>NU Amount</strong>
+                        <strong>T Amount</strong>
                     </DataRow>
                     <DataRow>
                         {nuAllocated ? <h5><Blue><DisplayWei>{nuAllocated}</DisplayWei></Blue></h5>:<h5></h5>}
@@ -139,10 +132,23 @@ export const WrapNU = (props) => {
             <Row noGutters className="d-flex justify-content-center mt-3">
                 <Col className="d-flex justify-content-center">
 
-                    <PendingButton disabled={!AllocationValid} activeCheck={wrappingNU} abort={setWrappingNU} onClick={handleAction} width="100%">Wrap this NU</PendingButton>
+                    <PendingButton
+                        disabled={!AllocationValid}
+                        activeCheck={wrappingNU}
+                        abort={setWrappingNU}
+                        onClick={handleAction}
+                        width="100%">
 
+                        <div className="conversionHint">
+                            <span>Upgrade</span>
+                            <img src={require('../../assets/icons/nu.svg')}/>
+                            <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
+                            <img src={require('../../assets/icons/t.svg')}/>
+                        </div>
+                    </PendingButton>
                </Col>
-            </Row></div>:<ConnectPLS/>}
+            </Row>
+            </div>:<ConnectPLS/>}
         </Container>
     )
 }

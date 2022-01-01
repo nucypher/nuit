@@ -43,7 +43,7 @@ function NuCLickDisplay (props) {
 
     return (
         <Button onClick={props.onClick} variant="link">
-            <TokenBalance balance={props.balance} onBalance={props.onBalance}/>
+            <TokenBalance label={props.label} balance={props.balance} onBalance={props.onBalance}/>
         </Button>
     )
 }
@@ -85,7 +85,7 @@ export const NuStakeAllocator = (props) => {
                 <Col>
                     <div className="d-flex justify-content-between">
                         <Grey>{props.label || "Stake"}</Grey>
-                        <NuCLickDisplay onClick={(e) => setValue(web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={handleNuBalance}/>
+                        <NuCLickDisplay label={props.denomination || "NU"} onClick={(e) => setValue(web3.utils.fromWei(NUBalance.toString(), 'ether'))} balance={NUBalance} onBalance={handleNuBalance}/>
                     </div>
                 </Col>
             </Row>
