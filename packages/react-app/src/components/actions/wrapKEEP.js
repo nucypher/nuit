@@ -49,7 +49,7 @@ export const WrapKEEP = (props) => {
             setNuAllocation(amount)
             setAllocationValid(true)
             if (amount && duration){
-                setTReturn(calcTReturn(amount, "KEEP"))
+                setTReturn(calcTReturn(amount, context.KEEPratio.get))
             }
         } else{
             // setNuAllocation(0)
@@ -58,18 +58,9 @@ export const WrapKEEP = (props) => {
         }
     }
 
-    const onDurationChanged = (duration) => {
-        if (duration < daysPerPeriod * 4) return
-        setDuration(duration)
-        setUnlockDate(getCurrentPeriod() + duration/daysPerPeriod + 2)
-        if (nuAllocated && duration){
-            setTReturn(calcTReturn(nuAllocated, "KEEP"))
-        }
-    }
-
     useEffect(() => {
         if (nuAllocated){
-            setTReturn(calcTReturn(nuAllocated, "KEEP"))
+            setTReturn(calcTReturn(nuAllocated, context.KEEPratio.get))
         }
     }, [duration, AllocationValid, nuAllocated, maxKEEPLimit])
 

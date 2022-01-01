@@ -7,6 +7,7 @@ import {Context} from "../../services";
 
 export default function RatioPanel(props) {
     const context = useContext(Context)
+
     return (
         <InputBox>
 
@@ -24,7 +25,7 @@ export default function RatioPanel(props) {
                                 <span className="mr-1">1</span>
                                 <span className="mr-1">NU</span>
                                 <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
-                                <span className="mr-1">3.259242493160745</span>
+                                <span className="mr-1">{context.NUratio.get}</span>
                                 <span className="mr-1">T</span>
                             </div>
                         </Col>
@@ -33,7 +34,7 @@ export default function RatioPanel(props) {
                                 <span className="mr-1">1</span>
                                 <span className="mr-1">KEEP</span>
                                 <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
-                                <span className="mr-1">4.783188631255016</span>
+                                <span className="mr-1">{context.KEEPratio.get}</span>
                                 <span className="mr-1">T</span>
                             </div>
                         </Col>

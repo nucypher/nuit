@@ -50,7 +50,7 @@ export const WrapNU = (props) => {
             setNuAllocation(amount)
             setAllocationValid(true)
             if (amount && duration){
-                setTReturn(calcTReturn(amount, "NU"))
+                setTReturn(calcTReturn(amount, context.NUratio.get))
             }
         } else{
             // setNuAllocation(0)
@@ -64,13 +64,13 @@ export const WrapNU = (props) => {
         setDuration(duration)
         setUnlockDate(getCurrentPeriod() + duration/daysPerPeriod + 2)
         if (nuAllocated && duration){
-            setTReturn(calcTReturn(nuAllocated, "NU"))
+            setTReturn(calcTReturn(nuAllocated, context.NUratio.get))
         }
     }
 
     useEffect(() => {
         if (nuAllocated){
-            setTReturn(calcTReturn(nuAllocated, "NU"))
+            setTReturn(calcTReturn(nuAllocated, context.NUratio.get))
         }
     }, [duration, AllocationValid, nuAllocated, maxNULimit])
 

@@ -280,7 +280,7 @@ button:disabled .circleQ svg {
     width: 1em;
     height: 100%;
     opacity: 0.3;
-    margin-left: 1em;
+    margin-left: 0.5em;
     margin-top: -3px;
 }
 
