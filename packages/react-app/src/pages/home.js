@@ -17,14 +17,19 @@ export function Home() {
             </Row>
             <Row>
                 <Col>
+                    <p>The merge is in progress.  Some explanation of the situation here.</p>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <NetworkStats/>
                 </Col>
             </Row>
             <br/>
             {/*    <Row>*/}
-                        <div id="chart-container">
+                        {/* <div id="chart-container">
                             <StakerGraph/>
-                        </div>
+                        </div> */}
                 {/*</Row>*/}
             <Row className="d-flex justify-content-center mt-3 mb-3">
                 <Col xs={8}>
@@ -36,12 +41,12 @@ export function Home() {
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center">
-                <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
+                {/* <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <Link className="mb-3 w100" to="/new/worker"><PrimaryButton><strong>Stake Your
                         NU</strong></PrimaryButton></Link>
-                </Col>
+                </Col> */}
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
-                    <Link className="mb-3 w100" to="/manage"><PurpleButton><strong>Manage</strong></PurpleButton></Link>
+                    <Link className="mb-3 w100" to="/wrap"><PurpleButton><strong>Wrap NU/KEEP</strong></PurpleButton></Link>
                 </Col>
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <a className="mb-3 w100"

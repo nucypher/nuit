@@ -1,5 +1,5 @@
 import {CircleQ} from "../circleQ";
-import {Grey, InputBox, NuBalance, PendingButton} from "../index";
+import {Grey, InputBox, TokenBalance, PendingButton} from "../index";
 import React, {useContext, useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import {Context} from "../../services";
@@ -44,7 +44,7 @@ export default function RewardsPanel(props) {
                                 <span className="mr-2">
                                     {Number(props.availableNUWithdrawal) > 0 ? 'Withdraw ' : ' '}
                                  </span>
-                                    <NuBalance balance={props.availableNUWithdrawal}/>
+                                    <TokenBalance balance={props.availableNUWithdrawal}/>
                                 </div>
                             </PendingButton>
                         </Col>

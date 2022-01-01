@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col, Form} from 'react-bootstrap/';
-import { ButtonBox, InputBox, PrimaryButton, PendingButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, NuBalance, Address } from '@project/react-app/src/components'
+import { ButtonBox, InputBox, PrimaryButton, PendingButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, TokenBalance, Address } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, truncateAddress } from '@project/react-app/src/services'
 
@@ -44,7 +44,7 @@ export const BondWorker = (props) => {
                     <ButtonBox className="mb-3">
                         <small><strong>{account}</strong></small>
                         <DataRow className="mt-3">
-                        <strong>Staking Balance</strong><span><NuBalance balance={stakerData.lockedNU}/></span>
+                        <strong>Staking Balance</strong><span><TokenBalance balance={stakerData.lockedNU}/></span>
                         </DataRow>
                     </ButtonBox>
 

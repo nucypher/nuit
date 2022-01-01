@@ -38,6 +38,7 @@ const ToastMessage = (props) => {
     }, [index, onHide]);
 
     useEffect(() => {
+        console.log(context.pending)
         if (pending){
             if (context.pending.indexOf(pending) === -1){
                 setShow(false);
@@ -64,6 +65,7 @@ export const MessagePublisher = () => {
 
     const removeMessage = (index, setShow) => {
         const visible = messages.filter((m) => {
+            console.log(messages)
             return m.index !== index
         })
         setMessages(visible)

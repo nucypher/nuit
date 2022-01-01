@@ -60,7 +60,13 @@ const calcROI = (amount, duration) => {
     return { apr, net }
 }
 
-export { calcROI, MIN_STAKE, EMPTY_WORKER }
+const calcTReturn = (amount, token) => {
+    amount = Web3.utils.fromWei(amount.toString(), 'ether')
+    const multiplier = token === "NU" ? 3.259242493160745 : 4.783188631255016
+    return amount * multiplier
+}
+
+export { calcTReturn, calcROI, MIN_STAKE, EMPTY_WORKER }
 
 export const PUBLIC_CHAINS = {
     0: "Olympic",

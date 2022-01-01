@@ -52,6 +52,7 @@ function useWeb3Modal (messageHandler, config = {}) {
 
   const instantiateContracts = (provider, web3) => {
     const chID = provider.chainId
+
     const ABIs = abis[chID]
     const addrs = addresses[chID]
 

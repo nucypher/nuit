@@ -6,7 +6,7 @@ import {
     EthBalance,
     Grey,
     InputBox,
-    NuBalance,
+    TokenBalance,
     PendingButton,
     Spinner,
     WorkerRunwayDisplay,
@@ -90,11 +90,11 @@ export default function StakerControlPanel(props) {
                                 <span><EthBalance balance={availableETH} onBalance={setAvailableETH}/></span>
                             </DataRow>
                             <DataRow>
-                                <strong>NU Balance <small>(wallet)</small></strong><span><NuBalance
+                                <strong>NU Balance <small>(wallet)</small></strong><span><TokenBalance
                                 balance={availableNU} onBalance={setAvailableNU}/></span>
                             </DataRow>
                             <DataRow>
-                                <strong>Total NU Locked</strong><span><NuBalance
+                                <strong>Total NU Locked</strong><span><TokenBalance
                                 balance={props.lockedNU}/></span>
                             </DataRow>
                         </ButtonBox>
