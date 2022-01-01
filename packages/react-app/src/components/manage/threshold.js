@@ -27,7 +27,7 @@ export default function ThresholdBalance(props) {
 
             <Row noGutters>
                 <Col className="d-flex justify-content-flex-start mb-1">
-                    <h5>Threhold Balance</h5>
+                    <h5>Threshold Balance</h5>
                 </Col>
             </Row>
 
