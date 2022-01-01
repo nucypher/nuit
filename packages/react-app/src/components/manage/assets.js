@@ -2,6 +2,7 @@ import {InputBox, PendingButton, TokenBalance} from "../index";
 import React, {useContext, useEffect, useState} from "react";
 import {Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {Context} from "../../services";
+import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
 
 
 export default function AssetsPanel(props) {
@@ -34,7 +35,12 @@ export default function AssetsPanel(props) {
         setwrappingKEEP(context.pending.indexOf('wrappingKEEP') > -1)
     }, [context.pending.length, context.pending])
 
-
+    const {account, provider, contracts} = context.wallet
+    let chainId, networkName;
+    if (provider && provider.networkVersion) {
+        chainId = provider.networkVersion
+        networkName = PUBLIC_CHAINS[chainId].toLowerCase();
+    }
     return (
         <InputBox>
 
@@ -56,7 +62,7 @@ export default function AssetsPanel(props) {
                                     delay={{show: 1200, hide: 400}}
                                     overlay={renderTooltip}
                                 >
-                                <a href={"https://etherscan.io/address/0x1cca7e410ee41739792ea0a24e00349dd247680e"}>
+                                    <a href={makeEtherscanAccountLink(contracts.NUVENDINGMACHINE._address, networkName)}>
                                     <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                 </a>
                                 </OverlayTrigger>
@@ -88,7 +94,7 @@ export default function AssetsPanel(props) {
                                     delay={{show: 1200, hide: 400}}
                                     overlay={renderTooltip}
                                 >
-                                    <a href={"https://etherscan.io/address/0xe47c80e8c23f6b4a1ae41c34837a0599d5d16bb0"}>
+                                    <a href={makeEtherscanAccountLink(contracts.KEEPVENDINGMACHINE._address, networkName)}>
                                         <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                     </a>
                                 </OverlayTrigger>

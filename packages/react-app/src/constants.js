@@ -65,7 +65,21 @@ const calcTReturn = (amount, ratio) => {
     return amount * ratio
 }
 
-export { calcTReturn, calcROI, MIN_STAKE, EMPTY_WORKER }
+function makeEtherscanTxLink(txhash, networkName) {
+    return 'https://'
+        + (networkName ? (networkName + '.') : '')
+        + 'etherscan.io/tx/' + txhash
+}
+
+function makeEtherscanAccountLink(address, networkName) {
+    networkName = (networkName === "mainnet") ? '' : networkName
+    return 'https://'
+        + (networkName ? (networkName + '.') : '')
+        + 'etherscan.io/address/' + address
+}
+
+
+export { calcTReturn, calcROI, MIN_STAKE, EMPTY_WORKER, makeEtherscanAccountLink, makeEtherscanTxLink }
 
 export const PUBLIC_CHAINS = {
     0: "Olympic",

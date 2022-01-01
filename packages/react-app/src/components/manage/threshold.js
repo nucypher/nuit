@@ -2,18 +2,26 @@ import {InputBox, TokenBalance} from "../index";
 import React, {useContext} from "react";
 import {Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {Context} from "../../services";
+import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
 
 
 export default function ThresholdBalance(props) {
     const context = useContext(Context)
 
-        const renderTooltip = (props) => (
+    const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             {props.contract} Threshold Token on Etherscan
         </Tooltip>
     );
 
+    const {account, provider, contracts} = context.wallet
+    let chainId, networkName;
+    if (provider && provider.networkVersion) {
+        chainId = provider.networkVersion
+        networkName = PUBLIC_CHAINS[chainId].toLowerCase();
+    }
     return (
+
         <InputBox>
 
             <Row noGutters>
@@ -34,7 +42,7 @@ export default function ThresholdBalance(props) {
                                     delay={{show: 1200, hide: 400}}
                                     overlay={renderTooltip}
                                 >
-                                    <a href={"https://etherscan.io/address/0xcdf7028ceab81fa0c6971208e83fa7872994bee5"}>
+                                    <a href={makeEtherscanAccountLink(contracts.T._address, networkName)}>
                                         <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                     </a>
                                 </OverlayTrigger>

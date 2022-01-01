@@ -4,21 +4,9 @@ import {Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import {useQuery} from "@apollo/client";
 import {GET_STAKER_HISTORY} from "../../graphql/subgraph";
 import {Context, truncateAddress} from "../../services";
-import {PUBLIC_CHAINS} from "../../constants";
+import {makeEtherscanAccountLink, makeEtherscanTxLink, PUBLIC_CHAINS} from "../../constants";
 import Web3 from "web3";
 
-
-function makeEtherscanTxLink(txhash, networkName) {
-    return 'https://'
-        + (networkName ? (networkName + '.') : '')
-        + 'etherscan.io/tx/' + txhash
-}
-
-function makeEtherscanAccountLink(address, networkName) {
-    return 'https://'
-        + (networkName ? (networkName + '.') : '')
-        + 'etherscan.io/address/' + address
-}
 
 
 // Allow list and categorize of events to display
