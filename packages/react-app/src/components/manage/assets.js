@@ -42,10 +42,10 @@ export default function AssetsPanel(props) {
             <Row noGutters>
                 <Col xs={12}>
                     <Row className="mb-3">
-                        <Col>
-                        <   TokenBalance balance={context.availableNU.get}/>
+                        <Col xs={12} sm={6}>
+                        <TokenBalance balance={context.availableNU.get}/>
                         </Col>
-                        <Col>
+                        <Col xs={12} sm={6}>
                             <PendingButton
                                         activeCheck={wrappingNU}
                                         onClick={handleWrapNU}
@@ -57,10 +57,10 @@ export default function AssetsPanel(props) {
                 </Col>
                 <Col xs={12}>
                 <Row className="mb-3">
-                        <Col>
-                        <   TokenBalance label="KEEP" balance={context.availableKEEP.get}/>
+                        <Col xs={12} sm={6}>
+                        <TokenBalance label="KEEP" balance={context.availableKEEP.get}/>
                         </Col>
-                        <Col>
+                        <Col xs={12} sm={6}>
                             <PendingButton
                                         activeCheck={wrappingKEEP}
                                         onClick={handleWrapKEEP}
@@ -72,10 +72,10 @@ export default function AssetsPanel(props) {
                 </Col>
                 <Col xs={12}>
                     <Row>
-                        <Col>
+                    <Col xs={12} sm={6}>
                             <TokenBalance balance={context.availableT.get} label="T"/>
                         </Col>
-                        <Col>
+                        <Col xs={12} sm={6}>
                             <SecondaryButton disabled="true">unwrap someday soon</SecondaryButton>
                         </Col>
                     </Row>

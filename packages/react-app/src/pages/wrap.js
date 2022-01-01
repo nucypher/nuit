@@ -31,7 +31,7 @@ export function Wrap(props) {
 
             <Row>
                 <Col className="d-flex justify-content-center mb-4 mt-2">
-                    <h1>Wrap NU and KEEP</h1>
+                    <h1>Wrap NU/KEEP</h1>
                 </Col>
             </Row>
             {migrating || !account
@@ -42,7 +42,7 @@ export function Wrap(props) {
                 : <Row className="d-flex justify-content-center">
 
                     { /* Left Side */}
-                    <Col xs={12} md={10} xl={4}>
+                    <Col xs={12} md={10}>
                         <AssetsPanel/>
                     </Col>
 
