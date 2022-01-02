@@ -426,6 +426,10 @@ button:disabled .circleQ svg {
     justify-content: space-between;
 }
 
+.card-header b {
+    max-width: 90%;
+}
+
 .card-header .faq-plus {
     background-image: url("icons/blue-plus.svg");
     height: 20px;
