@@ -74,9 +74,15 @@ hr {
     background: rgba(0, 0, 0, 0) linear-gradient(130.52deg, rgb(125, 0, 255) 0%, rgb(127, 0, 172) 100%) repeat scroll 0% 0%;
 }
 
+
 .alert-primary a {
     text-decoration: underline;
     margin-left: 11px;
+}
+
+.toast {
+    margin-right: 2em;
+    border-radius: 5px;
 }
 
 #NCmain {
