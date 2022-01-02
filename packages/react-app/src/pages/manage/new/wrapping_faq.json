@@ -16,10 +16,6 @@
     "answer": "The ratio for 1 NU is 3.259242493160745 T.  The ratio for 1 KEEP is 4.783188631255016 T."
   },
   {
-    "question": "Once I have converted tokens into T can I unwrap them?",
-    "answer": "Yes, unwrapping NU is supported by the VendingMachine contracts will also be supported by this interface and the official threshold dashboard in a near-future update."
-  },
-  {
     "question": "What are the mainnet deployment details?",
     "answer": "The NU VendingMachine contract is 0x1cca7e410ee41739792ea0a24e00349dd247680e.\nThe KEEP VendingMachine contract is 0xe47c80e8c23f6b4a1ae41c34837a0599d5d16bb0.\nThe T token contract is 0xcdf7028ceab81fa0c6971208e83fa7872994bee5."
   }
