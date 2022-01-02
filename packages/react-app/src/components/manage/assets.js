@@ -1,6 +1,6 @@
 import {InputBox, PendingButton, TokenBalance} from "../index";
 import React, {useContext, useEffect, useState} from "react";
-import {Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Col, Row, Tooltip} from "react-bootstrap";
 import {Context} from "../../services";
 import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
 
@@ -59,15 +59,9 @@ export default function AssetsPanel(props) {
                             <div className="assetDisplay">
                                 <img src={require('../../assets/icons/nu.svg')}/>
                                 <TokenBalance balance={context.availableNU.get}/>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 1200, hide: 400}}
-                                    overlay={renderTooltip}
-                                >
-                                    <a href={makeEtherscanAccountLink(NUvendingAddress, networkName)}>
+                                <a href={makeEtherscanAccountLink(NUvendingAddress, networkName)}>
                                     <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                 </a>
-                                </OverlayTrigger>
                             </div>
                         </Col>
                         <Col xs={12} sm={6}>
@@ -91,15 +85,9 @@ export default function AssetsPanel(props) {
                             <div className="assetDisplay">
                                 <img src={require('../../assets/icons/keep.svg')}/>
                                 <TokenBalance balance={context.availableKEEP.get} label="KEEP"/>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 1200, hide: 400}}
-                                    overlay={renderTooltip}
-                                >
-                                    <a href={makeEtherscanAccountLink(KEEPvendingAddress, networkName)}>
-                                        <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
-                                    </a>
-                                </OverlayTrigger>
+                                <a href={makeEtherscanAccountLink(KEEPvendingAddress, networkName)}>
+                                    <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
+                                </a>
                             </div>
                         </Col>
                         <Col xs={12} sm={6}>

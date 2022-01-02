@@ -1,6 +1,6 @@
 import {InputBox, PurpleButton, TokenBalance} from "../index";
 import React, {useContext} from "react";
-import {Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Col, Row, Tooltip} from "react-bootstrap";
 import {Context} from "../../services";
 import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
 
@@ -61,15 +61,9 @@ export default function ThresholdBalance(props) {
                             <div className="assetDisplay">
                                 <img src={require('../../assets/icons/t.svg')}/>
                                 <TokenBalance label={"T"} balance={context.availableT.get}/>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 1200, hide: 400}}
-                                    overlay={renderTooltip}
-                                >
-                                    <a href={makeEtherscanAccountLink(Taddress, networkName)}>
-                                        <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
-                                    </a>
-                                </OverlayTrigger>
+                                <a href={makeEtherscanAccountLink(Taddress, networkName)}>
+                                    <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
+                                </a>
                             </div>
 
                         </Col>
