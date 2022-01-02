@@ -14,7 +14,7 @@ export default function Disclaimer(props) {
             </svg>
                 </div>
             <small>
-                This is a temporary wrapping UI for for early users/testers to upgrade their NU and KEEP to T
+                This is a temporary wrapping UI for early users/testers to upgrade their NU and KEEP to T
                 while the official Threshold UI is finalized.
             </small>
         </InputBox>
