@@ -250,8 +250,19 @@ button:disabled .circleQ svg {
     height: 1em;
     border-radius: 5px;
     display: flex;
-    align-content: center;
     align-items: center;
+    justify-content: flex-start;
+    line-height: 1em;
+}
+
+#disclaimer svg {
+    width: 100%;
+    height: auto;
+    max-height: 1.5em;
+}
+
+#disclaimer small {
+    margin-left: 1em;
 }
 
 .ratio {
