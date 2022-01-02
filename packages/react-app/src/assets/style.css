@@ -251,14 +251,15 @@ button:disabled .circleQ svg {
 }
 
 #disclaimer {
-    background-color: #7038f1;
-    color: white;
-    height: 1em;
+    color: #1E65F3;
+    border: 1px solid #1E65F3;
     border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     line-height: 1em;
+    margin-bottom: 0;
+    padding: 1em;
 }
 
 #disclaimer svg {
