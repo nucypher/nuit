@@ -257,6 +257,10 @@ button:disabled .circleQ svg {
 }
 
 #disclaimer {
+    /*color: white;*/
+    /*background-color: #6B32D8;*/
+    /*background: rgba(0, 0, 0, 0) linear-gradient(130.52deg, rgb(125, 0, 255) 0%, rgb(127, 0, 172) 100%) repeat scroll 0% 0%;*/
+
     color: #1E65F3;
     border: 1px solid #1E65F3;
     border-radius: 5px;
