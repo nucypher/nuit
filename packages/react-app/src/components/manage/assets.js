@@ -77,7 +77,7 @@ export default function AssetsPanel(props) {
                                 abort={setwrappingNU}>
                                 <div className="conversionHint">
                                     <span>Upgrade</span>
-                                    <img src={require('../../assets/icons/nu.svg')}/>
+                                    <img className="from" src={require('../../assets/icons/nu.svg')}/>
                                     <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
                                     <img src={require('../../assets/icons/t.svg')}/>
                                 </div>
@@ -110,7 +110,7 @@ export default function AssetsPanel(props) {
                                 abort={setwrappingKEEP}>
                                 <div className="conversionHint">
                                     <span>Upgrade</span>
-                                    <img src={require('../../assets/icons/keep.svg')}/>
+                                    <img className="from" src={require('../../assets/icons/keep.svg')}/>
                                     <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
                                     <img src={require('../../assets/icons/t.svg')}/>
                                 </div>

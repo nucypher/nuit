@@ -286,6 +286,11 @@ button:disabled .circleQ svg {
     align-items: center;
 }
 
+.conversionHint .from {
+    border: 1px solid;
+    border-radius: 90px;
+}
+
 .conversionHint span {
     margin-right: 1em;
 }
