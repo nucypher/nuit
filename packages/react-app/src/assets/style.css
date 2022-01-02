@@ -20,6 +20,10 @@
     font-style: normal;
 }
 
+#root {
+    overflow: hidden;
+}
+
 body {
     margin: 0;
     font-family: "basis-grotesque-medium", "Open Sans", sans-serif !important;
@@ -690,6 +694,9 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     color: white;
     min-height: 15em;
     font-family: gt-america-mono-regular, monospace;
+    /*display: flex;*/
+    width: 100%;
+    margin: 0;
 }
 
 .footer span {
