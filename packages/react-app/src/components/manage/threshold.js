@@ -16,8 +16,8 @@ export default function ThresholdBalance(props) {
 
     const {provider, contracts} = context.wallet
     let chainId, networkName, Taddress;
-    if (provider && provider.networkVersion && contracts.T) {
-        chainId = provider.networkVersion
+    if (provider && contracts) {
+        chainId = parseInt(provider.chainId)
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
         Taddress = contracts.T._address
     }

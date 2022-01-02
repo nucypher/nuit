@@ -50,10 +50,10 @@ function getEventMeta(event) {
 function EventHistory(props) {
 
     const context = useContext(Context)
-    const {account, provider} = context.wallet
+    const {account, provider, contracts} = context.wallet
     let chainId, networkName;
-    if (provider && provider.chainID) {
-        chainId = provider.chainID
+    if (provider && contracts) {
+        chainId = parseInt(provider.chainId)
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
     }
 

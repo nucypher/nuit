@@ -37,11 +37,11 @@ export default function AssetsPanel(props) {
 
     const {provider, contracts} = context.wallet
     let chainId, networkName, NUvendingAddress, KEEPvendingAddress;
-    if (provider && provider.networkVersion && contracts.NUVENDINGMACHINE && contracts.NUVENDINGMACHINE) {
-        chainId = provider.networkVersion
+    if (provider && contracts) {
+        chainId = parseInt(provider.chainId)
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
-        NUvendingAddress = contracts.NUVENDINGMACHINE._address
-        KEEPvendingAddress = contracts.KEEPVENDINGMACHINE._address
+        NUvendingAddress = context.wallet.contracts.NUVENDINGMACHINE._address
+        KEEPvendingAddress = context.wallet.contracts.KEEPVENDINGMACHINE._address
     }
     return (
         <InputBox>
