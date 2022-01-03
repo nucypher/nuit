@@ -1,4 +1,4 @@
-import {InputBox, PurpleButton, TokenBalance} from "../index";
+import {InputBox, Purple, TokenBalance} from "../index";
 import React, {useContext} from "react";
 import {Col, Row, Tooltip} from "react-bootstrap";
 import {Context} from "../../services";
@@ -73,10 +73,10 @@ export default function ThresholdBalance(props) {
             </Row>
             <Row>
                 <Col xs={12}>
-                    <PurpleButton onClick={AddToMetamask}>
+                    <Purple className="hover" onClick={AddToMetamask}>
                         <img className="mr-1" src={require('../../assets/icons/metamask.svg')}/>
-                        Add to Metamask
-                    </PurpleButton>
+                        <small>Add to Metamask</small>
+                    </Purple>
                 </Col>
             </Row>
         </InputBox>)
