@@ -1,4 +1,4 @@
-import {InputBox, TokenBalance} from "../index";
+import {InputBox, PurpleButton, TokenBalance} from "../index";
 import React, {useContext} from "react";
 import {Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {Context} from "../../services";
@@ -21,6 +21,29 @@ export default function ThresholdBalance(props) {
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
         Taddress = contracts.T._address
     }
+
+    async function AddToMetamask() {
+        const tokenImage = 'https://stake.nucypher.network/static/media/t.f2a76c09.svg';
+        try {
+            // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+            const wasAdded = await window.ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20',
+                    options: {
+                        address: Taddress,
+                        symbol: 'T',
+                        decimals: 18,
+                        image: tokenImage,
+                    },
+                },
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     return (
 
         <InputBox>
@@ -48,8 +71,18 @@ export default function ThresholdBalance(props) {
                                     </a>
                                 </OverlayTrigger>
                             </div>
+
                         </Col>
                     </Row>
+
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    <PurpleButton onClick={AddToMetamask}>
+                        <img className="mr-1" src={require('../../assets/icons/metamask.svg')}/>
+                        Add to Metamask
+                    </PurpleButton>
                 </Col>
             </Row>
         </InputBox>)
