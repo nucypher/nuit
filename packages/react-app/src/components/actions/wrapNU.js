@@ -143,9 +143,9 @@ export const WrapNU = (props) => {
 
                         <div className="conversionHint">
                             <span>Upgrade</span>
-                            <img src={require('../../assets/icons/nu.svg')}/>
+                            <img className="from" src={require('../../assets/icons/nu.svg')}/>
                             <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
-                            <img src={require('../../assets/icons/t.svg')}/>
+                            <img className="to" src={require('../../assets/icons/t.svg')}/>
                         </div>
                     </PendingButton>
                </Col>

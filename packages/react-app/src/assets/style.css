@@ -20,6 +20,10 @@
     font-style: normal;
 }
 
+#root {
+    overflow: hidden;
+}
+
 body {
     margin: 0;
     font-family: "basis-grotesque-medium", "Open Sans", sans-serif !important;
@@ -56,21 +60,29 @@ hr {
 
 .alert-primary {
     color: #fff;
-    background-color: #805AD5;
+    background-color: #7038F1;
     font-family: gt-america-mono-regular, monospace;
     text-align: center;
     font-size: 18px;
     border: none;
     width: 100%;
     border-radius: 0;
-    background-image: url("https://threshold.network/static/media/Swoosh.9da782f3.svg");
-    background-position-y: center;
     margin-bottom: 0;
+    /*background-image: url("https://threshold.network/static/media/Swoosh.9da782f3.svg");*/
+    background-position-y: 20em;
+    background-blend-mode: multiply;
+    background: rgba(0, 0, 0, 0) linear-gradient(130.52deg, rgb(125, 0, 255) 0%, rgb(127, 0, 172) 100%) repeat scroll 0% 0%;
 }
+
 
 .alert-primary a {
     text-decoration: underline;
     margin-left: 11px;
+}
+
+.toast {
+    margin-right: 2em;
+    border-radius: 5px;
 }
 
 #NCmain {
@@ -245,13 +257,29 @@ button:disabled .circleQ svg {
 }
 
 #disclaimer {
-    background-color: #7038f1;
-    color: white;
-    height: 1em;
+    /*color: white;*/
+    /*background-color: #6B32D8;*/
+    /*background: rgba(0, 0, 0, 0) linear-gradient(130.52deg, rgb(125, 0, 255) 0%, rgb(127, 0, 172) 100%) repeat scroll 0% 0%;*/
+
+    color: #1E65F3;
+    border: 1px solid #1E65F3;
     border-radius: 5px;
     display: flex;
-    align-content: center;
     align-items: center;
+    justify-content: center;
+    line-height: 1em;
+    margin-bottom: 0;
+    padding: 1em;
+}
+
+#disclaimer svg {
+    width: 100%;
+    height: auto;
+    max-height: 1.5em;
+}
+
+#disclaimer small {
+    margin-left: 1em;
 }
 
 .ratio {
@@ -266,6 +294,11 @@ button:disabled .circleQ svg {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.conversionHint .from {
+    border: 1px solid;
+    border-radius: 90px;
 }
 
 .conversionHint span {
@@ -401,6 +434,10 @@ button:disabled .circleQ svg {
     padding-right: 24px;
     display: flex;
     justify-content: space-between;
+}
+
+.card-header b {
+    max-width: 90%;
 }
 
 .card-header .faq-plus {
@@ -679,6 +716,9 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     color: white;
     min-height: 15em;
     font-family: gt-america-mono-regular, monospace;
+    /*display: flex;*/
+    width: 100%;
+    margin: 0;
 }
 
 .footer span {

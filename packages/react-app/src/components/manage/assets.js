@@ -1,6 +1,6 @@
 import {InputBox, PendingButton, TokenBalance} from "../index";
 import React, {useContext, useEffect, useState} from "react";
-import {Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Col, Row, Tooltip} from "react-bootstrap";
 import {Context} from "../../services";
 import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
 
@@ -37,11 +37,11 @@ export default function AssetsPanel(props) {
 
     const {provider, contracts} = context.wallet
     let chainId, networkName, NUvendingAddress, KEEPvendingAddress;
-    if (provider && provider.networkVersion && contracts.NUVENDINGMACHINE && contracts.NUVENDINGMACHINE) {
-        chainId = provider.networkVersion
+    if (provider && contracts) {
+        chainId = parseInt(provider.chainId)
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
-        NUvendingAddress = contracts.NUVENDINGMACHINE._address
-        KEEPvendingAddress = contracts.KEEPVENDINGMACHINE._address
+        NUvendingAddress = context.wallet.contracts.NUVENDINGMACHINE._address
+        KEEPvendingAddress = context.wallet.contracts.KEEPVENDINGMACHINE._address
     }
     return (
         <InputBox>
@@ -59,15 +59,9 @@ export default function AssetsPanel(props) {
                             <div className="assetDisplay">
                                 <img src={require('../../assets/icons/nu.svg')}/>
                                 <TokenBalance balance={context.availableNU.get}/>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 1200, hide: 400}}
-                                    overlay={renderTooltip}
-                                >
-                                    <a href={makeEtherscanAccountLink(NUvendingAddress, networkName)}>
+                                <a href={makeEtherscanAccountLink(NUvendingAddress, networkName)}>
                                     <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
                                 </a>
-                                </OverlayTrigger>
                             </div>
                         </Col>
                         <Col xs={12} sm={6}>
@@ -77,7 +71,7 @@ export default function AssetsPanel(props) {
                                 abort={setwrappingNU}>
                                 <div className="conversionHint">
                                     <span>Upgrade</span>
-                                    <img src={require('../../assets/icons/nu.svg')}/>
+                                    <img className="from" src={require('../../assets/icons/nu.svg')}/>
                                     <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
                                     <img src={require('../../assets/icons/t.svg')}/>
                                 </div>
@@ -91,15 +85,9 @@ export default function AssetsPanel(props) {
                             <div className="assetDisplay">
                                 <img src={require('../../assets/icons/keep.svg')}/>
                                 <TokenBalance balance={context.availableKEEP.get} label="KEEP"/>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 1200, hide: 400}}
-                                    overlay={renderTooltip}
-                                >
-                                    <a href={makeEtherscanAccountLink(KEEPvendingAddress, networkName)}>
-                                        <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
-                                    </a>
-                                </OverlayTrigger>
+                                <a href={makeEtherscanAccountLink(KEEPvendingAddress, networkName)}>
+                                    <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
+                                </a>
                             </div>
                         </Col>
                         <Col xs={12} sm={6}>
@@ -110,7 +98,7 @@ export default function AssetsPanel(props) {
                                 abort={setwrappingKEEP}>
                                 <div className="conversionHint">
                                     <span>Upgrade</span>
-                                    <img src={require('../../assets/icons/keep.svg')}/>
+                                    <img className="from" src={require('../../assets/icons/keep.svg')}/>
                                     <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
                                     <img src={require('../../assets/icons/t.svg')}/>
                                 </div>
