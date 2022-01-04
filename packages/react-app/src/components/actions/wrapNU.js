@@ -84,7 +84,7 @@ export const WrapNU = (props) => {
             contracts.NU.methods.approveAndCall(
                 contracts.NUVENDINGMACHINE._address,
                 nuAllocated,
-                0),
+                []),
             context,
             ['wrappingNU'],
             'Wrapping NU in T'
