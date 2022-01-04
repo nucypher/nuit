@@ -23,7 +23,7 @@ export function Home() {
             <Row>
                 <Col>
                     <p id="primer">
-                        We are transitioning to the Threshold Network!
+                        We are upgrading to the Threshold Network!
                         <br/><br/>
                         Your stake information is temporarily not displayable on the dashboard during the transition to Threshold.
                         Existing NU and KEEP stakers will be grandfathered into Threshold via special staking adapters. It is not
