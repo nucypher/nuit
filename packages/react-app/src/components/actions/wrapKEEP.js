@@ -13,7 +13,7 @@ export const WrapKEEP = (props) => {
     const context = useContext(Context)
     const { contracts, account } = context.wallet
 
-    const [nuAllocated, setNuAllocation] = useState()
+    const [KEEPallocated, setKEEPAllocation] = useState()
     const [maxKEEPLimit] = useState(Web3.utils.toBN(context.availableKEEP.get || 0))
     const [AllocationValid, setAllocationValid] = useState(true)
     const [invalidMessage, setInvalidMessage] = useState()
@@ -46,23 +46,23 @@ export const WrapKEEP = (props) => {
             message=r.message
             return r.rule
         })){
-            setNuAllocation(amount)
+            setKEEPAllocation(amount)
             setAllocationValid(true)
             if (amount && duration){
                 setTReturn(calcTReturn(amount, context.KEEPratio.get))
             }
         } else{
-            // setNuAllocation(0)
+            // setKEEPAllocation(0)
             setAllocationValid(false)
             setInvalidMessage(message)
         }
     }
 
     useEffect(() => {
-        if (nuAllocated){
-            setTReturn(calcTReturn(nuAllocated, context.KEEPratio.get))
+        if (KEEPallocated){
+            setTReturn(calcTReturn(KEEPallocated, context.KEEPratio.get))
         }
-    }, [duration, AllocationValid, nuAllocated, maxKEEPLimit])
+    }, [duration, AllocationValid, KEEPallocated, maxKEEPLimit])
 
 
     const handleAction = (e) => {
@@ -73,8 +73,8 @@ export const WrapKEEP = (props) => {
         ContractCaller(
             contracts.KEEP.methods.approveAndCall(
                 contracts.KEEPVENDINGMACHINE._address,
-                nuAllocated,
-                0),
+                KEEPallocated,
+                []),
             context,
             ['wrappingKEEP'],
             'Wrapping KEEP in T'
@@ -82,7 +82,7 @@ export const WrapKEEP = (props) => {
     }
 
     useEffect(() => {
-        if(Web3 && nuAllocated === undefined){
+        if(Web3 && KEEPallocated === undefined){
             onAmountChanged(context.availableKEEP.get)
         }
     })
@@ -98,7 +98,7 @@ export const WrapKEEP = (props) => {
                         denomination="KEEP"
                         valid={AllocationValid}
                         invalidmessage={invalidMessage}
-                        value={nuAllocated}
+                        value={KEEPallocated}
                         initial={maxKEEPLimit}
                         onChange={onAmountChanged}/>
                 </Col>
@@ -130,7 +130,7 @@ export const WrapKEEP = (props) => {
                         <strong>T Amount</strong>
                     </DataRow>
                     <DataRow>
-                        {nuAllocated ? <h5><Blue><DisplayWei fixed={4}>{nuAllocated}</DisplayWei></Blue></h5>:<h5></h5>}
+                        {KEEPallocated ? <h5><Blue><DisplayWei fixed={4}>{KEEPallocated}</DisplayWei></Blue></h5>:<h5></h5>}
                         <h5><Purple>{formatNumber(Tback, 4)}</Purple></h5>
                     </DataRow>
                 </Col>
