@@ -47,7 +47,7 @@ export default function (props) {
     return (
         <HeaderNav>
             <Alert variant="primary">
-                NuCypher is transitioning to the<a href="https://threshold.network/">Threshold Network</a>.
+                NuCypher is upgrading to the<a href="https://threshold.network/">Threshold Network</a>.
             </Alert>
             <Navbar expand="lg">
                 <Navbar.Brand><NCLogo theme={theme}/></Navbar.Brand>
