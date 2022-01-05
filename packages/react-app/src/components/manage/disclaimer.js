@@ -14,7 +14,7 @@ export default function Disclaimer(props) {
             </svg>
                 </div>
             <small>
-                TThis is a beta wrapping UI for early users/testers to upgrade their NU and KEEP to T.
+                This is a beta wrapping UI for early users/testers to upgrade their NU and KEEP to T.
             </small>
         </InputBox>
     )
