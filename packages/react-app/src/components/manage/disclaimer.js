@@ -1,8 +1,15 @@
-import {InputBox} from "../index";
-import React from "react";
+import {InputBox, Purple} from "../index";
+import React, {useContext} from "react";
+import {Context} from '@project/react-app/src/services'
 
 
 export default function Disclaimer(props) {
+
+    const context = useContext(Context)
+
+    const go = () => {
+        context.modals.triggerModal({message: "How To", component: "WatchVideo"})
+    }
 
     return (
         <InputBox id="disclaimer">
@@ -15,7 +22,9 @@ export default function Disclaimer(props) {
                 </div>
             <small>
                 This is a beta wrapping UI for early users/testers to upgrade their NU and KEEP to T.
-            </small>
+                <br></br>For a handy video tutorial <strong><Purple className="hover" onClick={go}>click here.</Purple></strong>
+            </small><br></br>
+
         </InputBox>
     )
 }
