@@ -15,7 +15,7 @@ import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
 import DebugPanel from '@project/react-app/src/components/debugPanel';
 import {MessagePublisher, ModalDispatcher} from '@project/react-app/src/components/messaging'
-import {Home, NewStake, Wrap} from '@project/react-app/src/pages'
+import {Home, SimplePRE, Wrap } from '@project/react-app/src/pages'
 
 import {Container} from 'react-bootstrap/';
 
@@ -29,6 +29,7 @@ function App() {
     const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(setMessage)
 
     const [availableNU, setAvailableNU] = useState(0)
+    const [stakedNU, setStakedNU] = useState(0)
     const [availableKEEP, setAvailableKEEP] = useState(0)
     const [availableT, setAvailableT] = useState(0)
     const [availableETH, setAvailableETH] = useState(0)
@@ -79,6 +80,7 @@ function App() {
         NUallowance: {set: setNUallowance, get: NUallowance},
         NUratio: {set: setNUratio, get: NUratio},
         KEEPratio: {set: setKEEPratio, get: KEEPratio},
+        stakedNU: {set: setStakedNU, get: stakedNU},
 
         maxKEEPconversion: {set: setMaxKEEPconversion, get: maxKEEPconversion},
         maxNUconversion: {set: setMaxNUconversion, get: maxNUconversion},
@@ -120,6 +122,7 @@ function App() {
 
     const updateStakerData = async (contracts, context) => {
 
+
         context.setStakerUpdates(context.pending.filter(f => {
             return context.actionsCompleted.indexOf(f) === -1
         }))
@@ -127,26 +130,31 @@ function App() {
         const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
         setAvailableNU(stakerNuWallet)
 
-        const keepWallet = await contracts.KEEP.methods.balanceOf(account).call()
-        setAvailableKEEP(keepWallet)
-
         const TWallet = await contracts.T.methods.balanceOf(account).call()
         setAvailableT(TWallet)
 
-        const NUtoTRatio = await contracts.NUVENDINGMACHINE.methods.ratio().call()
-        const NUtoTDivisor = await contracts.NUVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
-        setNUratio((NUtoTRatio / NUtoTDivisor).toFixed(15))
+        // handle missing vending machi8ne contracts
+        try{
+            const keepWallet = await contracts.KEEP.methods.balanceOf(account).call()
+            setAvailableKEEP(keepWallet)
 
-        const totalNUconversion = await contracts.NUVENDINGMACHINE.methods.conversionToT(stakerNuWallet).call()
-        setMaxNUconversion(totalNUconversion)
+            const NUtoTRatio = await contracts.NUVENDINGMACHINE.methods.ratio().call()
+            const NUtoTDivisor = await contracts.NUVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
+            setNUratio((NUtoTRatio / NUtoTDivisor).toFixed(15))
+            const totalNUconversion = await contracts.NUVENDINGMACHINE.methods.conversionToT(stakerNuWallet).call()
+            setMaxNUconversion(totalNUconversion)
 
-        const KEEPtoTRatio = await contracts.KEEPVENDINGMACHINE.methods.ratio().call()
-        const KEEPtoTDivisor = await contracts.KEEPVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
-        setKEEPratio((KEEPtoTRatio / KEEPtoTDivisor).toFixed(15))
+            const KEEPtoTRatio = await contracts.KEEPVENDINGMACHINE.methods.ratio().call()
+            const KEEPtoTDivisor = await contracts.KEEPVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
+            setKEEPratio((KEEPtoTRatio / KEEPtoTDivisor).toFixed(15))
 
-        const totalKEEPconversion = await contracts.KEEPVENDINGMACHINE.methods.conversionToT(keepWallet).call()
-        setMaxKEEPconversion(totalKEEPconversion)
-
+            const totalKEEPconversion = await contracts.KEEPVENDINGMACHINE.methods.conversionToT(availableKEEP).call()
+            setMaxKEEPconversion(totalKEEPconversion)
+        } catch (err){
+            console.warn(err);
+        }
+            const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
+            setStakedNU(stakedNU)
     }
 
     useEffect(() => {
@@ -196,13 +204,12 @@ function App() {
                         <ModalDispatcher/>
                         <Main id="NCmain">
                             <Switch>
-                                <Route path="/new">
-                                    <NewStake/>
-                                </Route>
                                 <Route path="/wrap">
                                     <Wrap theme={theme}/>
                                 </Route>
-
+                                <Route path="/manage">
+                                    <SimplePRE/>
+                                </Route>
                                 <Route path="/">
                                     <Home/>
                                 </Route>
