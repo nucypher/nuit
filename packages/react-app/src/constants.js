@@ -1,6 +1,6 @@
 import Web3 from "web3";
 // NuCypher constants
-const MIN_STAKE = 15000
+const MIN_STAKE = 40000
 
 export const daysPerPeriod = 7.0
 export const secondsPerDay = 86400

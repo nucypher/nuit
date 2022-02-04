@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import Web3 from "web3";
 
 import { Container, Row, Col } from 'react-bootstrap/';
-import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, Purple, NuStakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
+import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, Purple, StakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, setNUAllowance } from '@project/react-app/src/services'
 import { calcTReturn, MIN_STAKE, daysPerPeriod, getCurrentPeriod, formatWei, formatNumber } from '@project/react-app/src/constants'
@@ -107,7 +107,7 @@ export const WrapNU = (props) => {
 
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
-                    <NuStakeAllocator label="NU Available" valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} initial={maxNULimit} onChange={onAmountChanged}/>
+                    <StakeAllocator label="NU Available" valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} initial={maxNULimit} onChange={onAmountChanged}/>
                 </Col>
             </Row>
 

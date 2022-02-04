@@ -60,7 +60,7 @@ export const WorkerRunwayDisplay = (props) => {
                     </span>
                     <EthBalance balance={balance}/>
                 </div>
-                <div className="d-flex justify-content-between">
+                {/* <div className="d-flex justify-content-between">
                     <span>
                         <strong>Estimated Runway </strong>
                         <OverlayTrigger
@@ -70,7 +70,7 @@ export const WorkerRunwayDisplay = (props) => {
                         </OverlayTrigger>
                     </span>
                     <span><strong><Blue>{runway}</Blue> <Grey>DAYS</Grey></strong></span>
-                </div>
+                </div> */}
             </div>:<ConnectPLS/>}
         </div>
     )

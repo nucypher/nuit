@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap/';
-import { TypeOver, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow, Period } from '@project/react-app/src/components'
+import { TypeOver, PendingButton, Slider, Grey, Blue, StakeAllocator, CircleQ, DataRow, Period } from '@project/react-app/src/components'
 
 import { formatWei } from '@project/react-app/src/constants'
 
@@ -97,7 +97,7 @@ export const IncreaseStake = (props) => {
             </Row>
             <Row noGutters className="d-flex justify-content-center">
                 <Col xs={12} className="d-flex justify-content-center">
-                    <NuStakeAllocator valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} initial={maxNULimit} onChange={onAmountChanged}/>
+                    <StakeAllocator valid={AllocationValid} invalidmessage={invalidMessage} value={nuAllocated} initial={maxNULimit} onChange={onAmountChanged}/>
                 </Col>
             </Row>
             <Row>

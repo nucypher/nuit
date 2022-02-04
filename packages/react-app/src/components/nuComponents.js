@@ -48,7 +48,7 @@ function NuCLickDisplay (props) {
     )
 }
 
-export const NuStakeAllocator = (props) => {
+export const StakeAllocator = (props) => {
 
     const context = useContext(Context)
     const {web3} = context.wallet

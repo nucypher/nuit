@@ -32,9 +32,11 @@ function App() {
     const [stakedNU, setStakedNU] = useState(0)
     const [availableKEEP, setAvailableKEEP] = useState(0)
     const [availableT, setAvailableT] = useState(0)
+    const [stakedT, setStakedT] = useState(0)
     const [availableETH, setAvailableETH] = useState(0)
     const [NUratio, setNUratio] = useState(0)
     const [KEEPratio, setKEEPratio] = useState(0)
+    const [canWithdraw, setCanWithdraw] = useState(0);
 
     const [maxKEEPconversion, setMaxKEEPconversion] = useState(0)
     const [maxNUconversion, setMaxNUconversion] = useState(0)
@@ -80,7 +82,10 @@ function App() {
         NUallowance: {set: setNUallowance, get: NUallowance},
         NUratio: {set: setNUratio, get: NUratio},
         KEEPratio: {set: setKEEPratio, get: KEEPratio},
-        stakedNU: {set: setStakedNU, get: stakedNU},
+
+        stakedNU,
+        stakedT,
+
 
         maxKEEPconversion: {set: setMaxKEEPconversion, get: maxKEEPconversion},
         maxNUconversion: {set: setMaxNUconversion, get: maxNUconversion},
@@ -117,11 +122,12 @@ function App() {
           This is then used to remove those actions from 'pending' (described above)
         */
         actionsCompleted,
-        setActionsCompleted
+        setActionsCompleted,
+
+        canWithdraw,
     }
 
     const updateStakerData = async (contracts, context) => {
-
 
         context.setStakerUpdates(context.pending.filter(f => {
             return context.actionsCompleted.indexOf(f) === -1
@@ -133,7 +139,7 @@ function App() {
         const TWallet = await contracts.T.methods.balanceOf(account).call()
         setAvailableT(TWallet)
 
-        // handle missing vending machi8ne contracts
+        // handle missing vending machine/keep contracts
         try{
             const keepWallet = await contracts.KEEP.methods.balanceOf(account).call()
             setAvailableKEEP(keepWallet)
@@ -152,9 +158,23 @@ function App() {
             setMaxKEEPconversion(totalKEEPconversion)
         } catch (err){
             console.warn(err);
+            setNUratio(3.259242493160745)
         }
-            const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
-            setStakedNU(stakedNU)
+        const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
+        setStakedNU(stakedNU)
+
+
+        const unVested = await contracts.STAKINGESCROW.methods.getUnvestedTokens(account).call()
+
+        setCanWithdraw(Web3.utils.toBN(stakedNU).sub(Web3.utils.toBN(unVested)))
+
+
+        if (contracts.TOKENSTAKING){
+            const TstakeInfo = await contracts.TOKENSTAKING.methods.stakes(account).call()
+            setStakedT(Web3.utils.toBN(TstakeInfo.nuInTStake).add(Web3.utils.toBN(TstakeInfo.tStake).add(Web3.utils.toBN(TstakeInfo.keepInTStake))))
+            console.log(TstakeInfo)
+        }
+
     }
 
     useEffect(() => {

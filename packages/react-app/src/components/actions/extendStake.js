@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { TypeOver, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow, Period } from '@project/react-app/src/components'
+import { TypeOver, PendingButton, Slider, Grey, Blue, StakeAllocator, CircleQ, DataRow, Period } from '@project/react-app/src/components'
 
 import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constants'
 import { daysToPeriods, periodsToDays } from '@project/react-app/src/services'

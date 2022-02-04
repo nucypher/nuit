@@ -1595,4 +1595,4 @@ export default [
       "type": "function"
     }
   ]
-}
+]
