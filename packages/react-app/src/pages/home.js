@@ -67,7 +67,7 @@ export function Home() {
                 </Col>
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <a className="mb-3 w100"
-                       href="https://docs.nucypher.com/en/latest/staking/overview.html"><SecondaryButton><strong>PRE Documentation</strong></SecondaryButton></a>
+                       href="https://interim-pre-application-docs.readthedocs.io/en/latest/"><SecondaryButton><strong>PRE Documentation</strong></SecondaryButton></a>
                 </Col>
 
             </Row>
