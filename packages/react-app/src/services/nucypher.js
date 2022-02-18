@@ -175,3 +175,40 @@ export const setNUAllowance = async (amountWei, context) => {
     )
   }
 }
+
+export const setTAllowance = async (amountWei, context) => {
+  const { contracts } = context.wallet
+  const amount_bn = Web3.utils.toBN(amountWei)
+
+  if (context.Tallowance.get === '0') {
+      ContractCaller(
+          contracts.T.methods.approve(
+             contracts.TOKENSTAKING._address,
+              amountWei
+          ),
+          context,
+          [`approvingTspend`],
+          `Approving T spend`
+      )
+  } else if (amount_bn.gt(context.NUallowance.get)) {
+      ContractCaller(
+          contracts.T.methods.approve(
+              contracts.TOKENSTAKING._address,
+              amount_bn.sub(context.NUallowance.get)
+          ),
+          context,
+          [`approvingTspend`],
+          `Approving T spend`
+      )
+  } else {
+    ContractCaller(
+      contracts.NU.methods.decreaseAllowance(
+          contracts.STAKINGESCROW._address,
+          context.NUallowance.get
+      ),
+      context,
+      [`approvingTspend`],
+      `Approving T spend`
+    )
+  }
+}

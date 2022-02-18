@@ -6,11 +6,13 @@ import {ReactComponent as Moon} from '../assets/icons/moon.svg'
 import {ReactComponent as Sun} from '../assets/icons/sun.svg'
 
 export { WorkerETHAddressField, WorkerRunwayDisplay, EthBalance, Address, DisplayWei } from '@project/react-app/src/components/ethComponents'
-export { NuStakeAllocator, TokenBalance, Period } from '@project/react-app/src/components/nuComponents'
+export { StakeAllocator, TokenBalance, Period } from '@project/react-app/src/components/nuComponents'
 export { Slider } from '@project/react-app/src/components/slider'
 export { CircleQ } from '@project/react-app/src/components/circleQ'
 
 export { BondWorker } from '@project/react-app/src/components/actions/bondWorker'
+export { BondOperator } from '@project/react-app/src/components/actions/bondOperator'
+
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 export { WrapNU } from '@project/react-app/src/components/actions/wrapNU'

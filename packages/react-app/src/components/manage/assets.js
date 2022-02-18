@@ -8,6 +8,7 @@ import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
 export default function AssetsPanel(props) {
 
     const context = useContext(Context)
+    const [canwrap, setCanWrap] = useState(false)
 
     const [wrappingNU, setwrappingNU] = useState(false)
     const [wrappingKEEP, setwrappingKEEP] = useState(false)
@@ -35,9 +36,14 @@ export default function AssetsPanel(props) {
         setwrappingKEEP(context.pending.indexOf('wrappingKEEP') > -1)
     }, [context.pending.length, context.pending])
 
+
     const {provider, contracts} = context.wallet
+
+    setCanWrap(provider && contracts && context.wallet.contracts.NUVENDINGMACHINE || context.wallet.contracts.KEEPVENDINGMACHINE)
+
+
     let chainId, networkName, NUvendingAddress, KEEPvendingAddress;
-    if (provider && contracts) {
+    if (provider && contracts && context.wallet.contracts.NUVENDINGMACHINE && context.wallet.contracts.KEEPVENDINGMACHINE) {
         chainId = parseInt(provider.chainId)
         networkName = PUBLIC_CHAINS[chainId].toLowerCase();
         NUvendingAddress = context.wallet.contracts.NUVENDINGMACHINE._address
@@ -52,7 +58,7 @@ export default function AssetsPanel(props) {
                 </Col>
             </Row>
 
-            <Row noGutters>
+            {canwrap && <Row noGutters>
                 <Col xs={12}>
                     <Row className="mb-3 flex-row align-items-center">
                         <Col xs={12} sm={6}>
@@ -106,6 +112,6 @@ export default function AssetsPanel(props) {
                         </Col>
                     </Row>
                 </Col>
-            </Row>
+            </Row>}
         </InputBox>)
 }

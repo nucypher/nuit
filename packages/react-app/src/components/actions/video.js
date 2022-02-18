@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import Web3 from "web3";
 
 import { Container, Row, Col } from 'react-bootstrap/';
-import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, Purple, NuStakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
+import { TypeOver, DataRow, Period, PendingButton, Slider, Grey, Blue, Purple, StakeAllocator, CircleQ, ConnectPLS, DisplayWei } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, setKEEPAllowance } from '@project/react-app/src/services'
 import { calcTReturn, MIN_STAKE, daysPerPeriod, getCurrentPeriod, formatWei, formatNumber } from '@project/react-app/src/constants'

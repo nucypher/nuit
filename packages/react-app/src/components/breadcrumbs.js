@@ -24,10 +24,10 @@ export default (props) => {
     }
 
     return (
-        <Col xs={12} className="d-flex justify-content-center">
+        <Col xs={12} className="d-flex justify-content-between">
             <Breadcrumb>
                 {props.paths.map((path) => {
-                    return path.enabled ? <Breadcrumb.Item linkAs="div" key={path.path}>
+                    return path.enabled ? <Breadcrumb.Item linkAs="a" key={path.path}>
                             <NavLink activeStyle={activeStyle(theme)} to={renderPath(path)}>
                                 {`${path.label}`}
                             </NavLink>

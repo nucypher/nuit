@@ -12,7 +12,14 @@ export default function DebugPanel(props) {
                 <Col>
                 <div id="debugPanel" className="flex-row justify-content-lg-center text-center">
                             <h4>Debug</h4>
-                {context.NUallowance ? <span>NUallowance: <DisplayWei>{context.NUallowance.get}</DisplayWei></span>: null}
+                {[
+                        {val: context.availableNU, label: "liquid NU"},
+                        {val: context.stakedNU, label:"staked NU"},
+                        {val: context.availableT, label:"available T"}
+                    ].map(kv => {
+                       return kv.val.get ? <div key={kv.label}>{kv.label}: <DisplayWei>{kv.val.get}</DisplayWei></div> : <span key={kv.label}></span>
+                    })
+                }
                 </div>
                 </Col>
             </Row>

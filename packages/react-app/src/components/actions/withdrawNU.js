@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap/';
-import { PrimaryButton, PendingButton, Slider, Grey, Blue, NuStakeAllocator, CircleQ, DataRow } from '@project/react-app/src/components'
+import { TypeOver, PendingButton, Slider, Grey, Blue, StakeAllocator, CircleQ, DataRow } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, daysToPeriods } from '@project/react-app/src/services'
 import { calcROI, MIN_STAKE } from '@project/react-app/src/constants'
@@ -12,7 +12,7 @@ const NUWithdrawer = (props) => {
     const context = useContext(Context)
     const { web3 } = context.wallet
 
-    const stakerBalance = context.stakerData.availableNUWithdrawal.toString()
+    const stakerBalance = context.canWithdraw.toString()
     const totalAvailable = web3.utils.fromWei(stakerBalance,  'ether')
 
     const min = 0
@@ -37,7 +37,7 @@ export const WithdrawNU = (props) => {
     const context = useContext(Context)
     const { web3, contracts } = context.wallet
     const stakerData = context.stakerData
-    const maxAmount = web3.utils.fromWei(context.stakerData.availableNUWithdrawal.toString())
+    const maxAmount = web3.utils.fromWei(context.canWithdraw.toString())
     const [amount, setAmount] = useState(maxAmount)
 
     const handleAction = (e) => {
@@ -70,7 +70,7 @@ export const WithdrawNU = (props) => {
             <Row>
                 <Col>
                 <DataRow>
-                    <strong>Withdrawing:</strong><span><Blue>{amount}</Blue> <Grey>NU</Grey></span>
+                    <strong>Withdrawing:</strong><span><Blue><TypeOver  onChange={e => setAmount(e)}>{amount}</TypeOver></Blue> <Grey>NU</Grey></span>
                 </DataRow>
                 </Col>
             </Row>

@@ -15,7 +15,7 @@ import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
 import DebugPanel from '@project/react-app/src/components/debugPanel';
 import {MessagePublisher, ModalDispatcher} from '@project/react-app/src/components/messaging'
-import {Home, NewStake, Wrap} from '@project/react-app/src/pages'
+import {Home, SimplePRE, Wrap } from '@project/react-app/src/pages'
 
 import {Container} from 'react-bootstrap/';
 
@@ -29,11 +29,14 @@ function App() {
     const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(setMessage)
 
     const [availableNU, setAvailableNU] = useState(0)
+    const [stakedNU, setStakedNU] = useState(0)
     const [availableKEEP, setAvailableKEEP] = useState(0)
     const [availableT, setAvailableT] = useState(0)
+    const [stakedT, setStakedT] = useState(0)
     const [availableETH, setAvailableETH] = useState(0)
     const [NUratio, setNUratio] = useState(0)
     const [KEEPratio, setKEEPratio] = useState(0)
+    const [canWithdraw, setCanWithdraw] = useState(0);
 
     const [maxKEEPconversion, setMaxKEEPconversion] = useState(0)
     const [maxNUconversion, setMaxNUconversion] = useState(0)
@@ -80,6 +83,10 @@ function App() {
         NUratio: {set: setNUratio, get: NUratio},
         KEEPratio: {set: setKEEPratio, get: KEEPratio},
 
+        stakedNU,
+        stakedT,
+
+
         maxKEEPconversion: {set: setMaxKEEPconversion, get: maxKEEPconversion},
         maxNUconversion: {set: setMaxNUconversion, get: maxNUconversion},
 
@@ -115,7 +122,9 @@ function App() {
           This is then used to remove those actions from 'pending' (described above)
         */
         actionsCompleted,
-        setActionsCompleted
+        setActionsCompleted,
+
+        canWithdraw,
     }
 
     const updateStakerData = async (contracts, context) => {
@@ -127,25 +136,44 @@ function App() {
         const stakerNuWallet = await contracts.NU.methods.balanceOf(account).call()
         setAvailableNU(stakerNuWallet)
 
-        const keepWallet = await contracts.KEEP.methods.balanceOf(account).call()
-        setAvailableKEEP(keepWallet)
-
         const TWallet = await contracts.T.methods.balanceOf(account).call()
         setAvailableT(TWallet)
 
-        const NUtoTRatio = await contracts.NUVENDINGMACHINE.methods.ratio().call()
-        const NUtoTDivisor = await contracts.NUVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
-        setNUratio((NUtoTRatio / NUtoTDivisor).toFixed(15))
+        // handle missing vending machine/keep contracts
+        try{
+            const keepWallet = await contracts.KEEP.methods.balanceOf(account).call()
+            setAvailableKEEP(keepWallet)
 
-        const totalNUconversion = await contracts.NUVENDINGMACHINE.methods.conversionToT(stakerNuWallet).call()
-        setMaxNUconversion(totalNUconversion)
+            const NUtoTRatio = await contracts.NUVENDINGMACHINE.methods.ratio().call()
+            const NUtoTDivisor = await contracts.NUVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
+            setNUratio((NUtoTRatio / NUtoTDivisor).toFixed(15))
+            const totalNUconversion = await contracts.NUVENDINGMACHINE.methods.conversionToT(stakerNuWallet).call()
+            setMaxNUconversion(totalNUconversion)
 
-        const KEEPtoTRatio = await contracts.KEEPVENDINGMACHINE.methods.ratio().call()
-        const KEEPtoTDivisor = await contracts.KEEPVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
-        setKEEPratio((KEEPtoTRatio / KEEPtoTDivisor).toFixed(15))
+            const KEEPtoTRatio = await contracts.KEEPVENDINGMACHINE.methods.ratio().call()
+            const KEEPtoTDivisor = await contracts.KEEPVENDINGMACHINE.methods.FLOATING_POINT_DIVISOR().call()
+            setKEEPratio((KEEPtoTRatio / KEEPtoTDivisor).toFixed(15))
 
-        const totalKEEPconversion = await contracts.KEEPVENDINGMACHINE.methods.conversionToT(keepWallet).call()
-        setMaxKEEPconversion(totalKEEPconversion)
+            const totalKEEPconversion = await contracts.KEEPVENDINGMACHINE.methods.conversionToT(availableKEEP).call()
+            setMaxKEEPconversion(totalKEEPconversion)
+        } catch (err){
+            console.warn(err);
+            setNUratio(3.259242493160745)
+        }
+        const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
+        setStakedNU(stakedNU)
+
+
+        const unVested = await contracts.STAKINGESCROW.methods.getUnvestedTokens(account).call()
+
+        setCanWithdraw(Web3.utils.toBN(stakedNU).sub(Web3.utils.toBN(unVested)))
+
+
+        if (contracts.TOKENSTAKING){
+            const TstakeInfo = await contracts.TOKENSTAKING.methods.stakes(account).call()
+            setStakedT(Web3.utils.toBN(TstakeInfo.nuInTStake).add(Web3.utils.toBN(TstakeInfo.tStake).add(Web3.utils.toBN(TstakeInfo.keepInTStake))))
+            console.log(TstakeInfo)
+        }
 
     }
 
@@ -196,13 +224,12 @@ function App() {
                         <ModalDispatcher/>
                         <Main id="NCmain">
                             <Switch>
-                                <Route path="/new">
-                                    <NewStake/>
-                                </Route>
                                 <Route path="/wrap">
                                     <Wrap theme={theme}/>
                                 </Route>
-
+                                <Route path="/manage">
+                                    <SimplePRE/>
+                                </Route>
                                 <Route path="/">
                                     <Home/>
                                 </Route>

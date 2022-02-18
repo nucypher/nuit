@@ -63,8 +63,11 @@ export function Home() {
                     <Link className="mb-3 w100" to="/wrap"><PurpleButton><strong>Upgrade NU/KEEP</strong></PurpleButton></Link>
                 </Col>
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
+                    <Link className="mb-3 w100" to="/manage"><PrimaryButton><strong>Manage</strong></PrimaryButton></Link>
+                </Col>
+                <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <a className="mb-3 w100"
-                       href="https://docs.nucypher.com/en/latest/staking/overview.html"><SecondaryButton><strong>PRE Documentation</strong></SecondaryButton></a>
+                       href="https://interim-pre-application-docs.readthedocs.io/en/latest/"><SecondaryButton><strong>PRE Documentation</strong></SecondaryButton></a>
                 </Col>
 
             </Row>

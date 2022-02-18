@@ -422,6 +422,10 @@ button:disabled .circleQ svg {
     margin-bottom: 4em;
 }
 
+.modal-dialog .accordion{
+    margin-bottom: .5em;
+}
+
 .card-header {
     padding-top: 2em;
     height: 88px;
@@ -582,6 +586,10 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 
 .nowrap {
     white-space: nowrap
+}
+
+.tightbox .form-control{
+    font-size: .9em;
 }
 
 .w100{
