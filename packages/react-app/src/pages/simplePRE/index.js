@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 import { Col, Container, Row, Card } from 'react-bootstrap/';
-import { DisplayWei, ConnectPLS, InputBox, PendingButton, TokenBalance, Address, Blue, DataRow } from '@project/react-app/src/components'
+import { DisplayWei, ConnectPLS, InputBox, PendingButton, TokenBalance, Address, Blue, Purple, DataRow } from '@project/react-app/src/components'
 import {
     useRouteMatch,
     Route,
@@ -40,13 +40,13 @@ export function SimplePRE() {
     return (
         <Container fluid>
             <Row className="d-flex justify-content-center">
-                <Col xs={6}>
-                <Breadcrumbs paths={[
-                    {path:'/manage', label: "root", enabled: true },
-                    {path:'withdraw', label: "withdraw", enabled: true },
-                    {path: 'migrate', label: 'migrate', enabled: true },
-                    {path: 'bond', label: 'bond', enabled: true }
-                ]}/>
+                <Col xs={12} md={10} xl={6}>
+                    <Breadcrumbs paths={[
+                        {path:'/manage', label: "stats", enabled: true },
+                        {path:'withdraw', label: "withdraw", enabled: true },
+                        {path: 'stake', label: 'stake', enabled: true },
+                        {path: 'bond', label: 'bond', enabled: true }
+                    ]}/>
                 </Col>
             </Row>
             {!account
@@ -54,75 +54,81 @@ export function SimplePRE() {
                 :
             <Switch>
                 <Route path={`${path}/withdraw`}>
-                <InputBox>
-                        <Col xs={12}>
-                            <h4>Withdraw vested NU</h4>
-                        </Col>
-                        <Col xs={12}>
-                            <Row className="mb-3 flex-row align-items-center">
-                                <Col xs={12} md={6}>
-                                    <div className="assetDisplay">
-                                        <img src={require('../../assets/icons/nu.svg')}/>
-                                        <TokenBalance balance={context.canWithdraw}/>
-                                    </div>
+                    <Row className="d-flex justify-content-center">
+                        <Col xs={12} md={10} xl={6}>
+                            <InputBox>
+                                <Col xs={12}>
+                                    <h4>Withdraw vested NU</h4>
                                 </Col>
-                                <Col xs={12} md={6}>
-                                    <PendingButton
-                                        activeCheck={withdrawingNU}
-                                        onClick={handleWithdrawNU}
-                                        abort={setWithdrawingNU}>
-                                        <div className="conversionHint">
-                                            <span>Withdraw NU</span>
-                                            <img className="from" src={require('../../assets/icons/nu.svg')}/>
-                                        </div>
-                                    </PendingButton>
+                                <Col xs={12}>
+                                    <Row className="mb-3 flex-row align-items-center">
+                                        <Col xs={12} md={6}>
+                                            <div className="assetDisplay">
+                                                <img src={require('../../assets/icons/nu.svg')}/>
+                                                <TokenBalance balance={context.canWithdraw}/>
+                                            </div>
+                                        </Col>
+                                        <Col xs={12} md={6}>
+                                            <PendingButton
+                                                activeCheck={withdrawingNU}
+                                                onClick={handleWithdrawNU}
+                                                abort={setWithdrawingNU}>
+                                                <div className="conversionHint">
+                                                    <span>Withdraw NU</span>
+                                                    <img className="from" src={require('../../assets/icons/nu.svg')}/>
+                                                </div>
+                                            </PendingButton>
+                                        </Col>
+                                    </Row>
                                 </Col>
-                            </Row>
+                            </InputBox>
                         </Col>
-                    </InputBox>
+                    </Row>
                 </Route>
-                <Route path={`${path}/migrate`}>
-                    <InputBox>
-                        <Col xs={12}>
-                            <h4>Stake NU on Threshold</h4>
-                        </Col>
-                        <Col xs={12}>
-                            <Row className="mb-3 flex-row align-items-center">
-                                <Col xs={12} md={6}>
-                                    <div className="assetDisplay">
-                                        <img src={require('../../assets/icons/nu.svg')}/>
-                                        <TokenBalance balance={context.stakedNU}/>
-                                        <a href={makeEtherscanAccountLink(TOKENSTAKINGAddress, networkName)}>
-                                            <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
-                                        </a>
-                                    </div>
+                <Route path={`${path}/stake`}>
+                    <Row className="d-flex justify-content-center">
+                        <Col xs={12} md={10} xl={6}>
+                            <InputBox>
+                                <Col xs={12}>
+                                    <h4>Stake NU on Threshold</h4>
                                 </Col>
-                                <Col xs={12} md={6}>
-                                    <PendingButton
-                                        activeCheck={stakingNU}
-                                        onClick={handleStakeNU}
-                                        abort={setStakingNU}>
-                                        <div className="conversionHint">
-                                            <span>Upgrade Stake</span>
-                                            <img className="from" src={require('../../assets/icons/nu.svg')}/>
-                                            <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
-                                            <img src={require('../../assets/icons/t.svg')}/>
-                                        </div>
-                                    </PendingButton>
+                                <Col xs={12}>
+                                    <Row className="mb-3 flex-row align-items-center">
+                                        <Col xs={12}>
+                                            <div className="assetDisplay">
+                                                <img src={require('../../assets/icons/nu.svg')}/>
+                                                <TokenBalance balance={context.stakedNU}/>
+                                                <a href={makeEtherscanAccountLink(TOKENSTAKINGAddress, networkName)}>
+                                                    <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
+                                                </a>
+                                            </div>
+
+                                            <PendingButton
+                                                activeCheck={stakingNU}
+                                                onClick={handleStakeNU}
+                                                abort={setStakingNU}>
+                                                <div className="conversionHint">
+                                                    <span>Stake NU on Threshold</span>
+                                                    <img className="from" src={require('../../assets/icons/nu.svg')}/>
+                                                    <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
+                                                    <img src={require('../../assets/icons/t.svg')}/>
+                                                </div>
+                                            </PendingButton>
+                                        </Col>
+                                    </Row>
                                 </Col>
-                            </Row>
+                            </InputBox>
                         </Col>
-                    </InputBox>
+                    </Row>
                 </Route>
                 <Route path={`${path}/bond`}>
                     <BondOperator/>
                 </Route>
                 <Route path={`${path}`}>
-                    <Container>
-                    <Row>
-                        <Col xs={12} >
+                    <Row className="d-flex justify-content-center">
+                        <Col xs={12} md={10} xl={6}>
                             <InputBox className="flex flex-row align-items-center">
-                                <Col xs={12} md={8}>
+                                <Col xs={12}>
                                     <p><strong>Staker Stats for:</strong><a target="etherscan" href={makeEtherscanAccountLink(context.wallet.account)}><Blue><Address>{context.wallet.account}</Address></Blue></a> </p>
                                     <DataRow className="mb-3"><img src={require('../../assets/icons/nu.svg')}/></DataRow>
                                     <DataRow><span>Liquid NU</span><span><TokenBalance balance={context.availableNU.get}/></span></DataRow>
@@ -131,12 +137,12 @@ export function SimplePRE() {
                                     <hr></hr>
                                     <DataRow className="mb-3"><img src={require('../../assets/icons/t.svg')}/></DataRow>
                                     <DataRow><span>Liquid T</span><span><TokenBalance label="T" balance={context.availableT.get}/></span></DataRow>
-                                    <DataRow><span>Staked T</span><span><TokenBalance label="T" balance={context.stakedT}/></span></DataRow>
+                                    <DataRow><span>Migrated T Stake</span><span><TokenBalance label="T" balance={context.stakedT}/></span></DataRow>
+                                    <div className="mt-5">find more staking tools on the <Purple><a target="threshold" href="https://dashboard.threshold.network/overview/network"> Threshold Dashboard</a></Purple></div>
                                 </Col>
                             </InputBox>
                         </Col>
                     </Row>
-                    </Container>
                 </Route>
             </Switch>
         }

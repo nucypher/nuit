@@ -224,9 +224,9 @@ function App() {
                         <ModalDispatcher/>
                         <Main id="NCmain">
                             <Switch>
-                                <Route path="/wrap">
+                                {/* <Route path="/wrap">
                                     <Wrap theme={theme}/>
-                                </Route>
+                                </Route> */}
                                 <Route path="/manage">
                                     <SimplePRE/>
                                 </Route>
