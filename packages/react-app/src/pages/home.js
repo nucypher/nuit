@@ -27,7 +27,7 @@ export function Home() {
                         <br/><br/>
                         Your stake information is temporarily not displayable on the dashboard during the transition to Threshold.
                         Existing NU and KEEP stakers will be grandfathered into Threshold via special staking adapters. It is not
-                        necessary to keep your worker node up until until the instructions for Threshold staking are shared.
+                        necessary to keep your worker node up until the instructions for Threshold staking are shared.
                         <br/><br/>
                         Rest assured, your legacy NU stakes are safe and will be eligible to be utilized by Threshold Network
                         via a staking adapter to instead earn rewards in the T token.
