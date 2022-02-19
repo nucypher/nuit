@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap/';
 import Accordion from "react-bootstrap/Accordion";
-import { PrimaryButton, NoBorderButton, DisplayWei, WorkerETHAddressField, Blue } from '@project/react-app/src/components'
+import { PrimaryButton, NoBorderButton, DisplayWei, WorkerETHAddressField, Blue, TokenBalance } from '@project/react-app/src/components'
 
 import { Context, ContractCaller } from '@project/react-app/src/services'
 
@@ -64,7 +64,7 @@ export const StakeNU = (props) => {
                 </Accordion>
             <Row>
                 <Col>
-                    <PrimaryButton onClick={e => handleAction()}>Stake <DisplayWei>{context.stakedNU}</DisplayWei> NU on Threshold as T</PrimaryButton>
+                    <PrimaryButton className="d-flex flex-xs-nowrap" onClick={e => handleAction()}> Stake <TokenBalance balance={context.stakedNU}/> on Threshold as T</PrimaryButton>
                 </Col>
             </Row>
         </Container>

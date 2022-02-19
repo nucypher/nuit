@@ -59,9 +59,9 @@ export function Home() {
                     <Link className="mb-3 w100" to="/new/worker"><PrimaryButton><strong>Stake Your
                         NU</strong></PrimaryButton></Link>
                 </Col> */}
-                <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
+                {/* <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <Link className="mb-3 w100" to="/wrap"><PurpleButton><strong>Upgrade NU/KEEP</strong></PurpleButton></Link>
-                </Col>
+                </Col> */}
                 <Col xs={8} md={4} lg={3} className="d-flex justify-content-center">
                     <Link className="mb-3 w100" to="/manage"><PrimaryButton><strong>Manage</strong></PrimaryButton></Link>
                 </Col>

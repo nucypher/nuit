@@ -13,8 +13,14 @@ import ThresholdBalance from "../components/manage/threshold";
 import RatioPanel from "../components/manage/ratio";
 import Disclaimer from "../components/manage/disclaimer";
 
-export function Wrap(props) {
+import {
+    useRouteMatch,
+    Route,
+    Switch,
+  } from 'react-router-dom'
 
+export function Wrap(props) {
+    let { path } = useRouteMatch();
     const context = useContext(Context)
     const {account} = context.wallet
 
@@ -26,7 +32,7 @@ export function Wrap(props) {
             <Row>
                 <Breadcrumbs paths={[
                     {path: '/', label: 'Home', enabled: true},
-                    {path: '/wrap', label: 'Wrap', enabled: true},
+                    {path: `${path}`, label: 'Wrap', enabled: true},
                 ]}/>
             </Row>
 
@@ -73,7 +79,7 @@ export function Wrap(props) {
                         <Accordion id="self-hosted-accordian">
                         {FAQ_QUESTIONS.map((faq, index) => (
                             <Card key={`faq${index}`}>
-                                <Accordion.Toggle as={Card.Header} eventKey={index.toString()}>
+                                <Accordion.Toggle as={Card.Header}  >
                                     <b>{faq.question}</b><i className={true ? "faq-plus":"faq-minus"}></i>
                                 </Accordion.Toggle>
                                 <Accordion.Collapse eventKey={index.toString()}>

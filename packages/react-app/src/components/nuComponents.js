@@ -28,10 +28,10 @@ export const TokenBalance = (props) => {
     }, [ account, provider, contracts, props ])
 
     return (
-        <span className="d-flex flex-xs-nowrap">
+        <span className="pl-1 pr-1">
             {props.balance ?
             <OverlayTrigger overlay={<Tooltip>Exactly <DisplayWei>{props.balance}</DisplayWei></Tooltip>}>
-                <strong className="d-flex"><Blue className="mr-1"><DisplayWei fixed={0}>{props.balance}</DisplayWei></Blue> <Grey>{props.label||"NU"}</Grey></strong>
+                <strong><Blue className="mr-1"><DisplayWei fixed={0}>{props.balance}</DisplayWei></Blue> <Grey>{props.label||"NU"}</Grey></strong>
             </OverlayTrigger>: ''}
         </span>
     )
