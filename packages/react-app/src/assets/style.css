@@ -762,7 +762,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 }
 
 .eth-address{
-    display:inline-block;
+    display:inline;
     width:100%;
     overflow:hidden;
     text-overflow: ellipsis;

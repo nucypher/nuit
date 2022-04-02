@@ -25,7 +25,7 @@ export default (props) => {
             </Row>
             <Row className="d-flex justify-content-center">
                 <Col xs={4} className="d-flex justify-content-center biglink mt-3">
-                    {context.stakedT.get ? <Link to="/manage/bond"><PrimaryButton>Bond Operator</PrimaryButton></Link> : ''}
+                    {context.StakeInfo.get ? <Link to="/manage/bond"><PrimaryButton>Bond Operator</PrimaryButton></Link> : ''}
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center mt-5">

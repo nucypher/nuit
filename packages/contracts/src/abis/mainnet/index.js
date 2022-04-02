@@ -6,6 +6,7 @@ import T from "../TToken"
 import NUVENDINGMACHINE from "./NUVEND";
 import KEEPVENDINGMACHINE from "./KEEPVEND";
 import TOKENSTAKING from "./TokenStaking";
+import SIMPLEPREAPPLICATION from "./SimplePREApplication";
 
 import ERC20 from "../erc20.json"
 
@@ -19,4 +20,5 @@ export default {
     KEEP,
     T,
     TOKENSTAKING,
+    SIMPLEPREAPPLICATION
 }

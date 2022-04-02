@@ -43,7 +43,7 @@ export const BondOperator = (props) => {
                     <ButtonBox className="mb-3">
                         <small><strong>{account}</strong></small>
                         <DataRow className="mt-3">
-                        <strong>Staking Balance</strong><span><TokenBalance label="T" balance={context.stakedT.get}/></span>
+                        <strong>Staking Balance</strong><span><TokenBalance label="T" balance={context.StakeInfo.total}/></span>
                         </DataRow>
                     </ButtonBox>
 

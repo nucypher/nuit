@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { Col, Container, Row, Card } from 'react-bootstrap/';
 import { DisplayWei, ConnectPLS, InputBox, PendingButton, TokenBalance, Address, Blue, Purple, DataRow } from '@project/react-app/src/components'
 import {
@@ -27,15 +27,24 @@ export function SimplePRE() {
     }
 
     const [stakingNU, setStakingNU] = useState(false)
+    const [stakingT, setStakingT] = useState(false)
     const [withdrawingNU, setWithdrawingNU] = useState(false)
 
     const handleStakeNU = () => {
         context.modals.triggerModal({message: "Upgrade NU Stake", component: "StakeNU"})
     }
 
+    const handleStakeT = () => {
+        context.modals.triggerModal({message: "Stake T", component: "StakeT"})
+    }
+
     const handleWithdrawNU = () => {
         context.modals.triggerModal({message: "Withdraw NU", component: "WithdrawNU"})
     }
+
+    useEffect(() => {
+        setStakingT(context.pending.indexOf('stakingT') > -1)
+    })
 
     return (
         <Container fluid>
@@ -116,6 +125,30 @@ export function SimplePRE() {
                                             </PendingButton>
                                         </Col>
                                     </Row>
+                                    {networkName == 'rinkeby' ? <Row className="mb-3 flex-row align-items-center">
+                                        <Col className="d-flex justify-content-center" xs={12}>OR</Col>
+                                        <Col xs={12}>
+                                            <div className="assetDisplay">
+                                                <img src={require('../../assets/icons/t.svg')}/>
+                                                <TokenBalance label="T" balance={context.availableT.get}/>
+                                                <a href={makeEtherscanAccountLink(TOKENSTAKINGAddress, networkName)}>
+                                                    <img className="contractIcon" src={require('../../assets/icons/contract.png')}/>
+                                                </a>
+                                            </div>
+                                    
+                                            <PendingButton
+                                                activeCheck={stakingT}
+                                                onClick={handleStakeT}
+                                                abort={setStakingT}>
+                                                <div className="conversionHint">
+                                                    <span>Stake liquid T on {networkName}</span>
+                                                    <img className="from" src={require('../../assets/icons/nu.svg')}/>
+                                                    <img className="conversionArrow" src={require('../../assets/icons/image.svg')}/>
+                                                    <img src={require('../../assets/icons/t.svg')}/>
+                                                </div>
+                                            </PendingButton>
+                                        </Col>
+                                    </Row>:<></>}
                                 </Col>
                             </InputBox>
                         </Col>
@@ -134,10 +167,14 @@ export function SimplePRE() {
                                     <DataRow><span>Liquid NU</span><span><TokenBalance balance={context.availableNU.get}/></span></DataRow>
                                     <DataRow><span>Staked NU</span><span><TokenBalance balance={context.stakedNU}/></span></DataRow>
                                     <DataRow><span>Available to withdraw</span><span><TokenBalance balance={context.canWithdraw}/></span></DataRow>
-                                    <hr></hr>
-                                    <DataRow className="mb-3"><img src={require('../../assets/icons/t.svg')}/></DataRow>
                                     <DataRow><span>Liquid T</span><span><TokenBalance label="T" balance={context.availableT.get}/></span></DataRow>
-                                    <DataRow><span>Migrated T Stake</span><span><TokenBalance label="T" balance={context.stakedT}/></span></DataRow>
+                                    
+                                    <DataRow className="mt-3 mb-3"><img src={require('../../assets/icons/t.svg')}/></DataRow>
+                                    <DataRow><span>Migrated NU staked as T</span><span><TokenBalance label="T" balance={context.StakeInfo.nuInTStake}/></span></DataRow>
+                                    <DataRow><span>Migrated KEEP staked as T</span><span><TokenBalance label="T" balance={context.StakeInfo.keepInTStake}/></span></DataRow>
+                                    <DataRow><span>Liquid staked T </span><span><TokenBalance label="T" balance={context.StakeInfo.tStake}/></span></DataRow>
+                                    <hr></hr>
+                                    <DataRow><span>Total staked T </span><span><TokenBalance label="T" balance={context.StakeInfo.total}/></span></DataRow>
                                     <div className="mt-5">find more staking tools on the <Purple><a target="threshold" href="https://dashboard.threshold.network/overview/network"> Threshold Dashboard</a></Purple></div>
                                 </Col>
                             </InputBox>

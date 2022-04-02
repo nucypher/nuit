@@ -19,8 +19,6 @@ export const StakeNU = (props) => {
 
     const [toggle, setToggle] = useState(false)
 
-
-
     const handleAction = () => {
         if (props.setShow){
             props.setShow(false)

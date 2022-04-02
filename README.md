@@ -29,21 +29,21 @@ _Note: all these commands can be run without Docker via eg: `yarn react-app:star
 
 ##### install (on first run or after dependency changes)
 ```
-docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn install
+docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:16 yarn install
 ```
 
 ##### run the dev server
 ```
-docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:latest yarn react-app:start
+docker run -it -v $(pwd):/work --workdir /work -p 3000:3000  node:16 yarn react-app:start
 ```
 
 ##### Build for production
 ```
 # PRODUCTION
-docker run -it -v $(pwd):/work --workdir /work -p 3000:3000 node:latest yarn react-app:build-production
+docker run -it -v $(pwd):/work --workdir /work -p 3000:3000 node:16 yarn react-app:build-production
 
 # STAGING
-docker run -it -v $(pwd):/work --workdir /work -p 3000:3000 node:latest yarn react-app:build-staging
+docker run -it -v $(pwd):/work --workdir /work -p 3000:3000 node:16 yarn react-app:build-staging
 ```
 
 ##### To deploy to AWS:

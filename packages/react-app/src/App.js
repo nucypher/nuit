@@ -32,7 +32,7 @@ function App() {
     const [stakedNU, setStakedNU] = useState(0)
     const [availableKEEP, setAvailableKEEP] = useState(0)
     const [availableT, setAvailableT] = useState(0)
-    const [stakedT, setStakedT] = useState(0)
+    const [StakeInfo, setStakeInfo] = useState({})
     const [availableETH, setAvailableETH] = useState(0)
     const [NUratio, setNUratio] = useState(0)
     const [KEEPratio, setKEEPratio] = useState(0)
@@ -43,6 +43,7 @@ function App() {
 
 
     const [NUallowance, setNUallowance] = useState(new Web3.utils.BN("0"))
+    const [Tallowance, setTallowance] = useState(new Web3.utils.BN("0"))
     const [workerAddress, setWorkerAddress] = useState(null)
     const [stakerData, setStakerData] = useState({substakes: []})
     const [stakerUpdated, setStakerUpdated] = useState(0)
@@ -80,11 +81,12 @@ function App() {
         availableKEEP: {set: setAvailableKEEP, get: availableKEEP},
         availableETH: {set: setAvailableETH, get: availableETH},
         NUallowance: {set: setNUallowance, get: NUallowance},
+        Tallowance: {set: setTallowance, get: Tallowance},
         NUratio: {set: setNUratio, get: NUratio},
         KEEPratio: {set: setKEEPratio, get: KEEPratio},
 
         stakedNU,
-        stakedT,
+        StakeInfo,
 
 
         maxKEEPconversion: {set: setMaxKEEPconversion, get: maxKEEPconversion},
@@ -171,8 +173,16 @@ function App() {
 
         if (contracts.TOKENSTAKING){
             const TstakeInfo = await contracts.TOKENSTAKING.methods.stakes(account).call()
-            setStakedT(Web3.utils.toBN(TstakeInfo.nuInTStake).add(Web3.utils.toBN(TstakeInfo.tStake).add(Web3.utils.toBN(TstakeInfo.keepInTStake))))
-            console.log(TstakeInfo)
+            const nuInTStake= Web3.utils.toBN(TstakeInfo.nuInTStake)
+            const tStake = Web3.utils.toBN(TstakeInfo.tStake)
+            const keepInTStake = Web3.utils.toBN(TstakeInfo.keepInTStake)
+            const total = nuInTStake.add(tStake).add(keepInTStake)
+
+            setStakeInfo({nuInTStake, tStake, keepInTStake, total})
+
+            contracts.T.methods.allowance(account, contracts.TOKENSTAKING._address).call().then(r=>{
+                setTallowance(web3.utils.toBN(r))
+            })
         }
 
     }

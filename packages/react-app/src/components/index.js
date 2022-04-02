@@ -85,6 +85,7 @@ export const ButtonBox = styled.div`
   padding:10px;
   background-color: ${props => props.theme.colors.extrabg};
   border-radius: ${spaces.sm};
+  overflow:hidden;
 
   .modal-body &, .modal-body & input {
     background-color: white;

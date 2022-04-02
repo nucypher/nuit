@@ -2,12 +2,12 @@ import { daysPerPeriod, getCurrentPeriod } from '@project/react-app/src/constant
 import { ContractCaller } from './ethereum'
 import Web3 from "web3";
 
-function _filterSelection(selection, substakes){
-  return substakes.filter((st,index) => {return selection[index]})
+function _filterSelection(selection, substakes) {
+  return substakes.filter((st, index) => { return selection[index] })
 }
 
 export const daysToPeriods = (days) => {
-  return Math.ceil(parseInt(days)/daysPerPeriod).toString()
+  return Math.ceil(parseInt(days) / daysPerPeriod).toString()
 }
 
 export const periodsToDays = (periods) => {
@@ -35,7 +35,7 @@ export class Merge {
     const [stake1, stake2] = selected
     const { contracts } = context.wallet
 
-    context.modals.triggerModal({message: "Merge Stakes", component: "MergeStakes", props: {stake1, stake2}})
+    context.modals.triggerModal({ message: "Merge Stakes", component: "MergeStakes", props: { stake1, stake2 } })
   }
 }
 
@@ -92,7 +92,7 @@ export class Divide {
 
   static execute(selection, substakes, context) {
     const selected = _filterSelection(selection, substakes)
-    context.modals.triggerModal({message: "Divide Stake", component: "DivideStake", props: {substake: selected[0]}})
+    context.modals.triggerModal({ message: "Divide Stake", component: "DivideStake", props: { substake: selected[0] } })
   }
 }
 
@@ -113,7 +113,7 @@ export class Extend {
 
   static execute(selection, substakes, context) {
     const selected = _filterSelection(selection, substakes)
-    context.modals.triggerModal({message: "Extend Stake", component: "ExtendStake", props: {substake: selected[0]}})
+    context.modals.triggerModal({ message: "Extend Stake", component: "ExtendStake", props: { substake: selected[0] } })
   }
 }
 
@@ -135,7 +135,7 @@ export class Increase {
 
   static execute(selection, substakes, context) {
     const selected = _filterSelection(selection, substakes)
-    context.modals.triggerModal({message: "Increase Stake", component: "IncreaseStake", props: {substake: selected[0]}})
+    context.modals.triggerModal({ message: "Increase Stake", component: "IncreaseStake", props: { substake: selected[0] } })
   }
 }
 
@@ -144,30 +144,30 @@ export const setNUAllowance = async (amountWei, context) => {
   const amount_bn = Web3.utils.toBN(amountWei)
 
   if (context.NUallowance.get === '0') {
-      ContractCaller(
-          contracts.NU.methods.approve(
-              contracts.STAKINGESCROW._address,
-              amountWei
-          ),
-          context,
-          [`approvingNUspend`],
-          `Approving NU spend`
-      )
+    ContractCaller(
+      contracts.NU.methods.approve(
+        contracts.STAKINGESCROW._address,
+        amountWei
+      ),
+      context,
+      [`approvingNUspend`],
+      `Approving NU spend`
+    )
   } else if (amount_bn.gt(context.NUallowance.get)) {
-      ContractCaller(
-          contracts.NU.methods.increaseAllowance(
-              contracts.STAKINGESCROW._address,
-              amount_bn.sub(context.NUallowance.get)
-          ),
-          context,
-          [`approvingNUspend`],
-          `Approving NU spend`
-      )
+    ContractCaller(
+      contracts.NU.methods.increaseAllowance(
+        contracts.STAKINGESCROW._address,
+        amount_bn.sub(context.NUallowance.get)
+      ),
+      context,
+      [`approvingNUspend`],
+      `Approving NU spend`
+    )
   } else {
     ContractCaller(
       contracts.NU.methods.decreaseAllowance(
-          contracts.STAKINGESCROW._address,
-          context.NUallowance.get
+        contracts.STAKINGESCROW._address,
+        context.NUallowance.get
       ),
       context,
       [`approvingNUspend`],
@@ -180,35 +180,15 @@ export const setTAllowance = async (amountWei, context) => {
   const { contracts } = context.wallet
   const amount_bn = Web3.utils.toBN(amountWei)
 
-  if (context.Tallowance.get === '0') {
-      ContractCaller(
-          contracts.T.methods.approve(
-             contracts.TOKENSTAKING._address,
-              amountWei
-          ),
-          context,
-          [`approvingTspend`],
-          `Approving T spend`
-      )
-  } else if (amount_bn.gt(context.NUallowance.get)) {
-      ContractCaller(
-          contracts.T.methods.approve(
-              contracts.TOKENSTAKING._address,
-              amount_bn.sub(context.NUallowance.get)
-          ),
-          context,
-          [`approvingTspend`],
-          `Approving T spend`
-      )
-  } else {
-    ContractCaller(
-      contracts.NU.methods.decreaseAllowance(
-          contracts.STAKINGESCROW._address,
-          context.NUallowance.get
-      ),
-      context,
-      [`approvingTspend`],
-      `Approving T spend`
-    )
-  }
+  ContractCaller(
+    contracts.T.methods.approve(
+      contracts.TOKENSTAKING._address,
+      '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+    ),
+    context,
+    [`approvingTspend`],
+    `Approving T spend`
+  )
+
 }
+
