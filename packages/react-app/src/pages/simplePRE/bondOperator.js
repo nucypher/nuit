@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import { Row, Col } from 'react-bootstrap/';
-import { InputBox, BondOperator, TokenBalance, DataRow, ButtonBox, Address } from '@project/react-app/src/components'
+import { InputBox, BondOperator, TokenBalance, DataRow, ButtonBox, Address, Blue } from '@project/react-app/src/components'
 
 import { Context, toQuery, truncateAddress } from '@project/react-app/src/services'
 
@@ -67,6 +67,7 @@ export default (props) => {
             getBondingState()
         } else{
             setBondedOperator(null)
+            setIsConfirmed(false)
         }
         
     }, [stakingProvider])
@@ -82,39 +83,40 @@ export default (props) => {
             <InputBox>
                 <Row >
                     <Col>
-                        <h4 >Bond Operator</h4>
-                        <small>Click <a target="nucypher" href="https://interim-pre-application-docs.readthedocs.io/en/latest/">here</a> for documentation on running a node</small>
-                        <p>If you have configured an Ursula node using Nucypher's software and would like to collect staking rewards, enter your node's operator address here. </p>
+                        <h4>Manage Staking/Operators</h4>
+                        <p>Have you gotten a node running?  The last step is configuring its "Operator Address" below.</p>
+                        <small>Click <Blue><a target="nucypher" href="https://interim-pre-application-docs.readthedocs.io/en/latest/">here</a></Blue> for documentation on running a node</small>
                     </Col>
                 </Row>
+
+                <Row>
+                    <Col className="mb-3">
+                        {bondedOperator ? <i>Note: You already have an operator bonded but you can change it here if you wish.</i> : <></>}
+                        <BondOperator operatorAddress={props.operatorAddress}></BondOperator>
+                    </Col>
+                </Row>
+
                 <Row className="mb-5">
                     {account ? <Col>
                     <ButtonBox>
-                        <h5>bonding status</h5>
+                        <h5>status</h5>
                         <DataRow>
-                            <strong>Stake Owner</strong><span><TokenBalance label="T" balance={context.StakeInfo.total}/></span>
+                            <strong>Stake Owner</strong><span><Address>{account}</Address></span>
                         </DataRow>
                         <DataRow>
                             <strong>Staking Balance</strong><span><TokenBalance label="T" balance={context.StakeInfo.total}/></span>
                         </DataRow>
                         <DataRow>
-                            <strong>Staking Provider</strong><span><Address>{stakingProvider}</Address></span>
+                            <strong>Staking Provider</strong><span><Address>{stakingProvider || '--'}</Address></span>
                         </DataRow>
                         <DataRow>
-                            <strong>Current Bonded Operator</strong><span><Address>{bondedOperator}</Address></span>
+                            <strong>Current Bonded Operator</strong><span><Address>{bondedOperator || '--'}</Address></span>
                         </DataRow>
                         <DataRow>
-                            <strong>Operator is Confirmed:</strong><span>{isConfirmed ? 'yes' : 'no'}</span>
+                            <strong>Operator is Confirmed:</strong><span>{isConfirmed ? 'yes' : '--'}</span>
                         </DataRow>
                         </ButtonBox>
                     </Col> : <></>}
-                </Row>
-
-                <Row>
-                    <Col>
-                        {bondedOperator ? <i>Note: You already have an operator bonded but you can change it here if you wish.</i> : <></>}
-                        <BondOperator operatorAddress={props.operatorAddress}></BondOperator>
-                    </Col>
                 </Row>
             </InputBox>
             </Col>

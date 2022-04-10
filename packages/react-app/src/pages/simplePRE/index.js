@@ -54,7 +54,7 @@ export function SimplePRE() {
                         {path:'/manage', label: "stats", enabled: true },
                         {path:'withdraw', label: "withdraw", enabled: true },
                         {path: 'stake', label: 'stake', enabled: true },
-                        {path: 'bond', label: 'bond', enabled: true }
+                        {path: 'operator', label: 'manage operators', enabled: true }
                     ]}/>
                 </Col>
             </Row>
@@ -155,6 +155,9 @@ export function SimplePRE() {
                     </Row>
                 </Route>
                 <Route path={`${path}/bond`}>
+                    <BondOperator/>
+                </Route>
+                <Route path={`${path}/operator`}>
                     <BondOperator/>
                 </Route>
                 <Route path={`${path}`}>

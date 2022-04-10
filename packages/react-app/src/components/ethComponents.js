@@ -6,7 +6,8 @@ import {ReactComponent as Reset} from '@project/react-app/src/assets/icons/reset
 import {validateAddress} from '../services'
 import {Blue, Grey, ConnectPLS} from '@project/react-app/src/components'
 import { daysPerPeriod, formatWei } from '@project/react-app/src/constants'
-
+import {makeEtherscanAccountLink} from "../constants";
+import Web3 from "web3";
 
 export const DisplayWei = (props) => {
 
@@ -20,9 +21,16 @@ export const DisplayWei = (props) => {
 
 
 export const Address = (props) => {
-
+    let address;
+    let link;
+    try{
+        address = Web3.utils.toChecksumAddress(props.children)
+        link = makeEtherscanAccountLink(address)
+    } catch(err){
+        address = props.children
+    }
     return (
-        <span className="eth-address">{props.children}</span>
+        <span className="eth-address">{address} {link ? <a title="open in etherscan" target="blank" href={link}><img className="contractIcon" src={require('../assets/icons/etherscan-logo-circle.svg')}/></a>:<></>}</span>
     )
 }
 

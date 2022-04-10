@@ -37,16 +37,6 @@ export const BondOperator = (props) => {
                         <WorkerRunwayDisplay address={operatorAddress}/>
                     </ButtonBox>
 
-                    <div className="d-flex justify-content-between">
-                        <Grey className="mb-3">Staker</Grey>
-                    </div>
-                    <ButtonBox className="mb-3">
-                        <small><strong>{account}</strong></small>
-                        <DataRow className="mt-3">
-                        <strong>Staking Balance</strong><span><TokenBalance label="T" balance={context.StakeInfo.total}/></span>
-                        </DataRow>
-                    </ButtonBox>
-
                     <PendingButton activeCheck={bondingoperator} abort={setBondingOperator} onClick={HandleBondOperator}>Bond Operator</PendingButton>
                 </Col>
             </Row> :
