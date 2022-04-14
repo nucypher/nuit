@@ -28,7 +28,7 @@ function App() {
 
     const [theme, setTheme] = useState(light);
     const [message, setMessage] = useState(null)
-    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts] = useWeb3Modal(setMessage)
+    const [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts, network] = useWeb3Modal(setMessage)
 
     const [availableNU, setAvailableNU] = useState(0)
     const [stakedNU, setStakedNU] = useState(0)
@@ -66,7 +66,8 @@ function App() {
             logoutOfWeb3Modal,
             account,
             web3,
-            contracts
+            contracts,
+            network
         },
         messages: {
             message,
@@ -186,7 +187,6 @@ function App() {
                 setTallowance(web3.utils.toBN(r))
             })
         }
-
     }
 
     useEffect(() => {

@@ -18,6 +18,7 @@ const NETWORK_NAME = 'mainnet'
 function useWeb3Modal (messageHandler, config = {}) {
 
   const [provider, setProvider] = useState()
+  const [network, setNetwork] = useState()
   const [account, setAccount] = useState()
   const [autoLoaded, setAutoLoaded] = useState(false)
   const { autoLoad = true, infuraId = INFURA_ID, NETWORK = NETWORK_NAME } = config
@@ -66,6 +67,7 @@ function useWeb3Modal (messageHandler, config = {}) {
     const ctrcts = {};
     if (provider && web3){
       const defaultProvider = getDefaultProvider(parseInt(provider.chainId))
+      setNetwork(parseInt(provider.chainId))
       setContracts(
         Object.keys(addrs)
           .filter((name) => ABIs[name] !== undefined)
@@ -92,6 +94,7 @@ function useWeb3Modal (messageHandler, config = {}) {
     const w3 = new Web3(provider);
     setWeb3(w3)
     setProvider(provider)
+    console.log()
     instantiateContracts(provider, w3)
 
 
@@ -103,6 +106,7 @@ function useWeb3Modal (messageHandler, config = {}) {
     // Subscribe to chainId change
     provider.once("chainChanged", (chainId) => {
         loadWeb3Modal()
+        setNetwork(chainId)
     });
 
     provider.once("disconnect", () => {
@@ -118,7 +122,7 @@ function useWeb3Modal (messageHandler, config = {}) {
       setAccount(provider.wc.accounts[0])
     }
     else{
-      //it's metamask.  The metamask plugin assigned this nice attribute.
+      //it's metamask.  The metamask plugin assigned this nice attribute. 
       setAccount(window.ethereum.selectedAddress)
     }
 
@@ -133,7 +137,7 @@ function useWeb3Modal (messageHandler, config = {}) {
     }
   }, [autoLoad, autoLoaded, loadWeb3Modal, setAutoLoaded, web3Modal.cachedProvider])
 
-  return [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts]
+  return [provider, loadWeb3Modal, logoutOfWeb3Modal, account, web3, contracts, network]
 }
 
 export default useWeb3Modal
