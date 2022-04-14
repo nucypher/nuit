@@ -199,7 +199,6 @@ export const getNodeStatus = async (context, stakingProvider) => {
   }
 
   const url = porters[context.wallet.network];
-  console.log(url)
   if (url === undefined){
     return false
   }

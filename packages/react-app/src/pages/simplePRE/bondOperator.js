@@ -19,40 +19,21 @@ export default (props) => {
     const getStakingProvider = async () => {
 
         setStakingProvider(null)
+        setAccountDetermined(false)
 
-        const listquery = {
-            address: account,
-            module: "account",
-            action: "txlist",
-            contractaddress: contracts.TOKENSTAKING._address,
-            startblock:14128949,
-            sort:'desc',
-            apikey: "SVINPP3Y3JM1RJKWAQ183A9JFBGBGGIICH"
-        }
+        const events = await contracts.TOKENSTAKING.getPastEvents(
+            'Staked', {
+                fromBlock: 14128949, 
+        })
 
-        const methods = [
-            '0x81b0a0ce', // stake NU
-            '0x5961d5e9', // stake
-            '0x570ea461'  // stake KEEP
-        ]
-
-        const stakingEvent = await fetch(`https://api.etherscan.io/api/?${toQuery(listquery)}`);
-        let data = await stakingEvent.json();
-        
-        if (data.result && data.result.length){
-            const latestStakingEvent = data.result.find(element => {
-            return methods.some(e => element.input.startsWith(e))
-            })
-            
-            if (latestStakingEvent){
-                const {stakingProvider } = web3.eth.abi.decodeLog([
-                    {internalType: 'address', name: 'stakingProvider', type: 'address'},
-                    {internalType: 'address payable', name: 'beneficiary', type: 'address'},
-                    {internalType: 'address', name: 'authorizer', type: 'address'}
-                ], `0x${latestStakingEvent.input.slice(10)}`);
-                setStakingProvider(stakingProvider)
-                setAccountDetermined(true)   
-           }
+        const lowerAcct = account.toLowerCase()
+        if (events.length){
+            //find most recent staking event
+            const stakingEvent = events.reverse().find(e => e.returnValues.owner.toLowerCase()===lowerAcct)
+            if (stakingEvent){
+            setStakingProvider(stakingEvent.returnValues.stakingProvider)
+            setAccountDetermined(true)   
+            }
         }
     }
 
