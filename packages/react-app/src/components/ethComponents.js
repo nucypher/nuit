@@ -3,8 +3,8 @@ import {Context} from '@project/react-app/src/services'
 import {Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap/';
 import {ReactComponent as CircleQ} from '@project/react-app/src/assets/icons/circleQ.svg'
 import {ReactComponent as Reset} from '@project/react-app/src/assets/icons/reset-x.svg'
-import {validateAddress} from '../services'
-import {Blue, Grey, ConnectPLS} from '@project/react-app/src/components'
+import {validateAddress, truncateAddress } from '../services'
+import {Blue, Grey, ConnectPLS } from '@project/react-app/src/components'
 import { daysPerPeriod, formatWei } from '@project/react-app/src/constants'
 import {makeEtherscanAccountLink} from "../constants";
 import Web3 from "web3";
@@ -21,6 +21,9 @@ export const DisplayWei = (props) => {
 
 
 export const Address = (props) => {
+
+    const [toggled, setToggle] = useState(false)
+
     let address;
     let link;
     try{
@@ -30,7 +33,15 @@ export const Address = (props) => {
         address = props.children
     }
     return (
-        <span className="eth-address">{address} {link ? <a title="open in etherscan" target="blank" href={link}><img className="contractIcon" src={require('../assets/icons/etherscan-logo-circle.svg')}/></a>:<></>}</span>
+        <span 
+            alt="eth address"
+            className="eth-address"
+            onClick={e => setToggle(!toggled)}
+        >{toggled ? address : truncateAddress(address)} {
+            link ? <a title="open in etherscan" target="blank" href={link}><img className="contractIcon" src={require('../assets/icons/etherscan-logo-circle.svg')}/></a>
+            :<></>
+        }
+        </span>
     )
 }
 

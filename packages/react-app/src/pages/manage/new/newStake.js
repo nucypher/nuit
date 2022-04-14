@@ -8,7 +8,6 @@ import {
 
 import { Context } from '@project/react-app/src/services'
 import CreateWorker from './createWorker'
-import CreateStake from './createStake'
 import BondWorker from './bondWorker'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 
@@ -35,9 +34,6 @@ export function NewStake() {
                 <Route path={`${path}/worker`}>
                     <CreateWorker workerAddress={workerAddress} setWorkerAddress={setWorkerAddress}/>
                 </Route>
-                <Route path={`${path}/set-stake`}>
-                    <CreateStake stake={newStake} setStake={setNewStake} />
-                </Route>
                 <Route path={`${path}/bond`}>
                     <BondWorker workerAddress={workerAddress}/>
                 </Route>
@@ -45,3 +41,5 @@ export function NewStake() {
         </Container>
     )
 }
+const LegacyDashboard = NewStake
+export { LegacyDashboard }

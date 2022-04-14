@@ -15,9 +15,11 @@ import Header from '@project/react-app/src/components/header'
 import Footer from '@project/react-app/src/components/footer'
 import DebugPanel from '@project/react-app/src/components/debugPanel';
 import {MessagePublisher, ModalDispatcher} from '@project/react-app/src/components/messaging'
-import {Home, SimplePRE, Wrap } from '@project/react-app/src/pages'
+import {Home, SimplePRE } from '@project/react-app/src/pages'
 
-import {Container} from 'react-bootstrap/';
+import { LegacyDashboard } from "@project/react-app/src/pages/manage/new/newStake"
+
+import {Container, Row, Col } from 'react-bootstrap/';
 
 import {Context, eventQueue} from '@project/react-app/src/services';
 import ScrollToTop from "./components/scroll";
@@ -237,6 +239,13 @@ function App() {
                                 {/* <Route path="/wrap">
                                     <Wrap theme={theme}/>
                                 </Route> */}
+                                <Route path="/legacy">
+                                    <Row>
+                                        <Col>
+                                            <LegacyDashboard/>
+                                        </Col>
+                                    </Row>
+                                </Route>
                                 <Route path="/manage">
                                     <SimplePRE/>
                                 </Route>

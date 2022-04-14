@@ -6,8 +6,10 @@ import {
     Route,
     Switch,
   } from 'react-router-dom'
+  
 import BondOperator  from '@project/react-app/src/pages/simplePRE/bondOperator'
-import CreateStake  from '@project/react-app/src/pages/simplePRE/createStake'
+import Delegate  from '@project/react-app/src/pages/simplePRE/delegate'
+import { Wrap } from '@project/react-app/src/pages/simplePRE/wrap'
 import { Context } from '@project/react-app/src/services'
 import Breadcrumbs from '@project/react-app/src/components/breadcrumbs'
 import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
@@ -49,12 +51,14 @@ export function SimplePRE() {
     return (
         <Container fluid>
             <Row className="d-flex justify-content-center">
-                <Col xs={12} md={10} xl={6}>
+                <Col xs={12} md={10} xl={8} className="d-flex justify-content-center">
                     <Breadcrumbs paths={[
                         {path:'/manage', label: "stats", enabled: true },
                         {path:'withdraw', label: "withdraw", enabled: true },
                         {path: 'stake', label: 'stake', enabled: true },
-                        {path: 'operator', label: 'manage operators', enabled: true }
+                        {path: 'delegate', label: 'delegate', enabled: true },
+                        {path: 'operator', label: 'manage operators', enabled: true },
+                        {path: 'wrap', label: 'wrap tokens', enabled: true }
                     ]}/>
                 </Col>
             </Row>
@@ -62,6 +66,9 @@ export function SimplePRE() {
                 ? <Row> {<Col className="d-flex justify-content-center"><ConnectPLS/></Col>}</Row>
                 :
             <Switch>
+                <Route path={`${path}/wrap`}>
+                    <Wrap></Wrap>
+                </Route>
                 <Route path={`${path}/withdraw`}>
                     <Row className="d-flex justify-content-center">
                         <Col xs={12} md={10} xl={6}>
@@ -154,6 +161,9 @@ export function SimplePRE() {
                         </Col>
                     </Row>
                 </Route>
+                <Route path={`${path}/delegate`}>
+                    <Delegate/>
+                </Route>
                 <Route path={`${path}/bond`}>
                     <BondOperator/>
                 </Route>
@@ -165,7 +175,7 @@ export function SimplePRE() {
                         <Col xs={12} md={10} xl={6}>
                             <InputBox className="flex flex-row align-items-center">
                                 <Col xs={12}>
-                                    <p><strong>Staker Stats for:</strong><a target="etherscan" href={makeEtherscanAccountLink(context.wallet.account)}><Blue><Address>{context.wallet.account}</Address></Blue></a> </p>
+                                    <p><strong>Staker Stats for: </strong><Address>{context.wallet.account}</Address> </p>
                                     <DataRow className="mb-3"><img src={require('../../assets/icons/nu.svg')}/></DataRow>
                                     <DataRow><span>Liquid NU</span><span><TokenBalance balance={context.availableNU.get}/></span></DataRow>
                                     <DataRow><span>Staked NU</span><span><TokenBalance balance={context.stakedNU}/></span></DataRow>

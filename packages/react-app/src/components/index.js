@@ -12,6 +12,7 @@ export { CircleQ } from '@project/react-app/src/components/circleQ'
 
 export { BondWorker } from '@project/react-app/src/components/actions/bondWorker'
 export { BondOperator } from '@project/react-app/src/components/actions/bondOperator'
+export { DelegateVotes } from '@project/react-app/src/components/actions/delegateTStakeVotes'
 
 export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'

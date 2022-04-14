@@ -24,7 +24,7 @@ export default (props) => {
     }
 
     return (
-        <Col xs={12} className="d-flex justify-content-between">
+        <Col xs={12} className="d-flex justify-content-around">
             <Breadcrumb>
                 {props.paths.map((path) => {
                     return path.enabled ? <Breadcrumb.Item linkAs="a" key={path.path}>

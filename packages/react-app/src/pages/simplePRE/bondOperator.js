@@ -25,8 +25,11 @@ export default (props) => {
             apikey: "SVINPP3Y3JM1RJKWAQ183A9JFBGBGGIICH"
         }
 
-
-        const methods = ['0x81b0a0ce', '0x5961d5e9', '0x570ea461']
+        const methods = [
+            '0x81b0a0ce', // stake NU
+            '0x5961d5e9', // stake
+            '0x570ea461'  // stake KEEP
+        ]
 
         const stakingEvent = await fetch(`https://api.etherscan.io/api/?${toQuery(listquery)}`);
         let data = await stakingEvent.json();

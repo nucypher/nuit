@@ -53,7 +53,7 @@ export const WrapNU = (props) => {
                 setTReturn(calcTReturn(amount, context.NUratio.get))
             }
         } else{
-            // setNuAllocation(0)
+            setNuAllocation(0)
             setAllocationValid(false)
             setInvalidMessage(message)
         }

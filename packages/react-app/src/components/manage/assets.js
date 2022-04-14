@@ -8,7 +8,7 @@ import {makeEtherscanAccountLink, PUBLIC_CHAINS} from "../../constants";
 export default function AssetsPanel(props) {
 
     const context = useContext(Context)
-    const [canwrap, setCanWrap] = useState(false)
+    const [canwrap, setCanWrap] = useState(true)
 
     const [wrappingNU, setwrappingNU] = useState(false)
     const [wrappingKEEP, setwrappingKEEP] = useState(false)
@@ -37,9 +37,7 @@ export default function AssetsPanel(props) {
     }, [context.pending.length, context.pending])
 
 
-    const {provider, contracts} = context.wallet
-
-    setCanWrap(provider && contracts && context.wallet.contracts.NUVENDINGMACHINE || context.wallet.contracts.KEEPVENDINGMACHINE)
+    const {provider, contracts, account} = context.wallet
 
 
     let chainId, networkName, NUvendingAddress, KEEPvendingAddress;
@@ -49,6 +47,11 @@ export default function AssetsPanel(props) {
         NUvendingAddress = context.wallet.contracts.NUVENDINGMACHINE._address
         KEEPvendingAddress = context.wallet.contracts.KEEPVENDINGMACHINE._address
     }
+
+    useEffect(() =>{
+        
+    }, [account])
+    
     return (
         <InputBox>
 
