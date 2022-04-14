@@ -44,7 +44,7 @@ export const formatWei = (value, decimals) => {
     return formatNumber(Web3.utils.fromWei((value || 0).toString()), decimals)
 }
 
-const EMPTY_WORKER = "0x0000000000000000000000000000000000000000"
+const NULL_ADDRESS = "0x0000000000000000000000000000000000000000"
 
 const calcROI = (amount, duration) => {
 
@@ -79,7 +79,7 @@ function makeEtherscanAccountLink(address, networkName) {
 }
 
 
-export { calcTReturn, calcROI, MIN_STAKE, EMPTY_WORKER, makeEtherscanAccountLink, makeEtherscanTxLink }
+export { calcTReturn, calcROI, MIN_STAKE, NULL_ADDRESS, makeEtherscanAccountLink, makeEtherscanTxLink }
 
 export const PUBLIC_CHAINS = {
     0: "Olympic",
