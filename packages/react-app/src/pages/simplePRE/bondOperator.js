@@ -88,7 +88,7 @@ export default (props) => {
                     <Col>
                         <h4>Manage Staking/Operators</h4>
                         <p>Have you gotten a node running?  The last step is configuring its "Operator Address" below.</p>
-                        <small>Click <Blue><a target="nucypher" href="https://interim-pre-application-docs.readthedocs.io/en/latest/">here</a></Blue> for documentation on running a node</small>
+                        <small>Click <Blue><a target="nucypher" href="https://docs.nucypher.com/en/latest/pre_application/cloud_node_management.html">here</a></Blue> for documentation on running a node</small>
                     </Col>
                 </Row>
 
