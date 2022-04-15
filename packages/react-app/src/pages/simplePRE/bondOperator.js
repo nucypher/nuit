@@ -23,7 +23,7 @@ export default (props) => {
 
         const events = await contracts.TOKENSTAKING.getPastEvents(
             'Staked', {
-                fromBlock: 14128949, 
+                fromBlock: 0, 
         })
 
         const lowerAcct = account.toLowerCase()

@@ -18,15 +18,16 @@ export default (props) => {
         setStakingProvider(null)
         setDelegatee(null)
         setDelegatedBalance(0)
+        
         const lowerAcct = account.toLowerCase()
 
         const stevents = await contracts.TOKENSTAKING.getPastEvents(
             'Staked', {
-                fromBlock: 14128949, 
+                fromBlock: 0, 
         })
         
         if (stevents.length){
-            const stakingEvent = stevents.reverse().find(e => e.returnValues.owner.toLowerCase()===lowerAcct)
+            const stakingEvent = stevents.reverse().find(e => {return e.returnValues.owner.toLowerCase()===lowerAcct})
             if (stakingEvent){
                 setStakingProvider(stakingEvent.returnValues.stakingProvider)
             }
