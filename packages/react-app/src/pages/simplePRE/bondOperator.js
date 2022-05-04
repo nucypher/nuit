@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { Row, Col, Form } from 'react-bootstrap/';
 import { InputBox, BondOperator, TokenBalance, DataRow, ButtonBox, Address, Blue, WorkerETHAddressField } from '@project/react-app/src/components'
+import { NULL_ADDRESS } from '@project/react-app/src/constants'
 import { Context, toQuery, getNodeStatus } from '@project/react-app/src/services'
 
 
@@ -39,11 +40,14 @@ export default (props) => {
 
     const getBondingState = async () => {
         const operator = await contracts.SIMPLEPREAPPLICATION.methods.getOperatorFromStakingProvider(stakingProvider).call()
-        setBondedOperator(operator)
-        if (operator) {
-            const confirmed = await contracts.SIMPLEPREAPPLICATION.methods.isOperatorConfirmed(operator).call()
-            setIsConfirmed(confirmed)
-            
+        if (operator && operator !== NULL_ADDRESS){
+            setBondedOperator(operator)
+        
+            if (operator) {
+                const confirmed = await contracts.SIMPLEPREAPPLICATION.methods.isOperatorConfirmed(operator).call()
+                setIsConfirmed(confirmed)
+                
+            }
         }
     }
 

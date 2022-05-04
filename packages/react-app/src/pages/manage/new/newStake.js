@@ -20,25 +20,27 @@ export function NewStake() {
     const stakerData = context.stakerData
 
     return (
-        <Container>
-            <Row>
-                <Breadcrumbs paths={[
-                    {path:'/', label: 'Home', enabled: true },
-                    {path:'worker', label: 'Create Worker', enabled: true },
-                    {path: 'set-stake', label: 'Set Stake', enabled: workerAddress !== undefined || context.workerAddress.get},
-                    {path: 'bond', label: 'Bond', enabled: workerAddress !== null && stakerData.lockedNU > 15000}
-                ]}/>
-            </Row>
+        <Context.Provider value={context}>
+            <Container>
+                <Row>
+                    <Breadcrumbs paths={[
+                        {path:'/', label: 'Home', enabled: true },
+                        {path:'worker', label: 'Create Worker', enabled: true },
+                        {path: 'set-stake', label: 'Set Stake', enabled: workerAddress !== undefined || context.workerAddress.get},
+                        {path: 'bond', label: 'Bond', enabled: workerAddress !== null && stakerData.lockedNU > 15000}
+                    ]}/>
+                </Row>
 
-            <Switch>
-                <Route path={`${path}/worker`}>
-                    <CreateWorker workerAddress={workerAddress} setWorkerAddress={setWorkerAddress}/>
-                </Route>
-                <Route path={`${path}/bond`}>
-                    <BondWorker workerAddress={workerAddress}/>
-                </Route>
-            </Switch>
-        </Container>
+                <Switch>
+                    <Route path={`${path}/worker`}>
+                        <CreateWorker workerAddress={workerAddress} setWorkerAddress={setWorkerAddress}/>
+                    </Route>
+                    <Route path={`${path}/bond`}>
+                        <BondWorker workerAddress={workerAddress}/>
+                    </Route>
+                </Switch>
+            </Container>
+        </Context.Provider>
     )
 }
 const LegacyDashboard = NewStake

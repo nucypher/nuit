@@ -67,7 +67,6 @@ function App() {
             account,
             web3,
             contracts,
-            network
         },
         messages: {
             message,
@@ -165,14 +164,15 @@ function App() {
             console.warn(err);
             setNUratio(3.259242493160745)
         }
-        const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
-        setStakedNU(stakedNU)
+        if (contracts.STAKINGESCROW){
+            const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
+            setStakedNU(stakedNU)
+    
 
 
-        const unVested = await contracts.STAKINGESCROW.methods.getUnvestedTokens(account).call()
-
-        setCanWithdraw(Web3.utils.toBN(stakedNU).sub(Web3.utils.toBN(unVested)))
-
+            const unVested = await contracts.STAKINGESCROW.methods.getUnvestedTokens(account).call()
+            setCanWithdraw(Web3.utils.toBN(stakedNU).sub(Web3.utils.toBN(unVested)))
+        }
 
         if (contracts.TOKENSTAKING){
             const TstakeInfo = await contracts.TOKENSTAKING.methods.stakes(account).call()
