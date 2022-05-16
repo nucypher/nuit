@@ -54,11 +54,10 @@ export function SimplePRE() {
                 <Col xs={12} md={10} xl={8} className="d-flex justify-content-center">
                     <Breadcrumbs paths={[
                         {path:'/manage', label: "stats", enabled: true },
-                        {path:'withdraw', label: "withdraw", enabled: true },
-                        {path: 'stake', label: 'stake', enabled: true },
-                        {path: 'delegate', label: 'delegate', enabled: true },
-                        {path: 'operator', label: 'manage operators', enabled: true },
-                        {path: 'wrap', label: 'wrap tokens', enabled: true }
+                        {path:'withdraw', label: "Withdraw NU", enabled: true },
+                        {path: 'stake', label: 'Stake NU', enabled: true },
+                        {path: 'delegate' , label: 'Delegate Votes', enabled: true },
+                        {path: 'operator', label: 'Manage Operators', enabled: true },
                     ]}/>
                 </Col>
             </Row>

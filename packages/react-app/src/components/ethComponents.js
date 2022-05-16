@@ -36,7 +36,7 @@ export const Address = (props) => {
         <span 
             alt="eth address"
             className="eth-address"
-            onClick={e => setToggle(!toggled)}
+            onClick={e => {setToggle(!toggled); e.stopPropagation()}}
         >{toggled ? address : truncateAddress(address)} {
             link ? <a title="open in etherscan" target="blank" href={link}><img className="contractIcon" src={require('../assets/icons/etherscan-logo-circle.svg')}/></a>
             :<></>

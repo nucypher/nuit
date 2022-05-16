@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Container, Row, Col, Form} from 'react-bootstrap/';
+import { Container, Row, Col, Form, Card} from 'react-bootstrap/';
 import { ButtonBox, Blue, PendingButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, TokenBalance, Address } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, truncateAddress } from '@project/react-app/src/services'
@@ -12,25 +12,28 @@ export const DelegateVotes = (props) => {
     const context = useContext(Context)
     const { account, contracts, web3 } = context.wallet
 
+    const pendingKey = `delegatevotes-${props.index}`
+
     const HandleDelegateVotes = () => {
         const address = web3.utils.toChecksumAddress(delegateeAddress)
         if (props.setShow){
             props.setShow(false)
         }
-        ContractCaller(contracts.TOKENSTAKING.methods.delegateVoting(account, address), context, 'delegatevotes', `Delegating votes ${truncateAddress(delegateeAddress)}`)
+        ContractCaller(contracts.TOKENSTAKING.methods.delegateVoting(props.stakingprovider, address), context, pendingKey, `Delegating votes ${truncateAddress(delegateeAddress)}`)
     }
 
     useEffect(() => {
-        setDelegatingVotes(context.pending.indexOf('delegatevotes') > -1)
+        setDelegatingVotes(context.pending.indexOf(pendingKey) > -1)
     })
 
     return(
-        <Container>
+        <Card className="delegate-votes">
             {delegateeAddress ?
             <Row>
                 <Col>
+                xxxx
                     <div className="d-flex justify-content-between">
-                    <Grey>Operator</Grey>{delegateeAddress && <Blue onClick={e => setDelegateeAddress(null)} className="hover"><small>clear</small></Blue>}
+                    <Grey>Delegatee</Grey>{delegateeAddress && <Blue onClick={e => setDelegateeAddress(null)} className="hover"><small>clear</small></Blue>}
                     </div>
                     <ButtonBox className="mb-3 mt-1">
                         <small><strong><Address>{delegateeAddress}</Address></strong></small>
@@ -56,6 +59,6 @@ export const DelegateVotes = (props) => {
             </Row>
             }
 
-        </Container>
+        </Card>
     )
 }

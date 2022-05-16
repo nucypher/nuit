@@ -61,6 +61,7 @@ export default (props) => {
     }
 
     const checkNodeOnline = async () => {
+        console.log(stakingProvider)
         const porterKnowsAboutNode = await getNodeStatus(context, stakingProvider)
         setnodeURI(porterKnowsAboutNode)
     }

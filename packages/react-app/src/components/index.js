@@ -18,8 +18,6 @@ export { Migrate } from '@project/react-app/src/components/actions/migrate'
 export { CreateStake } from '@project/react-app/src/components/actions/createStake'
 export { WrapNU } from '@project/react-app/src/components/actions/wrapNU'
 
-export { SubStakeList } from '@project/react-app/src/components/manage/substake'
-
 
 const spaces = {
   xs: "4px",
@@ -348,6 +346,22 @@ export const DataRow = styled.div`
   display: flex;
   justify-content: space-between;
   white-space:nowrap;
+`
+
+export const DataLi = styled.li`
+  display: flex;
+  justify-content: space-between;
+  white-space:nowrap;
+  padding-top:1em;
+  padding-bottom:1em;
+
+  &.active {
+    color: ${props => props.theme.colors.text.standard};
+    transition: background-color 1s;
+    background-color: ${props => props.theme.colors.body};
+    border: ${props => props.theme.buttons.secondary.border};
+    box-shadow: ${props => props.theme.colors.shadow};
+  }
 `
 
 export const PopupMessages = styled.div`

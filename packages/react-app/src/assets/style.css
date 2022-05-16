@@ -775,3 +775,15 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
 .thresholdwordmark {
     width: 60%;
 }
+
+
+.stakechooser .list-group-item.active{
+    background-color: #eee;
+    border-color: #eee;
+}
+
+.delegate-votes.card{
+    border:none !important;
+    margin-top:1em;
+    padding:1em;
+}
