@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Web3 from "web3";
 
 import { Row, Col } from 'react-bootstrap/';
 import { InputBox, TokenBalance, DelegateVotes, DataRow, ButtonBox, Address, Blue, DataLi } from '@project/react-app/src/components'
@@ -14,6 +15,7 @@ const StakeDisplay = (props) => {
     const [delegatee, setDelegatee] = useState(null)
     const [delegatedBalance, setDelegatedBalance] = useState(0);
     const { account, contracts, web3 } = context.wallet
+    const [aggregateStake, setAggregateStake] = useState(0);
 
     const pendingKey = `delegatevotes-${props.stakedata.index}`
 
@@ -29,6 +31,9 @@ const StakeDisplay = (props) => {
             const votes = await contracts.TOKENSTAKING.methods.getVotes(delegate).call()
             setDelegatedBalance(votes)
         }
+
+        const stakes = await contracts.TOKENSTAKING.methods.stakes(props.stakedata.provider).call()
+        setAggregateStake(Web3.utils.toBN(stakes.nuInTStake).add(Web3.utils.toBN(stakes.tStake)).add(Web3.utils.toBN(stakes.keepInTStake)))
     }
 
     useEffect(() => {
@@ -46,7 +51,7 @@ const StakeDisplay = (props) => {
                 </DataRow>
 
                 <DataRow>
-                    <strong>Stake Amount</strong><span><TokenBalance label="T" balance={props.stakedata.amount}/></span>
+                    <strong>Stake Amount</strong><span><TokenBalance label="T" balance={aggregateStake}/></span>
                 </DataRow>
                 {(delegatee && !isPending()) ? <DataRow>
                     <strong>Current Delegatee</strong><span><Blue className="mr-1 hover" onClick={(e)=>{setDelegatee(null)}}>(change) </Blue> <Address>{delegatee}</Address></span>
@@ -98,7 +103,7 @@ export default (props) => {
 
     return (
         <Row className="d-flex justify-content-center">
-            <Col xs={12} >
+            <Col xs={12} sm={8} >
             <InputBox>
                 <Row className="mb-1" >
                     <Col>
