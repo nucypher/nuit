@@ -26,11 +26,8 @@ const DisplayBondingState = (props) => {
         const operator = await contracts.SIMPLEPREAPPLICATION.methods.getOperatorFromStakingProvider(props.stakedata.provider).call()
         if (operator && operator !== NULL_ADDRESS){
             setBondedOperator(operator)
-        
-            if (operator) {
-                const confirmed = await contracts.SIMPLEPREAPPLICATION.methods.isOperatorConfirmed(operator).call()
-                setIsConfirmed(confirmed)
-            }
+            const confirmed = await contracts.SIMPLEPREAPPLICATION.methods.isOperatorConfirmed(operator).call()
+            setIsConfirmed(confirmed)
         }
         const stakes = await contracts.TOKENSTAKING.methods.stakes(props.stakedata.provider).call()
         setAggregateStake(Web3.utils.toBN(stakes.nuInTStake).add(Web3.utils.toBN(stakes.tStake)).add(Web3.utils.toBN(stakes.keepInTStake)))
