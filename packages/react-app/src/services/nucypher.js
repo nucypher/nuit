@@ -192,17 +192,16 @@ export const setTAllowance = async (amountWei, context) => {
 }
 
 
-export const getNodeStatus = async (context, stakingProvider) => {
+export const getNodeStatus = async (network, stakingProvider) => {
   const porters = {
     4: "https://porter-ibex.nucypher.community",
     1: "https://porter.nucypher.community",
   }
 
-  const url = porters[context.wallet.network];
+  const url = porters[network];
   if (url === undefined){
     return false
   }
-
   const response = await fetch(`${url}/get_ursulas?quantity=1&include_ursulas=${stakingProvider}`)
   let data = await response.json();
   if (data.result.ursulas && data.result.ursulas.length){

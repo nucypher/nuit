@@ -27,11 +27,10 @@ export const DelegateVotes = (props) => {
     })
 
     return(
-        <Card className="delegate-votes">
+        <Card className="stake-action">
             {delegateeAddress ?
             <Row>
                 <Col>
-                xxxx
                     <div className="d-flex justify-content-between">
                     <Grey>Delegatee</Grey>{delegateeAddress && <Blue onClick={e => setDelegateeAddress(null)} className="hover"><small>clear</small></Blue>}
                     </div>

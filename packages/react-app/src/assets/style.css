@@ -782,7 +782,7 @@ table.nc-table2 th:nth-child(1), table.nc-table2 td:nth-child(1) {
     border-color: #eee;
 }
 
-.delegate-votes.card{
+.stake-action.card{
     border:none !important;
     margin-top:1em;
     padding:1em;

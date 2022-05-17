@@ -105,8 +105,7 @@ function useWeb3Modal (messageHandler, config = {}) {
 
     // Subscribe to chainId change
     provider.once("chainChanged", (chainId) => {
-        loadWeb3Modal()
-        setNetwork(chainId)
+      window.location.reload()
     });
 
     provider.once("disconnect", () => {
@@ -117,6 +116,7 @@ function useWeb3Modal (messageHandler, config = {}) {
       console.log('connected')
     });
 
+    
     if (provider.wc){
       // it's a walletconnect provider
       setAccount(provider.wc.accounts[0])

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Container, Row, Col, Form} from 'react-bootstrap/';
+import { Card, Row, Col, Form} from 'react-bootstrap/';
 import { ButtonBox, Blue, PendingButton, WorkerETHAddressField, WorkerRunwayDisplay, DataRow, Grey, TokenBalance, Address } from '@project/react-app/src/components'
 
 import { Context, ContractCaller, truncateAddress } from '@project/react-app/src/services'
@@ -9,6 +9,8 @@ export const BondOperator = (props) => {
     const [operatorAddress, setOperatorAddress] = useState(props.operatorAddress)
     const [bondingoperator, setBondingOperator]  = useState(false)
 
+    const pendingKey = `bondoperator-${props.index}`
+
     const context = useContext(Context)
     const { account, contracts, web3 } = context.wallet
 
@@ -17,15 +19,15 @@ export const BondOperator = (props) => {
         if (props.setShow){
             props.setShow(false)
         }
-        ContractCaller(contracts.SIMPLEPREAPPLICATION.methods.bondOperator(account, address), context, 'bondoperator', `Bonding operator ${truncateAddress(operatorAddress)}`)
+        ContractCaller(contracts.SIMPLEPREAPPLICATION.methods.bondOperator(props.provider, address), context, pendingKey, `Bonding operator ${truncateAddress(operatorAddress)}`)
     }
 
     useEffect(() => {
-        setBondingOperator(context.pending.indexOf('bondoperator') > -1)
+        setBondingOperator(context.pending.indexOf(pendingKey) > -1)
     })
 
     return(
-        <Container>
+        <Card className="stake-action">
             {operatorAddress ?
             <Row>
                 <Col>
@@ -56,6 +58,6 @@ export const BondOperator = (props) => {
             </Row>
             }
 
-        </Container>
+        </Card>
     )
 }

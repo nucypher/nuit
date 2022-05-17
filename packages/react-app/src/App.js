@@ -68,6 +68,7 @@ function App() {
             account,
             web3,
             contracts,
+            network
         },
         messages: {
             message,
@@ -179,8 +180,8 @@ function App() {
                 'Staked', 
                 {
                     filter: { owner: account },
-                    fromBlock: 0, 
-                }
+                    fromBlock: network === 1 ? 14113768 : 0, 
+                },
             )
             const stakes_from_events = stake_events.map((e, index) => {
                 return {
@@ -209,7 +210,7 @@ function App() {
         if (contracts && account) {
             updateStakerData(contracts, context)
         }
-    }, [account, contracts, web3, stakerUpdated])
+    }, [account, contracts, web3, stakerUpdated, network])
 
 
 
