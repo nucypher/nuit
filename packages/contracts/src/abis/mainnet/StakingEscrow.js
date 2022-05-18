@@ -1,7 +1,7 @@
 export default [
    "StakingEscrow",
    "v5.7.1",
-   "0x18eFb520dA5D387982C860a64855C14C0AcADF3F",
+   "0x0000000000000000000000000000000000000000",
    [
      {
         "inputs":[

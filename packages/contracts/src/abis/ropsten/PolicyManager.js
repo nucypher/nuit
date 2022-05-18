@@ -1,4 +1,4 @@
-export default ["PolicyManager", "v6.1.2", "0xA5F6118d5BDA1cB5156a199004C182a3a7DC4e59", [{
+export default ["PolicyManager", "v6.1.2", "0x0000000000000000000000000000000000000000", [{
     "inputs": [{
         "internalType": "contract StakingEscrow",
         "name": "_escrow",

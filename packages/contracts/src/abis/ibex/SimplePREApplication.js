@@ -1,7 +1,7 @@
 export default [
     "SimplePREApplication",
     "v0.0.0",
-    "0xaE0d9D8edec5567BBFA8B5cbCD6705a13491Ca35",
+    "0x0000000000000000000000000000000000000000",
     [
         {
         "inputs":[

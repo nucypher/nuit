@@ -1,7 +1,7 @@
 export default [
 "KEEPVendingMachine",
 "v0.0.0",
-"0xE47c80e8c23f6B4A1aE41c34837a0599D5D16bb0",[
+"0x0000000000000000000000000000000000000000",[
     {
        "inputs":[
           {
