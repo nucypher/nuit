@@ -21,7 +21,7 @@ import { LegacyDashboard } from "@project/react-app/src/pages/manage/new/newStak
 
 import {Container, Row, Col } from 'react-bootstrap/';
 
-import {Context, eventQueue} from '@project/react-app/src/services';
+import {Context, eventQueue, AggregateStakes} from '@project/react-app/src/services';
 import ScrollToTop from "./components/scroll";
 
 function App() {
@@ -35,6 +35,7 @@ function App() {
     const [availableKEEP, setAvailableKEEP] = useState(0)
     const [availableT, setAvailableT] = useState(0)
     const [StakeInfo, setStakeInfo] = useState({})
+    const [stakes, setStakes] = useState(null)
     const [availableETH, setAvailableETH] = useState(0)
     const [NUratio, setNUratio] = useState(0)
     const [KEEPratio, setKEEPratio] = useState(0)
@@ -90,7 +91,7 @@ function App() {
 
         stakedNU,
         StakeInfo,
-
+        stakes:  { get: stakes, set: setStakes },        
 
         maxKEEPconversion: {set: setMaxKEEPconversion, get: maxKEEPconversion},
         maxNUconversion: {set: setMaxNUconversion, get: maxNUconversion},
@@ -165,22 +166,38 @@ function App() {
             console.warn(err);
             setNUratio(3.259242493160745)
         }
-        const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
-        setStakedNU(stakedNU)
+        if (contracts.STAKINGESCROW){
+            const stakedNU = await contracts.STAKINGESCROW.methods.getAllTokens(account).call()
+            setStakedNU(stakedNU)
 
-
-        const unVested = await contracts.STAKINGESCROW.methods.getUnvestedTokens(account).call()
-
-        setCanWithdraw(Web3.utils.toBN(stakedNU).sub(Web3.utils.toBN(unVested)))
-
+            const unVested = await contracts.STAKINGESCROW.methods.getUnvestedTokens(account).call()
+            setCanWithdraw(Web3.utils.toBN(stakedNU).sub(Web3.utils.toBN(unVested)))
+        }
 
         if (contracts.TOKENSTAKING){
-            const TstakeInfo = await contracts.TOKENSTAKING.methods.stakes(account).call()
-            const nuInTStake= Web3.utils.toBN(TstakeInfo.nuInTStake)
-            const tStake = Web3.utils.toBN(TstakeInfo.tStake)
-            const keepInTStake = Web3.utils.toBN(TstakeInfo.keepInTStake)
+
+            const stake_events = await contracts.TOKENSTAKING.getPastEvents(
+                'Staked', 
+                {
+                    filter: { owner: account },
+                    fromBlock: network === 1 ? 14113768 : 0, 
+                },
+            )
+            const stakes_from_events = stake_events.map((e, index) => {
+                return {
+                    index: index + 1,
+                    provider: e.returnValues.stakingProvider,
+                    owner: e.returnValues.owner,
+                    amount: e.returnValues.amount
+                }
+            })       
+
+            context.stakes.set(stakes_from_events)
+            
+            const {nuInTStake, tStake, keepInTStake } = await AggregateStakes(stake_events, contracts)
             const total = nuInTStake.add(tStake).add(keepInTStake)
 
+            
             setStakeInfo({nuInTStake, tStake, keepInTStake, total})
 
             contracts.T.methods.allowance(account, contracts.TOKENSTAKING._address).call().then(r=>{
@@ -193,16 +210,8 @@ function App() {
         if (contracts && account) {
             updateStakerData(contracts, context)
         }
-    }, [account, contracts, web3, stakerUpdated])
+    }, [account, contracts, web3, stakerUpdated, network])
 
-
-    useEffect(() => {
-        // populate any notifications based on user state.
-
-        if (stakerData.flags && stakerData.flags.migrated === false && stakerData.info.lockedTokens !== "0") {
-            context.modals.triggerModal({message: "Staker must be migrated", component: "Migrate"})
-        }
-    }, [stakerData.flags])
 
 
     useEffect(() => {
