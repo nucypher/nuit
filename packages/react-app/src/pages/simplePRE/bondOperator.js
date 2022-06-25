@@ -58,6 +58,11 @@ const DisplayBondingState = (props) => {
         getBalance()
     }, [])
 
+    useEffect(() => {
+        getBondingState()
+        getBalance()
+    }, [context.pending])
+
 
     return (<Row className="d-flex justify-content-center">
             <Col xs={12} >
